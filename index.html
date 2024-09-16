@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Web App</title>
+
+    <!-- Load Google API Client Library -->
+    <script src="https://apis.google.com/js/api.js"></script>
+
+    <!-- Local JavaScript File -->
+    <script src="app.js"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Local CSS File -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+    <!-- CesiumJS CSS -->
+    <link href="https://cesium.com/downloads/cesiumjs/releases/latest/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <!-- CesiumJS JS -->
+    <script src="https://cesium.com/downloads/cesiumjs/releases/latest/Build/Cesium/Cesium.js"></script>
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+    <header class="header-container">
+        <div class="logo">
+            <img src="https://kylemallien.com/wp-content/uploads/2023/12/Stacked-Primary-Logo-without-Subline-Full-Gradient-on-Black.png" alt="Logo">
+        </div>
+    </header>
+    <div class="container">
+        <nav class="navbar">
+            <ul>
+                <li><a href="#" class="nav-item" onclick="loadPage(event, 'Dashboard')">
+                    <span class="icon" style="background-image: url('https://res.cloudinary.com/depyd1rbu/image/upload/v1723343426/qglbg0ckuglnaejhxmao.png');"></span>Dashboard</a>
+                </li>
+                <li><a href="#" class="nav-item" onclick="loadPage(event, 'TaskTracker')">
+                    <span class="icon" style="background-image: url('https://res.cloudinary.com/depyd1rbu/image/upload/v1723432972/5_pvssci.png');"></span>Task Tracker</a>
+                </li>
+                <li><a href="#" class="nav-item" onclick="loadPage(event, 'QuickCalculator')">
+                    <span class="icon" style="background-image: url('https://res.cloudinary.com/depyd1rbu/image/upload/v1723432972/2_ic4cor.png');"></span>Quick Calculator</a>
+                </li>
+                <li><a href="#" class="nav-item" onclick="loadPage(event, 'LOIGenerator')">
+                    <span class="icon" style="background-image: url('https://res.cloudinary.com/depyd1rbu/image/upload/v1723343426/scfbvmtsdtsjysasktya.png');"></span>LOI Generator</a>
+                </li>
+                <li><a href="#" class="nav-item" onclick="loadPage(event, 'Brokers')">
+                    <span class="icon" style="background-image: url('https://res.cloudinary.com/depyd1rbu/image/upload/v1723343427/d1uzk3vtgs7eia2aovqu.png');"></span>Brokers</a>
+                </li>
+                <li><a href="#" class="nav-item" onclick="loadPage(event, 'Notifications')">
+                    <span class="icon" style="background-image: url('https://res.cloudinary.com/depyd1rbu/image/upload/v1723343427/cgfq4zk6oxkvafkt3p5y.png');"></span>Notifications</a>
+                </li>
+                <li><a href="#" class="nav-item" onclick="loadPage(event, 'Support')">
+                    <span class="icon" style="background-image: url('https://res.cloudinary.com/depyd1rbu/image/upload/v1723343427/kni0atbmdsk92q11pfx8.png');"></span>Support</a>
+                </li>
+            </ul>
+        </nav>
+        <main id="content">
+            <!-- Dashboard content will be loaded dynamically here -->
+        </main>
+    </div>
+
+    
+</body>
+</html>
+

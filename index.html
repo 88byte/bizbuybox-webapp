@@ -6,7 +6,7 @@
     <title>Your Web App</title>
 
     <!-- Load Google API Client Library -->
-    <script src="https://apis.google.com/js/api.js"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
 
     <!-- Local JavaScript File -->
     <script src="app.js"></script>
@@ -63,11 +63,12 @@
             </ul>
         </nav>
         <main id="content">
+            <!-- Sign-In Button -->
+            <button id="google-signin-button">Sign in with Google</button>
+            
             <!-- Dashboard content will be loaded dynamically here -->
         </main>
     </div>
 
-    
 </body>
 </html>
-

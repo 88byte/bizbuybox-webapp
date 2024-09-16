@@ -1,57 +1,47 @@
-// Function to load the Google API Client Library and initialize it
-function loadGapiClient() {
-    gapi.load("client:auth2", function () {
-        // Initialize the Google API client with only the necessary parameters
-        gapi.auth2.init({
-            client_id: "275304965510-fj6ueht6b3nm3he25ce2ctald6kq61vc.apps.googleusercontent.com"
+// Function to initialize the Google API client
+function initializeGapiClient() {
+    google.accounts.id.initialize({
+        client_id: '275304965510-fj6ueht6b3nm3he25ce2ctald6kq61vc.apps.googleusercontent.com', // Your actual client ID
+        callback: handleCredentialResponse // Function to handle the ID token
+    });
+
+    google.accounts.id.prompt(); // Display the One Tap prompt
+}
+
+// Add click event for the sign-in button
+    const signinButton = document.getElementById("google-signin-button");
+    signinButton.addEventListener("click", function () {
+        google.accounts.id.prompt(); // Show the One Tap prompt when the button is clicked
+    });
+}
+
+// Function to handle the ID token from Google Identity Services
+function handleCredentialResponse(response) {
+    console.log('Encoded JWT ID token: ' + response.credential);
+
+    // Initialize GAPI client with the obtained token
+    gapi.load("client", function () {
+        gapi.client.init({
+            apiKey: "AIzaSyAGM1ZHnCXELvKavsi07IObNIzo6fmylMA", // Your actual API key
+            discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"],
         }).then(function () {
             console.log("GAPI client initialized.");
-            initializeApp();  // Call your app initialization after GAPI is ready
-        }).catch(function (err) {
-            console.error("Error initializing GAPI client", err);
+            initializeApp(); // Initialize your app after GAPI client is ready
+        }, function (error) {
+            console.error("Error initializing GAPI client", error);
         });
     });
 }
 
-// Load GAPI client when the DOM is ready
+// Initialize GAPI client when the DOM is ready
 document.addEventListener("DOMContentLoaded", function () {
-    console.log("Document is ready, loading GAPI client.");
-    loadGapiClient();
+    console.log("Document is ready, initializing Google Identity Services.");
+    initializeGapiClient();
 });
-
-
-
-// Function to authenticate the user
-function authenticate() {
-    return gapi.auth2.getAuthInstance()
-        .signIn({ scope: "https://www.googleapis.com/auth/spreadsheets" })
-        .then(function () { console.log("Sign-in successful"); },
-            function (err) { console.error("Error signing in", err); });
-}
-
-// Load Google Sheets API client
-function loadClient() {
-    gapi.client.setApiKey("AIzaSyAGM1ZHnCXELvKavsi07IObNIzo6fmylMA");
-    return gapi.client.load("https://sheets.googleapis.com/$discovery/rest?version=v4")
-        .then(function () { console.log("GAPI client loaded for API"); },
-            function (err) { console.error("Error loading GAPI client for API", err); });
-}
-
-// Fetch data from the spreadsheet
-function execute() {
-    return gapi.client.sheets.spreadsheets.values.get({
-        "spreadsheetId": "1huv1uelTeftXD-yw94k-K1Fhb8QKkiiHK0hmSKcvp2U",
-        "range": "Businesses!A:AM"
-    })
-        .then(function (response) {
-            console.log("Response", response);
-        },
-            function (err) { console.error("Execute error", err); });
-}
 
 // Initialize app components
 function initializeApp() {
-    authenticate().then(loadClient).then(function () {
+    loadClient().then(function () {
         console.log("App Initialized");
 
         // Add click events for navigation items
@@ -67,6 +57,27 @@ function initializeApp() {
         loadPage(null, "Dashboard");
     }).catch(function (err) {
         console.error("Error initializing app", err);
+    });
+}
+
+// Load Google Sheets API client
+function loadClient() {
+    return gapi.client.load("sheets", "v4").then(function () {
+        console.log("GAPI client loaded for API");
+    }, function (err) {
+        console.error("Error loading GAPI client for API", err);
+    });
+}
+
+// Fetch data from the spreadsheet
+function execute() {
+    return gapi.client.sheets.spreadsheets.values.get({
+        "spreadsheetId": "1huv1uelTeftXD-yw94k-K1Fhb8QKkiiHK0hmSKcvp2U", // Replace with your actual spreadsheet ID
+        "range": "Businesses!A:AM"
+    }).then(function (response) {
+        console.log("Response", response);
+    }, function (err) {
+        console.error("Execute error", err);
     });
 }
 

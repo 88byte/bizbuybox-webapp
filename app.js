@@ -1,7 +1,7 @@
 // Function to initialize the Google API client
 function initializeGapiClient() {
     google.accounts.id.initialize({
-        client_id: '275304965510-fj6ueht6b3nm3he25ce2ctald6kq61vc.apps.googleusercontent.com', // Your actual client ID
+        client_id: '275304965510-fj6ueht6b3nm3he25ce2ctald6kq61vc.apps.googleusercontent.com',
         callback: handleCredentialResponse // Function to handle the ID token
     });
 
@@ -10,7 +10,14 @@ function initializeGapiClient() {
     // Add click event for the sign-in button
     const signinButton = document.getElementById("google-signin-button");
     signinButton.addEventListener("click", function () {
-        google.accounts.id.prompt(); // Show the One Tap prompt when the button is clicked
+        google.accounts.id.prompt((notification) => {
+            if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+                console.warn('One Tap prompt was not displayed or was skipped:', notification.getNotDisplayedReason());
+            }
+            if (notification.isDismissedMoment()) {
+                console.warn('One Tap prompt was dismissed:', notification.getDismissedReason());
+            }
+        }); // Show the One Tap prompt when the button is clicked
     });
 }
 
@@ -37,6 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("Document is ready, initializing Google Identity Services.");
     initializeGapiClient();
 });
+
 
 // Initialize app components
 function initializeApp() {

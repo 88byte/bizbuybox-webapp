@@ -22,25 +22,7 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 const provider = new GoogleAuthProvider();
 
-async function testFirestoreConnection() {
-    try {
-        // Test write
-        await setDoc(doc(db, "testCollection", "testDoc"), { testField: "Hello, Firestore!" });
-        console.log("Document written successfully!");
 
-        // Test read
-        const docRef = doc(db, "testCollection", "testDoc");
-        const docSnap = await getDoc(docRef);
-
-        if (docSnap.exists()) {
-            console.log("Document data:", docSnap.data());
-        } else {
-            console.log("No such document!");
-        }
-    } catch (error) {
-        console.error("Error testing Firestore connection:", error);
-    }
-}
 
 testFirestoreConnection();
 

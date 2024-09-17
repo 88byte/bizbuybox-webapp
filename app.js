@@ -84,6 +84,40 @@ function initializeApp() {
     });
 }
 
+// Function to populate the navigation menu
+function populateNavbar() {
+    const navbar = document.querySelector(".navbar ul");
+
+    const navItems = [
+        { name: "Dashboard", onclick: "loadPage(event, 'Dashboard')" },
+        { name: "Task Tracker", onclick: "loadPage(event, 'TaskTracker')" },
+        { name: "Quick Calculator", onclick: "loadPage(event, 'QuickCalculator')" },
+        { name: "LOI Generator", onclick: "loadPage(event, 'LOIGenerator')" },
+        { name: "Brokers", onclick: "loadPage(event, 'Brokers')" },
+        { name: "Notifications", onclick: "loadPage(event, 'Notifications')" },
+        { name: "Support", onclick: "loadPage(event, 'Support')" }
+    ];
+
+    navItems.forEach(item => {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = "#";
+        a.className = "nav-item";
+        a.setAttribute("onclick", item.onclick);
+        a.textContent = item.name;
+        li.appendChild(a);
+        navbar.appendChild(li);
+    });
+
+    // Re-add event listeners for dynamically created nav items
+    document.querySelectorAll(".nav-item").forEach(item => {
+        item.addEventListener("click", function (event) {
+            event.preventDefault();
+            loadPage(event, item.getAttribute("onclick").split("'")[1]);
+        });
+    });
+}
+
 // Load Google Sheets API client
 function loadClient() {
     return gapi.client.load("sheets", "v4").then(function () {

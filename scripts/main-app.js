@@ -146,27 +146,26 @@ window.updateProfile = async function () {
     const profilePicFile = document.getElementById('profilePic').files[0];
 
     try {
-        const user = auth.currentUser;
+        const user = auth.currentUser; // Use the global auth object
 
         // Update profile picture if a new file is selected
         if (profilePicFile) {
-            const storageRef = firebase.storage().ref();
-            const profilePicRef = storageRef.child('profilePictures/' + user.uid);
-            await profilePicRef.put(profilePicFile);
-            const profilePicUrl = await profilePicRef.getDownloadURL();
-            await user.updateProfile({ photoURL: profilePicUrl });
+            const profilePicRef = ref(storage, 'profilePictures/' + user.uid);
+            await uploadBytes(profilePicRef, profilePicFile);
+            const profilePicUrl = await getDownloadURL(profilePicRef);
+            await updateProfile(user, { photoURL: profilePicUrl });
             document.querySelector('.profile-img').src = profilePicUrl;
         }
 
         // Update user profile details
         if (username) {
-            await user.updateProfile({ displayName: username });
+            await updateProfile(user, { displayName: username });
         }
         if (email) {
-            await user.updateEmail(email);
+            await updateEmail(user, email);
         }
         if (password) {
-            await user.updatePassword(password);
+            await updatePassword(user, password);
         }
 
         // Update Firestore with new user data
@@ -195,7 +194,7 @@ window.deleteAccount = async function () {
     try {
         const user = auth.currentUser;
         await deleteDoc(doc(db, "users", user.uid)); // Remove user data from Firestore
-        await user.delete(); // Delete user from Firebase Authentication
+        await deleteUser(user); // Delete user from Firebase Authentication
         alert('Account deleted successfully.');
         window.location.href = 'index.html'; // Redirect to landing page
     } catch (error) {

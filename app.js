@@ -247,7 +247,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 // Function to handle Google Login using Popup
-function handleGoogleLogin() {
+window.handleGoogleLogin = function () {
     signInWithPopup(auth, provider)
         .then((result) => {
             const user = result.user;
@@ -272,59 +272,13 @@ function handleGoogleLogin() {
             console.error('Error during Google login:', error);
             alert('Error during Google login: ' + error.message);
         });
-}
+};
 
 
 
 
-// Function to handle Email/Password Sign-Up
-function handleSignUp() {
-    const email = document.getElementById('signUpEmail').value;
-    const password = document.getElementById('signUpPassword').value;
-    const username = document.getElementById('signUpUsername').value;
 
-    console.log('Attempting to sign up with:', username, email); // Debug log
 
-    // Check if email, password, and username are provided
-    if (!email || !password || !username) {
-        console.error('Error: Email, password, or username not provided.'); // Log error
-        alert('Please fill in all fields.');
-        return;
-    }
-
-    // Try to create a user with email and password
-    createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            const user = userCredential.user;
-            console.log('User signed up successfully:', user);
-
-            // Save user data to Firestore
-            return setDoc(doc(db, "users", user.uid), {
-                username: username,
-                email: email,
-                createdAt: new Date().toISOString()
-            });
-        })
-        .then(() => {
-            console.log('User data successfully written to Firestore');
-            alert('Sign-up successful! Welcome, ' + email);
-            closeLoginModal();
-        })
-        .catch((error) => {
-            console.error('Error during sign-up:', error); // Log any errors
-
-            // Specific error handling
-            if (error.code === 'auth/email-already-in-use') {
-                alert('This email is already in use. Please use a different email.');
-            } else if (error.code === 'auth/invalid-email') {
-                alert('The email address is invalid.');
-            } else if (error.code === 'auth/weak-password') {
-                alert('The password is too weak. Please choose a stronger password.');
-            } else {
-                alert('Error during sign-up: ' + error.message);
-            }
-        });
-}
 
 
 

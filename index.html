@@ -6,10 +6,13 @@
     <title>Your Web App</title>
 
     <!-- Load Google API Client Library -->
+    <script src="https://apis.google.com/js/api.js"></script>
+
+    <!-- Load Google Identity Services -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 
     <!-- Local JavaScript File -->
-    <script src="app.js"></script>
+    <script src="app.js" defer></script>
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -37,38 +40,20 @@
         </div>
     </header>
     <div class="container">
+        <!-- Add Google Sign-in Button -->
+        <button id="google-signin-button">Sign in with Google</button>
+
         <nav class="navbar">
             <ul>
                 <li><a href="#" class="nav-item" onclick="loadPage(event, 'Dashboard')">
                     <span class="icon" style="background-image: url('https://res.cloudinary.com/depyd1rbu/image/upload/v1723343426/qglbg0ckuglnaejhxmao.png');"></span>Dashboard</a>
                 </li>
-                <li><a href="#" class="nav-item" onclick="loadPage(event, 'TaskTracker')">
-                    <span class="icon" style="background-image: url('https://res.cloudinary.com/depyd1rbu/image/upload/v1723432972/5_pvssci.png');"></span>Task Tracker</a>
-                </li>
-                <li><a href="#" class="nav-item" onclick="loadPage(event, 'QuickCalculator')">
-                    <span class="icon" style="background-image: url('https://res.cloudinary.com/depyd1rbu/image/upload/v1723432972/2_ic4cor.png');"></span>Quick Calculator</a>
-                </li>
-                <li><a href="#" class="nav-item" onclick="loadPage(event, 'LOIGenerator')">
-                    <span class="icon" style="background-image: url('https://res.cloudinary.com/depyd1rbu/image/upload/v1723343426/scfbvmtsdtsjysasktya.png');"></span>LOI Generator</a>
-                </li>
-                <li><a href="#" class="nav-item" onclick="loadPage(event, 'Brokers')">
-                    <span class="icon" style="background-image: url('https://res.cloudinary.com/depyd1rbu/image/upload/v1723343427/d1uzk3vtgs7eia2aovqu.png');"></span>Brokers</a>
-                </li>
-                <li><a href="#" class="nav-item" onclick="loadPage(event, 'Notifications')">
-                    <span class="icon" style="background-image: url('https://res.cloudinary.com/depyd1rbu/image/upload/v1723343427/cgfq4zk6oxkvafkt3p5y.png');"></span>Notifications</a>
-                </li>
-                <li><a href="#" class="nav-item" onclick="loadPage(event, 'Support')">
-                    <span class="icon" style="background-image: url('https://res.cloudinary.com/depyd1rbu/image/upload/v1723343427/kni0atbmdsk92q11pfx8.png');"></span>Support</a>
-                </li>
+                <!-- Other nav items -->
             </ul>
         </nav>
         <main id="content">
-            <!-- Sign-In Button -->
-            <button id="google-signin-button">Sign in with Google</button>
-            
             <!-- Dashboard content will be loaded dynamically here -->
         </main>
     </div>
-
 </body>
 </html>

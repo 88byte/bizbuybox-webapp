@@ -18,11 +18,11 @@ function initializeGapiClient() {
 function handleCredentialResponse(response) {
     console.log('Encoded JWT ID token: ' + response.credential);
 
-    // Initialize GAPI client with the obtained token
+    // Load the GAPI client library
     gapi.load("client", function () {
         gapi.client.init({
             apiKey: "AIzaSyAGM1ZHnCXELvKavsi07IObNIzo6fmylMA", // Your actual API key
-            discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"]
+            discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"],
         }).then(function () {
             console.log("GAPI client initialized.");
             initializeApp(); // Initialize your app after GAPI client is ready

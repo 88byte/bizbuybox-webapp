@@ -1,22 +1,17 @@
-// Function to initialize the Google API client
+// Function to initialize the Google API client using Google Sign-In
 function initializeGapiClient() {
-    // Initialize the Google Identity Services client
     google.accounts.id.initialize({
         client_id: '275304965510-fj6ueht6b3nm3he25ce2ctald6kq61vc.apps.googleusercontent.com', // Your actual client ID
-        callback: handleCredentialResponse // Function to handle the ID token
+        callback: handleCredentialResponse, // Function to handle the ID token
+        ux_mode: 'popup', // Use 'popup' mode for a traditional login flow
+        auto_select: false // Avoid auto-login to reduce user friction
     });
 
-    // Show the One Tap prompt only when the page loads, not when the button is clicked
-    google.accounts.id.prompt();
-
-    // Add click event for the sign-in button
-    const signinButton = document.getElementById("google-signin-button");
-    signinButton.addEventListener("click", function () {
-        // Disable One Tap prompt when the button is clicked
-        google.accounts.id.cancel();
-        // Initiate the manual sign-in flow
-        google.accounts.id.prompt(); // Show the One Tap prompt when the button is clicked
-    });
+    // Render the Google Sign-In button
+    google.accounts.id.renderButton(
+        document.getElementById("google-signin-button"),
+        { theme: "outline", size: "large" } // Customize button style
+    );
 
     // Add click event for the log-out button
     const logoutButton = document.getElementById("logout-button");
@@ -49,7 +44,7 @@ function handleCredentialResponse(response) {
 
 // Function to log out the user
 function logout() {
-    // Reset the login state
+    google.accounts.id.disableAutoSelect(); // Disable auto-login
     google.accounts.id.revoke(localStorage.getItem('email'), done => {
         console.log('User signed out.');
 
@@ -58,7 +53,6 @@ function logout() {
         document.getElementById("google-signin-button").style.display = "block";
     });
 
-    // Clear stored email or any other user-related data
     localStorage.removeItem('email');
 }
 
@@ -67,6 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("Document is ready, initializing Google Identity Services.");
     initializeGapiClient();
 });
+
 
 // Initialize app components
 function initializeApp() {

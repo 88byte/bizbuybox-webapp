@@ -14,7 +14,6 @@ const firebaseConfig = {
   measurementId: "G-CWHPBN196R"
 };
 
-
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -117,12 +116,7 @@ function logout() {
     localStorage.removeItem('email');
 }
 
-// Initialize GAPI client when the DOM is ready
-document.addEventListener("DOMContentLoaded", function () {
-    initializeGapiClient();
-    createParticles();
-    populateNavbar();
-});
+
 
 // Show the login form and hide the sign-up form
 function showLoginForm() {

@@ -274,9 +274,9 @@ function handleLogout() {
 
 
 // Initialize app components
-function initializeApp() {
+function initializeCustomApp() {
     loadClient().then(function () {
-        console.log("App Initialized");
+        console.log("Custom App Initialized");
 
         populateNavbar(); // Populate the navigation bar here
 

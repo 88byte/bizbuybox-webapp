@@ -226,16 +226,32 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Function to handle Google Login using Popup
 function handleGoogleLogin() {
-    const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
         .then((result) => {
-            console.log('User signed in with Google:', result.user);
-            closeLoginModal();
+            const user = result.user;
+            console.log('User signed in with Google:', user);
+
+            // Check if the user's document exists in Firestore
+            const userRef = doc(db, "users", user.uid);
+            setDoc(userRef, {
+                username: user.displayName || 'Google User',
+                email: user.email,
+                createdAt: new Date().toISOString()
+            }, { merge: true }) // Merging to ensure existing data isn't overwritten
+            .then(() => {
+                console.log('User data successfully written to Firestore');
+                alert('Sign-in successful! Welcome, ' + user.email);
+                closeLoginModal();
+            }).catch((error) => {
+                console.error('Error writing user data to Firestore:', error);
+            });
         })
         .catch((error) => {
             console.error('Error during Google login:', error);
+            alert('Error during Google login: ' + error.message);
         });
 }
+
 
 
 
@@ -245,43 +261,48 @@ function handleSignUp() {
     const password = document.getElementById('signUpPassword').value;
     const username = document.getElementById('signUpUsername').value;
 
-    if (email && password) {
-        createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                const user = userCredential.user;
-
-                console.log('User signed up successfully:', user);
-
-                // Save user data to Firestore
-                setDoc(doc(db, "users", user.uid), {
-                    username: username,
-                    email: email,
-                    createdAt: new Date()
-                }).then(() => {
-                    console.log('User data successfully written to Firestore');
-                    alert('Sign-up successful! Welcome, ' + user.email);
-                    closeLoginModal();
-                }).catch((error) => {
-                    console.error('Error writing user data to Firestore:', error);
-                });
-            })
-            .catch((error) => {
-                console.error('Error during sign-up:', error);
-
-                if (error.code === 'auth/email-already-in-use') {
-                    alert('This email is already in use. Please use a different email.');
-                } else if (error.code === 'auth/invalid-email') {
-                    alert('The email address is invalid.');
-                } else if (error.code === 'auth/weak-password') {
-                    alert('The password is too weak. Please choose a stronger password.');
-                } else {
-                    alert('Error during sign-up: ' + error.message);
-                }
-            });
-    } else {
-        alert('Please fill in both email and password fields.');
+    // Check if email, password, and username are provided
+    if (!email || !password || !username) {
+        alert('Please fill in all fields.');
+        return;
     }
+
+    // Create user with email and password
+    createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            const user = userCredential.user;
+
+            console.log('User signed up successfully:', user);
+
+            // Save user data to Firestore
+            setDoc(doc(db, "users", user.uid), {
+                username: username,
+                email: email,
+                createdAt: new Date().toISOString()
+            }).then(() => {
+                console.log('User data successfully written to Firestore');
+                alert('Sign-up successful! Welcome, ' + user.email);
+                closeLoginModal();
+            }).catch((error) => {
+                console.error('Error writing user data to Firestore:', error);
+                alert('Error saving user data: ' + error.message);
+            });
+        })
+        .catch((error) => {
+            console.error('Error during sign-up:', error);
+
+            if (error.code === 'auth/email-already-in-use') {
+                alert('This email is already in use. Please use a different email.');
+            } else if (error.code === 'auth/invalid-email') {
+                alert('The email address is invalid.');
+            } else if (error.code === 'auth/weak-password') {
+                alert('The password is too weak. Please choose a stronger password.');
+            } else {
+                alert('Error during sign-up: ' + error.message);
+            }
+        });
 }
+
 
 
 

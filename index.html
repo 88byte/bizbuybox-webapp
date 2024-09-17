@@ -161,7 +161,7 @@
                 </div>
                 <!-- Sign-Up Form -->
                 <div id="signUpFormContainer" style="display: none;">
-                    <form id="signUpForm">
+                    <form id="signUpForm" onsubmit="handleSignUp(); return false;">
                         <input type="text" id="signUpUsername" placeholder="Choose a Username" required>
                         <input type="email" id="signUpEmail" placeholder="Email" required>
                         <input type="password" id="signUpPassword" placeholder="Choose a Password" required>
@@ -170,6 +170,7 @@
                     <div class="login-link">
                         <p>Already have an account? <a href="#" onclick="showLoginForm()">Login</a></p>
                     </div>
+
                 </div>
             </div>
         </div>

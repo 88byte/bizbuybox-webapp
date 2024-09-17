@@ -1,4 +1,50 @@
-// JavaScript to handle content switching and deal management
+// Import Firebase functions from SDKs
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+import { 
+    getAuth, 
+    createUserWithEmailAndPassword, 
+    signInWithEmailAndPassword, 
+    signInWithPopup, 
+    GoogleAuthProvider, 
+    signOut, 
+    updateProfile, 
+    updateEmail, 
+    updatePassword, 
+    deleteUser 
+} from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+import { 
+    getFirestore, 
+    doc, 
+    setDoc, 
+    getDoc, 
+    deleteDoc 
+} from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
+import { 
+    getStorage, 
+    ref, // Import the ref function properly
+    uploadBytes, 
+    getDownloadURL 
+} from "https://www.gstatic.com/firebasejs/9.15.0/firebase-storage.js";
+
+// Your Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyAEeQ_qZOgR23KKh64_PrL73wv2kek3qtc",
+    authDomain: "bizbuybox-webapp-d4772.firebaseapp.com",
+    projectId: "bizbuybox-webapp-d4772",
+    storageBucket: "bizbuybox-webapp-d4772.appspot.com",
+    messagingSenderId: "822306028352",
+    appId: "1:822306028352:web:3e410ae31890ba5d4658a5",
+    measurementId: "G-CWHPBN196R"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+// Initialize Firebase services
+window.auth = getAuth(app); // Make auth globally accessible
+window.db = getFirestore(app); // Make Firestore globally accessible
+window.storage = getStorage(app); // Make Storage globally accessible
+const provider = new GoogleAuthProvider();
 
 // Function to show the Dashboard
 window.showDashboard = function() {

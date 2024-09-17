@@ -161,7 +161,7 @@
                 </div>
                 <!-- Sign-Up Form -->
             <div id="signUpFormContainer" style="display: none;">
-                <form id="signUpForm" onsubmit="return false;"> <!-- Prevent default form submission -->
+                <form id="signUpForm" onsubmit="handleSignUp(); return false;"> <!-- Ensure the function is called and default submission is prevented -->
                     <input type="text" id="signUpUsername" placeholder="Choose a Username" required>
                     <input type="email" id="signUpEmail" placeholder="Email" required>
                     <input type="password" id="signUpPassword" placeholder="Choose a Password" required>

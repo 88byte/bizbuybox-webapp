@@ -160,17 +160,15 @@
                     <p>Don't have an account? <a href="#" onclick="showSignUpForm()">Sign Up</a></p>
                 </div>
                 <!-- Sign-Up Form -->
-                <div id="signUpFormContainer" style="display: none;">
-                    <form id="signUpForm" onsubmit="handleSignUp(); return false;">
-                        <input type="text" id="signUpUsername" placeholder="Choose a Username" required>
-                        <input type="email" id="signUpEmail" placeholder="Email" required>
-                        <input type="password" id="signUpPassword" placeholder="Choose a Password" required>
-                        <button type="submit" class="btn">Sign Up</button>
-                    </form>
-                    <div class="login-link">
-                        <p>Already have an account? <a href="#" onclick="showLoginForm()">Login</a></p>
-                    </div>
-
+            <div id="signUpFormContainer" style="display: none;">
+                <form id="signUpForm" onsubmit="return false;"> <!-- Prevent default form submission -->
+                    <input type="text" id="signUpUsername" placeholder="Choose a Username" required>
+                    <input type="email" id="signUpEmail" placeholder="Email" required>
+                    <input type="password" id="signUpPassword" placeholder="Choose a Password" required>
+                    <button type="submit" class="btn">Sign Up</button>
+                </form>
+                <div class="login-link">
+                    <p>Already have an account? <a href="#" onclick="showLoginForm()">Login</a></p>
                 </div>
             </div>
         </div>

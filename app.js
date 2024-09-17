@@ -261,11 +261,11 @@ function handleSignUp() {
     const password = document.getElementById('signUpPassword').value;
     const username = document.getElementById('signUpUsername').value;
 
-    console.log('Attempting to sign up with', username, email); // Debug log
+    console.log('Attempting to sign up with:', username, email); // Debug log
 
     // Check if email, password, and username are provided
     if (!email || !password || !username) {
-        console.error('Email, password, or username not provided'); // Log error
+        console.error('Error: Email, password, or username not provided.'); // Log error
         alert('Please fill in all fields.');
         return;
     }
@@ -289,7 +289,7 @@ function handleSignUp() {
             closeLoginModal();
         })
         .catch((error) => {
-            console.error('Error during sign-up:', error);
+            console.error('Error during sign-up:', error); // Log any errors
 
             // Specific error handling
             if (error.code === 'auth/email-already-in-use') {
@@ -303,6 +303,8 @@ function handleSignUp() {
             }
         });
 }
+
+
 
 
 

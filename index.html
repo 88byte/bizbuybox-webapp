@@ -5,15 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Web App</title>
 
+    <!-- Firebase App (the core Firebase SDK) -->
+    <script src="https://www.gstatic.com/firebasejs/9.13.0/firebase-app.js"></script>
+    <!-- Firebase Analytics SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.13.0/firebase-analytics.js"></script>
+    <!-- Firebase Auth SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.13.0/firebase-auth.js"></script>
+    
+
     <!-- Load Google API Client Library -->
-    <script src="https://apis.google.com/js/api.js"></script>
+    <script src="https://apis.google.com/js/api.js" defer></script>
 
     <!-- Load Google Identity Services -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 
-    <!-- Local JavaScript File -->
-    <script src="app.js" defer></script>
-
+    
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
@@ -27,33 +33,134 @@
     <link href="https://cesium.com/downloads/cesiumjs/releases/latest/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
 
     <!-- Leaflet JS -->
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js" defer></script>
 
     <!-- CesiumJS JS -->
-    <script src="https://cesium.com/downloads/cesiumjs/releases/latest/Build/Cesium/Cesium.js"></script>
+    <script src="https://cesium.com/downloads/cesiumjs/releases/latest/Build/Cesium/Cesium.js" defer></script>
+
+    <!-- Local JavaScript File -->
+    <script src="app.js" defer></script>
+
+
+
+
+
 </head>
 <body>
-    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+    <!-- Header -->
     <header class="header-container">
         <div class="logo">
-            <img src="https://kylemallien.com/wp-content/uploads/2023/12/Stacked-Primary-Logo-without-Subline-Full-Gradient-on-Black.png" alt="Logo">
+            <img src="https://res.cloudinary.com/depyd1rbu/image/upload/v1726586677/biz_buy_box_1_f10iu3.png" alt="Logo" width="150" height="auto">
         </div>
     </header>
-    <div class="container">
-        <nav class="navbar">
-            <ul>
-                <!-- Navigation items will be dynamically populated here -->
-            </ul>
-            <!-- Move buttons to the bottom of the navbar -->
-            <div class="auth-buttons">
-                <button id="google-signin-button">Sign in with Google</button>
-                <button id="logout-button" style="display: none;">Logout</button>
+
+     <!-- Main Landing Section -->
+    <section class="landing-section">
+        <div id="particle-container"></div>
+        <div class="landing-image">
+            <img src="https://res.cloudinary.com/depyd1rbu/image/upload/v1726573928/Untitled_design_1_siya1w.png" alt="Business Hero Image" width="400" height="auto">
+        </div>
+        <div class="landing-content">
+            <h1>Welcome to Your Business Hub</h1>
+            <p>Discover, manage, and grow your business ventures seamlessly. Our powerful tools are designed to help you make informed decisions, track progress, and achieve success.</p>
+            <button class="btn" onclick="openLoginModal()">Get Started</button>
+        </div>
+    </section>
+
+   <!-- Features Section -->
+    <section class="features-section">
+        <div class="feature-list">
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <img src="https://res.cloudinary.com/depyd1rbu/image/upload/v1726576238/5_rnodf6.png" alt="Dashboard Icon" width="100" height="100">
+                </div>
+                <div class="feature-details">
+                    <h3>Dashboard Overview</h3>
+                    <p>Gain insights at a glance with our intuitive dashboard, which provides a comprehensive view of your data, analytics, and activity.</p>
+                    <a href="#" class="feature-link">Learn More &rarr;</a>
+                </div>
             </div>
-        </nav>
-        <main id="content">
-            <!-- Dashboard content will be loaded dynamically here -->
-        </main>
+
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <img src="https://res.cloudinary.com/depyd1rbu/image/upload/v1726576267/4_b2497q.png" alt="Broker Directory Icon" width="100" height="100">
+                </div>
+                <div class="feature-details">
+                    <h3>Broker Directory</h3>
+                    <p>Discover and connect with industry-leading brokers through our comprehensive directory, tailored to your business needs.</p>
+                    <a href="#" class="feature-link">Learn More &rarr;</a>
+                </div>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <img src="https://res.cloudinary.com/depyd1rbu/image/upload/v1726585616/2_emsuja.png" alt="Calculator Icon" width="100" height="100">
+                </div>
+                <div class="feature-details">
+                    <h3>Quick Calculator</h3>
+                    <p>Perform complex calculations in seconds with our advanced, user-friendly calculator designed for business needs.</p>
+                    <a href="#" class="feature-link">Coming Soon &rarr;</a>
+                </div>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <img src="https://res.cloudinary.com/depyd1rbu/image/upload/v1726585617/3_puilzv.png" alt="LOI Generator Icon" width="100" height="100">
+                </div>
+                <div class="feature-details">
+                    <h3>LOI Generator</h3>
+                    <p>Create Letters of Intent effortlessly with our automated generator, ensuring accuracy and speed in your agreements.</p>
+                    <a href="#" class="feature-link">Coming Soon&rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Contact Us</a>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+<div id="loginModal" class="login-modal">
+    <div class="login-modal-content">
+        <span class="close" onclick="closeLoginModal()">&times;</span>
+        <h2 id="modalTitle">Login or Sign Up</h2>
+        <div class="login-options">
+            <button class="google-login" onclick="handleGoogleLogin()">Login with Google</button>
+            <div class="divider">OR</div>
+            <!-- Login Form -->
+            <form id="loginForm" onsubmit="handleLogin(); return false;">
+                <input type="email" id="loginUsername" placeholder="Email" required>
+                <input type="password" id="loginPassword" placeholder="Password" required>
+                <button type="submit" class="btn">Login</button>
+            </form>
+            <!-- Sign-Up Link -->
+            <div class="signup-link">
+                <p>Don't have an account? <a href="#" onclick="showSignUpForm()">Sign Up</a></p>
+            </div>
+            <!-- Sign-Up Form -->
+            <div id="signUpFormContainer" style="display: none;">
+                <form id="signUpForm" onsubmit="handleSignUp(); return false;">
+                    <input type="text" id="signUpUsername" placeholder="Choose a Username" required>
+                    <input type="email" id="signUpEmail" placeholder="Email" required>
+                    <input type="password" id="signUpPassword" placeholder="Choose a Password" required>
+                    <button type="submit" class="btn">Sign Up</button>
+                </form>
+                <div class="login-link">
+                    <p>Already have an account? <a href="#" onclick="showLoginForm()">Login</a></p>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
+
+
 </body>
 </html>
+
 

@@ -1,3 +1,46 @@
+// Initialize Firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyAEeQ_qZOgR23KKh64_PrL73wv2kek3qtc",
+  authDomain: "bizbuybox-webapp-d4772.firebaseapp.com",
+  projectId: "bizbuybox-webapp-d4772",
+  storageBucket: "bizbuybox-webapp-d4772.appspot.com",
+  messagingSenderId: "822306028352",
+  appId: "1:822306028352:web:3e410ae31890ba5d4658a5",
+  measurementId: "G-CWHPBN196R"
+};
+
+// Initialize Firebase
+const app = firebase.initializeApp(firebaseConfig);
+const analytics = firebase.analytics(app);
+const auth = firebase.auth();
+const provider = new firebase.auth.GoogleAuthProvider();
+
+
+// Function to open the login modal
+window.openLoginModal = function () { // Make sure this function is globally accessible
+    document.getElementById('loginModal').style.display = 'flex';
+    showLoginForm(); // Default to showing the login form
+};
+
+// Function to close the login modal
+window.closeLoginModal = function () { // Make sure this function is globally accessible
+    document.getElementById('loginModal').style.display = 'none';
+};
+
+// Function to show login form and hide sign-up form
+window.showLoginForm = function () {
+    document.getElementById('loginFormContainer').style.display = 'block';
+    document.getElementById('signUpFormContainer').style.display = 'none';
+    document.getElementById('modalTitle').textContent = 'Login or Sign Up';
+};
+
+// Function to show sign-up form and hide login form
+window.showSignUpForm = function () {
+    document.getElementById('loginFormContainer').style.display = 'none';
+    document.getElementById('signUpFormContainer').style.display = 'block';
+    document.getElementById('modalTitle').textContent = 'Create an Account';
+};
+
 // Function to initialize the Google API client using Google Sign-In
 function initializeGapiClient() {
     google.accounts.id.initialize({
@@ -7,39 +50,34 @@ function initializeGapiClient() {
         auto_select: false // Avoid auto-login to reduce user friction
     });
 
-    // Render the Google Sign-In button
+    // Render the Google Sign-In button inside the modal
     google.accounts.id.renderButton(
         document.getElementById("google-signin-button"),
         { theme: "outline", size: "large" } // Customize button style
     );
-
-    // Add click event for the log-out button
-    const logoutButton = document.getElementById("logout-button");
-    logoutButton.addEventListener("click", function () {
-        logout();
-    });
 }
 
 // Function to handle the ID token from Google Identity Services
 function handleCredentialResponse(response) {
     console.log('Encoded JWT ID token: ' + response.credential);
 
+    // Handle successful login here, for example by calling your backend with the token
+    authenticateUser(response.credential);
+
     // Hide the sign-in button and show the log-out button after successful login
     document.getElementById("google-signin-button").style.display = "none";
     document.getElementById("logout-button").style.display = "block";
+}
 
-    // Initialize GAPI client with the obtained token
-    gapi.load("client", function () {
-        gapi.client.init({
-            apiKey: "AIzaSyAGM1ZHnCXELvKavsi07IObNIzo6fmylMA", // Your actual API key
-            discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"],
-        }).then(function () {
-            console.log("GAPI client initialized.");
-            initializeApp(); // Initialize your app after GAPI client is ready
-        }, function (error) {
-            console.error("Error initializing GAPI client", error);
-        });
-    });
+// Function to open the login modal
+function openLoginModal() {
+    document.getElementById('loginModal').style.display = 'flex';
+    showLoginForm(); // Default to showing the login form
+}
+
+// Function to close the login modal
+function closeLoginModal() {
+    document.getElementById('loginModal').style.display = 'none';
 }
 
 // Function to log out the user
@@ -62,8 +100,126 @@ document.addEventListener("DOMContentLoaded", function () {
     initializeGapiClient();
 });
 
+// Show the login form and hide the sign-up form
+function showLoginForm() {
+    document.getElementById('loginFormContainer').style.display = 'block';
+    document.getElementById('signUpFormContainer').style.display = 'none';
+    document.getElementById('modalTitle').textContent = 'Login or Sign Up';
+}
 
-// Initialize app components
+// Show the sign-up form and hide the login form
+function showSignUpForm() {
+    document.getElementById('loginFormContainer').style.display = 'none';
+    document.getElementById('signUpFormContainer').style.display = 'block';
+    document.getElementById('modalTitle').textContent = 'Create an Account';
+}
+
+// Function to handle the login form submission
+document.getElementById('loginForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    const username = document.getElementById('loginUsername').value;
+    const password = document.getElementById('loginPassword').value;
+    // Implement your login logic here (e.g., call to backend API)
+    console.log('Logging in with', username, password);
+    closeLoginModal();
+});
+
+// Function to handle the sign-up form submission
+document.getElementById('signUpForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    const username = document.getElementById('signUpUsername').value;
+    const email = document.getElementById('signUpEmail').value;
+    const password = document.getElementById('signUpPassword').value;
+    // Implement your sign-up logic here (e.g., call to backend API)
+    console.log('Signing up with', username, email, password);
+    closeLoginModal();
+});
+
+
+// JavaScript: Add this to app.js
+
+function handleStart() {
+    // Smooth scroll to the Features section
+    document.querySelector('.features-section').scrollIntoView({ behavior: 'smooth' });
+}
+
+
+
+// JavaScript to create and animate particles
+function createParticles() {
+    const particleContainer = document.getElementById('particle-container');
+    for (let i = 0; i < 300; i++) { // Number of particles
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.top = Math.random() * 100 + '%';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDuration = 8 + Math.random() * 12 + 's'; // Random duration between 8s and 20s
+        particleContainer.appendChild(particle);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    createParticles();
+    populateNavbar();
+    initializeGapiClient();
+});
+
+
+// Function to handle Google Login
+function handleGoogleLogin() {
+    auth.signInWithPopup(provider)
+        .then((result) => {
+            console.log('User signed in with Google:', result.user);
+            closeLoginModal(); // Close the modal upon successful login
+        })
+        .catch((error) => {
+            console.error('Error during Google login:', error);
+        });
+}
+
+// Function to handle Email/Password Sign-Up
+function handleSignUp() {
+    const email = document.getElementById('signUpEmail').value;
+    const password = document.getElementById('signUpPassword').value;
+
+    auth.createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            console.log('User signed up:', userCredential.user);
+            closeLoginModal(); // Close the modal upon successful sign-up
+        })
+        .catch((error) => {
+            console.error('Error during sign-up:', error);
+        });
+}
+
+// Function to handle Email/Password Login
+function handleLogin() {
+    const email = document.getElementById('loginUsername').value;
+    const password = document.getElementById('loginPassword').value;
+
+    auth.signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            console.log('User logged in:', userCredential.user);
+            closeLoginModal(); // Close the modal upon successful login
+        })
+        .catch((error) => {
+            console.error('Error during login:', error);
+        });
+}
+
+// Function to handle Logout
+function handleLogout() {
+    auth.signOut()
+        .then(() => {
+            console.log('User logged out');
+        })
+        .catch((error) => {
+            console.error('Error during logout:', error);
+        });
+}
+
+
+
 // Initialize app components
 function initializeApp() {
     loadClient().then(function () {

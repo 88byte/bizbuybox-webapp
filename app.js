@@ -15,6 +15,30 @@ const analytics = firebase.analytics();
 const auth = firebase.auth();
 const provider = new firebase.auth.GoogleAuthProvider();
 
+// Wait for DOM to load
+document.addEventListener("DOMContentLoaded", function() {
+    initializeGapiClient();
+    createParticles();
+    populateNavbar();
+
+    // Ensure elements are ready before attaching event listeners
+    const loginForm = document.getElementById('loginForm');
+    const signUpForm = document.getElementById('signUpForm');
+
+    if (loginForm) {
+        loginForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            handleLogin();
+        });
+    }
+
+    if (signUpForm) {
+        signUpForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            handleSignUp();
+        });
+    }
+});
 
 // Function to open the login modal
 window.openLoginModal = function () { // Make sure this function is globally accessible

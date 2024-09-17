@@ -127,40 +127,38 @@
     </footer>
 
     <!-- Login Modal -->
-<div id="loginModal" class="login-modal">
-    <div class="login-modal-content">
-        <span class="close" onclick="closeLoginModal()">&times;</span>
-        <h2 id="modalTitle">Login or Sign Up</h2>
-        <div class="login-options">
-            <button class="google-login" onclick="handleGoogleLogin()">Login with Google</button>
-            <div class="divider">OR</div>
-            <!-- Login Form -->
-            <form id="loginForm" onsubmit="handleLogin(); return false;">
-                <input type="email" id="loginUsername" placeholder="Email" required>
-                <input type="password" id="loginPassword" placeholder="Password" required>
-                <button type="submit" class="btn">Login</button>
-            </form>
-            <!-- Sign-Up Link -->
-            <div class="signup-link">
-                <p>Don't have an account? <a href="#" onclick="showSignUpForm()">Sign Up</a></p>
-            </div>
-            <!-- Sign-Up Form -->
-            <div id="signUpFormContainer" style="display: none;">
-                <form id="signUpForm" onsubmit="handleSignUp(); return false;">
-                    <input type="text" id="signUpUsername" placeholder="Choose a Username" required>
-                    <input type="email" id="signUpEmail" placeholder="Email" required>
-                    <input type="password" id="signUpPassword" placeholder="Choose a Password" required>
-                    <button type="submit" class="btn">Sign Up</button>
+    <div id="loginModal" class="login-modal">
+        <div class="login-modal-content">
+            <span class="close" onclick="closeLoginModal()">&times;</span>
+            <h2 id="modalTitle">Login or Sign Up</h2>
+            <div class="login-options">
+                <button class="google-login" onclick="handleGoogleLogin()">Login with Google</button>
+                <div class="divider">OR</div>
+                <!-- Login Form -->
+                <form id="loginForm">
+                    <input type="email" id="loginUsername" placeholder="Email" required>
+                    <input type="password" id="loginPassword" placeholder="Password" required>
+                    <button type="submit" class="btn">Login</button>
                 </form>
-                <div class="login-link">
-                    <p>Already have an account? <a href="#" onclick="showLoginForm()">Login</a></p>
+                <!-- Sign-Up Link -->
+                <div class="signup-link">
+                    <p>Don't have an account? <a href="#" onclick="showSignUpForm()">Sign Up</a></p>
+                </div>
+                <!-- Sign-Up Form -->
+                <div id="signUpFormContainer" style="display: none;">
+                    <form id="signUpForm">
+                        <input type="text" id="signUpUsername" placeholder="Choose a Username" required>
+                        <input type="email" id="signUpEmail" placeholder="Email" required>
+                        <input type="password" id="signUpPassword" placeholder="Choose a Password" required>
+                        <button type="submit" class="btn">Sign Up</button>
+                    </form>
+                    <div class="login-link">
+                        <p>Already have an account? <a href="#" onclick="showLoginForm()">Login</a></p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-
-
 </body>
 </html>
 

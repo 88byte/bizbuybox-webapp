@@ -135,11 +135,13 @@
                 <button class="google-login" onclick="handleGoogleLogin()">Login with Google</button>
                 <div class="divider">OR</div>
                 <!-- Login Form -->
-                <form id="loginForm">
-                    <input type="email" id="loginUsername" placeholder="Email" required>
-                    <input type="password" id="loginPassword" placeholder="Password" required>
-                    <button type="submit" class="btn">Login</button>
-                </form>
+                <div id="loginFormContainer">
+                    <form id="loginForm">
+                        <input type="email" id="loginUsername" placeholder="Email" required>
+                        <input type="password" id="loginPassword" placeholder="Password" required>
+                        <button type="submit" class="btn">Login</button>
+                    </form>
+                </div>
                 <!-- Sign-Up Link -->
                 <div class="signup-link">
                     <p>Don't have an account? <a href="#" onclick="showSignUpForm()">Sign Up</a></p>
@@ -159,6 +161,7 @@
             </div>
         </div>
     </div>
+
 </body>
 </html>
 

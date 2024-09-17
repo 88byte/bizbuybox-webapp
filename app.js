@@ -262,6 +262,7 @@ window.handleGoogleLogin = function () {
                 console.log('User data successfully written to Firestore');
                 alert('Sign-in successful! Welcome, ' + user.email);
                 closeLoginModal();
+                window.location.href = 'main-app.html'; // Redirect to the main app page
             }).catch((error) => {
                 console.error('Error writing user data to Firestore:', error);
             });
@@ -274,7 +275,6 @@ window.handleGoogleLogin = function () {
 
 
 
-
 // Function to handle Email/Password Login
 function handleLogin() {
     const email = document.getElementById('loginUsername').value;
@@ -284,6 +284,7 @@ function handleLogin() {
         .then((userCredential) => {
             console.log('User logged in:', userCredential.user);
             closeLoginModal();
+            window.location.href = 'main-app.html'; // Redirect to the main app page
         })
         .catch((error) => {
             console.error('Error during login:', error);

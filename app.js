@@ -1,4 +1,9 @@
-// Initialize Firebase
+// Import Firebase functions from SDKs
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
+
+// Your Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyAEeQ_qZOgR23KKh64_PrL73wv2kek3qtc",
   authDomain: "bizbuybox-webapp-d4772.firebaseapp.com",
@@ -9,11 +14,12 @@ const firebaseConfig = {
   measurementId: "G-CWHPBN196R"
 };
 
+
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-const analytics = firebase.analytics();
-const auth = firebase.auth();
-const provider = new firebase.auth.GoogleAuthProvider();
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const provider = new GoogleAuthProvider();
 
 // Wait for DOM to load
 document.addEventListener("DOMContentLoaded", function() {
@@ -117,7 +123,7 @@ document.addEventListener("DOMContentLoaded", function () {
     createParticles();
     populateNavbar();
 });
-    
+
 // Show the login form and hide the sign-up form
 function showLoginForm() {
     document.getElementById('loginFormContainer').style.display = 'block';
@@ -185,11 +191,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Function to handle Google Login using Popup
 function handleGoogleLogin() {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    auth.signInWithPopup(provider)
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
         .then((result) => {
             console.log('User signed in with Google:', result.user);
-            closeLoginModal(); // Close the modal upon successful login
+            closeLoginModal();
         })
         .catch((error) => {
             console.error('Error during Google login:', error);
@@ -197,26 +203,36 @@ function handleGoogleLogin() {
 }
 
 
+
 // Function to handle Email/Password Sign-Up
 function handleSignUp() {
     const email = document.getElementById('signUpEmail').value;
     const password = document.getElementById('signUpPassword').value;
+    const username = document.getElementById('signUpUsername').value;
 
-    // Check if email and password are not empty
     if (email && password) {
-        // Use Firebase Authentication method to create a new user
-        auth.createUserWithEmailAndPassword(email, password)
+        createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-                console.log('User signed up successfully:', userCredential.user);
-                closeLoginModal(); // Close the modal upon successful sign-up
-                
-                // Optional: Add additional steps after sign-up
-                // For example, redirect to another page or show a welcome message.
+                const user = userCredential.user;
+
+                console.log('User signed up successfully:', user);
+
+                // Save user data to Firestore
+                setDoc(doc(db, "users", user.uid), {
+                    username: username,
+                    email: email,
+                    createdAt: new Date()
+                }).then(() => {
+                    console.log('User data successfully written to Firestore');
+                    alert('Sign-up successful! Welcome, ' + user.email);
+                    closeLoginModal();
+                }).catch((error) => {
+                    console.error('Error writing user data to Firestore:', error);
+                });
             })
             .catch((error) => {
                 console.error('Error during sign-up:', error);
-                
-                // Detailed error handling
+
                 if (error.code === 'auth/email-already-in-use') {
                     alert('This email is already in use. Please use a different email.');
                 } else if (error.code === 'auth/invalid-email') {
@@ -224,13 +240,15 @@ function handleSignUp() {
                 } else if (error.code === 'auth/weak-password') {
                     alert('The password is too weak. Please choose a stronger password.');
                 } else {
-                    alert('Error during sign-up: ' + error.message); // General error message
+                    alert('Error during sign-up: ' + error.message);
                 }
             });
     } else {
-        alert('Please fill in both email and password fields.'); // Alert if fields are empty
+        alert('Please fill in both email and password fields.');
     }
 }
+
+
 
 
 // Function to handle Email/Password Login
@@ -238,19 +256,20 @@ function handleLogin() {
     const email = document.getElementById('loginUsername').value;
     const password = document.getElementById('loginPassword').value;
 
-    auth.signInWithEmailAndPassword(email, password)
+    signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             console.log('User logged in:', userCredential.user);
-            closeLoginModal(); // Close the modal upon successful login
+            closeLoginModal();
         })
         .catch((error) => {
             console.error('Error during login:', error);
+            alert('Login failed: ' + error.message);
         });
 }
 
 // Function to handle Logout
 function handleLogout() {
-    auth.signOut()
+    signOut(auth)
         .then(() => {
             console.log('User logged out');
         })
@@ -258,7 +277,6 @@ function handleLogout() {
             console.error('Error during logout:', error);
         });
 }
-
 
 
 // Initialize app components

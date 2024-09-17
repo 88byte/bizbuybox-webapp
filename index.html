@@ -40,14 +40,15 @@
         </div>
     </header>
     <div class="container">
-        <!-- Google Sign-In Button -->
-        <button id="google-signin-button">Sign in with Google</button>
-        <!-- Logout Button -->
-        <button id="logout-button" style="display: none;">Logout</button>
         <nav class="navbar">
             <ul>
-                <!-- Your nav items will be dynamically populated here -->
+                <!-- Navigation items will be dynamically populated here -->
             </ul>
+            <!-- Move buttons to the bottom of the navbar -->
+            <div class="auth-buttons">
+                <button id="google-signin-button">Sign in with Google</button>
+                <button id="logout-button" style="display: none;">Logout</button>
+            </div>
         </nav>
         <main id="content">
             <!-- Dashboard content will be loaded dynamically here -->
@@ -55,3 +56,4 @@
     </div>
 </body>
 </html>
+

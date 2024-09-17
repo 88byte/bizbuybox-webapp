@@ -62,7 +62,6 @@ window.showSignUpForm = function () {
 document.addEventListener("DOMContentLoaded", function() {
     initializeGapiClient();
     createParticles();
-    populateNavbar();
 
     // Ensure elements are ready before attaching event listeners
     const loginForm = document.getElementById('loginForm');
@@ -241,7 +240,6 @@ function createParticles() {
 
 document.addEventListener('DOMContentLoaded', function () {
     createParticles();
-    populateNavbar();
     initializeGapiClient();
 });
 

@@ -408,6 +408,38 @@ button:hover {
     position: relative;
 }
 
+/* Additional Modal Styles */
+#loginFormContainer, #signUpFormContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-modal-content input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid var(--control-border);
+    border-radius: 5px;
+    background-color: var(--control-background);
+    color: var(--control-text);
+}
+
+.login-modal-content .btn {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.login-modal-content .btn:hover {
+    background-color: var(--secondary-color);
+}
 
 
 .close {

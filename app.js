@@ -2,6 +2,29 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
+import { doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
+
+async function testFirestoreConnection() {
+    try {
+        // Test write
+        await setDoc(doc(db, "testCollection", "testDoc"), { testField: "Hello, Firestore!" });
+        console.log("Document written successfully!");
+
+        // Test read
+        const docRef = doc(db, "testCollection", "testDoc");
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            console.log("Document data:", docSnap.data());
+        } else {
+            console.log("No such document!");
+        }
+    } catch (error) {
+        console.error("Error testing Firestore connection:", error);
+    }
+}
+
+testFirestoreConnection();
 
 // Your Firebase configuration
 const firebaseConfig = {

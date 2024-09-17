@@ -293,7 +293,7 @@ function handleLogin() {
 }
 
 // Function to handle Logout
-function handleLogout() {
+window.handleLogout = function () {
     signOut(auth)
         .then(() => {
             console.log('User logged out');
@@ -303,7 +303,8 @@ function handleLogout() {
         .catch((error) => {
             console.error('Error during logout:', error);
         });
-}
+};
+
 
 
 

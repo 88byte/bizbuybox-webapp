@@ -194,11 +194,13 @@ window.updateProfile = async function () {
     try {
         const user = auth.currentUser; // Use the global auth object
 
+        let profilePicUrl = user.photoURL; // Use existing profile picture URL
+
         // Update profile picture if a new file is selected
         if (profilePicFile) {
-            const profilePicRef = ref(storage, 'profilePictures/' + user.uid);
+            const profilePicRef = ref(storage, `profilePictures/${user.uid}/${profilePicFile.name}`); // Correctly use the ref function
             await uploadBytes(profilePicRef, profilePicFile);
-            const profilePicUrl = await getDownloadURL(profilePicRef);
+            profilePicUrl = await getDownloadURL(profilePicRef);
             await updateProfile(user, { photoURL: profilePicUrl });
             document.querySelector('.profile-img').src = profilePicUrl;
         }
@@ -218,6 +220,7 @@ window.updateProfile = async function () {
         await setDoc(doc(db, "users", user.uid), {
             username: username,
             email: email,
+            profilePicture: profilePicUrl // Save profile picture URL in Firestore
         }, { merge: true });
 
         alert('Profile updated successfully!');

@@ -20,6 +20,40 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 const provider = new GoogleAuthProvider();
 
+// Make functions globally accessible
+window.openLoginModal = function () {
+    document.getElementById('loginModal').style.display = 'flex';
+    showLoginForm(); // Default to showing the login form
+};
+
+window.closeLoginModal = function () {
+    document.getElementById('loginModal').style.display = 'none';
+};
+
+// Show login form and hide sign-up form
+window.showLoginForm = function () {
+    const loginFormContainer = document.getElementById('loginFormContainer');
+    const signUpFormContainer = document.getElementById('signUpFormContainer');
+
+    if (loginFormContainer && signUpFormContainer) {
+        loginFormContainer.style.display = 'block';
+        signUpFormContainer.style.display = 'none';
+        document.getElementById('modalTitle').textContent = 'Login or Sign Up';
+    }
+};
+
+// Show sign-up form and hide login form
+window.showSignUpForm = function () {
+    const loginFormContainer = document.getElementById('loginFormContainer');
+    const signUpFormContainer = document.getElementById('signUpFormContainer');
+
+    if (loginFormContainer && signUpFormContainer) {
+        loginFormContainer.style.display = 'none';
+        signUpFormContainer.style.display = 'block';
+        document.getElementById('modalTitle').textContent = 'Create an Account';
+    }
+};
+
 // Wait for DOM to load
 document.addEventListener("DOMContentLoaded", function() {
     initializeGapiClient();
@@ -29,8 +63,6 @@ document.addEventListener("DOMContentLoaded", function() {
     // Ensure elements are ready before attaching event listeners
     const loginForm = document.getElementById('loginForm');
     const signUpForm = document.getElementById('signUpForm');
-    const loginFormContainer = document.getElementById('loginFormContainer');
-    const signUpFormContainer = document.getElementById('signUpFormContainer');
 
     if (loginForm) {
         loginForm.addEventListener('submit', function (e) {
@@ -45,34 +77,7 @@ document.addEventListener("DOMContentLoaded", function() {
             handleSignUp();
         });
     }
-
-    // Functions to show/hide forms only if the elements exist
-    if (loginFormContainer && signUpFormContainer) {
-        window.showLoginForm = function () {
-            loginFormContainer.style.display = 'block';
-            signUpFormContainer.style.display = 'none';
-            document.getElementById('modalTitle').textContent = 'Login or Sign Up';
-        };
-
-        window.showSignUpForm = function () {
-            loginFormContainer.style.display = 'none';
-            signUpFormContainer.style.display = 'block';
-            document.getElementById('modalTitle').textContent = 'Create an Account';
-        };
-
-        // Function to open the login modal
-        window.openLoginModal = function () { // Make the function globally accessible
-            document.getElementById('loginModal').style.display = 'flex';
-            showLoginForm(); // Default to showing the login form
-        };
-
-        // Function to close the login modal
-        window.closeLoginModal = function () { // Make the function globally accessible
-            document.getElementById('loginModal').style.display = 'none';
-        };
-
-    }
-}); // <--- Ensure the function is properly closed here.
+});
 
 
 // Function to initialize the Google API client using Google Sign-In

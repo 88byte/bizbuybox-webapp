@@ -183,8 +183,9 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-// Function to handle Google Login
+// Function to handle Google Login using Popup
 function handleGoogleLogin() {
+    const provider = new firebase.auth.GoogleAuthProvider();
     auth.signInWithPopup(provider)
         .then((result) => {
             console.log('User signed in with Google:', result.user);
@@ -194,6 +195,7 @@ function handleGoogleLogin() {
             console.error('Error during Google login:', error);
         });
 }
+
 
 // Function to handle Email/Password Sign-Up
 function handleSignUp() {

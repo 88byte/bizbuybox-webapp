@@ -1,23 +1,27 @@
 // Function to initialize the Google API client
 function initializeGapiClient() {
+    // Initialize the Google Identity Services client
     google.accounts.id.initialize({
-        client_id: '275304965510-fj6ueht6b3nm3he25ce2ctald6kq61vc.apps.googleusercontent.com',
+        client_id: '275304965510-fj6ueht6b3nm3he25ce2ctald6kq61vc.apps.googleusercontent.com', // Your actual client ID
         callback: handleCredentialResponse // Function to handle the ID token
     });
 
-    google.accounts.id.prompt(); // Display the One Tap prompt
+    // Show the One Tap prompt only when the page loads, not when the button is clicked
+    google.accounts.id.prompt();
 
     // Add click event for the sign-in button
     const signinButton = document.getElementById("google-signin-button");
     signinButton.addEventListener("click", function () {
-        google.accounts.id.prompt((notification) => {
-            if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-                console.warn('One Tap prompt was not displayed or was skipped:', notification.getNotDisplayedReason());
-            }
-            if (notification.isDismissedMoment()) {
-                console.warn('One Tap prompt was dismissed:', notification.getDismissedReason());
-            }
-        }); // Show the One Tap prompt when the button is clicked
+        // Disable One Tap prompt when the button is clicked
+        google.accounts.id.cancel();
+        // Initiate the manual sign-in flow
+        google.accounts.id.prompt(); // Show the One Tap prompt when the button is clicked
+    });
+
+    // Add click event for the log-out button
+    const logoutButton = document.getElementById("logout-button");
+    logoutButton.addEventListener("click", function () {
+        logout();
     });
 }
 
@@ -25,7 +29,11 @@ function initializeGapiClient() {
 function handleCredentialResponse(response) {
     console.log('Encoded JWT ID token: ' + response.credential);
 
-    // Load the GAPI client library
+    // Hide the sign-in button and show the log-out button after successful login
+    document.getElementById("google-signin-button").style.display = "none";
+    document.getElementById("logout-button").style.display = "block";
+
+    // Initialize GAPI client with the obtained token
     gapi.load("client", function () {
         gapi.client.init({
             apiKey: "AIzaSyAGM1ZHnCXELvKavsi07IObNIzo6fmylMA", // Your actual API key
@@ -39,12 +47,26 @@ function handleCredentialResponse(response) {
     });
 }
 
+// Function to log out the user
+function logout() {
+    // Reset the login state
+    google.accounts.id.revoke(localStorage.getItem('email'), done => {
+        console.log('User signed out.');
+
+        // Hide the log-out button and show the sign-in button
+        document.getElementById("logout-button").style.display = "none";
+        document.getElementById("google-signin-button").style.display = "block";
+    });
+
+    // Clear stored email or any other user-related data
+    localStorage.removeItem('email');
+}
+
 // Initialize GAPI client when the DOM is ready
 document.addEventListener("DOMContentLoaded", function () {
     console.log("Document is ready, initializing Google Identity Services.");
     initializeGapiClient();
 });
-
 
 // Initialize app components
 function initializeApp() {

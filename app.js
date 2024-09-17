@@ -24,8 +24,6 @@ const provider = new GoogleAuthProvider();
 
 
 
-testFirestoreConnection();
-
 // Make functions globally accessible
 window.openLoginModal = function () {
     document.getElementById('loginModal').style.display = 'flex';

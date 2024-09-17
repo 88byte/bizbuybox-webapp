@@ -6,9 +6,8 @@ function initializeGapiClient() {
     });
 
     google.accounts.id.prompt(); // Display the One Tap prompt
-}
 
-// Add click event for the sign-in button
+    // Add click event for the sign-in button
     const signinButton = document.getElementById("google-signin-button");
     signinButton.addEventListener("click", function () {
         google.accounts.id.prompt(); // Show the One Tap prompt when the button is clicked
@@ -23,7 +22,7 @@ function handleCredentialResponse(response) {
     gapi.load("client", function () {
         gapi.client.init({
             apiKey: "AIzaSyAGM1ZHnCXELvKavsi07IObNIzo6fmylMA", // Your actual API key
-            discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"],
+            discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"]
         }).then(function () {
             console.log("GAPI client initialized.");
             initializeApp(); // Initialize your app after GAPI client is ready

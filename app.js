@@ -59,6 +59,18 @@ document.addEventListener("DOMContentLoaded", function() {
             signUpFormContainer.style.display = 'block';
             document.getElementById('modalTitle').textContent = 'Create an Account';
         };
+
+        // Function to open the login modal
+        window.openLoginModal = function () { // Make the function globally accessible
+            document.getElementById('loginModal').style.display = 'flex';
+            showLoginForm(); // Default to showing the login form
+        };
+
+        // Function to close the login modal
+        window.closeLoginModal = function () { // Make the function globally accessible
+            document.getElementById('loginModal').style.display = 'none';
+        };
+
     }
 }); // <--- Ensure the function is properly closed here.
 

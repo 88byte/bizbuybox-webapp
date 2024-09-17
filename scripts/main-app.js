@@ -182,13 +182,6 @@ window.updateProfile = async function () {
     }
 };
 
-// Function to confirm account deletion
-window.confirmDeleteAccount = function () {
-    if (confirm("Are you sure you want to delete your account? This action cannot be undone.")) {
-        deleteAccount();
-    }
-};
-
 // Function to delete user account
 window.deleteAccount = async function () {
     try {
@@ -202,3 +195,4 @@ window.deleteAccount = async function () {
         alert('Error deleting account: ' + error.message);
     }
 };
+

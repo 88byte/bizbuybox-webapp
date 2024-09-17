@@ -297,10 +297,13 @@ function handleLogout() {
     signOut(auth)
         .then(() => {
             console.log('User logged out');
+            // Redirect to the landing page
+            window.location.href = 'index.html';
         })
         .catch((error) => {
             console.error('Error during logout:', error);
         });
 }
+
 
 

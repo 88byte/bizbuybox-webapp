@@ -22,7 +22,18 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 const provider = new GoogleAuthProvider();
 
-
+// Function to handle Logout
+window.handleLogout = function () {
+    signOut(auth)
+        .then(() => {
+            console.log('User logged out');
+            // Redirect to the landing page
+            window.location.href = 'index.html';
+        })
+        .catch((error) => {
+            console.error('Error during logout:', error);
+        });
+};
 
 // Make functions globally accessible
 window.openLoginModal = function () {
@@ -292,18 +303,7 @@ function handleLogin() {
         });
 }
 
-// Function to handle Logout
-window.handleLogout = function () {
-    signOut(auth)
-        .then(() => {
-            console.log('User logged out');
-            // Redirect to the landing page
-            window.location.href = 'index.html';
-        })
-        .catch((error) => {
-            console.error('Error during logout:', error);
-        });
-};
+
 
 
 

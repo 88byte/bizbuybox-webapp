@@ -198,19 +198,31 @@ function handleGoogleLogin() {
 
 
 // Function to handle Email/Password Sign-Up
+// Function to handle Email/Password Sign-Up
 function handleSignUp() {
     const email = document.getElementById('signUpEmail').value;
     const password = document.getElementById('signUpPassword').value;
 
-    auth.createUserWithEmailAndPassword(email, password)
-        .then((userCredential) => {
-            console.log('User signed up:', userCredential.user);
-            closeLoginModal(); // Close the modal upon successful sign-up
-        })
-        .catch((error) => {
-            console.error('Error during sign-up:', error);
-        });
+    // Check if email and password are not empty
+    if (email && password) {
+        // Use Firebase Authentication method to create a new user
+        auth.createUserWithEmailAndPassword(email, password)
+            .then((userCredential) => {
+                console.log('User signed up:', userCredential.user);
+                closeLoginModal(); // Close the modal upon successful sign-up
+                
+                // Optional: Add additional steps after sign-up
+                // For example, redirect to another page or show a welcome message.
+            })
+            .catch((error) => {
+                console.error('Error during sign-up:', error);
+                alert('Error during sign-up: ' + error.message); // Provide user feedback
+            });
+    } else {
+        alert('Please fill in both email and password fields.'); // Alert if fields are empty
+    }
 }
+
 
 // Function to handle Email/Password Login
 function handleLogin() {

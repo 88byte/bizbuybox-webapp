@@ -198,7 +198,6 @@ function handleGoogleLogin() {
 
 
 // Function to handle Email/Password Sign-Up
-// Function to handle Email/Password Sign-Up
 function handleSignUp() {
     const email = document.getElementById('signUpEmail').value;
     const password = document.getElementById('signUpPassword').value;
@@ -208,7 +207,7 @@ function handleSignUp() {
         // Use Firebase Authentication method to create a new user
         auth.createUserWithEmailAndPassword(email, password)
             .then((userCredential) => {
-                console.log('User signed up:', userCredential.user);
+                console.log('User signed up successfully:', userCredential.user);
                 closeLoginModal(); // Close the modal upon successful sign-up
                 
                 // Optional: Add additional steps after sign-up
@@ -216,7 +215,17 @@ function handleSignUp() {
             })
             .catch((error) => {
                 console.error('Error during sign-up:', error);
-                alert('Error during sign-up: ' + error.message); // Provide user feedback
+                
+                // Detailed error handling
+                if (error.code === 'auth/email-already-in-use') {
+                    alert('This email is already in use. Please use a different email.');
+                } else if (error.code === 'auth/invalid-email') {
+                    alert('The email address is invalid.');
+                } else if (error.code === 'auth/weak-password') {
+                    alert('The password is too weak. Please choose a stronger password.');
+                } else {
+                    alert('Error during sign-up: ' + error.message); // General error message
+                }
             });
     } else {
         alert('Please fill in both email and password fields.'); // Alert if fields are empty

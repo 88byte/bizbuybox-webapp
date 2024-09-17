@@ -64,18 +64,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 // Initialize app components
+// Initialize app components
 function initializeApp() {
     loadClient().then(function () {
         console.log("App Initialized");
 
-        // Add click events for navigation items
-        const navItems = document.querySelectorAll(".nav-item");
-        navItems.forEach(item => {
-            item.addEventListener("click", function (event) {
-                event.preventDefault();
-                loadPage(event, item.getAttribute("onclick").split("'")[1]);
-            });
-        });
+        populateNavbar(); // Populate the navigation bar here
 
         // Load default page
         loadPage(null, "Dashboard");

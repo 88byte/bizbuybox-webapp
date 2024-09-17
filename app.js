@@ -16,6 +16,12 @@ const firebaseConfig = {
   measurementId: "G-CWHPBN196R"
 };
 
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const provider = new GoogleAuthProvider();
+
 async function testFirestoreConnection() {
     try {
         // Test write
@@ -37,12 +43,6 @@ async function testFirestoreConnection() {
 }
 
 testFirestoreConnection();
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-const provider = new GoogleAuthProvider();
 
 // Make functions globally accessible
 window.openLoginModal = function () {

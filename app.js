@@ -265,34 +265,33 @@ function handleSignUp() {
 
     // Check if email, password, and username are provided
     if (!email || !password || !username) {
+        console.error('Email, password, or username not provided'); // Log error
         alert('Please fill in all fields.');
         return;
     }
 
-    // Create user with email and password
+    // Try to create a user with email and password
     createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             const user = userCredential.user;
-
             console.log('User signed up successfully:', user);
 
             // Save user data to Firestore
-            setDoc(doc(db, "users", user.uid), {
+            return setDoc(doc(db, "users", user.uid), {
                 username: username,
                 email: email,
                 createdAt: new Date().toISOString()
-            }).then(() => {
-                console.log('User data successfully written to Firestore');
-                alert('Sign-up successful! Welcome, ' + user.email);
-                closeLoginModal();
-            }).catch((error) => {
-                console.error('Error writing user data to Firestore:', error);
-                alert('Error saving user data: ' + error.message);
             });
         })
+        .then(() => {
+            console.log('User data successfully written to Firestore');
+            alert('Sign-up successful! Welcome, ' + email);
+            closeLoginModal();
+        })
         .catch((error) => {
-            console.error('Error during sign-up:', error); // Log any errors
+            console.error('Error during sign-up:', error);
 
+            // Specific error handling
             if (error.code === 'auth/email-already-in-use') {
                 alert('This email is already in use. Please use a different email.');
             } else if (error.code === 'auth/invalid-email') {

@@ -3,29 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Main App Page</title>
+    <title>Main App - CRM Dashboard</title>
     
-    <!-- Shared CSS -->
-    <link rel="stylesheet" href="styles.css">
+    <!-- Shared and Page-Specific CSS -->
+    <link rel="stylesheet" href="styles/common.css">
+    <link rel="stylesheet" href="styles/main-app.css">
+    
+    <!-- Font Awesome for Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
     <!-- Shared JavaScript -->
-    <script src="app.js" type="module"></script>
+    <script src="scripts/app.js" type="module"></script>
+    <script src="scripts/main-app.js" type="module"></script>
 </head>
 <body>
-    <header class="header-container">
-        <div class="logo">
-            <img src="https://res.cloudinary.com/depyd1rbu/image/upload/v1726586677/biz_buy_box_1_f10iu3.png" alt="Logo" width="150" height="auto">
-        </div>
-    </header>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <img src="https://res.cloudinary.com/depyd1rbu/image/upload/v1726586677/biz_buy_box_1_f10iu3.png" alt="Logo" class="logo">
+         <!-- Profile Image Placeholder -->
+            <div class="profile-container">
+		        <img src="https://via.placeholder.com/100" alt="Profile Picture" class="profile-img" onclick="openProfileModal()">
+		    </div>	
+        <nav class="sidebar-nav">
+            <a href="#" onclick="showDashboard()" class="nav-link active"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+            <a href="#" onclick="showQuickCalculator()" class="nav-link"><i class="fas fa-calculator"></i> Quick Calculator</a>
+            <a href="#" onclick="showLOIGenerator()" class="nav-link"><i class="fas fa-file-alt"></i> LOI Generator</a>
+            <a href="#" onclick="showBrokerDirectory()" class="nav-link"><i class="fas fa-address-book"></i> Broker Directory</a>
+            <a href="#" onclick="showResources()" class="nav-link"><i class="fas fa-book"></i> Resources</a>
+            <a href="#" onclick="showSupport()" class="nav-link"><i class="fas fa-life-ring"></i> Support</a>
+        </nav>
+        <button onclick="handleLogout()" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Logout</button>
+    </aside>
 
-    <!-- Main App Content -->
-    <section id="mainAppPage">
-        <div class="app-container">
-            <h2>Welcome to the Main App Page</h2>
-            <p>This is the main content of your web application after logging in.</p>
-            <!-- Add your app-specific content here -->
-            <button onclick="handleLogout()">Logout</button>
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <!-- Dynamic Content Sections -->
+        <div id="dashboard" class="content-section active">
+            <div class="dashboard-header">
+                <h2>Dashboard</h2>
+                <button class="btn-refresh" onclick="refreshDashboard()"><i class="fas fa-sync-alt"></i> Refresh</button>
+            </div>
+            <div class="dashboard-metrics">
+                <div class="card">
+                    <h3>Active Deals</h3>
+                    <p>15</p>
+                </div>
+                <div class="card">
+                    <h3>New Opportunities</h3>
+                    <p>5</p>
+                </div>
+                <div class="card">
+                    <h3>Closed Deals</h3>
+                    <p>3</p>
+                </div>
+            </div>
+            <!-- Deal Management Section -->
+            <div class="deal-management">
+                <div class="deal-management-header">
+                    <h3>Manage Your Deals</h3>
+                    <div class="deal-actions">
+                        <input type="text" id="searchDeals" placeholder="Search Deals..." onkeyup="searchDeals()">
+                        <button class="btn-create" onclick="createDeal()">+ New Deal</button>
+                    </div>
+                </div>
+                <div class="deal-filters">
+                    <button onclick="filterDeals('all')" class="filter-btn active">All</button>
+                    <button onclick="filterDeals('active')" class="filter-btn">Active</button>
+                    <button onclick="filterDeals('closed')" class="filter-btn">Closed</button>
+                    <button onclick="filterDeals('opportunity')" class="filter-btn">Opportunities</button>
+                </div>
+                <div class="deal-grid" id="dealGrid">
+                    <!-- Dynamic Deal Cards will be loaded here -->
+                </div>
+            </div>
         </div>
-    </section>
+        
+        <!-- Additional Sections for Different Tools -->
+        <div id="quick-calculator" class="content-section">
+            <h2>Quick Calculator</h2>
+            <div class="calculator-container">
+                <!-- Calculator UI goes here -->
+            </div>
+        </div>
+
+        <div id="loi-generator" class="content-section">
+            <h2>LOI Generator</h2>
+            <div class="loi-container">
+                <!-- LOI Generator UI goes here -->
+            </div>
+        </div>
+
+        <div id="broker-directory" class="content-section">
+            <h2>Broker Directory</h2>
+            <div class="broker-list">
+                <!-- Broker Directory Content goes here -->
+            </div>
+        </div>
+
+        <div id="resources" class="content-section">
+            <h2>Resources</h2>
+            <div class="resources-container">
+                <!-- Resources Content goes here -->
+            </div>
+        </div>
+
+        <div id="support" class="content-section">
+            <h2>Support</h2>
+            <div class="support-container">
+                <!-- Support Content goes here -->
+            </div>
+        </div>
+    </main>
+    <!-- Profile Modal -->
+    <div id="profileModal" class="profileModal">
+	    <div class="profileModal-content">
+	        <span class="close" onclick="closeProfileModal()">&times;</span>
+	        <h2>Edit Profile</h2>
+	        <form id="profileForm" onsubmit="updateProfile(); return false;">
+	            <label for="username">Username</label>
+	            <input type="text" id="username" placeholder="Your Name">
+	            
+	            <label for="email">Email</label>
+	            <input type="email" id="email" placeholder="Your Email">
+
+	            <label for="password">Password</label>
+	            <input type="password" id="password" placeholder="New Password">
+
+	            <label for="profilePic">Profile Picture</label>
+	            <input type="file" id="profilePic" accept="image/*" onchange="previewProfilePicture(event)">
+	            
+	            <div class="profile-modal-actions">
+	                <button type="button" class="btn-delete" onclick="confirmDeleteAccount()">Delete Account</button>
+	                <button type="submit" class="btn-save">Save Changes</button>
+	            </div>
+	        </form>
+	    </div>
+	</div>
+
+
 </body>
 </html>
- 

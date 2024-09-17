@@ -3,6 +3,19 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebas
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
 
+
+
+// Your Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyAEeQ_qZOgR23KKh64_PrL73wv2kek3qtc",
+  authDomain: "bizbuybox-webapp-d4772.firebaseapp.com",
+  projectId: "bizbuybox-webapp-d4772",
+  storageBucket: "bizbuybox-webapp-d4772.appspot.com",
+  messagingSenderId: "822306028352",
+  appId: "1:822306028352:web:3e410ae31890ba5d4658a5",
+  measurementId: "G-CWHPBN196R"
+};
+
 async function testFirestoreConnection() {
     try {
         // Test write
@@ -24,17 +37,6 @@ async function testFirestoreConnection() {
 }
 
 testFirestoreConnection();
-
-// Your Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyAEeQ_qZOgR23KKh64_PrL73wv2kek3qtc",
-  authDomain: "bizbuybox-webapp-d4772.firebaseapp.com",
-  projectId: "bizbuybox-webapp-d4772",
-  storageBucket: "bizbuybox-webapp-d4772.appspot.com",
-  messagingSenderId: "822306028352",
-  appId: "1:822306028352:web:3e410ae31890ba5d4658a5",
-  measurementId: "G-CWHPBN196R"
-};
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);

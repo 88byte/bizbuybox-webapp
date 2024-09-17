@@ -261,6 +261,8 @@ function handleSignUp() {
     const password = document.getElementById('signUpPassword').value;
     const username = document.getElementById('signUpUsername').value;
 
+    console.log('Attempting to sign up with', username, email); // Debug log
+
     // Check if email, password, and username are provided
     if (!email || !password || !username) {
         alert('Please fill in all fields.');
@@ -289,7 +291,7 @@ function handleSignUp() {
             });
         })
         .catch((error) => {
-            console.error('Error during sign-up:', error);
+            console.error('Error during sign-up:', error); // Log any errors
 
             if (error.code === 'auth/email-already-in-use') {
                 alert('This email is already in use. Please use a different email.');
@@ -302,6 +304,7 @@ function handleSignUp() {
             }
         });
 }
+
 
 
 

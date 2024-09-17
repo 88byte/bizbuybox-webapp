@@ -115,19 +115,21 @@ button:hover {
     top: 100px;
     width: 220px;
     background-color: var(--header-navbar-background);
-    height: 100vh;
+    max-height: 100vh;
     padding: 20px 10px;
     z-index: 10;
     border-top-right-radius: 15px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    overflow-y: auto; /* Make the navbar scrollable if content exceeds the height */
 }
 
 .navbar ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
+    flex-grow: 1; /* Allow the navigation items to take up remaining space */
 }
 
 .navbar ul li {
@@ -163,18 +165,18 @@ button:hover {
     border-bottom-left-radius: 10px;
 }
 
-/* Style for the buttons container */
+/* New styles for the buttons at the bottom */
 .auth-buttons {
-    margin-top: auto; /* Push buttons to the bottom */
-    padding-top: 20px;
+    margin-top: auto; /* Pushes buttons to the bottom of the navbar */
+    width: 100%; /* Make buttons full width */
+    padding: 10px 0; /* Add some padding around buttons */
 }
 
-/* Button styles */
+/* Styles for the Google Sign-In and Logout buttons */
 .auth-buttons button {
-    display: block;
-    width: 100%;
+    width: calc(100% - 20px); /* Adjust width with padding */
     padding: 10px;
-    margin: 5px 0;
+    margin: 5px 10px; /* Adjust margin for button alignment */
     background-color: #4285F4;
     color: white;
     border: none;
@@ -183,10 +185,10 @@ button:hover {
     font-size: 16px;
 }
 
-/* Hover effect for buttons */
 .auth-buttons button:hover {
     background-color: #357ae8;
 }
+
 
 
 .icon {

@@ -403,13 +403,12 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.8); /* Slightly darker overlay */
+    background: rgba(0, 0, 0, 0.8); /* Darker overlay */
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    backdrop-filter: blur(10px); /* Stronger background blur */
+    backdrop-filter: blur(10px); /* Soft background blur */
     transition: all 0.4s ease-in-out;
-    opacity: 0;
 }
 
 /* Show Modal */
@@ -420,24 +419,22 @@ body {
 
 /* Modal Content */
 .card-modal-content {
-    background: linear-gradient(135deg, #222, #333); /* Refined, sleek gradient */
+    background: linear-gradient(135deg, #222, #333); /* Sleek gradient */
     padding: 48px;
-    border-radius: 18px; /* Softer, more modern corners */
+    border-radius: 18px;
     width: 600px;
     max-width: 90%;
     color: #f5f5f5;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8); /* Deeper shadow for depth */
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8); /* Stronger shadow */
     max-height: 80vh;
     overflow-y: auto;
-    transform: scale(0.85); /* Start small */
-    opacity: 0;
-    transition: transform 0.4s ease, opacity 0.4s ease;
+    transform: translateY(-30px); /* Initial slide effect */
+    transition: transform 0.4s ease; /* Smoother slide */
 }
 
-/* Modal Slide & Zoom Animation */
+/* Slide & Zoom Effect */
 .card-modal.show .card-modal-content {
-    transform: scale(1); /* Zoom in effect */
-    opacity: 1; /* Fade in */
+    transform: translateY(0); /* Slide into place */
 }
 
 /* Header Section */
@@ -452,7 +449,7 @@ body {
 
 .card-modal-header h2 {
     font-size: 26px;
-    font-weight: 700;
+    font-weight: 600;
     color: #f8f8f8;
     letter-spacing: 0.6px;
     margin: 0;
@@ -480,7 +477,7 @@ body {
     width: 100%;
     padding: 14px;
     margin-bottom: 16px;
-    background-color: rgba(255, 255, 255, 0.1); /* Light transparent background */
+    background-color: rgba(255, 255, 255, 0.1); /* Transparent background */
     border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 10px;
     color: #f0f0f0;
@@ -492,7 +489,7 @@ body {
 .card-modal form select:focus,
 .card-modal form textarea:focus {
     border-color: #d4a759;
-    background-color: rgba(255, 255, 255, 0.15); /* Slight change on focus */
+    background-color: rgba(255, 255, 255, 0.15); /* Slight background change */
     outline: none;
 }
 
@@ -523,15 +520,15 @@ button {
     border-radius: 8px;
     color: #f5f5f5;
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 500;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Small shadow for depth */
 }
 
 button:hover {
-    background-color: #d2a679;
-    transform: translateY(-3px); /* Lift on hover */
+    background-color: #d2a679; /* Gold hover */
+    transform: translateY(-3px); /* Lift effect */
 }
 
 /* Save Button */
@@ -565,7 +562,7 @@ button:hover {
 }
 
 .card-modal-content::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(255, 255, 255, 0.4); /* Lighter on hover */
+    background-color: rgba(255, 255, 255, 0.4); /* Lighter hover */
 }
 
 /* Responsive Modal */
@@ -589,6 +586,13 @@ button:hover {
 .card-modal form textarea {
     resize: vertical;
     min-height: 120px;
+}
+
+/* Hover effect for input fields */
+.card-modal form input:hover,
+.card-modal form select:hover,
+.card-modal form textarea:hover {
+    border-color: rgba(255, 255, 255, 0.4);
 }
 
 

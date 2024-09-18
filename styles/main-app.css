@@ -403,30 +403,183 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.8); /* Dark overlay */
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    transition: all 0.3s ease-in-out;
 }
 
 .card-modal-content {
-    background-color: #2e2e2e;
-    padding: 24px;
-    border-radius: 8px;
-    width: 500px;
-    color: #ddd;
+    background-color: #2e2e2e; /* Dark background for modal */
+    padding: 32px; /* Extra padding for comfort */
+    border-radius: 16px; /* Rounded corners */
+    width: 600px; /* Slightly wider modal */
+    color: #ddd; /* Light text for contrast */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); /* Soft shadow for elevation */
     max-height: 80vh;
     overflow-y: auto;
+    transform: translateY(-50px); /* Subtle slide effect on show */
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.card-modal .close {
-    position: absolute;
-    top: 8px;
-    right: 16px;
-    font-size: 24px;
-    cursor: pointer;
-    color: #ddd;
+/* Fade-in effect when modal is opened */
+.card-modal.show .card-modal-content {
+    transform: translateY(0); /* Slide into place */
+    opacity: 1;
 }
+
+/* Header Section for Modal */
+.card-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.card-modal-header h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #fff;
+    margin: 0;
+}
+
+.card-modal-header .close {
+    font-size: 20px;
+    color: #bbb;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.card-modal-header .close:hover {
+    color: #fff;
+}
+
+/* Input Styles for Modal */
+.card-modal form input,
+.card-modal form select,
+.card-modal form textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 16px;
+    background-color: #404040;
+    border: 1px solid #555;
+    border-radius: 8px;
+    color: #ddd;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.card-modal form input:focus,
+.card-modal form select:focus,
+.card-modal form textarea:focus {
+    border-color: #97835a; /* Gold accent color */
+    outline: none;
+}
+
+/* Layout of input fields */
+.card-modal .input-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.card-modal .input-group div {
+    flex: 1;
+}
+
+/* Button Styles */
+.card-modal .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.card-modal button {
+    padding: 12px 24px;
+    background-color: #555;
+    border: none;
+    border-radius: 8px;
+    color: #ddd;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.card-modal button:hover {
+    background-color: #97835a; /* Gold hover color */
+}
+
+.card-modal .btn-save {
+    background-color: #97835a; /* Gold button for Save */
+    color: #000;
+}
+
+.card-modal .btn-save:hover {
+    background-color: #b0956a; /* Lighter gold on hover */
+}
+
+.card-modal .btn-cancel {
+    background-color: #444;
+}
+
+.card-modal .btn-cancel:hover {
+    background-color: #666;
+}
+
+/* Scrollbar Styles for Modal */
+.card-modal-content::-webkit-scrollbar {
+    width: 10px;
+}
+
+.card-modal-content::-webkit-scrollbar-thumb {
+    background-color: #555; 
+    border-radius: 10px;
+}
+
+/* Responsive Modal */
+@media (max-width: 768px) {
+    .card-modal-content {
+        width: 90%; /* Reduce modal width on smaller screens */
+        padding: 16px;
+    }
+}
+
+/* Section Heading for Modal (Optional) */
+.card-modal .section-heading {
+    font-size: 18px;
+    font-weight: 500;
+    color: #ccc;
+    margin-top: 24px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #555;
+    padding-bottom: 8px;
+}
+
+/* Form Label Styles */
+.card-modal form label {
+    color: #bbb;
+    font-weight: 500;
+    margin-bottom: 8px;
+    display: block;
+}
+
+/* Optional Notes Section */
+.card-modal form textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Add subtle hover effects to input fields */
+.card-modal form input:hover,
+.card-modal form select:hover,
+.card-modal form textarea:hover {
+    border-color: #666; /* Slight hover effect */
+}
+
 
 .modal-actions {
     display: flex;

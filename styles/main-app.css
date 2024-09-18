@@ -545,13 +545,7 @@ button:hover {
     border-radius: 10px;
 }
 
-/* Responsive Modal */
-@media (max-width: 768px) {
-    .card-modal-content {
-        width: 90%;
-        padding: 24px;
-    }
-}
+
 
 
 

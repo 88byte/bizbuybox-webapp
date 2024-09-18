@@ -60,9 +60,9 @@ body {
 
 /* Username styles */
 .profile-username {
-    font-size: 14px; /* Adjust font size as needed */
+    font-size: 16px; /* Adjust font size as needed */
     color: #97835a; /* Updated text color for better readability */
-    margin-top: 8px; /* Spacing between image and username */
+    margin-top: 6px; /* Spacing between image and username */
     text-align: center; /* Center the text */
     font-weight: bold; /* Make the text bold */
 }

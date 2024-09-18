@@ -152,7 +152,7 @@
 	    <div class="card-modal-content">
 	        <div class="card-modal-header">
 	            <h2 id="modalTitle">Deal Details</h2>
-	            <span class="close" onclick="closeCardModal()">&times;</span>
+	            <span class="close" onclick="closeDealModal()">&times;</span>
 	        </div>
 	        <form id="dealForm" onsubmit="saveDeal(); return false;">
 	            <input type="hidden" id="dealId">
@@ -227,12 +227,13 @@
 
 	            <!-- Action Buttons -->
 	            <div class="modal-actions">
-	                <button type="button" class="btn-cancel" onclick="closeCardModal()">Cancel</button>
+	                <button type="button" class="btn-cancel" onclick="closeDealModal()">Cancel</button>
 	                <button type="submit" class="btn-save">Save Deal</button>
 	            </div>
 	        </form>
 	    </div>
 	</div>
+
 
 
 

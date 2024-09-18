@@ -395,6 +395,7 @@ body {
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
 }
 
+/* Card Modal Overlay */
 .card-modal {
     display: none;
     position: fixed;
@@ -402,31 +403,40 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.75); /* Dark overlay with less opacity for a sleeker feel */
+    background: rgba(0, 0, 0, 0.8); /* Slightly darker overlay */
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    backdrop-filter: blur(6px); /* Soft blur for the background */
-    transition: all 0.4s ease-in-out; /* Smoother and slower transition */
+    backdrop-filter: blur(10px); /* Stronger background blur */
+    transition: all 0.4s ease-in-out;
+    opacity: 0;
 }
 
+/* Show Modal */
+.card-modal.show {
+    display: flex;
+    opacity: 1;
+}
+
+/* Modal Content */
 .card-modal-content {
-    background: linear-gradient(135deg, #1f1f1f, #2b2b2b); /* Subtle gradient for sleekness */
+    background: linear-gradient(135deg, #222, #333); /* Refined, sleek gradient */
     padding: 48px;
-    border-radius: 16px; /* Smoother corners */
+    border-radius: 18px; /* Softer, more modern corners */
     width: 600px;
-    max-width: 90%; /* Responsiveness for smaller screens */
+    max-width: 90%;
     color: #f5f5f5;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.75); /* Stronger shadow for depth */
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8); /* Deeper shadow for depth */
     max-height: 80vh;
     overflow-y: auto;
-    transform: translateY(-30px); /* Refined slide effect */
-    transition: transform 0.4s ease, opacity 0.4s ease; /* Smoother fade and slide */
+    transform: scale(0.85); /* Start small */
+    transition: transform 0.4s ease, opacity 0.4s ease;
 }
 
+/* Modal Slide & Zoom Animation */
 .card-modal.show .card-modal-content {
-    transform: translateY(0); /* Slide into place */
-    opacity: 1; /* Fade in effect */
+    transform: scale(1); /* Zoom in effect */
+    opacity: 1; /* Fade in */
 }
 
 /* Header Section */
@@ -435,29 +445,30 @@ body {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 24px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Thin, sleek line */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Clean divider */
     padding-bottom: 12px;
 }
 
 .card-modal-header h2 {
     font-size: 26px;
-    font-weight: 600;
-    color: #fff;
+    font-weight: 700;
+    color: #f8f8f8;
+    letter-spacing: 0.6px;
     margin: 0;
-    letter-spacing: 0.5px; /* Modern letter spacing */
+    text-transform: uppercase;
 }
 
 .card-modal-header .close {
     font-size: 28px;
-    color: #ccc;
+    color: #bbb;
     cursor: pointer;
-    padding: 8px;
+    padding: 10px;
     border-radius: 50%;
-    transition: background-color 0.3s, color 0.3s ease;
+    transition: color 0.2s, background-color 0.2s ease;
 }
 
 .card-modal-header .close:hover {
-    background-color: rgba(255, 255, 255, 0.1); /* Light background on hover */
+    background-color: rgba(255, 255, 255, 0.2);
     color: #fff;
 }
 
@@ -466,29 +477,29 @@ body {
 .card-modal form select,
 .card-modal form textarea {
     width: 100%;
-    padding: 16px; /* Larger padding for a premium feel */
+    padding: 14px;
     margin-bottom: 16px;
-    background-color: rgba(255, 255, 255, 0.08); /* Transparent background */
-    border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border */
-    border-radius: 12px; /* Smoother corners */
+    background-color: rgba(255, 255, 255, 0.1); /* Light transparent background */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
     color: #f0f0f0;
     font-size: 16px;
-    transition: border-color 0.3s ease;
+    transition: background-color 0.3s, border-color 0.3s;
 }
 
 .card-modal form input:focus,
 .card-modal form select:focus,
 .card-modal form textarea:focus {
-    border-color: #d2a679; /* Gold focus border */
+    border-color: #d4a759;
+    background-color: rgba(255, 255, 255, 0.15); /* Slight change on focus */
     outline: none;
-    background-color: rgba(255, 255, 255, 0.12); /* Slightly lighter on focus */
 }
 
 /* Grouping input fields */
 .input-group {
     display: flex;
     justify-content: space-between;
-    gap: 24px;
+    gap: 20px;
     margin-bottom: 16px;
 }
 
@@ -506,30 +517,34 @@ body {
 
 button {
     padding: 14px 28px;
-    background-color: #666;
+    background-color: #5e5e5e;
     border: none;
-    border-radius: 10px;
+    border-radius: 8px;
     color: #f5f5f5;
     font-size: 16px;
+    font-weight: 600;
     cursor: pointer;
-    font-weight: 500;
-    transition: background-color 0.3s ease, transform 0.2s;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Small shadow for depth */
 }
 
 button:hover {
-    background-color: #d2a679; /* Warm gold on hover */
-    transform: translateY(-2px); /* Slight elevation on hover */
+    background-color: #d2a679;
+    transform: translateY(-3px); /* Lift on hover */
 }
 
+/* Save Button */
 .btn-save {
-    background-color: #d2a679; /* Warm gold save button */
+    background-color: #d2a679;
     color: #1a1a1a;
 }
 
 .btn-save:hover {
     background-color: #e0b984;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
 }
 
+/* Cancel Button */
 .btn-cancel {
     background-color: #444;
 }
@@ -540,7 +555,7 @@ button:hover {
 
 /* Scrollbar Styles */
 .card-modal-content::-webkit-scrollbar {
-    width: 10px;
+    width: 12px;
 }
 
 .card-modal-content::-webkit-scrollbar-thumb {
@@ -573,13 +588,6 @@ button:hover {
 .card-modal form textarea {
     resize: vertical;
     min-height: 120px;
-}
-
-/* Hover effect for input fields */
-.card-modal form input:hover,
-.card-modal form select:hover,
-.card-modal form textarea:hover {
-    border-color: rgba(255, 255, 255, 0.4); /* Soft hover border */
 }
 
 

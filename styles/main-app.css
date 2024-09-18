@@ -410,9 +410,7 @@ body {
     transition: all 0.3s ease-in-out;
 }
 
-.card-modal.show {
-    display: flex; /* Show the modal when triggered */
-}
+
 
 .card-modal-content {
     background-color: #2e2e2e; /* Sleek dark background */
@@ -535,7 +533,15 @@ button:hover {
     background-color: #666;
 }
 
+/* Scrollbar Styles for Modal */
+.card-modal-content::-webkit-scrollbar {
+    width: 10px;
+}
 
+.card-modal-content::-webkit-scrollbar-thumb {
+    background-color: #555; 
+    border-radius: 10px;
+}
 
 /* Responsive Modal */
 @media (max-width: 768px) {

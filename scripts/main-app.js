@@ -345,28 +345,7 @@ window.closeDealModal = function() {
 };
 
 
-// Function to delete a deal
-window.deleteDeal = async function(dealId) {
-    const user = auth.currentUser;
-    if (!user) return;
 
-    try {
-        // Confirm deletion
-        if (confirm('Are you sure you want to delete this deal?')) {
-            // Remove the deal from Firestore
-            await deleteDoc(doc(db, 'deals', dealId));
-
-            // Remove the deal from the local array
-            deals = deals.filter(d => d.dealId !== dealId);
-
-            alert('Deal deleted successfully.');
-            renderDeals(); // Re-render the deal cards on the dashboard
-        }
-    } catch (error) {
-        console.error('Error deleting deal:', error);
-        alert('Error deleting deal: ' + error.message);
-    }
-};
 
 
 
@@ -402,9 +381,9 @@ window.editDeal = function(dealId) {
 // Function to save a new or edited deal
 window.saveDeal = async function() {
     const user = auth.currentUser;
-    if (!user) return; // Ensure the user is authenticated
+    if (!user) return;
 
-    const dealId = document.getElementById('dealId').value || doc(collection(db, 'deals')).id; // Use the existing dealId if editing, otherwise generate new
+    const dealId = document.getElementById('dealId').value || doc(collection(db, 'deals')).id;
 
     const dealData = {
         businessName: document.getElementById('businessName').value,
@@ -419,22 +398,43 @@ window.saveDeal = async function() {
         askingPrice: document.getElementById('askingPrice').value,
         realEstatePrice: document.getElementById('realEstatePrice').value,
         lastUpdate: new Date().toISOString(),
-        userId: user.uid, // Associate deal with the current user
-        dealId: dealId // Ensure dealId is saved
+        userId: user.uid,
+        dealId: dealId
     };
 
     try {
-        const dealsCollection = collection(db, 'deals'); // Reference to the 'deals' collection
-        await setDoc(doc(dealsCollection, dealId), dealData); // Save or update deal in Firestore
+        const dealsCollection = collection(db, 'deals');
+        await setDoc(doc(dealsCollection, dealId), dealData);
 
-        alert('Deal saved successfully!');
+        showToast('Deal saved successfully!');
         closeCardModal();
         fetchDeals(); // Refresh deals on the dashboard
     } catch (error) {
         console.error('Error saving deal:', error);
-        alert('Error saving deal: ' + error.message);
+        showToast('Error saving deal: ' + error.message, false);
     }
 };
+
+// Function to delete a deal
+window.deleteDeal = async function(dealId) {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    try {
+        // Remove the deal from Firestore
+        await deleteDoc(doc(db, 'deals', dealId));
+
+        // Remove the deal from the local array
+        deals = deals.filter(d => d.dealId !== dealId);
+
+        showToast('Deal deleted successfully.');
+        renderDeals(); // Re-render the deal cards on the dashboard
+    } catch (error) {
+        console.error('Error deleting deal:', error);
+        showToast('Error deleting deal: ' + error.message, false);
+    }
+};
+
 
 
 // Function to fetch and display deals
@@ -453,6 +453,7 @@ window.fetchDeals = async function() {
         console.error('Error fetching deals:', error);
     }
 };
+
 
 
 // Function to render deals on the dashboard

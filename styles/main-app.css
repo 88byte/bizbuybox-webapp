@@ -417,15 +417,10 @@ body {
     width: 600px;
     color: #fff; /* Light text for readability */
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6); /* Soft shadow */
-    max-height: 80vh; /* Ensures content doesn't overflow the viewport */
-    overflow-y: auto; /* Allows scrolling when necessary */
+    overflow-y: auto; /* Scroll if content overflows */
     transition: transform 0.3s ease, opacity 0.3s ease;
-    opacity: 0;
-    transform: translateY(-50px); /* Start with a slide effect */
-}
-
-.card-modal.show {
-    display: flex; /* Ensure modal is displayed */
+    opacity: 0; /* Ensure opacity is visible */
+    transform: translateY(-50px); /* Start with a slide effect *
 }
 
 .card-modal.show .card-modal-content {
@@ -552,7 +547,6 @@ button:hover {
         padding: 24px;
     }
 }
-
 
 
 

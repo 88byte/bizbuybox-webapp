@@ -199,46 +199,7 @@ function setActiveNav(sectionId) {
     });
 }
 
-// Deal Management Functions
-let deals = []; // Example array to hold deals
 
-// Function to open the deal creation modal
-window.createDeal = function() {
-    document.getElementById('dealForm').reset(); // Reset the form fields
-    document.getElementById('dealId').value = ''; // Clear dealId for a new deal
-    document.getElementById('modalTitle').textContent = 'Create a New Deal'; // Set modal title
-    document.getElementById('cardModal').style.display = 'block'; // Show the modal
-};
-
-// Function to close the card modal
-window.closeCardModal = function() {
-    document.getElementById('cardModal').style.display = 'none';
-};
-
-
-
-// Function to edit a deal
-window.editDeal = function(dealId) {
-    const deal = deals.find(d => d.id === dealId);
-    const newDealName = prompt('Edit Deal Name:', deal.name);
-    if (newDealName) {
-        deal.name = newDealName;
-        renderDeals();
-    }
-}
-
-// Function to delete a deal
-window.deleteDeal = function(dealId) {
-    deals = deals.filter(d => d.id !== dealId);
-    renderDeals();
-}
-
-// Function to search deals
-window.searchDeals = function() {
-    const searchTerm = document.getElementById('searchDeals').value.toLowerCase();
-    const filteredDeals = deals.filter(deal => deal.name.toLowerCase().includes(searchTerm));
-    renderDeals(filteredDeals);
-}
 
 
 
@@ -329,6 +290,39 @@ window.deleteAccount = async function () {
     }
 };
 
+
+
+
+
+// Deal Management Functions
+let deals = []; // Example array to hold deals
+
+// Function to open the deal creation modal
+window.createDeal = function() {
+    document.getElementById('dealForm').reset(); // Reset the form fields
+    document.getElementById('dealId').value = ''; // Clear dealId for a new deal
+    document.getElementById('modalTitle').textContent = 'Create a New Deal'; // Set modal title
+    document.getElementById('cardModal').style.display = 'block'; // Show the modal
+};
+
+// Function to close the card modal
+window.closeCardModal = function() {
+    document.getElementById('cardModal').style.display = 'none';
+};
+
+
+
+
+
+
+// Function to search deals
+window.searchDeals = function() {
+    const searchTerm = document.getElementById('searchDeals').value.toLowerCase();
+    const filteredDeals = deals.filter(deal => deal.name.toLowerCase().includes(searchTerm));
+    renderDeals(filteredDeals);
+}
+
+
 // Function to open the deal modal
 window.openDealModal = function(deal = null) {
     document.getElementById('cardModal').style.display = 'flex';
@@ -350,12 +344,67 @@ window.closeDealModal = function() {
     document.getElementById('cardModal').style.display = 'none';
 };
 
+
+// Function to delete a deal
+window.deleteDeal = async function(dealId) {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    try {
+        // Confirm deletion
+        if (confirm('Are you sure you want to delete this deal?')) {
+            // Remove the deal from Firestore
+            await deleteDoc(doc(db, 'deals', dealId));
+
+            // Remove the deal from the local array
+            deals = deals.filter(d => d.dealId !== dealId);
+
+            alert('Deal deleted successfully.');
+            renderDeals(); // Re-render the deal cards on the dashboard
+        }
+    } catch (error) {
+        console.error('Error deleting deal:', error);
+        alert('Error deleting deal: ' + error.message);
+    }
+};
+
+
+
+
+// Function to edit a deal (opens the modal pre-filled with the deal data)
+window.editDeal = function(dealId) {
+    const deal = deals.find(d => d.dealId === dealId); // Find deal by its Firestore ID
+    if (deal) {
+        // Populate the modal with existing deal data
+        document.getElementById('dealId').value = deal.dealId; // Store the deal ID in a hidden field
+        document.getElementById('businessName').value = deal.businessName;
+        document.getElementById('status').value = deal.status;
+        document.getElementById('yearsInBusiness').value = deal.yearsInBusiness;
+        document.getElementById('fullTimeEmployees').value = deal.fullTimeEmployees;
+        document.getElementById('partTimeEmployees').value = deal.partTimeEmployees;
+        document.getElementById('contractors').value = deal.contractors;
+        document.getElementById('businessAddress').value = deal.businessAddress;
+        document.getElementById('licenses').value = deal.licenses;
+        document.getElementById('notes').value = deal.notes;
+        document.getElementById('askingPrice').value = deal.askingPrice;
+        document.getElementById('realEstatePrice').value = deal.realEstatePrice;
+
+        // Update the modal title
+        document.getElementById('modalTitle').textContent = 'Edit Deal';
+
+        // Open the modal
+        document.getElementById('cardModal').style.display = 'block';
+    } else {
+        console.error('Deal not found.');
+    }
+};
+
 // Function to save a new or edited deal
 window.saveDeal = async function() {
     const user = auth.currentUser;
     if (!user) return; // Ensure the user is authenticated
 
-    const dealId = document.getElementById('dealId').value || doc(collection(db, 'deals')).id; // Generate new ID if not provided
+    const dealId = document.getElementById('dealId').value || doc(collection(db, 'deals')).id; // Use the existing dealId if editing, otherwise generate new
 
     const dealData = {
         businessName: document.getElementById('businessName').value,
@@ -376,7 +425,7 @@ window.saveDeal = async function() {
 
     try {
         const dealsCollection = collection(db, 'deals'); // Reference to the 'deals' collection
-        await setDoc(doc(dealsCollection, dealId), dealData); // Save deal data to Firestore
+        await setDoc(doc(dealsCollection, dealId), dealData); // Save or update deal in Firestore
 
         alert('Deal saved successfully!');
         closeCardModal();
@@ -386,6 +435,7 @@ window.saveDeal = async function() {
         alert('Error saving deal: ' + error.message);
     }
 };
+
 
 // Function to fetch and display deals
 window.fetchDeals = async function() {
@@ -403,6 +453,7 @@ window.fetchDeals = async function() {
         console.error('Error fetching deals:', error);
     }
 };
+
 
 // Function to render deals on the dashboard
 function renderDeals() {

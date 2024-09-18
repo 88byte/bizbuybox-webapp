@@ -423,22 +423,22 @@ body {
     backdrop-filter: blur(15px); /* Glassmorphism effect */
     padding: 32px;
     border-radius: 16px;
-    width: 550px; /* More spacious width */
-    max-width: 90%; /* Responsive for smaller screens */
+    width: 550px;
+    max-width: 90%;
     color: #fff;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Softer shadow for elegance */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     max-height: 80vh;
     overflow-y: auto;
-    transform: translateY(-30px) scale(0.95); /* Subtle scale on show */
+    transform: translateY(-30px) scale(0.95);
     transition: transform 0.4s ease, opacity 0.4s ease;
-    opacity: 0;
 }
 
-/* Slide & Zoom Effect */
+/* Show Modal */
 .card-modal.show .card-modal-content {
-    transform: translateY(0) scale(1); /* Slide in and zoom slightly */
-    opacity: 1;
+    transform: translateY(0) scale(1); /* Slide into place */
+    opacity: 1; /* Fade in */
 }
+
 
 /* Header Section */
 .card-modal-header {

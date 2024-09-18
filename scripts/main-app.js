@@ -319,9 +319,12 @@ window.searchDeals = function() {
 
 
 // Function to open the deal modal
+// Function to open the deal modal
 window.openDealModal = function(deal = null) {
-    document.getElementById('cardModal').style.display = 'flex';
-    
+    const modal = document.getElementById('cardModal');
+    modal.classList.add('show'); // Add the 'show' class for visibility
+    modal.style.display = 'flex'; // Set the display to 'flex' to center the modal
+
     if (deal) {
         // Populate modal with existing deal data
         document.getElementById('businessName').value = deal.businessName || '';
@@ -336,8 +339,13 @@ window.openDealModal = function(deal = null) {
 
 // Function to close the deal modal
 window.closeDealModal = function() {
-    document.getElementById('cardModal').style.display = 'none';
+    const modal = document.getElementById('cardModal');
+    modal.classList.remove('show'); // Remove the 'show' class for fade-out
+    setTimeout(() => {
+        modal.style.display = 'none'; // Set the display to 'none' after fade-out transition
+    }, 300); // Match the transition duration (0.3s) for the fade-out
 };
+
 
 
 

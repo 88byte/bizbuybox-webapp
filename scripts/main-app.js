@@ -415,6 +415,43 @@ window.saveDeal = async function() {
     }
 };
 
+let dealToDelete = null;
+
+// Function to open the delete confirmation modal
+window.openConfirmationModal = function(dealId) {
+    dealToDelete = dealId; // Store the deal ID to be deleted
+    document.getElementById('confirmationModal').style.display = 'flex'; // Show the delete modal
+};
+
+// Function to close the delete confirmation modal
+window.closeConfirmationModal = function() {
+    dealToDelete = null; // Reset the deal ID
+    document.getElementById('confirmationModal').style.display = 'none'; // Hide the delete modal
+};
+
+// Function to confirm the deletion of the deal
+window.confirmDeleteDeal = async function() {
+    if (!dealToDelete) return; // Ensure there's a deal to delete
+
+    const user = auth.currentUser;
+    if (!user) return;
+
+    try {
+        // Remove the deal from Firestore
+        await deleteDoc(doc(db, 'deals', dealToDelete));
+
+        // Remove the deal from the local array
+        deals = deals.filter(d => d.dealId !== dealToDelete);
+
+        showToast('Deal deleted successfully.');
+        renderDeals(); // Re-render the deal cards on the dashboard
+        closeConfirmationModal(); // Close the modal after successful deletion
+    } catch (error) {
+        console.error('Error deleting deal:', error);
+        showToast('Error deleting deal: ' + error.message, false);
+    }
+};
+
 // Function to delete a deal
 window.deleteDeal = async function(dealId) {
     const user = auth.currentUser;
@@ -472,6 +509,28 @@ function renderDeals() {
             <div class="deal-actions">
                 <button onclick="editDeal('${deal.dealId}')">Edit</button>
                 <button onclick="deleteDeal('${deal.dealId}')">Delete</button>
+            </div>
+        `;
+        dealGrid.appendChild(dealCard);
+    });
+}
+
+// Function to render deals on the dashboard
+function renderDeals() {
+    const dealGrid = document.getElementById('dealGrid');
+    dealGrid.innerHTML = ''; // Clear the existing content
+
+    deals.forEach(deal => {
+        const dealCard = document.createElement('div');
+        dealCard.className = 'deal-card';
+        dealCard.innerHTML = `
+            <h4>${deal.businessName}</h4>
+            <p>Status: ${deal.status}</p>
+            <p>Asking Price: ${deal.askingPrice}</p>
+            <p>Last Updated: ${new Date(deal.lastUpdate).toLocaleDateString()}</p>
+            <div class="deal-actions">
+                <button onclick="editDeal('${deal.dealId}')">Edit</button>
+                <button onclick="openConfirmationModal('${deal.dealId}')">Delete</button>
             </div>
         `;
         dealGrid.appendChild(dealCard);

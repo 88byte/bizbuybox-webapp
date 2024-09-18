@@ -201,10 +201,6 @@ function setActiveNav(sectionId) {
 
 
 
-
-
-
-
 // Make functions globally accessible
 window.openProfileModal = function () {
     document.getElementById('profileModal').style.display = 'flex';
@@ -229,7 +225,6 @@ window.previewProfilePicture = function (event) {
     };
     reader.readAsDataURL(event.target.files[0]);
 };
-
 
 
 
@@ -491,30 +486,6 @@ window.fetchDeals = async function() {
     }
 };
 
-
-
-// Function to render deals on the dashboard
-function renderDeals() {
-    const dealGrid = document.getElementById('dealGrid');
-    dealGrid.innerHTML = ''; // Clear the existing content
-
-    deals.forEach(deal => {
-        const dealCard = document.createElement('div');
-        dealCard.className = 'deal-card';
-        dealCard.innerHTML = `
-            <h4>${deal.businessName}</h4>
-            <p>Status: ${deal.status}</p>
-            <p>Asking Price: ${deal.askingPrice}</p>
-            <p>Last Updated: ${new Date(deal.lastUpdate).toLocaleDateString()}</p>
-            <div class="deal-actions">
-                <button onclick="editDeal('${deal.dealId}')">Edit</button>
-                <button onclick="deleteDeal('${deal.dealId}')">Delete</button>
-            </div>
-        `;
-        dealGrid.appendChild(dealCard);
-    });
-}
-
 // Function to render deals on the dashboard
 function renderDeals() {
     const dealGrid = document.getElementById('dealGrid');
@@ -536,6 +507,8 @@ function renderDeals() {
         dealGrid.appendChild(dealCard);
     });
 }
+
+
 
 
 

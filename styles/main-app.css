@@ -58,6 +58,16 @@ body {
     transform: scale(1.1);
 }
 
+/* Username styles */
+.profile-username {
+    font-size: 14px; /* Adjust font size as needed */
+    color: #97835a; /* Updated text color for better readability */
+    margin-top: 8px; /* Spacing between image and username */
+    text-align: center; /* Center the text */
+    font-weight: bold; /* Make the text bold */
+}
+
+
 /* Profile Modal Styles */
 .profileModal {
     display: none;

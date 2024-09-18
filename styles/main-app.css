@@ -419,6 +419,7 @@ body {
     color: #f5f5f5;
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.75); /* Stronger shadow for depth */
     max-height: 80vh;
+    overflow-y: auto;
     transform: translateY(-30px); /* Refined slide effect */
     transition: transform 0.4s ease, opacity 0.4s ease; /* Smoother fade and slide */
 }

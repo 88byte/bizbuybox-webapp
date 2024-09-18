@@ -403,7 +403,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.8); /* Dark overlay */
+    background-color: rgba(0, 0, 0, 0.85); /* Dark overlay */
     justify-content: center;
     align-items: center;
     z-index: 1000;
@@ -411,12 +411,12 @@ body {
 }
 
 .card-modal-content {
-    background-color: #2e2e2e; /* Dark background for modal */
-    padding: 32px; /* Extra padding for comfort */
+    background-color: #292929; /* Darker background for a sleek look */
+    padding: 40px; /* Extra padding for comfort */
     border-radius: 16px; /* Rounded corners */
-    width: 600px; /* Slightly wider modal */
-    color: #ddd; /* Light text for contrast */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); /* Soft shadow for elevation */
+    width: 600px;
+    color: #eee; /* Light text for contrast */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); /* Soft shadow for elevation */
     max-height: 80vh;
     overflow-y: auto;
     transform: translateY(-50px); /* Subtle slide effect on show */
@@ -439,14 +439,14 @@ body {
 }
 
 .card-modal-header h2 {
-    font-size: 24px;
+    font-size: 26px;
     font-weight: 600;
     color: #fff;
     margin: 0;
 }
 
 .card-modal-header .close {
-    font-size: 20px;
+    font-size: 24px;
     color: #bbb;
     cursor: pointer;
     transition: color 0.3s ease;
@@ -463,8 +463,8 @@ body {
     width: 100%;
     padding: 12px;
     margin-bottom: 16px;
-    background-color: #404040;
-    border: 1px solid #555;
+    background-color: #3a3a3a;
+    border: 1px solid #666;
     border-radius: 8px;
     color: #ddd;
     font-size: 16px;
@@ -543,12 +543,12 @@ body {
 /* Responsive Modal */
 @media (max-width: 768px) {
     .card-modal-content {
-        width: 90%; /* Reduce modal width on smaller screens */
+        width: 90%;
         padding: 16px;
     }
 }
 
-/* Section Heading for Modal (Optional) */
+/* Section Heading for Modal */
 .card-modal .section-heading {
     font-size: 18px;
     font-weight: 500;
@@ -577,7 +577,7 @@ body {
 .card-modal form input:hover,
 .card-modal form select:hover,
 .card-modal form textarea:hover {
-    border-color: #666; /* Slight hover effect */
+    border-color: #666;
 }
 
 

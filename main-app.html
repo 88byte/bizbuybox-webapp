@@ -148,79 +148,92 @@
 
 
 	<!-- Card Modal (hidden by default) -->
-<div id="cardModal" class="card-modal">
-    <div class="card-modal-content">
-        <div class="card-modal-header">
-            <h2 id="modalTitle">Deal Details</h2>
-            <span class="close" onclick="closeCardModal()">&times;</span>
-        </div>
-        <form id="dealForm" onsubmit="saveDeal(); return false;">
-            <input type="hidden" id="dealId">
-            
-            <div class="input-group">
-                <div>
-                    <label for="businessName">Business Name</label>
-                    <input type="text" id="businessName" required>
-                </div>
-                <div>
-                    <label for="status">Status</label>
-                    <select id="status" required>
-                        <option value="active">Active</option>
-                        <option value="closed">Closed</option>
-                        <option value="opportunity">Opportunity</option>
-                    </select>
-                </div>
-            </div>
+	<div id="cardModal" class="card-modal">
+	    <div class="card-modal-content">
+	        <div class="card-modal-header">
+	            <h2 id="modalTitle">Deal Details</h2>
+	            <span class="close" onclick="closeCardModal()">&times;</span>
+	        </div>
+	        <form id="dealForm" onsubmit="saveDeal(); return false;">
+	            <input type="hidden" id="dealId">
 
-            <div class="input-group">
-                <div>
-                    <label for="yearsInBusiness">Years in Business</label>
-                    <input type="number" id="yearsInBusiness">
-                </div>
-                <div>
-                    <label for="fullTimeEmployees">Full Time Employees</label>
-                    <input type="number" id="fullTimeEmployees">
-                </div>
-            </div>
+	            <!-- Business and Status Fields -->
+	            <div class="input-group">
+	                <div>
+	                    <label for="businessName">Business Name</label>
+	                    <input type="text" id="businessName" placeholder="Enter business name" required>
+	                </div>
+	                <div>
+	                    <label for="status">Status</label>
+	                    <select id="status" required>
+	                        <option value="active">Active</option>
+	                        <option value="closed">Closed</option>
+	                        <option value="opportunity">Opportunity</option>
+	                    </select>
+	                </div>
+	            </div>
 
-            <div class="input-group">
-                <div>
-                    <label for="partTimeEmployees">Part Time Employees</label>
-                    <input type="number" id="partTimeEmployees">
-                </div>
-                <div>
-                    <label for="contractors">Contractors</label>
-                    <input type="number" id="contractors">
-                </div>
-            </div>
+	            <!-- Employees and Contractors Fields -->
+	            <div class="input-group">
+	                <div>
+	                    <label for="yearsInBusiness">Years in Business</label>
+	                    <input type="number" id="yearsInBusiness" placeholder="Years in business">
+	                </div>
+	                <div>
+	                    <label for="fullTimeEmployees">Full Time Employees</label>
+	                    <input type="number" id="fullTimeEmployees" placeholder="Number of full-time employees">
+	                </div>
+	            </div>
 
-            <label for="businessAddress">Business Address</label>
-            <input type="text" id="businessAddress">
+	            <div class="input-group">
+	                <div>
+	                    <label for="partTimeEmployees">Part Time Employees</label>
+	                    <input type="number" id="partTimeEmployees" placeholder="Number of part-time employees">
+	                </div>
+	                <div>
+	                    <label for="contractors">Contractors</label>
+	                    <input type="number" id="contractors" placeholder="Number of contractors">
+	                </div>
+	            </div>
 
-            <label for="licenses">Licenses</label>
-            <input type="text" id="licenses">
+	            <!-- Address and Licenses -->
+	            <div>
+	                <label for="businessAddress">Business Address</label>
+	                <input type="text" id="businessAddress" placeholder="Enter business address">
+	            </div>
 
-            <label for="notes">Notes</label>
-            <textarea id="notes"></textarea>
+	            <div>
+	                <label for="licenses">Licenses</label>
+	                <input type="text" id="licenses" placeholder="Any required licenses">
+	            </div>
 
-            <div class="input-group">
-                <div>
-                    <label for="askingPrice">Asking Price</label>
-                    <input type="number" id="askingPrice">
-                </div>
-                <div>
-                    <label for="realEstatePrice">Real Estate Price</label>
-                    <input type="number" id="realEstatePrice">
-                </div>
-            </div>
+	            <!-- Asking and Real Estate Prices -->
+	            <div class="input-group">
+	                <div>
+	                    <label for="askingPrice">Asking Price</label>
+	                    <input type="number" id="askingPrice" placeholder="Enter asking price">
+	                </div>
+	                <div>
+	                    <label for="realEstatePrice">Real Estate Price</label>
+	                    <input type="number" id="realEstatePrice" placeholder="Enter real estate price">
+	                </div>
+	            </div>
 
-            <div class="modal-actions">
-                <button type="button" class="btn-cancel" onclick="closeCardModal()">Cancel</button>
-                <button type="submit" class="btn-save">Save Deal</button>
-            </div>
-        </form>
-    </div>
-</div>
+	            <!-- Notes Section -->
+	            <div>
+	                <label for="notes">Notes</label>
+	                <textarea id="notes" placeholder="Additional notes about the deal"></textarea>
+	            </div>
+
+	            <!-- Action Buttons -->
+	            <div class="modal-actions">
+	                <button type="button" class="btn-cancel" onclick="closeCardModal()">Cancel</button>
+	                <button type="submit" class="btn-save">Save Deal</button>
+	            </div>
+	        </form>
+	    </div>
+	</div>
+
 
 
 	<!-- Toast Notification HTML -->

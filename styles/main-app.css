@@ -430,14 +430,18 @@ body {
     max-height: 80vh;
     overflow-y: auto;
     transform: translateY(-30px) scale(0.95); /* Initial state for sliding */
-    transition: transform 0.4s ease, opacity 0.4s ease;
+    opacity: 0; /* Hidden initially */
+    visibility: hidden; /* Hidden initially to avoid interaction */
+    transition: transform 0.4s ease, opacity 0.4s ease, visibility 0.4s;
 }
 
 /* Show Modal */
 .card-modal.show .card-modal-content {
     transform: translateY(0) scale(1); /* Slide into place */
     opacity: 1; /* Fully visible */
+    visibility: visible; /* Ensure it's visible */
 }
+
 
 
 /* Header Section */

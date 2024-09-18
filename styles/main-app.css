@@ -397,6 +397,7 @@ body {
 
 /* Card Modal Overlay */
 .card-modal {
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
@@ -405,17 +406,16 @@ body {
     background: rgba(0, 0, 0, 0.5); /* Lighter overlay */
     justify-content: center;
     align-items: center;
+    opacity: 0; /* Hidden initially */
     z-index: 1000;
     backdrop-filter: blur(12px); /* Stronger background blur for glassmorphism effect */
-    opacity: 0; /* Hidden initially */
-    visibility: hidden; /* Hidden initially */
-    transition: all 0.4s ease; /* Transition for opacity and visibility */
+    transition: all 0.4s ease;
 }
 
 /* Show Modal */
 .card-modal.show {
+    display: flex;
     opacity: 1;
-    visibility: visible; /* Show modal */
 }
 
 /* Modal Content */
@@ -431,15 +431,17 @@ body {
     max-height: 80vh;
     overflow-y: auto;
     transform: translateY(-30px) scale(0.95); /* Initial state for sliding */
-    transition: transform 0.4s ease, opacity 0.4s ease; /* Smoother transitions */
+    
+    visibility: hidden; /* Hidden initially to avoid interaction */
+    transition: transform 0.4s ease, opacity 0.4s ease, visibility 0.4s;
 }
 
-/* Show Modal Content */
+/* Show Modal */
 .card-modal.show .card-modal-content {
     transform: translateY(0) scale(1); /* Slide into place */
     opacity: 1; /* Fully visible */
+    visibility: visible; /* Ensure it's visible */
 }
-
 
 
 

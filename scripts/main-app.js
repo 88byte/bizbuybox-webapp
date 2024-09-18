@@ -297,7 +297,7 @@ window.createDeal = function() {
     document.getElementById('dealForm').reset(); // Reset the form fields
     document.getElementById('dealId').value = ''; // Clear dealId for a new deal
     document.getElementById('modalTitle').textContent = 'Create a New Deal'; // Set modal title
-    document.getElementById('cardModal').style.display = 'block'; // Show the modal
+    document.getElementById('cardModal').style.display = 'flex'; // Show the modal
 };
 
 // Function to close the card modal
@@ -374,7 +374,7 @@ window.editDeal = function(dealId) {
         document.getElementById('modalTitle').textContent = 'Edit Deal';
 
         // Open the modal
-        document.getElementById('cardModal').style.display = 'block';
+        document.getElementById('cardModal').style.display = 'flex';
     } else {
         console.error('Deal not found.');
     }

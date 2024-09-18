@@ -334,23 +334,19 @@ window.openCardModal = function(deal = null) {
         document.getElementById('dealForm').reset();
     }
 
-    // Set visibility to ensure it's visible immediately
-    modal.style.visibility = 'visible';
-    modal.style.opacity = '1'; // Ensure it's fully visible
-    modal.style.display = 'flex'; // Set display to flex to position modal properly
+    // Ensure the modal is fully visible by setting display after a slight delay
+    setTimeout(() => {
+        modal.style.display = 'flex';
+    }, 10); // A slight delay to ensure the modal is displayed before animations
 };
 
 // Function to close the deal modal
 window.closeCardModal = function() {
     const modal = document.getElementById('cardModal');
     modal.classList.remove('show'); // Remove the 'show' class for fade-out
-
-    // Transition out
-    modal.style.opacity = '0';
-    modal.style.visibility = 'hidden'; // Hide the modal after transition
     setTimeout(() => {
-        modal.style.display = 'none'; // Finally hide it after transition
-    }, 400); // Match the transition duration (0.4s)
+        modal.style.display = 'none'; // Set display to 'none' after transition
+    }, 400); // Match the transition duration (0.4s) for the fade-out
 };
 
 

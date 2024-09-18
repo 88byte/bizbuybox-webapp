@@ -319,8 +319,7 @@ window.searchDeals = function() {
 
 
 // Function to open the deal modal
-// Function to open the deal modal
-window.openDealModal = function(deal = null) {
+window.openCardModal = function(deal = null) {
     const modal = document.getElementById('cardModal');
     modal.classList.add('show'); // Add the 'show' class for visibility
     modal.style.display = 'flex'; // Set the display to 'flex' to center the modal
@@ -338,7 +337,7 @@ window.openDealModal = function(deal = null) {
 };
 
 // Function to close the deal modal
-window.closeDealModal = function() {
+window.closeCardModal = function() {
     const modal = document.getElementById('cardModal');
     modal.classList.remove('show'); // Remove the 'show' class for fade-out
     setTimeout(() => {

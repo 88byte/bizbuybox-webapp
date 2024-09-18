@@ -297,7 +297,9 @@ window.createDeal = function() {
     document.getElementById('dealForm').reset(); // Reset the form fields
     document.getElementById('dealId').value = ''; // Clear dealId for a new deal
     document.getElementById('modalTitle').textContent = 'Create a New Deal'; // Set modal title
-    document.getElementById('cardModal').style.display = 'flex'; // Show the modal
+    
+    // Open the modal using the new animation method
+    openCardModal();
 };
 
 // Function to close the card modal
@@ -319,34 +321,21 @@ window.searchDeals = function() {
 
 
 // Function to open the deal modal
-window.openCardModal = function(deal = null) {
+window.openCardModal = function() {
     const modal = document.getElementById('cardModal');
-    modal.classList.add('show'); // Add the 'show' class for visibility
-
-    if (deal) {
-        // Populate modal with existing deal data
-        document.getElementById('businessName').value = deal.businessName || '';
-        document.getElementById('status').value = deal.status || '';
-        document.getElementById('yearsInBusiness').value = deal.yearsInBusiness || '';
-        // Populate other fields as needed...
-    } else {
-        // Clear modal fields for a new deal
-        document.getElementById('dealForm').reset();
-    }
-
-    // Ensure the modal is fully visible by setting display after a slight delay
+    modal.style.display = 'flex'; // Ensure the modal is visible
     setTimeout(() => {
-        modal.style.display = 'flex';
-    }, 10); // A slight delay to ensure the modal is displayed before animations
+        modal.classList.add('show'); // Add the 'show' class for animation
+    }, 10); // Slight delay for transition
 };
 
-// Function to close the deal modal
+// Function to close the deal modal with animation
 window.closeCardModal = function() {
     const modal = document.getElementById('cardModal');
     modal.classList.remove('show'); // Remove the 'show' class for fade-out
     setTimeout(() => {
-        modal.style.display = 'none'; // Set display to 'none' after transition
-    }, 400); // Match the transition duration (0.4s) for the fade-out
+        modal.style.display = 'none'; // Hide the modal after transition
+    }, 500); // Wait for the animation to finish (0.5s)
 };
 
 
@@ -377,8 +366,8 @@ window.editDeal = function(dealId) {
         // Update the modal title
         document.getElementById('modalTitle').textContent = 'Edit Deal';
 
-        // Open the modal
-        document.getElementById('cardModal').style.display = 'flex';
+        // Open the modal using the new animation method
+        openCardModal(); 
     } else {
         console.error('Deal not found.');
     }

@@ -430,7 +430,6 @@ body {
     max-height: 80vh;
     overflow-y: auto;
     transform: translateY(-30px) scale(0.95); /* Initial state for sliding */
-    opacity: 0; /* Hidden initially */
     transition: transform 0.4s ease, opacity 0.4s ease;
 }
 

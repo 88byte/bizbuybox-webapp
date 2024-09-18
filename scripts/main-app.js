@@ -10,7 +10,8 @@ import {
     updateProfile, 
     updateEmail, 
     updatePassword, 
-    deleteUser 
+    deleteUser,
+    onAuthStateChanged 
 } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 import { 
     getFirestore, 
@@ -21,7 +22,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
 import { 
     getStorage, 
-    ref, // Import the ref function properly
+    ref, 
     uploadBytes, 
     getDownloadURL 
 } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-storage.js";
@@ -41,10 +42,105 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 // Initialize Firebase services
-window.auth = getAuth(app); // Make auth globally accessible
-window.db = getFirestore(app); // Make Firestore globally accessible
-window.storage = getStorage(app); // Make Storage globally accessible
+window.auth = getAuth(app); 
+window.db = getFirestore(app); 
+window.storage = getStorage(app); 
 const provider = new GoogleAuthProvider();
+
+
+// Function to fetch and display user profile data
+window.displayUserProfile = function () {
+    const user = auth.currentUser;
+
+    if (user) {
+        // Show loading placeholders
+        document.querySelector('.profile-img').src = 'path/to/loading-placeholder.gif';
+        document.querySelector('.profile-username').textContent = 'Loading...';
+
+        // Fetch user profile data from Firestore
+        getDoc(doc(db, "users", user.uid)).then((userDoc) => {
+            if (userDoc.exists()) {
+                const userData = userDoc.data();
+
+                // Update username
+                document.querySelector('.profile-username').textContent = userData.username || user.displayName || 'User';
+
+                // Update profile picture
+                if (userData.profilePicture) {
+                    document.querySelector('.profile-img').src = userData.profilePicture;
+                } else {
+                    document.querySelector('.profile-img').src = 'path/to/default-avatar.png'; // Default image
+                }
+            } else {
+                console.error('No user data found in Firestore.');
+            }
+        }).catch((error) => {
+            console.error('Error fetching profile data:', error);
+        });
+    }
+};
+
+// Use Firebase's onAuthStateChanged to detect login state changes
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        // User is logged in, load the profile
+        loadUserProfile();
+    } else {
+        console.log('User is not logged in');
+    }
+});
+
+// Function to update user profile
+window.updateProfile = async function () {
+    const username = document.getElementById('username').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const profilePicFile = document.getElementById('profilePic').files[0];
+
+    try {
+        const user = auth.currentUser;
+
+        let profilePicUrl = user.photoURL; 
+
+        if (profilePicFile) {
+            const profilePicRef = ref(storage, `profilePictures/${user.uid}/${profilePicFile.name}`);
+            await uploadBytes(profilePicRef, profilePicFile);
+            profilePicUrl = await getDownloadURL(profilePicRef);
+            await updateProfile(user, { photoURL: profilePicUrl });
+            document.querySelector('.profile-img').src = profilePicUrl;
+        }
+
+        if (username) {
+            await updateProfile(user, { displayName: username });
+            document.getElementById('profileUsername').textContent = username;
+        }
+        if (email) {
+            await updateEmail(user, email);
+        }
+        if (password) {
+            await updatePassword(user, password);
+        }
+
+        await setDoc(doc(db, "users", user.uid), {
+            username: username,
+            email: email,
+            profilePicture: profilePicUrl
+        }, { merge: true });
+
+        alert('Profile updated successfully!');
+        closeProfileModal();
+    } catch (error) {
+        console.error('Error updating profile:', error);
+        alert('Error updating profile: ' + error.message);
+    }
+};
+
+// Function to load the user profile when page loads
+window.onload = function() {
+    showDashboard();
+    renderDeals();
+};
+
 
 // Function to show the Dashboard
 window.showDashboard = function() {
@@ -158,32 +254,8 @@ window.searchDeals = function() {
     renderDeals(filteredDeals);
 }
 
-// Function to fetch and display user profile data
-window.displayUserProfile = function () {
-    const user = auth.currentUser; // Get current user from Firebase Authentication
 
-    if (user) {
-        // Set profile picture if available
-        if (user.photoURL) {
-            document.querySelector('.profile-img').src = user.photoURL;
-        }
 
-        // Set username if available
-        const usernameElement = document.getElementById('profileUsername');
-        if (user.displayName) {
-            usernameElement.textContent = user.displayName;
-        } else {
-            usernameElement.textContent = 'Your Name'; // Fallback if no username is set
-        }
-    }
-};
-
-// Initial default section
-window.onload = function() {
-    showDashboard();
-    renderDeals(); // Render deals on load
-    displayUserProfile(); // Display user profile data
-};
 
 
 // Make functions globally accessible
@@ -212,60 +284,15 @@ window.previewProfilePicture = function (event) {
 };
 
 
-// Function to update user profile
-window.updateProfile = async function () {
-    const username = document.getElementById('username').value;
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    const profilePicFile = document.getElementById('profilePic').files[0];
 
-    try {
-        const user = auth.currentUser; // Use the global auth object
 
-        let profilePicUrl = user.photoURL; // Use existing profile picture URL
-
-        // Update profile picture if a new file is selected
-        if (profilePicFile) {
-            const profilePicRef = ref(storage, `profilePictures/${user.uid}/${profilePicFile.name}`); // Correctly use the ref function
-            await uploadBytes(profilePicRef, profilePicFile);
-            profilePicUrl = await getDownloadURL(profilePicRef);
-            await updateProfile(user, { photoURL: profilePicUrl });
-            document.querySelector('.profile-img').src = profilePicUrl;
-        }
-
-        // Update user profile details
-        if (username) {
-            await updateProfile(user, { displayName: username });
-            document.getElementById('profileUsername').textContent = username; // Update username on the page
-        }
-        if (email) {
-            await updateEmail(user, email);
-        }
-        if (password) {
-            await updatePassword(user, password);
-        }
-
-        // Update Firestore with new user data
-        await setDoc(doc(db, "users", user.uid), {
-            username: username,
-            email: email,
-            profilePicture: profilePicUrl // Save profile picture URL in Firestore
-        }, { merge: true });
-
-        alert('Profile updated successfully!');
-        closeProfileModal();
-    } catch (error) {
-        console.error('Error updating profile:', error);
-        alert('Error updating profile: ' + error.message);
-    }
-};
-
+// Function to load the user profile
 window.loadUserProfile = async function () {
     const user = auth.currentUser;
     if (!user) return;
 
     // Show a loading state for profile image and username
-    document.querySelector('.profile-img').src = 'path/to/loading-placeholder.gif'; // Use a placeholder loading image
+    document.querySelector('.profile-img').src = 'path/to/loading-placeholder.gif';
     document.querySelector('.profile-username').textContent = 'Loading...';
 
     try {
@@ -273,15 +300,15 @@ window.loadUserProfile = async function () {
         const userDoc = await getDoc(doc(db, "users", user.uid));
         if (userDoc.exists()) {
             const userData = userDoc.data();
-            
+
             // Update username
             document.querySelector('.profile-username').textContent = userData.username || user.displayName || 'User';
-            
+
             // Update profile picture
             if (user.photoURL) {
                 document.querySelector('.profile-img').src = user.photoURL;
             } else {
-                document.querySelector('.profile-img').src = 'path/to/default-avatar.png'; // Fallback image if no profile picture
+                document.querySelector('.profile-img').src = 'path/to/default-avatar.png';
             }
         } else {
             console.error('No user data found in Firestore.');
@@ -291,6 +318,8 @@ window.loadUserProfile = async function () {
         alert('Error loading profile data: ' + error.message);
     }
 };
+
+
 
 // Call loadUserProfile on page load or when the user logs in
 window.onload = function() {

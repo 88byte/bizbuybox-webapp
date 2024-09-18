@@ -260,6 +260,46 @@ window.updateProfile = async function () {
     }
 };
 
+window.loadUserProfile = async function () {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    // Show a loading state for profile image and username
+    document.querySelector('.profile-img').src = 'path/to/loading-placeholder.gif'; // Use a placeholder loading image
+    document.querySelector('.profile-username').textContent = 'Loading...';
+
+    try {
+        // Fetch user profile data from Firestore
+        const userDoc = await getDoc(doc(db, "users", user.uid));
+        if (userDoc.exists()) {
+            const userData = userDoc.data();
+            
+            // Update username
+            document.querySelector('.profile-username').textContent = userData.username || user.displayName || 'User';
+            
+            // Update profile picture
+            if (user.photoURL) {
+                document.querySelector('.profile-img').src = user.photoURL;
+            } else {
+                document.querySelector('.profile-img').src = 'path/to/default-avatar.png'; // Fallback image if no profile picture
+            }
+        } else {
+            console.error('No user data found in Firestore.');
+        }
+    } catch (error) {
+        console.error('Error loading profile data:', error);
+        alert('Error loading profile data: ' + error.message);
+    }
+};
+
+// Call loadUserProfile on page load or when the user logs in
+window.onload = function() {
+    loadUserProfile();
+    showDashboard();
+    renderDeals(); // Render deals on load
+};
+
+
 // Function to delete user account
 window.deleteAccount = async function () {
     try {

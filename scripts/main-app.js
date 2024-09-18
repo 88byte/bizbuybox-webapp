@@ -202,19 +202,17 @@ function setActiveNav(sectionId) {
 // Deal Management Functions
 let deals = []; // Example array to hold deals
 
-// Function to create a new deal
+// Function to open the deal creation modal
 window.createDeal = function() {
-    // Reset the form fields
-    document.getElementById('dealForm').reset();
-    // Set the modal to 'new' deal mode
-    document.getElementById('dealId').value = ''; // No dealId for a new deal
-    // Show the modal
-    document.getElementById('dealModal').style.display = 'block';
+    document.getElementById('dealForm').reset(); // Reset the form fields
+    document.getElementById('dealId').value = ''; // Clear dealId for a new deal
+    document.getElementById('modalTitle').textContent = 'Create a New Deal'; // Set modal title
+    document.getElementById('cardModal').style.display = 'block'; // Show the modal
 };
 
-// Function to close the deal modal
-window.closeDealModal = function() {
-    document.getElementById('dealModal').style.display = 'none';
+// Function to close the card modal
+window.closeCardModal = function() {
+    document.getElementById('cardModal').style.display = 'none';
 };
 
 
@@ -357,7 +355,7 @@ window.saveDeal = async function() {
     const user = auth.currentUser;
     if (!user) return; // Ensure the user is authenticated
 
-    const dealId = document.getElementById('dealId').value || doc(collection(db, 'deals')).id; // Generate a new ID if not provided
+    const dealId = document.getElementById('dealId').value || doc(collection(db, 'deals')).id; // Generate new ID if not provided
 
     const dealData = {
         businessName: document.getElementById('businessName').value,
@@ -371,10 +369,9 @@ window.saveDeal = async function() {
         notes: document.getElementById('notes').value,
         askingPrice: document.getElementById('askingPrice').value,
         realEstatePrice: document.getElementById('realEstatePrice').value,
-        createdAt: new Date().toISOString(),
         lastUpdate: new Date().toISOString(),
         userId: user.uid, // Associate deal with the current user
-        dealId: dealId // Ensure the dealId is saved
+        dealId: dealId // Ensure dealId is saved
     };
 
     try {
@@ -382,7 +379,7 @@ window.saveDeal = async function() {
         await setDoc(doc(dealsCollection, dealId), dealData); // Save deal data to Firestore
 
         alert('Deal saved successfully!');
-        closeDealModal();
+        closeCardModal();
         fetchDeals(); // Refresh deals on the dashboard
     } catch (error) {
         console.error('Error saving deal:', error);
@@ -405,18 +402,6 @@ window.fetchDeals = async function() {
     } catch (error) {
         console.error('Error fetching deals:', error);
     }
-};
-
-// Function to fetch deals for the user
-window.fetchDeals = async function() {
-    const user = auth.currentUser;
-    if (!user) return; // Ensure the user is authenticated
-
-    const dealsCollection = collection(db, 'deals'); // Get reference to the deals collection
-    const dealQuery = query(dealsCollection, where('userId', '==', user.uid));
-    const dealSnapshot = await getDocs(dealQuery);
-    deals = dealSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    renderDeals(); // Render the deals on the page
 };
 
 // Function to render deals on the dashboard

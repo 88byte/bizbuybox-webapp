@@ -416,11 +416,9 @@ body {
     width: 600px;
     color: #fff; /* Light text for readability */
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6); /* Soft shadow */
-    max-height: 80vh;
     overflow-y: auto; /* Scroll if content overflows */
-    transition: transform 0.3s ease, opacity 0.3s ease;
-    opacity: 0;
-    transform: translateY(-50px); /* Start with a slide effect */
+    opacity: 1; /* Ensure opacity is visible */
+    transform: none; /* Disable transform for now */
 }
 
 .card-modal-header h2 {

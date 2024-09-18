@@ -67,6 +67,19 @@ body {
     font-weight: bold; /* Make the text bold */
 }
 
+/* Centered Divider Line Styles */
+.divider {
+    width: 100%; /* Increase width to make the line longer */
+    height: 1px; /* Line thickness */
+    background-color: #444; /* Subtle color for the line */
+    border: none; /* Remove default border styling */
+    margin: 16px auto; /* Center the line horizontally and add vertical spacing */
+    opacity: 0.7; /* Slightly transparent for a sleek effect */
+    display: block; /* Ensures the line is treated as a block element */
+}
+
+
+
 
 /* Profile Modal Styles */
 .profileModal {

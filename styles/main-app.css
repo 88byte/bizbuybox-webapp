@@ -421,21 +421,129 @@ body {
     transform: none; /* Disable transform for now */
 }
 
+.card-modal.show .card-modal-content {
+    transform: translateY(0); /* Slide into place */
+    opacity: 1; /* Fade in effect */
+}
+
+/* Header Section */
+.card-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    border-bottom: 1px solid #444; /* Subtle border */
+    padding-bottom: 12px;
+}
+
 .card-modal-header h2 {
-    color: #fff; /* White text for better visibility */
+    font-size: 24px;
+    font-weight: bold;
+    color: #f1f1f1;
+    margin: 0;
 }
 
 .card-modal-header .close {
-    color: #fff; /* Ensure close button is visible */
+    font-size: 24px;
+    color: #bbb;
+    cursor: pointer;
+    transition: color 0.3s ease;
 }
 
-.card-modal button {
-    background-color: #97835a; /* Make buttons visible */
+.card-modal-header .close:hover {
+    color: #fff;
+}
+
+/* Input Styles */
+.card-modal form input,
+.card-modal form select,
+.card-modal form textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 16px;
+    background-color: #3a3a3a;
+    border: 1px solid #555;
+    border-radius: 8px;
+    color: #ddd;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.card-modal form input:focus,
+.card-modal form select:focus,
+.card-modal form textarea:focus {
+    border-color: #97835a; /* Gold accent on focus */
+    outline: none;
+}
+
+/* Layout of input fields */
+.input-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.input-item {
+    flex: 1;
+}
+
+/* Button Styles */
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+    margin-top: 24px;
+}
+
+button {
+    padding: 12px 24px;
+    background-color: #555;
+    border: none;
+    border-radius: 8px;
+    color: #ddd;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #97835a; /* Gold hover color */
+}
+
+.btn-save {
+    background-color: #97835a; /* Gold button */
     color: #000;
 }
 
-.card-modal .btn-cancel {
-    background-color: #444; /* Ensure cancel button is visible */
+.btn-save:hover {
+    background-color: #b0956a;
+}
+
+.btn-cancel {
+    background-color: #444;
+}
+
+.btn-cancel:hover {
+    background-color: #666;
+}
+
+/* Scrollbar Styles for Modal */
+.card-modal-content::-webkit-scrollbar {
+    width: 10px;
+}
+
+.card-modal-content::-webkit-scrollbar-thumb {
+    background-color: #555; 
+    border-radius: 10px;
+}
+
+/* Responsive Modal */
+@media (max-width: 768px) {
+    .card-modal-content {
+        width: 90%;
+        padding: 24px;
+    }
 }
 
 

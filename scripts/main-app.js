@@ -322,7 +322,6 @@ window.searchDeals = function() {
 window.openCardModal = function(deal = null) {
     const modal = document.getElementById('cardModal');
     modal.classList.add('show'); // Add the 'show' class for visibility
-    modal.style.display = 'flex'; // Set the display to 'flex' to center the modal
 
     if (deal) {
         // Populate modal with existing deal data
@@ -334,6 +333,11 @@ window.openCardModal = function(deal = null) {
         // Clear modal fields for a new deal
         document.getElementById('dealForm').reset();
     }
+
+    // Ensure the modal is fully visible by setting display after a slight delay
+    setTimeout(() => {
+        modal.style.display = 'flex';
+    }, 10); // A slight delay to ensure the modal is displayed before animations
 };
 
 // Function to close the deal modal
@@ -341,8 +345,8 @@ window.closeCardModal = function() {
     const modal = document.getElementById('cardModal');
     modal.classList.remove('show'); // Remove the 'show' class for fade-out
     setTimeout(() => {
-        modal.style.display = 'none'; // Set the display to 'none' after fade-out transition
-    }, 300); // Match the transition duration (0.3s) for the fade-out
+        modal.style.display = 'none'; // Set display to 'none' after transition
+    }, 400); // Match the transition duration (0.4s) for the fade-out
 };
 
 

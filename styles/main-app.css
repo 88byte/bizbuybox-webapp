@@ -430,6 +430,7 @@ body {
     max-height: 80vh;
     overflow-y: auto;
     transform: scale(0.85); /* Start small */
+    opacity: 0;
     transition: transform 0.4s ease, opacity 0.4s ease;
 }
 

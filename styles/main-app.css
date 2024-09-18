@@ -41,7 +41,7 @@ body {
 }
 
 .profile-container {
-    margin-top: -50px; /* Reduce margin-top for tighter alignment */
+    margin-top: -30px; /* Reduce margin-top for tighter alignment */
     margin-bottom: 50px;
 }
 
@@ -62,20 +62,23 @@ body {
 .profile-username {
     font-size: 16px; /* Adjust font size as needed */
     color: #97835a; /* Updated text color for better readability */
-    margin-top: 6px; /* Spacing between image and username */
+    margin-top: 5px; /* Spacing between image and username */
     text-align: center; /* Center the text */
     font-weight: bold; /* Make the text bold */
 }
 
 /* Centered Divider Line Styles */
 .divider {
-    width: 100%; /* Increase width to make the line longer */
+    width: 270%; /* Increase width to make the line longer */
     height: 1px; /* Line thickness */
     background-color: #444; /* Subtle color for the line */
     border: none; /* Remove default border styling */
     margin: 16px auto; /* Center the line horizontally and add vertical spacing */
     opacity: 0.7; /* Slightly transparent for a sleek effect */
     display: block; /* Ensures the line is treated as a block element */
+    margin-left: -70px;
+    margin-bottom: -18px;
+    margin-top: 5px;
 }
 
 

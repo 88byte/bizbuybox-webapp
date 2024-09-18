@@ -210,7 +210,7 @@ window.createDeal = function() {
         deals.push(newDeal);
         renderDeals();
     }
-}
+};
 
 // Function to render deals
 function renderDeals() {
@@ -342,4 +342,101 @@ window.deleteAccount = async function () {
         alert('Error deleting account: ' + error.message);
     }
 };
+
+
+
+
+
+// JavaScript to manage deals and modal operations
+
+// Function to open the deal modal
+window.openDealModal = function(deal = null) {
+    document.getElementById('cardModal').style.display = 'flex';
+    
+    if (deal) {
+        // Populate modal with existing deal data
+        document.getElementById('businessName').value = deal.businessName || '';
+        document.getElementById('status').value = deal.status || '';
+        document.getElementById('yearsInBusiness').value = deal.yearsInBusiness || '';
+        // Populate other fields as needed...
+    } else {
+        // Clear modal fields for a new deal
+        document.getElementById('dealForm').reset();
+    }
+};
+
+// Function to close the deal modal
+window.closeDealModal = function() {
+    document.getElementById('cardModal').style.display = 'none';
+};
+
+// Function to save a deal (new or edited)
+window.saveDeal = async function() {
+    const user = auth.currentUser;
+    if (!user) return; // Ensure the user is authenticated
+
+    const dealData = {
+        businessName: document.getElementById('businessName').value,
+        status: document.getElementById('status').value,
+        yearsInBusiness: document.getElementById('yearsInBusiness').value,
+        fullTimeEmployees: document.getElementById('fullTimeEmployees').value,
+        partTimeEmployees: document.getElementById('partTimeEmployees').value,
+        contractors: document.getElementById('contractors').value,
+        businessAddress: document.getElementById('businessAddress').value,
+        licenses: document.getElementById('licenses').value,
+        notes: document.getElementById('notes').value,
+        askingPrice: document.getElementById('askingPrice').value,
+        realEstatePrice: document.getElementById('realEstatePrice').value,
+        lastUpdate: new Date().toISOString(),
+        userId: user.uid // Associate deal with the current user
+        // Add other fields as necessary
+    };
+
+    try {
+        const dealId = dealData.dealId || doc(collection(db, 'deals')).id; // Generate a new ID if not provided
+        await setDoc(doc(db, 'deals', dealId), dealData);
+        alert('Deal saved successfully!');
+        closeDealModal();
+        fetchDeals(); // Refresh deals
+    } catch (error) {
+        console.error('Error saving deal:', error);
+        alert('Error saving deal: ' + error.message);
+    }
+};
+
+// Function to fetch deals for the user
+window.fetchDeals = async function() {
+    const user = auth.currentUser;
+    if (!user) return; // Ensure the user is authenticated
+
+    const dealQuery = query(collection(db, 'deals'), where('userId', '==', user.uid));
+    const dealSnapshot = await getDocs(dealQuery);
+    deals = dealSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    renderDeals(); // Render the deals on the page
+};
+
+// Function to render deals
+function renderDeals() {
+    const dealGrid = document.getElementById('dealGrid');
+    dealGrid.innerHTML = ''; // Clear existing deals
+    deals.forEach(deal => {
+        const dealCard = document.createElement('div');
+        dealCard.className = 'deal-card';
+        dealCard.innerHTML = `
+            <h4>${deal.businessName}</h4>
+            <p>Status: ${deal.status}</p>
+            <button onclick="openDealModal(${deal.id})">View Details</button>
+        `;
+        dealGrid.appendChild(dealCard);
+    });
+}
+
+// Initialize fetchDeals on user login
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        fetchDeals();
+    } else {
+        console.log('User is not logged in');
+    }
+});
 

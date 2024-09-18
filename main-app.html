@@ -147,5 +147,33 @@
 	</div>
 
 
+	<!-- Deal Modal -->
+	<div id="cardModal" class="card-modal">
+	    <div class="card-modal-content">
+	        <span class="close" onclick="closeDealModal()">&times;</span>
+	        <h2>Create or Edit Deal</h2>
+	        <form id="dealForm" onsubmit="saveDeal(); return false;">
+	            <input type="text" id="businessName" placeholder="Business Name" required>
+	            <input type="text" id="status" placeholder="Status" required>
+	            <input type="number" id="yearsInBusiness" placeholder="Years in Business" required>
+	            <input type="number" id="fullTimeEmployees" placeholder="Full-time Employees" required>
+	            <input type="number" id="partTimeEmployees" placeholder="Part-time Employees" required>
+	            <input type="number" id="contractors" placeholder="Contractors" required>
+	            <textarea id="businessAddress" placeholder="Business Address" required></textarea>
+	            <input type="text" id="licenses" placeholder="Licenses">
+	            <textarea id="notes" placeholder="Notes"></textarea>
+	            <input type="number" id="askingPrice" placeholder="Asking Price" required>
+	            <input type="number" id="realEstatePrice" placeholder="Real Estate Price">
+	            <!-- Add more fields as needed for all data points -->
+	            <div class="modal-actions">
+	                <button type="submit" class="btn-save">Save Deal</button>
+	                <button type="button" class="btn-cancel" onclick="closeDealModal()">Cancel</button>
+	            </div>
+	        </form>
+	    </div>
+	</div>
+
+
+
 </body>
 </html>

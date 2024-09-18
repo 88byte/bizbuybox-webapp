@@ -204,18 +204,18 @@ let deals = []; // Example array to hold deals
 
 // Function to create a new deal
 window.createDeal = function() {
-    const dealName = prompt('Enter Deal Name:');
-    if (dealName) {
-        const newDeal = {
-            id: Date.now(),
-            name: dealName,
-            status: 'active',
-            createdAt: new Date().toISOString()
-        };
-        deals.push(newDeal);
-        renderDeals();
-    }
-}
+    // Reset the form fields
+    document.getElementById('dealForm').reset();
+    // Set the modal to 'new' deal mode
+    document.getElementById('dealId').value = ''; // No dealId for a new deal
+    // Show the modal
+    document.getElementById('dealModal').style.display = 'block';
+};
+
+// Function to close the deal modal
+window.closeDealModal = function() {
+    document.getElementById('dealModal').style.display = 'none';
+};
 
 
 
@@ -352,10 +352,12 @@ window.closeDealModal = function() {
     document.getElementById('cardModal').style.display = 'none';
 };
 
-// Function to save a deal (new or edited)
+// Function to save a new or edited deal
 window.saveDeal = async function() {
     const user = auth.currentUser;
     if (!user) return; // Ensure the user is authenticated
+
+    const dealId = document.getElementById('dealId').value || doc(collection(db, 'deals')).id; // Generate a new ID if not provided
 
     const dealData = {
         businessName: document.getElementById('businessName').value,
@@ -369,21 +371,39 @@ window.saveDeal = async function() {
         notes: document.getElementById('notes').value,
         askingPrice: document.getElementById('askingPrice').value,
         realEstatePrice: document.getElementById('realEstatePrice').value,
+        createdAt: new Date().toISOString(),
         lastUpdate: new Date().toISOString(),
-        userId: user.uid // Associate deal with the current user
-        // Add other fields as necessary
+        userId: user.uid, // Associate deal with the current user
+        dealId: dealId // Ensure the dealId is saved
     };
 
     try {
-        const dealsCollection = collection(db, 'deals'); // Get reference to the deals collection
-        const dealId = dealData.dealId || doc(dealsCollection).id; // Generate a new ID if not provided
-        await setDoc(doc(dealsCollection, dealId), dealData);
+        const dealsCollection = collection(db, 'deals'); // Reference to the 'deals' collection
+        await setDoc(doc(dealsCollection, dealId), dealData); // Save deal data to Firestore
+
         alert('Deal saved successfully!');
         closeDealModal();
-        fetchDeals(); // Refresh deals
+        fetchDeals(); // Refresh deals on the dashboard
     } catch (error) {
         console.error('Error saving deal:', error);
         alert('Error saving deal: ' + error.message);
+    }
+};
+
+// Function to fetch and display deals
+window.fetchDeals = async function() {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    try {
+        const dealsCollection = collection(db, 'deals');
+        const dealsSnapshot = await getDocs(query(dealsCollection, where("userId", "==", user.uid)));
+
+        deals = dealsSnapshot.docs.map(doc => doc.data()); // Fetch all deals for the user
+
+        renderDeals(); // Render deal cards on the dashboard
+    } catch (error) {
+        console.error('Error fetching deals:', error);
     }
 };
 
@@ -399,21 +419,28 @@ window.fetchDeals = async function() {
     renderDeals(); // Render the deals on the page
 };
 
-// Function to render deals
+// Function to render deals on the dashboard
 function renderDeals() {
     const dealGrid = document.getElementById('dealGrid');
-    dealGrid.innerHTML = ''; // Clear existing deals
+    dealGrid.innerHTML = ''; // Clear the existing content
+
     deals.forEach(deal => {
         const dealCard = document.createElement('div');
         dealCard.className = 'deal-card';
         dealCard.innerHTML = `
             <h4>${deal.businessName}</h4>
             <p>Status: ${deal.status}</p>
-            <button onclick="openDealModal(${deal.id})">View Details</button>
+            <p>Asking Price: ${deal.askingPrice}</p>
+            <p>Last Updated: ${new Date(deal.lastUpdate).toLocaleDateString()}</p>
+            <div class="deal-actions">
+                <button onclick="editDeal('${deal.dealId}')">Edit</button>
+                <button onclick="deleteDeal('${deal.dealId}')">Delete</button>
+            </div>
         `;
         dealGrid.appendChild(dealCard);
     });
 }
+
 
 
 

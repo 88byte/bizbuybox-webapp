@@ -18,7 +18,11 @@ import {
     doc, 
     setDoc, 
     getDoc, 
-    deleteDoc 
+    deleteDoc, 
+    collection, // Import collection
+    query,      // Import query
+    where,      // Import where
+    getDocs     // Import getDocs
 } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
 import { 
     getStorage, 
@@ -371,8 +375,9 @@ window.saveDeal = async function() {
     };
 
     try {
-        const dealId = dealData.dealId || doc(collection(db, 'deals')).id; // Generate a new ID if not provided
-        await setDoc(doc(db, 'deals', dealId), dealData);
+        const dealsCollection = collection(db, 'deals'); // Get reference to the deals collection
+        const dealId = dealData.dealId || doc(dealsCollection).id; // Generate a new ID if not provided
+        await setDoc(doc(dealsCollection, dealId), dealData);
         alert('Deal saved successfully!');
         closeDealModal();
         fetchDeals(); // Refresh deals
@@ -387,7 +392,8 @@ window.fetchDeals = async function() {
     const user = auth.currentUser;
     if (!user) return; // Ensure the user is authenticated
 
-    const dealQuery = query(collection(db, 'deals'), where('userId', '==', user.uid));
+    const dealsCollection = collection(db, 'deals'); // Get reference to the deals collection
+    const dealQuery = query(dealsCollection, where('userId', '==', user.uid));
     const dealSnapshot = await getDocs(dealQuery);
     deals = dealSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     renderDeals(); // Render the deals on the page

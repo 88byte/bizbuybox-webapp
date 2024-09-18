@@ -395,9 +395,8 @@ body {
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
 }
 
-/* Card Modal Styles */
 .card-modal {
-    display: none;
+    display: flex; /* Force display for testing */
     position: fixed;
     top: 0;
     left: 0;
@@ -406,151 +405,36 @@ body {
     background-color: rgba(0, 0, 0, 0.85); /* Dark overlay */
     justify-content: center;
     align-items: center;
-    z-index: 1000;
-    transition: all 0.3s ease-in-out;
+    z-index: 9999; /* Ensure it's on top */
 }
-
-
 
 .card-modal-content {
-    background-color: #2e2e2e; /* Sleek dark background */
-    padding: 32px;
-    border-radius: 12px;
+    background-color: #292929;
+    padding: 40px;
+    border-radius: 16px;
     width: 600px;
-    color: #fff; /* Light text for readability */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6); /* Soft shadow */
-    max-height: 80vh;
-    overflow-y: auto; /* Scroll if content overflows */
-    transition: transform 0.3s ease, opacity 0.3s ease;
-    opacity: 0;
-    transform: translateY(-50px); /* Start with a slide effect */
-}
-
-.card-modal.show .card-modal-content {
-    transform: translateY(0); /* Slide into place */
-    opacity: 1; /* Fade in effect */
-}
-
-/* Header Section */
-.card-modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 16px;
-    border-bottom: 1px solid #444; /* Subtle border */
-    padding-bottom: 12px;
+    color: #eee;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    opacity: 1; /* Ensure opacity is visible */
+    transform: none; /* Disable transform for now */
 }
 
 .card-modal-header h2 {
-    font-size: 24px;
-    font-weight: bold;
-    color: #f1f1f1;
-    margin: 0;
+    color: #fff; /* White text for better visibility */
 }
 
 .card-modal-header .close {
-    font-size: 24px;
-    color: #bbb;
-    cursor: pointer;
-    transition: color 0.3s ease;
+    color: #fff; /* Ensure close button is visible */
 }
 
-.card-modal-header .close:hover {
-    color: #fff;
-}
-
-/* Input Styles */
-.card-modal form input,
-.card-modal form select,
-.card-modal form textarea {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 16px;
-    background-color: #3a3a3a;
-    border: 1px solid #555;
-    border-radius: 8px;
-    color: #ddd;
-    font-size: 16px;
-    transition: border-color 0.3s ease;
-}
-
-.card-modal form input:focus,
-.card-modal form select:focus,
-.card-modal form textarea:focus {
-    border-color: #97835a; /* Gold accent on focus */
-    outline: none;
-}
-
-/* Layout of input fields */
-.input-group {
-    display: flex;
-    justify-content: space-between;
-    gap: 16px;
-    margin-bottom: 16px;
-}
-
-.input-item {
-    flex: 1;
-}
-
-/* Button Styles */
-.modal-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 16px;
-    margin-top: 24px;
-}
-
-button {
-    padding: 12px 24px;
-    background-color: #555;
-    border: none;
-    border-radius: 8px;
-    color: #ddd;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-button:hover {
-    background-color: #97835a; /* Gold hover color */
-}
-
-.btn-save {
-    background-color: #97835a; /* Gold button */
+.card-modal button {
+    background-color: #97835a; /* Make buttons visible */
     color: #000;
 }
 
-.btn-save:hover {
-    background-color: #b0956a;
+.card-modal .btn-cancel {
+    background-color: #444; /* Ensure cancel button is visible */
 }
-
-.btn-cancel {
-    background-color: #444;
-}
-
-.btn-cancel:hover {
-    background-color: #666;
-}
-
-/* Scrollbar Styles for Modal */
-.card-modal-content::-webkit-scrollbar {
-    width: 10px;
-}
-
-.card-modal-content::-webkit-scrollbar-thumb {
-    background-color: #555; 
-    border-radius: 10px;
-}
-
-/* Responsive Modal */
-@media (max-width: 768px) {
-    .card-modal-content {
-        width: 90%;
-        padding: 24px;
-    }
-}
-
 
 
 

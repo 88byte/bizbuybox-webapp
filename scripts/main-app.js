@@ -158,16 +158,43 @@ window.searchDeals = function() {
     renderDeals(filteredDeals);
 }
 
+// Function to fetch and display user profile data
+window.displayUserProfile = function () {
+    const user = auth.currentUser; // Get current user from Firebase Authentication
+
+    if (user) {
+        // Set profile picture if available
+        if (user.photoURL) {
+            document.querySelector('.profile-img').src = user.photoURL;
+        }
+
+        // Set username if available
+        const usernameElement = document.getElementById('profileUsername');
+        if (user.displayName) {
+            usernameElement.textContent = user.displayName;
+        } else {
+            usernameElement.textContent = 'Your Name'; // Fallback if no username is set
+        }
+    }
+};
+
 // Initial default section
 window.onload = function() {
     showDashboard();
     renderDeals(); // Render deals on load
-}
+    displayUserProfile(); // Display user profile data
+};
 
 
 // Make functions globally accessible
 window.openProfileModal = function () {
     document.getElementById('profileModal').style.display = 'flex';
+    // Pre-fill the modal with the current user's information
+    const user = auth.currentUser;
+    if (user) {
+        document.getElementById('username').value = user.displayName || '';
+        document.getElementById('email').value = user.email || '';
+    }
 };
 
 window.closeProfileModal = function () {
@@ -183,6 +210,7 @@ window.previewProfilePicture = function (event) {
     };
     reader.readAsDataURL(event.target.files[0]);
 };
+
 
 // Function to update user profile
 window.updateProfile = async function () {
@@ -208,6 +236,7 @@ window.updateProfile = async function () {
         // Update user profile details
         if (username) {
             await updateProfile(user, { displayName: username });
+            document.getElementById('profileUsername').textContent = username; // Update username on the page
         }
         if (email) {
             await updateEmail(user, email);

@@ -736,12 +736,14 @@ window.saveBrokerContact = function() {
     const phone = document.getElementById('brokerPhone').value;
     const email = document.getElementById('brokerEmail').value;
 
+    const brokerButton = document.querySelector('button[onclick="window.openBrokerContactModal()"]');
+
     if (name && company && phone && email) {
         // Set the tooltip content only if contact info is filled
-        document.querySelector('button[onclick="window.openBrokerContactModal()"]').setAttribute('data-tooltip', `Company: ${company}\nPhone: ${phone}\nEmail: ${email}`);
+        brokerButton.setAttribute('data-tooltip', `Company: ${company}\nPhone: ${phone}\nEmail: ${email}`);
     } else {
         // Remove tooltip if no contact info is provided
-        document.querySelector('button[onclick="window.openBrokerContactModal()"]').removeAttribute('data-tooltip');
+        brokerButton.removeAttribute('data-tooltip');
     }
     closeBrokerContactModal();
 }
@@ -752,12 +754,14 @@ window.saveSellerContact = function() {
     const phone = document.getElementById('sellerPhone').value;
     const email = document.getElementById('sellerEmail').value;
 
+    const sellerButton = document.querySelector('button[onclick="window.openSellerContactModal()"]');
+
     if (name && phone && email) {
         // Set the tooltip content only if contact info is filled
-        document.querySelector('button[onclick="window.openSellerContactModal()"]').setAttribute('data-tooltip', `Phone: ${phone}\nEmail: ${email}`);
+        sellerButton.setAttribute('data-tooltip', `Phone: ${phone}\nEmail: ${email}`);
     } else {
         // Remove tooltip if no contact info is provided
-        document.querySelector('button[onclick="window.openSellerContactModal()"]').removeAttribute('data-tooltip');
+        sellerButton.removeAttribute('data-tooltip');
     }
     closeSellerContactModal();
 }

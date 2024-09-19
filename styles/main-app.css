@@ -1082,6 +1082,16 @@ input-item select {
 }
 
 /* Hide tooltip if there's no data-tooltip content */
+.contact-info-button:hover::after {
+    display: none;
+}
+
+.contact-info-button[data-tooltip]:hover::after {
+    display: block; /* Only show if tooltip data exists */
+}
+
+
+/* Hide tooltip if there's no data-tooltip content */
 .contact-info-button:not([data-tooltip]):hover::after {
     display: none; /* Do not display the tooltip if there is no contact info */
 }
@@ -1237,6 +1247,6 @@ input-item select {
 }
 
 .full-width input {
-    width: calc(200% - 32px); /* Full width to span two columns */
+    width: 100%; /* Ensure the Business Address field spans two columns */
 }
 

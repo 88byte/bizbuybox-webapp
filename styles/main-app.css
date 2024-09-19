@@ -1047,18 +1047,33 @@ input-item select {
 .contact-column {
     display: flex;
     flex-direction: column; /* Stack buttons vertically */
-    gap: 8px; /* Space between buttons */
+    gap: 4px; /* Space between buttons */
 }
 
 /* Smaller Contact Info Buttons (70% size reduction) */
 .contact-info-button {
-    font-size: 70%;  /* Reduce the font size */
+    font-size: 100%;  /* Reduce the font size */
     padding: 6px 12px;  /* Smaller padding */
     background-color: rgba(255, 255, 255, 0.1); /* Glass-like button */
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 6px;
     cursor: pointer;
     transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s;
+}
+
+.contact-info-button:hover::after {
+    content: attr(data-tooltip); /* Tooltip content from the button's data-tooltip attribute */
+    position: absolute;
+    left: 0;
+    bottom: 100%;
+    background-color: #333;
+    color: #fff;
+    padding: 8px;
+    border-radius: 6px;
+    white-space: pre-line;
+    z-index: 10;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    width: 220px;
 }
 
 .contact-info-button:hover {

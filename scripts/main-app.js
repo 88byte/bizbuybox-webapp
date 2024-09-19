@@ -735,12 +735,11 @@ window.saveBrokerContact = function() {
     const company = document.getElementById('brokerCompany').value;
     const phone = document.getElementById('brokerPhone').value;
     const email = document.getElementById('brokerEmail').value;
+
+    // Update tooltip content for Broker button
+    document.getElementById('brokerContactButton').setAttribute('data-tooltip', `Company: ${company}\nName: ${name}\nPhone: ${phone}\nEmail: ${email}`);
     
-    // Set broker name and tooltip content
-    document.getElementById('brokerContactName').textContent = name;
-    document.getElementById('brokerContactName').setAttribute('data-tooltip', `Company: ${company}\nPhone: ${phone}\nEmail: ${email}`);
-    
-    closeBrokerContactModal();
+    window.closeBrokerContactModal();
 }
 
 // Save Seller Contact Information
@@ -748,12 +747,11 @@ window.saveSellerContact = function() {
     const name = document.getElementById('sellerName').value;
     const phone = document.getElementById('sellerPhone').value;
     const email = document.getElementById('sellerEmail').value;
+
+    // Update tooltip content for Seller button
+    document.getElementById('sellerContactButton').setAttribute('data-tooltip', `Name: ${name}\nPhone: ${phone}\nEmail: ${email}`);
     
-    // Set seller name and tooltip content
-    document.getElementById('sellerContactName').textContent = name;
-    document.getElementById('sellerContactName').setAttribute('data-tooltip', `Phone: ${phone}\nEmail: ${email}`);
-    
-    closeSellerContactModal();
+    window.closeSellerContactModal();
 }
 
 

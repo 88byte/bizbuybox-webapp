@@ -710,11 +710,7 @@ button:hover {
         background-color: #333; /* Keep background on dropdown focus */
     }
 
-    /* Reset the background color for dropdown options list */
-    #status option {
-        background-color: #fff; /* Default option background */
-        color: #000; /* Default text color */
-    }
+
 
 
 /* Glass-Like "+" and "-" Button Styles */

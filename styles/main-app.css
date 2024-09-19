@@ -844,6 +844,12 @@ button {
     background: none; /* Ensure no background interference */
 }
 
+button:not(.btn-add):not(.btn-remove) {
+    border: none;
+    background: none;
+}
+
+
 
 
 

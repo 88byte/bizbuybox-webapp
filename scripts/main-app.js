@@ -511,6 +511,7 @@ function renderDeals() {
 
 let revenueCashflowCount = 1;
 
+// Function to add a new row
 window.addRevenueCashflowRow = function() {
     revenueCashflowCount++;
 
@@ -519,16 +520,16 @@ window.addRevenueCashflowRow = function() {
 
     newRow.innerHTML = `
         <div class="input-item year-text">
-            <label>Year</label>
             <div contenteditable="true" class="editable-year" name="revenueYear[]" id="revenueYear${revenueCashflowCount}">Year</div>
         </div>
         <div class="input-item small-input">
-            <label>Revenue</label>
-            <input type="number" name="revenue[]" id="revenue${revenueCashflowCount}" placeholder="0">
+            <input type="text" name="revenue[]" id="revenue${revenueCashflowCount}" placeholder="$0" oninput="updateProfitMargin(this)">
         </div>
         <div class="input-item small-input">
-            <label>Cashflow</label>
-            <input type="number" name="cashflow[]" id="cashflow${revenueCashflowCount}" placeholder="0">
+            <input type="text" name="cashflow[]" id="cashflow${revenueCashflowCount}" placeholder="$0" oninput="updateProfitMargin(this)">
+        </div>
+        <div class="input-item profit-margin">
+            <span id="profitMargin${revenueCashflowCount}">0%</span>
         </div>
         <div class="input-item button-container">
             <button type="button" class="btn-remove" onclick="removeRevenueCashflowRow(this)">−</button>
@@ -538,9 +539,36 @@ window.addRevenueCashflowRow = function() {
     document.getElementById('revenueCashflowSection').appendChild(newRow);
 };
 
+// Function to remove a row
 window.removeRevenueCashflowRow = function(button) {
     const rowToRemove = button.closest('.revenue-cashflow-row');
     rowToRemove.remove();
+};
+
+// Function to format numbers as currency
+function formatCurrency(value) {
+    if (value === '') return '$0';
+    const number = parseFloat(value.replace(/[^\d.-]/g, ''));
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(number || 0);
+}
+
+// Function to update profit margin
+window.updateProfitMargin = function(inputElement) {
+    const row = inputElement.closest('.revenue-cashflow-row');
+    const revenueInput = row.querySelector('input[name="revenue[]"]');
+    const cashflowInput = row.querySelector('input[name="cashflow[]"]');
+    const profitMarginElement = row.querySelector('.profit-margin span');
+
+    const revenue = parseFloat(revenueInput.value.replace(/[^\d.-]/g, '')) || 0;
+    const cashflow = parseFloat(cashflowInput.value.replace(/[^\d.-]/g, '')) || 0;
+
+    // Calculate the profit margin
+    const profitMargin = revenue > 0 ? ((cashflow / revenue) * 100).toFixed(2) : 0;
+    profitMarginElement.textContent = `${profitMargin}%`;
+
+    // Format the inputs as currency
+    revenueInput.value = formatCurrency(revenueInput.value);
+    cashflowInput.value = formatCurrency(cashflowInput.value);
 };
 
 

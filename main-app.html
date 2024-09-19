@@ -209,20 +209,23 @@
 				<div id="revenueCashflowSection">
 				    <div class="revenue-cashflow-entry">
 				        <div class="revenue-cashflow-row">
+				            <!-- Editable Year -->
 				            <div class="input-item year-text">
-				                <label>Year</label>
-				                <div contenteditable="true" class="editable-year" name="revenueYear[]" id="revenueYear1">2023</div>
+				                <div contenteditable="true" class="editable-year" name="revenueYear[]" id="revenueYear1">Year</div>
 				            </div>
+				            <!-- Revenue Field -->
 				            <div class="input-item small-input">
-				                <label>Revenue</label>
-				                <input type="number" name="revenue[]" id="revenue1" placeholder="0">
+				                <input type="text" name="revenue[]" id="revenue1" placeholder="$0" oninput="updateProfitMargin(this)">
 				            </div>
-
+				            <!-- Cashflow Field -->
 				            <div class="input-item small-input">
-				                <label>Cashflow</label>
-				                <input type="number" name="cashflow[]" id="cashflow1" placeholder="0">
+				                <input type="text" name="cashflow[]" id="cashflow1" placeholder="$0" oninput="updateProfitMargin(this)">
 				            </div>
-
+				            <!-- Profit Margin Display -->
+				            <div class="input-item profit-margin">
+				                <span id="profitMargin1">0%</span>
+				            </div>
+				            <!-- Remove Button -->
 				            <div class="input-item button-container">
 				                <button type="button" class="btn-remove" onclick="removeRevenueCashflowRow(this)">−</button>
 				            </div>
@@ -231,10 +234,9 @@
 				</div>
 
 				<!-- Add Button -->
-				<div class="add-button-container">
+				<div class="button-container">
 				    <button type="button" class="btn-add" onclick="addRevenueCashflowRow()">+</button>
 				</div>
-
 
 
 

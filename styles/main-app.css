@@ -632,22 +632,48 @@ button:hover {
     transform: translateY(-2px);
 }
 
-/* Save Button */
+/* Save Button with Glass Effect */
 .btn-save {
-    background-color: #d2a679;
+    background-color: rgba(210, 166, 121, 0.1); /* Light gold glass-like background */
+    border: 1px solid rgba(210, 166, 121, 0.2); /* Light gold border */
+    border-radius: 8px; /* Rounded corners */
+    color: #f5f5f5;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
 }
 
+/* Hover Effect for Save Button */
 .btn-save:hover {
-    background-color: #e0b984;
+    background-color: rgba(210, 166, 121, 0.2); /* Darker gold glass effect on hover */
+    transform: translateY(-2px); /* Slight lift on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Increase shadow depth on hover */
 }
 
+/* Cancel Button with Glass Effect */
 .btn-cancel {
-    background-color: #444;
+    background-color: rgba(68, 68, 68, 0.1); /* Dark glass-like background */
+    border: 1px solid rgba(68, 68, 68, 0.2); /* Dark gray border */
+    border-radius: 8px; /* Rounded corners */
+    color: #f5f5f5;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
 }
 
+/* Hover Effect for Cancel Button */
 .btn-cancel:hover {
-    background-color: #666;
+    background-color: rgba(68, 68, 68, 0.2); /* Darker glass effect on hover */
+    transform: translateY(-2px); /* Slight lift on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Increase shadow depth on hover */
 }
+
 
 /* Glass-Like "+" and "-" Button Styles */
 .card-modal-content .btn-add, .card-modal-content .btn-remove {

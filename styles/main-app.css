@@ -838,7 +838,7 @@ input-item select {
 
 /* Specific Styling for Glass-Look "+" and "-" Buttons */
 button.btn-add, button.btn-remove {
-    font-size: 14px;
+    font-size: 40px;
     background-color: rgba(255, 255, 255, 0.1); /* Transparent, glass-like background */
     border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border for glass effect */
     border-radius: 8px; /* Slightly rounded corners */

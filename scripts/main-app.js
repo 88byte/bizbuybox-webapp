@@ -308,10 +308,6 @@ window.closeCardModal = function() {
 };
 
 
-
-
-
-
 // Function to search deals
 window.searchDeals = function() {
     const searchTerm = document.getElementById('searchDeals').value.toLowerCase();
@@ -341,10 +337,6 @@ window.closeCardModal = function() {
 
 
 
-
-
-
-
 // Function to edit a deal (opens the modal pre-filled with the deal data)
 window.editDeal = function(dealId) {
     const deal = deals.find(d => d.dealId === dealId); // Find deal by its Firestore ID
@@ -362,16 +354,133 @@ window.editDeal = function(dealId) {
         document.getElementById('notes').value = deal.notes;
         document.getElementById('askingPrice').value = deal.askingPrice;
         document.getElementById('realEstatePrice').value = deal.realEstatePrice;
+        document.getElementById('ffe').value = deal.ffe;
+
+        // Populate funding section
+        document.getElementById('downPayment').value = deal.downPayment;
+        document.getElementById('buyerSalary').value = deal.buyerSalary;
+        document.getElementById('loanType').value = deal.loanType;
+        document.getElementById('interestRate1').value = deal.interestRate || '';
+        document.getElementById('loanTerm1').value = deal.loanTerm || '';
+        document.getElementById('loanAmount1').value = deal.loanAmount || '';
+
+        // Populate broker contact info
+        if (deal.brokerContact) {
+            const brokerBtn = document.querySelector('button[onclick="window.openBrokerContactModal()"]');
+            brokerBtn.setAttribute('data-tooltip', `Company: ${deal.brokerContact.company}\nPhone: ${deal.brokerContact.phone}\nEmail: ${deal.brokerContact.email}`);
+            // Optionally open modal if needed
+            document.getElementById('brokerCompany').value = deal.brokerContact.company;
+            document.getElementById('brokerName').value = deal.brokerContact.name;
+            document.getElementById('brokerPhone').value = deal.brokerContact.phone;
+            document.getElementById('brokerEmail').value = deal.brokerContact.email;
+        }
+
+        // Populate seller contact info
+        if (deal.sellerContact) {
+            const sellerBtn = document.querySelector('button[onclick="window.openSellerContactModal()"]');
+            sellerBtn.setAttribute('data-tooltip', `Phone: ${deal.sellerContact.phone}\nEmail: ${deal.sellerContact.email}`);
+            // Optionally open modal if needed
+            document.getElementById('sellerName').value = deal.sellerContact.name;
+            document.getElementById('sellerPhone').value = deal.sellerContact.phone;
+            document.getElementById('sellerEmail').value = deal.sellerContact.email;
+        }
+
+        // Populate Revenue and Cashflow rows
+        const revenueCashflowSection = document.getElementById('revenueCashflowSection');
+        revenueCashflowSection.innerHTML = ''; // Clear current rows
+        if (deal.revenueCashflowEntries) {
+            deal.revenueCashflowEntries.forEach((entry, index) => {
+                const newRow = document.createElement('div');
+                newRow.classList.add('revenue-cashflow-row');
+                newRow.innerHTML = `
+                    <div class="input-item button-container">
+                        <button type="button" class="btn-remove" onclick="removeRevenueCashflowRow(this)">−</button>
+                    </div>
+                    <div class="input-item year-text">
+                        <div contenteditable="true" class="editable-year" name="revenueYear[]" id="revenueYear${index + 1}">${entry.year}</div>
+                    </div>
+                    <div class="input-item small-input revenue-column">
+                        <input type="text" name="revenue[]" id="revenue${index + 1}" value="${entry.revenue}" oninput="updateProfitMargin(this)">
+                    </div>
+                    <div class="input-item small-input cashflow-column">
+                        <input type="text" name="cashflow[]" id="cashflow${index + 1}" value="${entry.cashflow}" oninput="updateProfitMargin(this)">
+                    </div>
+                    <div class="input-item profit-column">
+                        <span id="profitMargin${index + 1}">${entry.profitMargin}</span>
+                    </div>`;
+                revenueCashflowSection.appendChild(newRow);
+            });
+        }
+
+        // Populate documents
+        const documentList = document.getElementById('documentList');
+        documentList.innerHTML = ''; // Clear current documents
+        if (deal.documents) {
+            deal.documents.forEach(doc => {
+                const docElement = document.createElement('div');
+                docElement.classList.add('document-item');
+                docElement.innerHTML = `
+                    <a href="${doc.url}" target="_blank">${doc.name}</a>
+                    <button type="button" class="delete-doc-button" onclick="deleteDocument('${deal.dealId}', '${doc.id}')">Delete</button>`;
+                documentList.appendChild(docElement);
+            });
+        }
 
         // Update the modal title
         document.getElementById('modalTitle').textContent = 'Edit Deal';
 
-        // Open the modal using the new animation method
-        openCardModal(); 
+        // Open the modal using the new method
+        openCardModal();
     } else {
         console.error('Deal not found.');
     }
 };
+
+
+// Function to load existing documents when opening a deal
+window.loadExistingDocuments = function(dealId) {
+    fetch(`/api/deals/${dealId}/documents`)
+        .then(response => response.json())
+        .then(documents => {
+            const documentList = document.getElementById('documentList');
+            documentList.innerHTML = ''; // Clear previous entries
+
+            // Display existing documents with View and Delete buttons
+            documents.forEach(doc => {
+                const fileElement = document.createElement('div');
+                fileElement.textContent = `${doc.name}`;
+
+                const viewButton = document.createElement('button');
+                viewButton.textContent = 'View';
+                viewButton.classList.add('view-document');
+                viewButton.onclick = function() {
+                    // Assuming the backend returns a URL to the file
+                    window.open(doc.url, '_blank');
+                };
+                fileElement.appendChild(viewButton);
+
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Delete';
+                deleteButton.classList.add('delete-document');
+                deleteButton.onclick = function() {
+                    documentList.removeChild(fileElement);
+                    // Also delete from backend
+                    fetch(`/api/deals/${dealId}/documents/${doc.id}`, {
+                        method: 'DELETE'
+                    }).then(response => {
+                        if (!response.ok) {
+                            alert('Error deleting document.');
+                        }
+                    });
+                };
+                fileElement.appendChild(deleteButton);
+
+                documentList.appendChild(fileElement);
+            });
+        });
+};
+
+
 
 // Function to save a new or edited deal
 window.saveDeal = async function() {
@@ -380,8 +489,50 @@ window.saveDeal = async function() {
 
     const dealId = document.getElementById('dealId').value || doc(collection(db, 'deals')).id;
 
+    // Gather broker contact information
+    const brokerContact = {
+        company: document.getElementById('brokerCompany')?.value || '',
+        name: document.getElementById('brokerName')?.value || '',
+        phone: document.getElementById('brokerPhone')?.value || '',
+        email: document.getElementById('brokerEmail')?.value || ''
+    };
+
+    // Gather seller contact information
+    const sellerContact = {
+        name: document.getElementById('sellerName')?.value || '',
+        phone: document.getElementById('sellerPhone')?.value || '',
+        email: document.getElementById('sellerEmail')?.value || ''
+    };
+
+    // Gather revenue and cashflow data
+    const revenueCashflowEntries = [];
+    const revenueRows = document.querySelectorAll('.revenue-cashflow-row');
+    revenueRows.forEach((row, index) => {
+        const year = row.querySelector('.editable-year').textContent;
+        const revenue = row.querySelector('input[name="revenue[]"]').value;
+        const cashflow = row.querySelector('input[name="cashflow[]"]').value;
+        const profitMargin = row.querySelector(`#profitMargin${index + 1}`).textContent;
+
+        revenueCashflowEntries.push({
+            year,
+            revenue,
+            cashflow,
+            profitMargin
+        });
+    });
+
+
+
+    // Gather document data (you can use FormData for the file uploads)
+    const formData = new FormData();
+    window.uploadedDocuments.forEach((file, index) => {
+        formData.append(`documents[${index}]`, file);
+    });
+
+    // Create deal data object
     const dealData = {
         businessName: document.getElementById('businessName').value,
+        industry: document.getElementById('industry').value,
         status: document.getElementById('status').value,
         yearsInBusiness: document.getElementById('yearsInBusiness').value,
         fullTimeEmployees: document.getElementById('fullTimeEmployees').value,
@@ -392,14 +543,34 @@ window.saveDeal = async function() {
         notes: document.getElementById('notes').value,
         askingPrice: document.getElementById('askingPrice').value,
         realEstatePrice: document.getElementById('realEstatePrice').value,
+        ffe: document.getElementById('ffe').value,
+        downPayment: document.getElementById('downPayment').value,
+        buyerSalary: document.getElementById('buyerSalary').value,
+        loanType: document.getElementById('loanType').value,
+        interestRate: document.getElementById('interestRate1').value,
+        loanTerm: document.getElementById('loanTerm1').value,
+        loanAmount: document.getElementById('loanAmount1').value,
+        revenueCashflowEntries, // Add financials
+        brokerContact, // Add broker contact info
+        sellerContact, // Add seller contact info
         lastUpdate: new Date().toISOString(),
         userId: user.uid,
         dealId: dealId
     };
 
     try {
+        // Save deal data to Firestore
         const dealsCollection = collection(db, 'deals');
         await setDoc(doc(dealsCollection, dealId), dealData);
+
+        // Handle document upload via API
+        const uploadResponse = await fetch(`/api/deals/${dealId}/upload-documents`, {
+            method: 'POST',
+            body: formData
+        });
+        if (!uploadResponse.ok) {
+            throw new Error('Error uploading documents');
+        }
 
         showToast('Deal saved successfully!');
         closeCardModal();
@@ -409,6 +580,7 @@ window.saveDeal = async function() {
         showToast('Error saving deal: ' + error.message, false);
     }
 };
+
 
 
 // Function to handle loan type changes
@@ -447,6 +619,7 @@ window.handleLoanTypeChange = function() {
     }
 }
 
+
 // Function to add second loan details row (for SBA + Seller Finance)
 window.addSecondLoanRow = function() {
     if (!document.getElementById('loanDetailsRow2')) {
@@ -479,8 +652,6 @@ window.removeSecondLoanRow = function() {
         secondRow.remove();
     }
 }
-
-
 
 
 
@@ -624,8 +795,6 @@ window.addCurrencyFormattingListeners = function() {
 document.addEventListener('DOMContentLoaded', function() {
     addCurrencyFormattingListeners();
 });
-
-
 
 
 
@@ -798,6 +967,51 @@ window.uploadDocument = function() {
         fileElement.appendChild(deleteButton);
         
         documentList.appendChild(fileElement);
+    }
+
+    // Clear the file input after uploading
+    fileInput.value = '';
+};
+
+
+// Global object to store uploaded documents
+window.uploadedDocuments = [];
+
+// Function to handle the document upload
+window.uploadDocument = function() {
+    const documentList = document.getElementById('documentList');
+    const fileInput = document.getElementById('documentFile');
+    const files = fileInput.files;
+
+    // Iterate through the files and display them in the modal
+    for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const fileElement = document.createElement('div');
+        fileElement.textContent = `${file.name}`;
+
+        // Add view button next to the file name
+        const viewButton = document.createElement('button');
+        viewButton.textContent = 'View';
+        viewButton.classList.add('view-document');
+        viewButton.onclick = function() {
+            // Create a URL for the file and open it in a new tab
+            const fileURL = URL.createObjectURL(file);
+            window.open(fileURL, '_blank');
+        };
+        fileElement.appendChild(viewButton);
+
+        // Add delete button next to the file name
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.classList.add('delete-document');
+        deleteButton.onclick = function() {
+            documentList.removeChild(fileElement);
+            window.uploadedDocuments = window.uploadedDocuments.filter(doc => doc !== file);
+        };
+        fileElement.appendChild(deleteButton);
+
+        documentList.appendChild(fileElement);
+        window.uploadedDocuments.push(file); // Add to global list of uploaded documents
     }
 
     // Clear the file input after uploading

@@ -1317,3 +1317,20 @@ input-item select {
     visibility: visible;
     opacity: 1;
 }
+
+/* View Button for Uploaded Documents */
+.view-document {
+    background-color: rgba(59, 130, 246, 0.1); /* Light blue */
+    border: 1px solid rgba(59, 130, 246, 0.2); /* Subtle blue border */
+    border-radius: 6px;
+    padding: 6px 12px;
+    color: #3b82f6; /* Blue text */
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s;
+}
+
+.view-document:hover {
+    background-color: rgba(59, 130, 246, 0.2); /* Darker blue on hover */
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
+}

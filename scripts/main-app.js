@@ -511,7 +511,7 @@ function renderDeals() {
 
 let revenueCashflowCount = 1;
 
-// Function to add a new row
+// Function to add a new row with inline styles to test background color
 window.addRevenueCashflowRow = function() {
     revenueCashflowCount++;
 
@@ -520,7 +520,7 @@ window.addRevenueCashflowRow = function() {
 
     newRow.innerHTML = `
         <div class="button-container">
-            <button class="btn-remove" onclick="removeRevenueCashflowRow(this)">−</button>
+            <button class="btn-remove" onclick="removeRevenueCashflowRow(this)" style="background-color: rgba(255, 255, 255, 0.1);">−</button>
         </div>
         <div class="input-item year-text">
             <div contenteditable="true" class="editable-year" name="revenueYear[]" id="revenueYear${revenueCashflowCount}">Year</div>

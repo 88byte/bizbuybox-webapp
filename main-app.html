@@ -252,11 +252,11 @@
 
 
                 <!-- Funding Section -->
-                <div class="section-heading">
-                    <h4>Funding</h4>
-                </div>
+				<div class="section-heading">
+				    <h4>Funding</h4>
+				</div>
 
-                <!-- Down Payment & Buyer Salary Row -->
+				<!-- Down Payment & Buyer Salary Row -->
 				<div class="two-column">
 				    <div class="input-item">
 				        <label for="downPayment">Down Payment</label>
@@ -293,7 +293,29 @@
 				        <input type="text" id="loanAmount" placeholder="$0">
 				    </div>
 				</div>
-		</div>
+
+                <!-- Notes Section -->
+                <div class="input-item">
+                    <label for="notes">Notes</label>
+                    <textarea id="notes" placeholder="Additional notes about the deal" class="custom-font"></textarea>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn-cancel" onclick="closeCardModal()">Cancel</button>
+                    <button type="submit" class="btn-save">Save Deal</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Right Section: Deal Calculations -->
+        <div class="deal-calculations-section">
+            <h3>Deal Calculations</h3>
+            <div id="resultsContent">
+                <p><strong>Total Revenue:</strong> $<span id="totalRevenue">0</span></p>
+                <p><strong>Total Cashflow:</strong> $<span id="totalCashflow">0</span></p>
+                <p><strong>Average Profit Margin:</strong> <span id="averageProfitMargin">0%</span></p>
+            </div>
+        </div>
     </div>
 </div>
 

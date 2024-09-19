@@ -466,7 +466,7 @@ body {
 
 /* Right Section (Calculations) */
 .deal-calculations-section {
-    flex: 1.4;
+    flex: 2;
     margin-left: 24px; /* Add space between form and results */
     background-color: #1c1c1c; /* Slightly darker background */
     border-radius: 12px;
@@ -561,8 +561,9 @@ body {
 .section-heading h4 {
     font-size: 18px;
     color: #f0f0f0;
-    margin-bottom: 8px;
+    margin-bottom: 4px;
     font-weight: 600;
+    display: inline-block;
     position: relative;
 }
 
@@ -660,6 +661,11 @@ button:hover {
     margin-bottom: 8px;
     display: block;
     letter-spacing: 0.3px;
+}
+
+/* Notes Section (Full Width) */
+.section-heading {
+    margin-top: 24px;
 }
 
 /* Notes Section */
@@ -808,15 +814,14 @@ input[type="number"] {
 
 
 /* Business Financials Section Button */
-.section-heading button.btn-add {
+.section-heading button {
     font-size: 14px;
     padding: 4px 8px;
+    margin-left: 12px; /* Place next to heading */
     background-color: rgba(255, 255, 255, 0.1); /* Glass-like effect */
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 6px;
-    margin-left: 10px;
     cursor: pointer;
-    transition: background-color 0.2s ease;
 }
 
 button.btn-add:hover {

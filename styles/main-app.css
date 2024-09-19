@@ -549,10 +549,7 @@ body {
 /* Smaller Revenue & Cashflow Header */
 .section-heading h4 {
     font-size: 18px;
-    font-weight: bold;
     color: #ddd;
-    margin: 20px 0 10px;
-    padding-bottom: 10px;
 }
 
 /* Adjusted width for the Business Name input */

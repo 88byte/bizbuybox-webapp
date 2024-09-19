@@ -509,43 +509,40 @@ function renderDeals() {
 }
 
 
-let revenueCashflowCounter = 1;
+let revenueCashflowCount = 1;
 
-// Function to add new Revenue & Cashflow row
 window.addRevenueCashflowRow = function() {
-    const section = document.getElementById('revenueCashflowSection');
-    const currentRows = section.querySelectorAll('.revenue-cashflow-entry').length;
-    const newRowNumber = currentRows + 1;
+    revenueCashflowCount++;
 
     const newRow = document.createElement('div');
-    newRow.className = 'three-column revenue-cashflow-entry';
+    newRow.classList.add('revenue-cashflow-row');
+
     newRow.innerHTML = `
-        <div class="input-item">
-            <label>Revenue Year</label>
-            <div contenteditable="true" class="editable-year" name="revenueYear[]" id="revenueYear${newRowNumber}">Year</div>
-            <input type="number" name="revenue[]" id="revenue${newRowNumber}" placeholder="Revenue">
+        <div class="input-item year-text">
+            <label>Year</label>
+            <div contenteditable="true" class="editable-year" name="revenueYear[]" id="revenueYear${revenueCashflowCount}">Year</div>
         </div>
-        <div class="input-item">
-            <label>Cashflow Year</label>
-            <div contenteditable="true" class="editable-year" name="cashflowYear[]" id="cashflowYear${newRowNumber}">Year</div>
-            <input type="number" name="cashflow[]" id="cashflow${newRowNumber}" placeholder="Cashflow">
+        <div class="input-item small-input">
+            <label>Revenue</label>
+            <input type="number" name="revenue[]" id="revenue${revenueCashflowCount}" placeholder="0">
         </div>
-        <div class="input-item remove-btn-container">
+        <div class="input-item small-input">
+            <label>Cashflow</label>
+            <input type="number" name="cashflow[]" id="cashflow${revenueCashflowCount}" placeholder="0">
+        </div>
+        <div class="input-item button-container">
             <button type="button" class="btn-remove" onclick="removeRevenueCashflowRow(this)">−</button>
         </div>
     `;
-    section.appendChild(newRow);
 
-    reindexRows(); // Re-index rows after adding
-}
+    document.getElementById('revenueCashflowSection').appendChild(newRow);
+};
 
-// Function to remove a Revenue & Cashflow row
 window.removeRevenueCashflowRow = function(button) {
-    const row = button.closest('.revenue-cashflow-entry');
-    row.parentNode.removeChild(row);
+    const rowToRemove = button.closest('.revenue-cashflow-row');
+    rowToRemove.remove();
+};
 
-    reindexRows(); // Re-index rows after removal
-}
 
 // Function to re-index the Revenue and Cashflow rows
 function reindexRows() {

@@ -1053,7 +1053,6 @@ input-item select {
     height: 100%;
     background: rgba(0, 0, 0, 0.6); /* Dark overlay */
     z-index: 1000;
-    display: flex;
     justify-content: center;
     align-items: center; /* Centering the modal vertically and horizontally */
 }

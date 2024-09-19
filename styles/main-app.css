@@ -446,6 +446,14 @@ body {
     border: none;
     border-radius: 6px;
 }
+.loanType-dropdown {
+    margin-left: auto;
+    padding: 8px 12px;
+    background-color: #333;
+    color: #f5f5f5;
+    border: none;
+    border-radius: 6px;
+}
 
 /* Left Section (Form) */
 .card-modal-form-section {

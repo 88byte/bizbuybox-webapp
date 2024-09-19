@@ -630,6 +630,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
+
 let revenueCashflowCount = 1;
 
 // Function to add a new row
@@ -710,6 +711,52 @@ function reindexRows() {
         cashflowInput.id = `cashflow${rowNumber}`;
     });
 }
+
+// Open and Close Modals
+function openBrokerContactModal() {
+    document.getElementById('brokerContactModal').style.display = 'block';
+}
+
+function closeBrokerContactModal() {
+    document.getElementById('brokerContactModal').style.display = 'none';
+}
+
+function openSellerContactModal() {
+    document.getElementById('sellerContactModal').style.display = 'block';
+}
+
+function closeSellerContactModal() {
+    document.getElementById('sellerContactModal').style.display = 'none';
+}
+
+// Save Broker Contact Information
+function saveBrokerContact() {
+    const name = document.getElementById('brokerName').value;
+    const company = document.getElementById('brokerCompany').value;
+    const phone = document.getElementById('brokerPhone').value;
+    const email = document.getElementById('brokerEmail').value;
+    
+    // Set broker name and tooltip content
+    document.getElementById('brokerContactName').textContent = name;
+    document.getElementById('brokerContactName').setAttribute('data-tooltip', `Company: ${company}\nPhone: ${phone}\nEmail: ${email}`);
+    
+    closeBrokerContactModal();
+}
+
+// Save Seller Contact Information
+function saveSellerContact() {
+    const name = document.getElementById('sellerName').value;
+    const phone = document.getElementById('sellerPhone').value;
+    const email = document.getElementById('sellerEmail').value;
+    
+    // Set seller name and tooltip content
+    document.getElementById('sellerContactName').textContent = name;
+    document.getElementById('sellerContactName').setAttribute('data-tooltip', `Phone: ${phone}\nEmail: ${email}`);
+    
+    closeSellerContactModal();
+}
+
+
 
 
 

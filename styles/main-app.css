@@ -1057,7 +1057,6 @@ input-item select {
     z-index: 1000;
     backdrop-filter: blur(12px); /* Stronger blur for depth */
     transition: all 0.4s ease-in-out; /* Smoother and slower transition */
-    opacity: 0; /* Start with zero opacity for smooth fade */
     transform: scale(0.9); /* Start with slight zoom-out */
 }
 

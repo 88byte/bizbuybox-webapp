@@ -425,7 +425,7 @@ body {
     background: #222; /* Sleeker dark background */
     padding: 32px;
     border-radius: 16px;
-    width: 900px; /* Wider for more fields */
+    width: 1000px; /* Wider for more fields */
     max-width: 95%; /* Better fit for smaller screens */
     color: #f5f5f5;
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.75); /* Strong shadow for depth */
@@ -454,12 +454,12 @@ body {
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    height: 100%;
+    width: 400px; /* Fixed width for results section */
+    max-height: 85vh;
 }
 
 /* Header for Deal Calculations */
 .deal-calculations-section h3 {
-    margin-top: 0;
     font-size: 20px;
     text-transform: uppercase;
     letter-spacing: 1px;

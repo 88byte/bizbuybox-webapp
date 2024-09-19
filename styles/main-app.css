@@ -466,7 +466,7 @@ body {
 
 /* Right Section (Calculations) */
 .deal-calculations-section {
-    flex: 1;
+    flex: 1.4;
     margin-left: 24px; /* Add space between form and results */
     background-color: #1c1c1c; /* Slightly darker background */
     border-radius: 12px;
@@ -559,9 +559,9 @@ body {
 
 /* Smaller Revenue & Cashflow Header */
 .section-heading h4 {
-    font-size: 20px;
+    font-size: 18px;
     color: #f0f0f0;
-    margin-bottom: 15px;
+    margin-bottom: 8px;
     font-weight: 600;
     position: relative;
 }
@@ -576,20 +576,20 @@ input#businessName {
 .two-column {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
+    gap: 12px;
 }
 
 .three-column {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
+    gap: 12px;
 }
 
 /* Four-Column Layout for Loan Type, Interest Rate, Terms, and Loan Amount */
 .four-column {
     display: grid;
     grid-template-columns: repeat(4, 1fr); /* Four equal columns */
-    gap: 16px;
+    gap: 12px;
 }
 
 
@@ -693,6 +693,7 @@ button:hover {
     padding: 8px 4px;
     color: #fff;
     transition: border-color 0.3s ease;
+    max-width: 140px;
 }
 
 .input-item input:focus, .input-item textarea:focus, .input-item select:focus {
@@ -806,28 +807,31 @@ input[type="number"] {
 
 
 
-/* Button Styles for + and - (glass effect) */
-button.btn-add, button.btn-remove {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: #f5f5f5;
+/* Business Financials Section Button */
+.section-heading button.btn-add {
+    font-size: 14px;
+    padding: 4px 8px;
+    background-color: rgba(255, 255, 255, 0.1); /* Glass-like effect */
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 6px;
+    margin-left: 10px;
     cursor: pointer;
     transition: background-color 0.2s ease;
 }
 
-button.btn-add:hover, button.btn-remove:hover {
+button.btn-add:hover {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-/* Subtle + and - button appearance */
-button.btn-add {
-    font-weight: bold;
+/* Smaller remove button */
+button.btn-remove {
+    font-size: 12px;
+    padding: 3px 6px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
 }
 
-button.btn-remove {
-    font-weight: bold;
-}
 
 /* Make sure the buttons are inheriting styles correctly */
 button {

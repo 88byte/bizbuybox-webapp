@@ -521,15 +521,17 @@ window.addRevenueCashflowRow = function() {
     newRow.className = 'three-column revenue-cashflow-entry';
     newRow.innerHTML = `
         <div class="input-item">
-            <label for="revenue${newRowNumber}">Revenue Year ${newRowNumber}</label>
+            <label for="revenueYear${newRowNumber}">Revenue Year</label>
+            <input type="text" name="revenueYear[]" id="revenueYear${newRowNumber}" placeholder="Year (e.g., 2021)">
             <input type="number" name="revenue[]" id="revenue${newRowNumber}" placeholder="Revenue for Year ${newRowNumber}">
         </div>
         <div class="input-item">
-            <label for="cashflow${newRowNumber}">Cashflow Year ${newRowNumber}</label>
+            <label for="cashflowYear${newRowNumber}">Cashflow Year</label>
+            <input type="text" name="cashflowYear[]" id="cashflowYear${newRowNumber}" placeholder="Year (e.g., 2021)">
             <input type="number" name="cashflow[]" id="cashflow${newRowNumber}" placeholder="Cashflow for Year ${newRowNumber}">
         </div>
         <div class="input-item remove-btn-container">
-            <button type="button" class="btn-remove" onclick="removeRevenueCashflowRow(this)">Remove</button>
+            <button type="button" class="btn-remove" onclick="removeRevenueCashflowRow(this)">−</button>
         </div>
     `;
     section.appendChild(newRow);
@@ -550,24 +552,22 @@ function reindexRows() {
     const rows = document.querySelectorAll('.revenue-cashflow-entry');
     rows.forEach((row, index) => {
         const rowNumber = index + 1;
-        const revenueLabel = row.querySelector('label[for^="revenue"]');
+
+        const revenueYearInput = row.querySelector('input[name="revenueYear[]"]');
         const revenueInput = row.querySelector('input[name="revenue[]"]');
-        const cashflowLabel = row.querySelector('label[for^="cashflow"]');
+        const cashflowYearInput = row.querySelector('input[name="cashflowYear[]"]');
         const cashflowInput = row.querySelector('input[name="cashflow[]"]');
 
-        // Update label and input attributes based on the current row index
-        revenueLabel.innerHTML = `Revenue Year ${rowNumber}`;
-        revenueLabel.setAttribute('for', `revenue${rowNumber}`);
+        // Update input IDs and placeholders for dynamic re-indexing
+        revenueYearInput.id = `revenueYear${rowNumber}`;
         revenueInput.id = `revenue${rowNumber}`;
         revenueInput.placeholder = `Revenue for Year ${rowNumber}`;
 
-        cashflowLabel.innerHTML = `Cashflow Year ${rowNumber}`;
-        cashflowLabel.setAttribute('for', `cashflow${rowNumber}`);
+        cashflowYearInput.id = `cashflowYear${rowNumber}`;
         cashflowInput.id = `cashflow${rowNumber}`;
         cashflowInput.placeholder = `Cashflow for Year ${rowNumber}`;
     });
 }
-
 
 
 

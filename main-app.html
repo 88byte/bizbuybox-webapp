@@ -207,21 +207,25 @@
 	            </div>
 	            <!-- Revenue & Cashflow Section -->
 				<div id="revenueCashflowSection">
-				    <div class="three-column revenue-cashflow-entry" id="revenueCashflowRow1">
+				    <div class="three-column revenue-cashflow-entry">
 				        <div class="input-item">
-				            <label for="revenue1">Revenue Year 1</label>
-				            <input type="number" name="revenue[]" placeholder="Revenue for Year 1">
+				            <label for="revenueYear1">Revenue Year</label>
+				            <input type="text" name="revenueYear[]" id="revenueYear1" placeholder="Year (e.g., 2021)">
+				            <input type="number" name="revenue[]" id="revenue1" placeholder="Revenue for Year 1">
 				        </div>
 				        <div class="input-item">
-				            <label for="cashflow1">Cashflow Year 1</label>
-				            <input type="number" name="cashflow[]" placeholder="Cashflow for Year 1">
+				            <label for="cashflowYear1">Cashflow Year</label>
+				            <input type="text" name="cashflowYear[]" id="cashflowYear1" placeholder="Year (e.g., 2021)">
+				            <input type="number" name="cashflow[]" id="cashflow1" placeholder="Cashflow for Year 1">
 				        </div>
 				        <div class="input-item remove-btn-container">
-				            <button type="button" class="btn-remove" onclick="removeRevenueCashflowRow(1)">Remove</button>
+				            <button type="button" class="btn-remove" onclick="removeRevenueCashflowRow(this)">−</button>
 				        </div>
 				    </div>
 				</div>
-				<button type="button" class="btn-add" onclick="addRevenueCashflowRow()">Add Revenue & Cashflow</button>
+				<!-- Add Button (just a "+" symbol) -->
+				<button type="button" class="btn-add" onclick="addRevenueCashflowRow()">+</button>
+
 
 
 	            <!-- Notes Section -->

@@ -613,37 +613,37 @@ button:hover {
     margin-top: 24px;
 }
 
-/* Button to Remove Revenue & Cashflow Row */
-.btn-remove {
-    background-color: #ff4d4d;
-    color: white;
-    padding: 8px 12px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.btn-remove:hover {
-    background-color: #ff1a1a;
-}
-
-/* Button to Add More Revenue & Cashflow Rows */
-.btn-add {
+/* Button Styles */
+button.btn-add, button.btn-remove {
+    font-size: 24px; /* Larger size for symbols */
     background-color: #5e5e5e;
-    color: #f5f5f5;
-    padding: 12px 24px;
-    border-radius: 8px;
     border: none;
+    border-radius: 50%;
+    color: #f5f5f5;
+    font-weight: bold;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
     cursor: pointer;
-    margin-top: 16px;
-    display: block;
     transition: background-color 0.3s ease;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.btn-add:hover {
-    background-color: #d2a679;
+button.btn-add:hover, button.btn-remove:hover {
+    background-color: #d2a679; /* Gold hover */
 }
+
+button.btn-remove {
+    background-color: #d44;
+}
+
+button.btn-remove:hover {
+    background-color: #e55; /* Darker red on hover */
+}
+
 
 /* Modal Action Buttons */
 .modal-actions {

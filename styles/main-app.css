@@ -1043,6 +1043,13 @@ input-item select {
     }
 }
 
+/* Contact Info Column (Stacked vertically) */
+.contact-column {
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 8px; /* Space between buttons */
+}
+
 /* Smaller Contact Info Buttons (70% size reduction) */
 .contact-info-button {
     font-size: 70%;  /* Reduce the font size */

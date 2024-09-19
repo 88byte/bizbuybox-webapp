@@ -234,10 +234,10 @@
 	                                <div contenteditable="true" class="editable-year" name="revenueYear[]" id="revenueYear1">Year</div>
 	                            </div>
 	                            <div class="input-item small-input">
-	                                <input type="text" name="revenue[]" id="revenue1" placeholder="$0" oninput="updateProfitMargin(this)">
+	                                <input type="text" name="revenue[]" id="revenue1"  oninput="updateProfitMargin(this)">
 	                            </div>
 	                            <div class="input-item small-input">
-	                                <input type="text" name="cashflow[]" id="cashflow1" placeholder="$0" oninput="updateProfitMargin(this)">
+	                                <input type="text" name="cashflow[]" id="cashflow1" oninput="updateProfitMargin(this)">
 	                            </div>
 	                            <div class="input-item profit-margin">
 	                                <span id="profitMargin1">0%</span>
@@ -321,16 +321,6 @@
 
 						<!-- Placeholder for dynamically added loan details row -->
 						<div id="additionalLoanDetails"></div>
-
-						<!-- Down Payment & Buyer Salary Row -->
-						<div class="two-column">
-						    <div class="input-item">
-						        <input type="text" id="downPayment" placeholder="Down Payment ($)" />
-						    </div>
-						    <div class="input-item">
-						        <input type="text" id="buyerSalary" placeholder="Buyer Salary ($)" />
-						    </div>
-						</div>
 
 	                <!-- Notes Section (Full Width) -->
 	                <div class="section-heading">

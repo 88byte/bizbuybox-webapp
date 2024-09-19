@@ -645,10 +645,10 @@ window.addRevenueCashflowRow = function() {
             <div contenteditable="true" class="editable-year" name="revenueYear[]" id="revenueYear${revenueCashflowCount}">Year</div>
         </div>
         <div class="input-item small-input">
-            <input type="text" name="revenue[]" id="revenue${revenueCashflowCount}" placeholder="$0" oninput="updateProfitMargin(this)">
+            <input type="text" name="revenue[]" id="revenue${revenueCashflowCount}"  oninput="updateProfitMargin(this)">
         </div>
         <div class="input-item small-input">
-            <input type="text" name="cashflow[]" id="cashflow${revenueCashflowCount}" placeholder="$0" oninput="updateProfitMargin(this)">
+            <input type="text" name="cashflow[]" id="cashflow${revenueCashflowCount}"  oninput="updateProfitMargin(this)">
         </div>
         <div class="input-item profit-margin">
             <span id="profitMargin${revenueCashflowCount}">0%</span>
@@ -667,7 +667,7 @@ window.removeRevenueCashflowRow = function(button) {
 
 // Function to format numbers as currency without decimals
 function formatCurrency(value) {
-    if (value === '') return '$0';
+    
     const number = parseFloat(value.replace(/[^\d]/g, ''));
     return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(number || 0);
 }

@@ -788,28 +788,36 @@ button.btn-add, button.btn-remove {
     font-size: 16px;
     background-color: rgba(255, 255, 255, 0.1); /* Transparent, glass-like background */
     border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border for glass effect */
-    border-radius: 8px; /* Slightly rounded corners */
-    color: #f5f5f5;
-    padding: 4px 8px; /* Smaller padding for subtlety */
+    border-radius: 6px; /* Rounded corners but less sharp than before */
+    color: #f5f5f5; /* Light text color */
+    padding: 4px 12px; /* Compact padding */
     cursor: pointer;
     transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    backdrop-filter: blur(6px); /* For a more glassy effect */
 }
 
 button.btn-add:hover, button.btn-remove:hover {
-    background-color: rgba(255, 255, 255, 0.15); /* Slightly darker glass effect on hover */
-    transform: translateY(-1px); /* Slight lift on hover */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Increase shadow depth on hover */
+    background-color: rgba(255, 255, 255, 0.2); /* Slightly darker glass effect on hover */
+    transform: translateY(-1px); /* Lift on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Deepen shadow on hover */
 }
 
-/* Further Subtle Adjustments */
+/* Subtle + and - button appearance */
 button.btn-add {
-    font-weight: bold; /* Make the + symbol stand out */
+    font-weight: bold;
 }
 
 button.btn-remove {
-    font-weight: bold; /* Make the − symbol stand out */
+    font-weight: bold;
 }
+
+/* Make sure the buttons are inheriting styles correctly */
+button {
+    border: none; /* Remove default border */
+    background: none; /* Ensure no background interference */
+}
+
 
 
 

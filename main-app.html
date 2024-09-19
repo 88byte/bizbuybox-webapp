@@ -223,32 +223,33 @@
                 </div>
 
                 <!-- Business Financials Section -->
-                <div class="section-heading">
-                    <h4>Business Financials 
-                        <button type="button" class="btn-add" onclick="addRevenueCashflowRow()">+</button>
-    </h4>
-                </div>
-                <div id="revenueCashflowSection">
-                    <div class="revenue-cashflow-entry">
-                        <div class="revenue-cashflow-row">
-                            <div class="input-item button-container">
+				<div class="section-heading">
+				    <h4>Business Financials 
+				        <button type="button" class="btn-add" onclick="addRevenueCashflowRow()">+</button>
+				    </h4>
+				</div>
+				<div id="revenueCashflowSection">
+				    <div class="revenue-cashflow-entry">
+				        <div class="revenue-cashflow-row">
+				            <div class="input-item button-container">
 				                <button type="button" class="btn-remove" onclick="removeRevenueCashflowRow(this)">−</button>
 				            </div>
 				            <div class="input-item year-text">
-                                <div contenteditable="true" class="editable-year" name="revenueYear[]" id="revenueYear1">Year</div>
-                            </div>
-                            <div class="input-item small-input">
-                                <input type="text" name="revenue[]" id="revenue1" placeholder="$0" oninput="updateProfitMargin(this)">
-                            </div>
-                            <div class="input-item small-input">
-                                <input type="text" name="cashflow[]" id="cashflow1" placeholder="$0" oninput="updateProfitMargin(this)">
-                            </div>
-                            <div class="input-item profit-margin">
-                                <span id="profitMargin1">0%</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+				                <div contenteditable="true" class="editable-year" name="revenueYear[]" id="revenueYear1">Year</div>
+				            </div>
+				            <div class="input-item small-input">
+				                <input type="text" name="revenue[]" id="revenue1" placeholder="$0" oninput="updateProfitMargin(this)">
+				            </div>
+				            <div class="input-item small-input">
+				                <input type="text" name="cashflow[]" id="cashflow1" placeholder="$0" oninput="updateProfitMargin(this)">
+				            </div>
+				            <div class="input-item profit-margin">
+				                <span id="profitMargin1">0%</span>
+				            </div>
+				        </div>
+				    </div>
+				</div>
+
 
                 <!-- Funding Section -->
                 <div class="section-heading">

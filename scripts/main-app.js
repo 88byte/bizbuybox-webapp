@@ -714,7 +714,7 @@ function reindexRows() {
 
 // Open and Close Contact Modals
 window.openBrokerContactModal = function() {
-    document.getElementById('brokerContactModal').style.display = 'block';
+    document.getElementById('brokerContactModal').style.display = 'flex';  // Use flex to center
 }
 
 window.closeBrokerContactModal = function() {
@@ -722,7 +722,7 @@ window.closeBrokerContactModal = function() {
 }
 
 window.openSellerContactModal = function() {
-    document.getElementById('sellerContactModal').style.display = 'block';
+    document.getElementById('sellerContactModal').style.display = 'flex';  // Use flex to center
 }
 
 window.closeSellerContactModal = function() {
@@ -755,10 +755,6 @@ window.saveSellerContact = function() {
     
     closeSellerContactModal();
 }
-
-
-
-
 
 
 

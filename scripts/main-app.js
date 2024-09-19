@@ -522,13 +522,13 @@ window.addRevenueCashflowRow = function() {
     newRow.innerHTML = `
         <div class="input-item">
             <label for="revenueYear${newRowNumber}">Revenue Year</label>
-            <input type="text" name="revenueYear[]" id="revenueYear${newRowNumber}" placeholder="Year (e.g., 2021)">
-            <input type="number" name="revenue[]" id="revenue${newRowNumber}" placeholder="Revenue for Year ${newRowNumber}">
+            <input type="text" class="small-input" name="revenueYear[]" id="revenueYear${newRowNumber}" placeholder="Year">
+            <input type="number" name="revenue[]" id="revenue${newRowNumber}" placeholder="Revenue">
         </div>
         <div class="input-item">
             <label for="cashflowYear${newRowNumber}">Cashflow Year</label>
-            <input type="text" name="cashflowYear[]" id="cashflowYear${newRowNumber}" placeholder="Year (e.g., 2021)">
-            <input type="number" name="cashflow[]" id="cashflow${newRowNumber}" placeholder="Cashflow for Year ${newRowNumber}">
+            <input type="text" class="small-input" name="cashflowYear[]" id="cashflowYear${newRowNumber}" placeholder="Year">
+            <input type="number" name="cashflow[]" id="cashflow${newRowNumber}" placeholder="Cashflow">
         </div>
         <div class="input-item remove-btn-container">
             <button type="button" class="btn-remove" onclick="removeRevenueCashflowRow(this)">−</button>
@@ -561,13 +561,14 @@ function reindexRows() {
         // Update input IDs and placeholders for dynamic re-indexing
         revenueYearInput.id = `revenueYear${rowNumber}`;
         revenueInput.id = `revenue${rowNumber}`;
-        revenueInput.placeholder = `Revenue for Year ${rowNumber}`;
+        revenueInput.placeholder = `Revenue`;
 
         cashflowYearInput.id = `cashflowYear${rowNumber}`;
         cashflowInput.id = `cashflow${rowNumber}`;
-        cashflowInput.placeholder = `Cashflow for Year ${rowNumber}`;
+        cashflowInput.placeholder = `Cashflow`;
     });
 }
+
 
 
 

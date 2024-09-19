@@ -210,21 +210,22 @@
 				    <div class="three-column revenue-cashflow-entry">
 				        <div class="input-item">
 				            <label for="revenueYear1">Revenue Year</label>
-				            <input type="text" name="revenueYear[]" id="revenueYear1" placeholder="Year (e.g., 2021)">
-				            <input type="number" name="revenue[]" id="revenue1" placeholder="Revenue for Year 1">
+				            <input type="text" class="small-input" name="revenueYear[]" id="revenueYear1" placeholder="Year">
+				            <input type="number" name="revenue[]" id="revenue1" placeholder="Revenue">
 				        </div>
 				        <div class="input-item">
 				            <label for="cashflowYear1">Cashflow Year</label>
-				            <input type="text" name="cashflowYear[]" id="cashflowYear1" placeholder="Year (e.g., 2021)">
-				            <input type="number" name="cashflow[]" id="cashflow1" placeholder="Cashflow for Year 1">
+				            <input type="text" class="small-input" name="cashflowYear[]" id="cashflowYear1" placeholder="Year">
+				            <input type="number" name="cashflow[]" id="cashflow1" placeholder="Cashflow">
 				        </div>
 				        <div class="input-item remove-btn-container">
 				            <button type="button" class="btn-remove" onclick="removeRevenueCashflowRow(this)">−</button>
 				        </div>
 				    </div>
 				</div>
-				<!-- Add Button (just a "+" symbol) -->
+				<!-- Add Button -->
 				<button type="button" class="btn-add" onclick="addRevenueCashflowRow()">+</button>
+
 
 
 

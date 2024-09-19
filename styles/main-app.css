@@ -841,30 +841,31 @@ input-item select {
 /* Specific Styling for Glass-Look "+" and "-" Buttons */
 button.btn-add, button.btn-remove {
     font-size: 14px;
-    background-color: rgba(255, 255, 255, 0.1); /* Transparent, glass-like background */
-    border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border for glass effect */
-    border-radius: 8px; /* Slightly rounded corners */
-    color: #f5f5f5;
-    padding: 4px 8px; /* Compact padding */
-    cursor: pointer;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    background-color: rgba(255, 255, 255, 0.1) !important; /* Force transparent, glass-like background */
+    border: 1px solid rgba(255, 255, 255, 0.2) !important; /* Subtle border for glass effect */
+    border-radius: 8px !important; /* Slightly rounded corners */
+    color: #f5f5f5 !important;
+    padding: 4px 8px !important; /* Compact padding */
+    cursor: pointer !important;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2) !important; /* Subtle shadow for depth */
 }
 
 button.btn-add:hover, button.btn-remove:hover {
-    background-color: rgba(255, 255, 255, 0.2); /* Darker glass effect on hover */
-    transform: translateY(-1px); /* Slight lift on hover */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Increase shadow depth on hover */
+    background-color: rgba(255, 255, 255, 0.2) !important; /* Darker glass effect on hover */
+    transform: translateY(-1px) !important; /* Slight lift on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important; /* Increase shadow depth on hover */
 }
 
-/* Remove the minimal styling only for specific buttons */
+/* Adjust font-weight for symbols */
 button.btn-add {
-    font-weight: bold;
+    font-weight: bold !important;
 }
 
 button.btn-remove {
-    font-weight: bold;
+    font-weight: bold !important;
 }
+
 
 
 

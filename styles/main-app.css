@@ -552,6 +552,12 @@ body {
     color: #ddd;
 }
 
+/* Adjusted width for the Business Name input */
+input#businessName {
+    width: 100%; /* Make it wider to allow longer text */
+    max-width: 400px; /* Set a reasonable max-width */
+}
+
 /* Two-Column Layout for Input Fields */
 .two-column {
     display: grid;
@@ -707,6 +713,8 @@ input, textarea {
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 6px;
     color: #f5f5f5;
+    width: 100%; /* Consistent width */
+    text-align: left;
 }
 
 /* Remove Number Spinner on Input Fields */
@@ -775,27 +783,32 @@ input[type="number"] {
 }
 
 
-/* Subtle Add/Remove Buttons */
+/* Button Styles for + and - (glass effect) */
 button.btn-add, button.btn-remove {
-    background-color: rgba(255, 255, 255, 0.1);
+    font-size: 16px;
+    background-color: rgba(255, 255, 255, 0.1); /* Transparent, glass-like background */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border for glass effect */
+    border-radius: 8px; /* Slightly rounded corners */
     color: #f5f5f5;
-    font-size: 14px;
-    padding: 4px 10px;
-    border: none;
-    border-radius: 4px;
+    padding: 4px 8px; /* Smaller padding for subtlety */
     cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
 }
 
 button.btn-add:hover, button.btn-remove:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.15); /* Slightly darker glass effect on hover */
+    transform: translateY(-1px); /* Slight lift on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Increase shadow depth on hover */
+}
+
+/* Further Subtle Adjustments */
+button.btn-add {
+    font-weight: bold; /* Make the + symbol stand out */
 }
 
 button.btn-remove {
-    background-color: #d44;
-}
-
-button.btn-remove:hover {
-    background-color: #e55;
+    font-weight: bold; /* Make the − symbol stand out */
 }
 
 

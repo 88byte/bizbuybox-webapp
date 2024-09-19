@@ -1247,5 +1247,5 @@ input-item select {
 }
 
 .full-width input {
-    width: calc(200% - 32px); /* Full width to span two columns */
+    width: calc(200% - 40px); /* Full width to span two columns */
 }

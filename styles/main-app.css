@@ -594,7 +594,7 @@ input#businessName {
 }
 
 
-
+/* General Button Styles */
 button {
     padding: 12px 24px;
     background-color: #5e5e5e;
@@ -627,6 +627,26 @@ button:hover {
 
 .btn-cancel:hover {
     background-color: #666;
+}
+
+/* Glass-Like "+" and "-" Button Styles */
+.card-modal-content .btn-add, .card-modal-content .btn-remove {
+    font-size: 14px;
+    background-color: rgba(255, 255, 255, 0.1) !important; /* Transparent, glass-like background */
+    border: 1px solid rgba(255, 255, 255, 0.2) !important; /* Subtle glass border */
+    border-radius: 8px !important; /* Slightly rounded corners */
+    color: #f5f5f5 !important;
+    padding: 4px 8px !important; /* Compact padding */
+    cursor: pointer !important;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2) !important; /* Subtle shadow for depth */
+}
+
+/* Hover effect for glass-look buttons */
+.card-modal-content .btn-add:hover, .card-modal-content .btn-remove:hover {
+    background-color: rgba(255, 255, 255, 0.2) !important; /* Darker glass effect on hover */
+    transform: translateY(-1px) !important; /* Slight lift on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important; /* Increase shadow depth on hover */
 }
 
 /* Scrollbar Styles */
@@ -834,36 +854,6 @@ input-item select {
     background-color: #e0b984;
 }
 
-
-
-/* Ensure the glass-like style for "+" and "-" buttons in the modal */
-.card-modal-content button.btn-add, .card-modal-content button.btn-remove {
-    font-size: 14px;
-    background-color: rgba(255, 255, 255, 0.1); /* Transparent, glass-like background */
-    border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle glass border */
-    border-radius: 8px; /* Slightly rounded corners */
-    color: #f5f5f5;
-    padding: 4px 8px; /* Compact padding */
-    cursor: pointer;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-}
-
-/* Hover effect for the glass-look buttons */
-.card-modal-content button.btn-add:hover, .card-modal-content button.btn-remove:hover {
-    background-color: rgba(255, 255, 255, 0.2); /* Darker glass effect on hover */
-    transform: translateY(-1px); /* Slight lift on hover */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Increase shadow depth on hover */
-}
-
-/* Apply specificity to ensure they are not overridden by common.css */
-.card-modal-content button.btn-add, .card-modal-content button.btn-remove {
-    background-color: rgba(255, 255, 255, 0.1) !important;
-    border: 1px solid rgba(255, 255, 255, 0.2) !important;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2) !important;
-}
-
-/* Other button styles remain unaffected */
 
 
 /* Modal Action Buttons */

@@ -374,36 +374,6 @@ button:hover {
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
 }
 
-/* Ensure the glass-like style for "+" and "-" buttons in the modal */
-.card-modal-content button.btn-add, .card-modal-content button.btn-remove {
-    font-size: 14px;
-    background-color: rgba(255, 255, 255, 0.1); /* Transparent, glass-like background */
-    border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle glass border */
-    border-radius: 8px; /* Slightly rounded corners */
-    color: #f5f5f5;
-    padding: 4px 8px; /* Compact padding */
-    cursor: pointer;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-}
-
-/* Hover effect for the glass-look buttons */
-.card-modal-content button.btn-add:hover, .card-modal-content button.btn-remove:hover {
-    background-color: rgba(255, 255, 255, 0.2); /* Darker glass effect on hover */
-    transform: translateY(-1px); /* Slight lift on hover */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Increase shadow depth on hover */
-}
-
-/* Apply specificity to ensure they are not overridden by common.css */
-.card-modal-content button.btn-add, .card-modal-content button.btn-remove {
-    background-color: rgba(255, 255, 255, 0.1) !important;
-    border: 1px solid rgba(255, 255, 255, 0.2) !important;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2) !important;
-}
-
-/* Other button styles remain unaffected */
-
-
 
 
 .logo img {

@@ -620,53 +620,29 @@ button:hover {
     gap: 12px;
 }
 
+/* Layout for each row */
 .revenue-cashflow-row {
     display: flex;
     align-items: center;
-    gap: 16px; /* Space between fields */
+    gap: 8px;
     justify-content: space-between;
 }
 
-/* Input Styles for Revenue & Cashflow fields */
-.revenue-cashflow-entry .input-item input {
-    padding: 10px;
-    width: 100%;
-    background-color: #3a3a3a;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
-    color: #f0f0f0;
-    font-size: 16px;
-    transition: border-color 0.3s ease;
+/* Small input for year */
+.small-year-input {
+    max-width: 60px; /* Compact for year input */
 }
 
-/* Adjust padding and size of inputs */
-.revenue-cashflow-entry .input-item input:focus {
-    border-color: #d4a759;
-    outline: none;
-    background-color: rgba(255, 255, 255, 0.12);
-}
-
-/* Small input for years */
-.small-input {
-    max-width: 100px; /* Smaller for the year fields */
-    flex: 0 0 auto;
-}
-
-/* Full input for revenue and cashflow values */
-.full-input {
-    flex: 1;
-}
-
-/* Editable year field (same size as text) */
+/* Editable year field */
 .editable-year {
-    padding: 6px 10px;
+    padding: 4px 6px;
     font-size: 14px;
     background-color: #3a3a3a;
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 6px;
+    border-radius: 4px;
     color: #f0f0f0;
     text-align: center;
-    width: 80px; /* Adjust the width */
+    width: 60px; /* Small width for year */
     cursor: text;
     transition: border-color 0.3s ease;
 }
@@ -676,30 +652,47 @@ button:hover {
     background-color: rgba(255, 255, 255, 0.12);
 }
 
-/* Button Container for Adding and Removing */
+/* Compact input fields for numbers */
+.small-input {
+    max-width: 120px; /* Small size for revenue/cashflow inputs */
+}
+
+.revenue-cashflow-entry .input-item input {
+    padding: 8px;
+    width: 100%;
+    background-color: #3a3a3a;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    color: #f0f0f0;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+/* Button Container */
 .button-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 16px;
+    margin-top: 12px;
 }
 
+/* Button Styles for Add/Remove */
 button.btn-add, button.btn-remove {
-    font-size: 18px;
+    font-size: 20px;
     background-color: #5e5e5e;
     border: 1px solid #5e5e5e;
     border-radius: 50%;
     color: #f5f5f5;
-    padding: 8px 14px;
+    padding: 6px 12px;
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 button.btn-add:hover, button.btn-remove:hover {
     background-color: #d2a679;
-    transform: translateY(-3px);
+    transform: translateY(-2px);
 }
 
 button.btn-remove {
@@ -709,6 +702,7 @@ button.btn-remove {
 button.btn-remove:hover {
     background-color: #e55;
 }
+
 
 
 /* Modal Action Buttons */

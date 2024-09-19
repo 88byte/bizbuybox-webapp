@@ -243,27 +243,28 @@
 					</div>
 
 
-	                <div id="revenueCashflowSection">
-	                    <div class="revenue-cashflow-entry">
-	                        <div class="revenue-cashflow-row">
-	                            <div class="input-item button-container">
-	                                <button type="button" class="btn-remove" onclick="removeRevenueCashflowRow(this)">−</button>
-	                            </div>
-	                            <div class="input-item year-text">
-	                                <div contenteditable="true" class="editable-year" name="revenueYear[]" id="revenueYear1">Year</div>
-	                            </div>
-	                            <div class="input-item small-input">
-	                                <input type="text" name="revenue[]" id="revenue1" placeholder="Revenue" oninput="updateProfitMargin(this)">
-	                            </div>
-	                            <div class="input-item small-input">
-	                                <input type="text" name="cashflow[]" id="cashflow1" placeholder="Cashflow" oninput="updateProfitMargin(this)">
-	                            </div>
-	                            <div class="input-item profit-margin">
-	                                <span id="profitMargin1">0%</span>
-	                            </div>
-	                        </div>
-	                    </div>
-	                </div>
+	                <!-- Revenue & Cashflow Section -->
+					<div id="revenueCashflowSection">
+					    <div class="revenue-cashflow-entry">
+					        <div class="revenue-cashflow-row">
+					            <div class="input-item button-container">
+					                <button type="button" class="btn-remove" onclick="removeRevenueCashflowRow(this)">−</button>
+					            </div>
+					            <div class="input-item year-text">
+					                <div contenteditable="true" class="editable-year" name="revenueYear[]" id="revenueYear1">Year</div>
+					            </div>
+					            <div class="input-item small-input revenue-column">
+					                <input type="text" name="revenue[]" id="revenue1" placeholder="$0" oninput="updateProfitMargin(this)">
+					            </div>
+					            <div class="input-item small-input cashflow-column">
+					                <input type="text" name="cashflow[]" id="cashflow1" placeholder="$0" oninput="updateProfitMargin(this)">
+					            </div>
+					            <div class="input-item profit-column">
+					                <span id="profitMargin1">0%</span>
+					            </div>
+					        </div>
+					    </div>
+					</div>
 
 	                <script>
 					    // Define the function to update dropdown color based on selection

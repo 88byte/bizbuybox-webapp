@@ -1061,7 +1061,7 @@ input-item select {
     cursor: pointer;
     transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s;
     position: relative;
-    width: 180px; /* Adjust width for alignment consistency */
+    width: 130px; /* Adjust width for alignment consistency */
 }
 
 .contact-info-button[data-tooltip]:hover::after {
@@ -1247,6 +1247,5 @@ input-item select {
 }
 
 .full-width input {
-    width: 100%; /* Ensure the Business Address field spans two columns */
+    width: calc(200% - 32px); /* Full width to span two columns */
 }
-

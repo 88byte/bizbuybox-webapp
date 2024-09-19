@@ -838,7 +838,7 @@ input-item select {
 
 
 
-/* Button Styles for the "+" and "-" (Glass Look) */
+/* Specific Styling for Glass-Look "+" and "-" Buttons */
 button.btn-add, button.btn-remove {
     font-size: 14px;
     background-color: rgba(255, 255, 255, 0.1); /* Transparent, glass-like background */
@@ -857,14 +857,14 @@ button.btn-add:hover, button.btn-remove:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Increase shadow depth on hover */
 }
 
+/* Remove the minimal styling only for specific buttons */
 button.btn-add {
-    font-weight: bold; /* Ensure the "+" symbol stands out */
+    font-weight: bold;
 }
 
 button.btn-remove {
-    font-weight: bold; /* Ensure the "-" symbol stands out */
+    font-weight: bold;
 }
-
 
 
 

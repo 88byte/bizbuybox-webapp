@@ -509,6 +509,36 @@ function renderDeals() {
 }
 
 
+let revenueCashflowCounter = 1;
+
+// Function to add new Revenue & Cashflow row
+function addRevenueCashflowRow() {
+    revenueCashflowCounter++;
+    const section = document.getElementById('revenueCashflowSection');
+    const newRow = document.createElement('div');
+    newRow.className = 'three-column revenue-cashflow-entry';
+    newRow.id = `revenueCashflowRow${revenueCashflowCounter}`;
+    newRow.innerHTML = `
+        <div class="input-item">
+            <label for="revenue${revenueCashflowCounter}">Revenue Year ${revenueCashflowCounter}</label>
+            <input type="number" name="revenue[]" placeholder="Revenue for Year ${revenueCashflowCounter}">
+        </div>
+        <div class="input-item">
+            <label for="cashflow${revenueCashflowCounter}">Cashflow Year ${revenueCashflowCounter}</label>
+            <input type="number" name="cashflow[]" placeholder="Cashflow for Year ${revenueCashflowCounter}">
+        </div>
+        <div class="input-item remove-btn-container">
+            <button type="button" class="btn-remove" onclick="removeRevenueCashflowRow(${revenueCashflowCounter})">Remove</button>
+        </div>
+    `;
+    section.appendChild(newRow);
+}
+
+// Function to remove a Revenue & Cashflow row
+function removeRevenueCashflowRow(rowId) {
+    const row = document.getElementById(`revenueCashflowRow${rowId}`);
+    row.parentNode.removeChild(row);
+}
 
 
 

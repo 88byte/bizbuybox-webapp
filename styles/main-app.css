@@ -510,7 +510,7 @@ body {
 }
 
 button {
-    padding: 12px 24px; /* Smoother padding */
+    padding: 12px 24px;
     background-color: #5e5e5e;
     border: none;
     border-radius: 8px;
@@ -518,19 +518,16 @@ button {
     font-size: 16px;
     font-weight: 500;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow for button */
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 button:hover {
-    background-color: #d2a679; /* Warm gold on hover */
-    transform: translateY(-3px); /* Slight lift on hover */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
+    background-color: #d2a679;
 }
 
 /* Save Button */
 .btn-save {
-    background-color: #d2a679; /* Warm gold */
+    background-color: #d2a679;
     color: #1a1a1a;
 }
 
@@ -592,10 +589,63 @@ button:hover {
     border-color: rgba(255, 255, 255, 0.4);
 }
 
+/* Section Heading */
+.section-heading {
+    font-size: 20px;
+    font-weight: 600;
+    color: #ddd;
+    margin: 20px 0 10px;
+    border-bottom: 1px solid #444;
+    padding-bottom: 10px;
+}
 
+/* Input Items */
+.input-item {
+    position: relative;
+}
 
 
 /* Button Styles */
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+    margin-top: 24px;
+}
+
+/* Button to Remove Revenue & Cashflow Row */
+.btn-remove {
+    background-color: #ff4d4d;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-remove:hover {
+    background-color: #ff1a1a;
+}
+
+/* Button to Add More Revenue & Cashflow Rows */
+.btn-add {
+    background-color: #5e5e5e;
+    color: #f5f5f5;
+    padding: 12px 24px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    margin-top: 16px;
+    display: block;
+    transition: background-color 0.3s ease;
+}
+
+.btn-add:hover {
+    background-color: #d2a679;
+}
+
+/* Modal Action Buttons */
 .modal-actions {
     display: flex;
     justify-content: flex-end;

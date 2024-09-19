@@ -148,91 +148,94 @@
 
 
 	<!-- Card Modal (hidden by default) -->
-<div id="cardModal" class="card-modal">
-    <div class="card-modal-content">
-        <div class="card-modal-header">
-            <h2 id="modalTitle">Deal Details</h2>
-            <span class="close" onclick="closeCardModal()">&times;</span>
-        </div>
-        <form id="dealForm" onsubmit="saveDeal(); return false;">
-            <input type="hidden" id="dealId">
+	<div id="cardModal" class="card-modal">
+	    <div class="card-modal-content">
+	        <div class="card-modal-header">
+	            <h2 id="modalTitle">Deal Details</h2>
+	            <span class="close" onclick="closeCardModal()">&times;</span>
+	        </div>
+	        <form id="dealForm" onsubmit="saveDeal(); return false;">
+	            <input type="hidden" id="dealId">
 
-            <!-- Business Information -->
-            <div class="two-column">
-                <div class="input-item">
-                    <label for="businessName">Business Name</label>
-                    <input type="text" id="businessName" placeholder="Enter business name" required>
-                </div>
-                <div class="input-item">
-                    <label for="industry">Industry</label>
-                    <input type="text" id="industry" placeholder="Enter industry">
-                </div>
-            </div>
+	            <!-- Business Information -->
+	            <div class="two-column">
+	                <div class="input-item">
+	                    <label for="businessName">Business Name</label>
+	                    <input type="text" id="businessName" placeholder="Enter business name" required>
+	                </div>
+	                <div class="input-item">
+	                    <label for="industry">Industry</label>
+	                    <input type="text" id="industry" placeholder="Enter industry">
+	                </div>
+	            </div>
 
-            <!-- Status and Years in Business -->
-            <div class="two-column">
-                <div class="input-item">
-                    <label for="status">Status</label>
-                    <select id="status" required>
-                        <option value="active">Active</option>
-                        <option value="closed">Closed</option>
-                        <option value="opportunity">Opportunity</option>
-                    </select>
-                </div>
-                <div class="input-item">
-                    <label for="yearsInBusiness">Years in Business</label>
-                    <input type="number" id="yearsInBusiness" placeholder="Years in business">
-                </div>
-            </div>
+	            <!-- Status and Years in Business -->
+	            <div class="two-column">
+	                <div class="input-item">
+	                    <label for="status">Status</label>
+	                    <select id="status" required>
+	                        <option value="active">Active</option>
+	                        <option value="closed">Closed</option>
+	                        <option value="opportunity">Opportunity</option>
+	                    </select>
+	                </div>
+	                <div class="input-item">
+	                    <label for="yearsInBusiness">Years in Business</label>
+	                    <input type="number" id="yearsInBusiness" placeholder="Years in business">
+	                </div>
+	            </div>
 
-            <!-- Employees, Contractors, and Address Fields -->
-            <div class="three-column">
-                <div class="input-item">
-                    <label for="fullTimeEmployees">Full Time Employees</label>
-                    <input type="number" id="fullTimeEmployees" placeholder="Full-time employees">
-                </div>
-                <div class="input-item">
-                    <label for="partTimeEmployees">Part Time Employees</label>
-                    <input type="number" id="partTimeEmployees" placeholder="Part-time employees">
-                </div>
-                <div class="input-item">
-                    <label for="contractors">Contractors</label>
-                    <input type="number" id="contractors" placeholder="Contractors">
-                </div>
-            </div>
+	            <!-- Employees, Contractors, and Address Fields -->
+	            <div class="three-column">
+	                <div class="input-item">
+	                    <label for="fullTimeEmployees">Full Time Employees</label>
+	                    <input type="number" id="fullTimeEmployees" placeholder="Full-time employees">
+	                </div>
+	                <div class="input-item">
+	                    <label for="partTimeEmployees">Part Time Employees</label>
+	                    <input type="number" id="partTimeEmployees" placeholder="Part-time employees">
+	                </div>
+	                <div class="input-item">
+	                    <label for="contractors">Contractors</label>
+	                    <input type="number" id="contractors" placeholder="Contractors">
+	                </div>
+	            </div>
 
-            <!-- Revenue and Cash Flow -->
-            <div class="three-column">
-                <div class="input-item">
-                    <label for="revenue1">Revenue Year 1</label>
-                    <input type="number" id="revenue1" placeholder="Revenue for Year 1">
-                </div>
-                <div class="input-item">
-                    <label for="cashflow1">Cashflow Year 1</label>
-                    <input type="number" id="cashflow1" placeholder="Cashflow for Year 1">
-                </div>
-                <div class="input-item">
-                    <label for="ffe">FFE Value</label>
-                    <input type="number" id="ffe" placeholder="FFE Value">
-                </div>
-            </div>
+	            <!-- Revenue & Cashflow Section -->
+	            <div class="section-heading">
+	                <h3>Revenue & Cashflow</h3>
+	            </div>
+	            <div id="revenueCashflowSection">
+	                <div class="three-column revenue-cashflow-entry" id="revenueCashflowRow1">
+	                    <div class="input-item">
+	                        <label for="revenue1">Revenue Year 1</label>
+	                        <input type="number" name="revenue[]" placeholder="Revenue for Year 1">
+	                    </div>
+	                    <div class="input-item">
+	                        <label for="cashflow1">Cashflow Year 1</label>
+	                        <input type="number" name="cashflow[]" placeholder="Cashflow for Year 1">
+	                    </div>
+	                    <div class="input-item remove-btn-container">
+	                        <button type="button" class="btn-remove" onclick="removeRevenueCashflowRow(1)">Remove</button>
+	                    </div>
+	                </div>
+	            </div>
+	            <button type="button" class="btn-add" onclick="addRevenueCashflowRow()">Add Revenue & Cashflow</button>
 
-            <!-- Notes Section -->
-            <div class="input-item">
-                <label for="notes">Notes</label>
-                <textarea id="notes" placeholder="Additional notes about the deal"></textarea>
-            </div>
+	            <!-- Notes Section -->
+	            <div class="input-item">
+	                <label for="notes">Notes</label>
+	                <textarea id="notes" placeholder="Additional notes about the deal"></textarea>
+	            </div>
 
-            <!-- Action Buttons -->
-            <div class="modal-actions">
-                <button type="button" class="btn-cancel" onclick="closeCardModal()">Cancel</button>
-                <button type="submit" class="btn-save">Save Deal</button>
-            </div>
-        </form>
-    </div>
-</div>
-
-
+	            <!-- Action Buttons -->
+	            <div class="modal-actions">
+	                <button type="button" class="btn-cancel" onclick="closeCardModal()">Cancel</button>
+	                <button type="submit" class="btn-save">Save Deal</button>
+	            </div>
+	        </form>
+	    </div>
+	</div>
 
 
 

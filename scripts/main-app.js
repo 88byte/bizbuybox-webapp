@@ -766,6 +766,44 @@ window.saveSellerContact = function() {
     closeSellerContactModal();
 }
 
+// Function to open the document modal
+window.openDocModal = function() {
+    document.getElementById('docModal').style.display = 'flex';
+}
+
+// Function to close the document modal
+window.closeDocModal = function() {
+    document.getElementById('docModal').style.display = 'none';
+}
+
+// Function to handle the document upload
+window.uploadDocument = function() {
+    const documentList = document.getElementById('documentList');
+    const fileInput = document.getElementById('documentFile');
+    const files = fileInput.files;
+
+    // Iterate through the files and display them in the modal
+    for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const fileElement = document.createElement('div');
+        fileElement.textContent = `${file.name} `;
+        
+        // Add delete button next to the file name
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.onclick = function() {
+            documentList.removeChild(fileElement);
+        };
+        fileElement.appendChild(deleteButton);
+        
+        documentList.appendChild(fileElement);
+    }
+
+    // Clear the file input after uploading
+    fileInput.value = '';
+};
+
+
 
 
 

@@ -276,6 +276,26 @@
 					    </div>
 					</div>
 
+					<!-- Document Modal -->
+					<div id="docModal" class="contact-modal">
+					    <div class="contact-modal-content">
+					        <div class="contact-modal-header">
+					            <h2>Upload Supporting Documents</h2>
+					            <span class="close" onclick="window.closeDocModal()">&times;</span>
+					        </div>
+					        <form id="documentUploadForm">
+					            <input type="file" id="documentFile" accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.png" multiple>
+					            <div id="documentList"></div>
+					            <div class="modal-actions">
+					                <button type="button" class="contact-button" onclick="window.uploadDocument()">Upload</button>
+					                <button type="button" class="contact-button" onclick="window.closeDocModal()">Close</button>
+					            </div>
+					        </form>
+					    </div>
+					</div>
+
+
+
 	                <script>
 					    // Define the function to update dropdown color based on selection
 					    function updateStatusColor() {

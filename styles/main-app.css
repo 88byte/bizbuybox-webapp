@@ -549,7 +549,11 @@ body {
 /* Smaller Revenue & Cashflow Header */
 .section-heading h4 {
     font-size: 18px;
+    font-weight: bold;
     color: #ddd;
+    margin: 20px 0 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 /* Adjusted width for the Business Name input */
@@ -568,6 +572,13 @@ input#businessName {
 .three-column {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+/* Four-Column Layout for Loan Type, Interest Rate, Terms, and Loan Amount */
+.four-column {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Four equal columns */
     gap: 16px;
 }
 
@@ -689,16 +700,25 @@ button:hover {
 }
 
 /* Input Items */
-.input-item input {
-    padding: 6px 8px;
-    font-size: 14px;
-    max-width: 120px;
-    text-align: right;
+.input-item input, .input-item select {
+    padding: 6px 8px; /* Using your existing padding */
+    font-size: 14px; /* Consistent font size */
+    max-width: 120px; /* Existing max-width applies */
+    text-align: right; /* Align right as per your existing style */
     background-color: #333;
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 6px;
     color: #f0f0f0;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
+
+.input-item input:focus, .input-item select:focus {
+    border-color: #d4a759;
+    background-color: rgba(255, 255, 255, 0.12);
+    outline: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
 
 /* Custom Font for Notes */
 .custom-font {

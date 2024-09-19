@@ -255,43 +255,44 @@
                 <div class="section-heading">
                     <h4>Funding</h4>
                 </div>
-                <div class="three-column wider">
-                    <div class="input-item">
-                        <label for="loanType">Loan Type</label>
-                        <input type="text" id="loanType" placeholder="Loan Type">
-                    </div>
-                    <div class="input-item">
-                        <label for="interestRate">Interest Rate</label>
-                        <input type="text" id="interestRate" placeholder="%">
-                    </div>
-                    <div class="input-item">
-                        <label for="loanTerm">Term</label>
-                        <input type="text" id="loanTerm" placeholder="Term">
-                    </div>
-                </div>
+                
+                <!-- Down Payment & Buyer Salary Row -->
+				<div class="two-column">
+				    <div class="input-item">
+				        <label for="downPayment">Down Payment</label>
+				        <input type="text" id="downPayment" placeholder="$0">
+				    </div>
+				    <div class="input-item">
+				        <label for="buyerSalary">Buyer Salary</label>
+				        <input type="text" id="buyerSalary" placeholder="$0">
+				    </div>
+				</div>
 
-                <!-- Notes Section -->
-                <div class="input-item">
-                    <label for="notes">Notes</label>
-                    <textarea id="notes" placeholder="Additional notes about the deal" class="custom-font"></textarea>
-                </div>
-
-                <div class="modal-actions">
-                    <button type="button" class="btn-cancel" onclick="closeCardModal()">Cancel</button>
-                    <button type="submit" class="btn-save">Save Deal</button>
-                </div>
-            </form>
-        </div>
-
-        <!-- Right Section: Deal Calculations -->
-        <div class="deal-calculations-section">
-            <h3>Deal Calculations</h3>
-            <div id="resultsContent">
-                <p><strong>Total Revenue:</strong> $<span id="totalRevenue">0</span></p>
-                <p><strong>Total Cashflow:</strong> $<span id="totalCashflow">0</span></p>
-                <p><strong>Average Profit Margin:</strong> <span id="averageProfitMargin">0%</span></p>
-            </div>
-        </div>
+				<!-- Loan Type, Interest Rate, Terms, Loan Amount Row -->
+				<div class="four-column">
+				    <div class="input-item">
+				        <label for="loanType">Loan Type</label>
+				        <select id="loanType">
+				            <option value="SBA">SBA</option>
+				            <option value="Seller Finance">Seller Finance</option>
+				            <option value="SBA + Seller Finance">SBA + Seller Finance</option>
+				            <option value="Blended">Blended</option>
+				            <option value="Conventional">Conventional</option>
+				        </select>
+				    </div>
+				    <div class="input-item">
+				        <label for="interestRate">Interest Rate</label>
+				        <input type="number" id="interestRate" placeholder="%" step="0.01">
+				    </div>
+				    <div class="input-item">
+				        <label for="loanTerm">Terms (Years)</label>
+				        <input type="number" id="loanTerm" placeholder="0">
+				    </div>
+				    <div class="input-item">
+				        <label for="loanAmount">Loan Amount</label>
+				        <input type="text" id="loanAmount" placeholder="$0">
+				    </div>
+				</div>
     </div>
 </div>
 

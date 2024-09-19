@@ -674,6 +674,19 @@ button:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important; /* Increase shadow depth on hover */
 }
 
+/* Status Dropdown Styling */
+.status-dropdown {
+    padding: 8px 12px;
+    background-color: #333; /* Default background */
+    border: 1px solid #555;
+    border-radius: 6px;
+    color: #fff;
+    transition: background-color 0.3s ease; /* Smooth transition for color change */
+}
+
+/* Option colors will dynamically change based on selection via JavaScript */
+
+
 
 
 /* Glass-Like "+" and "-" Button Styles */

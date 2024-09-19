@@ -503,7 +503,7 @@ button.btn-create:hover {
 /* Header for Deal Calculations */
 .deal-calculations-section h3 {
     color: #d4a759;
-    font-size: 18px;
+    font-size: 16px;
     margin-bottom: 16px;
     text-transform: uppercase;
 }
@@ -537,7 +537,7 @@ button.btn-create:hover {
 }
 
 .card-modal-header h2 {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
     color: #fff;
     margin: 0;
@@ -799,7 +799,7 @@ button:hover {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 12px;
-    margin-bottom: 12px;
+    margin-bottom: 4px;
 }
 
 .revenue-cashflow-row {

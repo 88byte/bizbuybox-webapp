@@ -866,16 +866,7 @@ button.btn-remove {
 }
 
 
-/* Make sure the buttons are inheriting styles correctly */
-button {
-    border: none; /* Remove default border */
-    background: none; /* Ensure no background interference */
-}
 
-button:not(.btn-add):not(.btn-remove) {
-    border: none;
-    background: none;
-}
 
 
 

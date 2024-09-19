@@ -613,53 +613,101 @@ button:hover {
     margin-top: 24px;
 }
 
-/* Add and Remove Button Styles */
-button.btn-add, button.btn-remove {
-    font-size: 18px;
-    background-color: #5e5e5e;
-    border: 1px solid #5e5e5e; /* Defined border */
+/* Revenue & Cashflow Section */
+.revenue-cashflow-entry {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.revenue-cashflow-row {
+    display: flex;
+    align-items: center;
+    gap: 16px; /* Space between fields */
+    justify-content: space-between;
+}
+
+/* Input Styles for Revenue & Cashflow fields */
+.revenue-cashflow-entry .input-item input {
+    padding: 10px;
+    width: 100%;
+    background-color: #3a3a3a;
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 8px;
-    color: #f5f5f5;
-    padding: 10px 20px; /* Adjust padding to feel more button-like */
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Add depth with shadow */
+    color: #f0f0f0;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
 }
 
-button.btn-add:hover, button.btn-remove:hover {
-    background-color: #d2a679; /* Gold hover */
-    transform: translateY(-3px); /* Lift effect */
+/* Adjust padding and size of inputs */
+.revenue-cashflow-entry .input-item input:focus {
+    border-color: #d4a759;
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.12);
 }
 
-button.btn-remove {
-    background-color: #d44; /* Red color for remove */
+/* Small input for years */
+.small-input {
+    max-width: 100px; /* Smaller for the year fields */
+    flex: 0 0 auto;
 }
 
-button.btn-remove:hover {
-    background-color: #e55; /* Darker red on hover */
+/* Full input for revenue and cashflow values */
+.full-input {
+    flex: 1;
 }
 
-/* Small editable year (text-like field) */
+/* Editable year field (same size as text) */
 .editable-year {
-    display: inline-block;
-    width: 70px;
     padding: 6px 10px;
     font-size: 14px;
-    background-color: #3a3a3a; /* Same styling as other inputs */
+    background-color: #3a3a3a;
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 6px;
     color: #f0f0f0;
     text-align: center;
+    width: 80px; /* Adjust the width */
     cursor: text;
     transition: border-color 0.3s ease;
-    outline: none; /* Remove default outline */
 }
 
-/* Editable year hover and focus states */
 .editable-year:hover, .editable-year:focus {
-    border-color: #d4a759; /* Gold accent when clicked or hovered */
+    border-color: #d4a759;
     background-color: rgba(255, 255, 255, 0.12);
+}
+
+/* Button Container for Adding and Removing */
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 16px;
+}
+
+button.btn-add, button.btn-remove {
+    font-size: 18px;
+    background-color: #5e5e5e;
+    border: 1px solid #5e5e5e;
+    border-radius: 50%;
+    color: #f5f5f5;
+    padding: 8px 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+button.btn-add:hover, button.btn-remove:hover {
+    background-color: #d2a679;
+    transform: translateY(-3px);
+}
+
+button.btn-remove {
+    background-color: #d44;
+}
+
+button.btn-remove:hover {
+    background-color: #e55;
 }
 
 

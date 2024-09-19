@@ -202,29 +202,42 @@
 	            </div>
 
 	            <!-- Revenue & Cashflow Section -->
-	            <div class="section-heading">
-	                <h3>Revenue & Cashflow</h3>
-	            </div>
-	            <!-- Revenue & Cashflow Section -->
+				<div class="section-heading">
+				    <h3>Revenue & Cashflow</h3>
+				</div>
+
 				<div id="revenueCashflowSection">
-				    <div class="three-column revenue-cashflow-entry">
-				        <div class="input-item">
-				            <label>Revenue Year</label>
-				            <div contenteditable="true" class="editable-year" name="revenueYear[]" id="revenueYear1">Year</div>
-				            <input type="number" name="revenue[]" id="revenue1" placeholder="Revenue">
-				        </div>
-				        <div class="input-item">
-				            <label>Cashflow Year</label>
-				            <div contenteditable="true" class="editable-year" name="cashflowYear[]" id="cashflowYear1">Year</div>
-				            <input type="number" name="cashflow[]" id="cashflow1" placeholder="Cashflow">
-				        </div>
-				        <div class="input-item remove-btn-container">
-				            <button type="button" class="btn-remove" onclick="removeRevenueCashflowRow(this)">−</button>
+				    <div class="revenue-cashflow-entry">
+				        <div class="revenue-cashflow-row">
+				            <div class="input-item small-input">
+				                <label>Revenue Year</label>
+				                <div contenteditable="true" class="editable-year" name="revenueYear[]" id="revenueYear1">Year</div>
+				            </div>
+				            <div class="input-item full-input">
+				                <label>Revenue</label>
+				                <input type="number" name="revenue[]" id="revenue1" placeholder="Enter revenue">
+				            </div>
+
+				            <div class="input-item small-input">
+				                <label>Cashflow Year</label>
+				                <div contenteditable="true" class="editable-year" name="cashflowYear[]" id="cashflowYear1">Year</div>
+				            </div>
+				            <div class="input-item full-input">
+				                <label>Cashflow</label>
+				                <input type="number" name="cashflow[]" id="cashflow1" placeholder="Enter cashflow">
+				            </div>
+
+				            <div class="input-item button-container">
+				                <button type="button" class="btn-remove" onclick="removeRevenueCashflowRow(this)">−</button>
+				            </div>
 				        </div>
 				    </div>
 				</div>
+
 				<!-- Add Button -->
-				<button type="button" class="btn-add" onclick="addRevenueCashflowRow()">+</button>
+				<div class="button-container">
+				    <button type="button" class="btn-add" onclick="addRevenueCashflowRow()">+</button>
+				</div>
 
 
 

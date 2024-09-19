@@ -439,13 +439,15 @@ body {
 
 /* Status Dropdown Next to Header */
 .status-dropdown {
-    margin-left: auto;
-    padding: 8px 12px;
+    position: absolute;
+    right: 60px;
+    padding: 8px;
     background-color: #333;
-    color: #f5f5f5;
-    border: none;
+    border: 1px solid #555;
     border-radius: 6px;
+    color: #fff;
 }
+
 .loanType-dropdown {
     margin-left: auto;
     padding: 8px 12px;
@@ -470,6 +472,7 @@ body {
     border-radius: 12px;
     box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5); /* Inner shadow for depth */
     padding: 16px;
+    color: #f0f0f0;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -479,16 +482,15 @@ body {
 
 /* Header for Deal Calculations */
 .deal-calculations-section h3 {
-    font-size: 20px;
+    color: #d4a759;
+    font-size: 18px;
+    margin-bottom: 16px;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    color: #d2a679;
 }
 
 /* Calculations Display */
 #resultsContent p {
     font-size: 16px;
-    line-height: 1.6;
     margin: 8px 0;
 }
 
@@ -511,6 +513,7 @@ body {
     margin-bottom: 24px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Clean divider */
     padding-bottom: 12px;
+    position: relative;
 }
 
 .card-modal-header h2 {
@@ -556,8 +559,11 @@ body {
 
 /* Smaller Revenue & Cashflow Header */
 .section-heading h4 {
-    font-size: 18px;
-    color: #ddd;
+    font-size: 20px;
+    color: #f0f0f0;
+    margin-bottom: 15px;
+    font-weight: 600;
+    position: relative;
 }
 
 /* Adjusted width for the Business Name input */
@@ -704,23 +710,26 @@ button:hover {
 }
 
 /* Input Items */
-.input-item input, .input-item select {
-    padding: 6px 8px; /* Using your existing padding */
-    font-size: 14px; /* Consistent font size */
-    max-width: 120px; /* Existing max-width applies */
-    text-align: right; /* Align right as per your existing style */
-    background-color: #333;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 6px;
-    color: #f0f0f0;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+.input-item input, .input-item select, .input-item textarea {
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid #ddd;
+    padding: 8px 4px;
+    color: #fff;
+    transition: border-color 0.3s ease;
 }
 
-.input-item input:focus, .input-item select:focus {
+.input-item input:focus, .input-item textarea:focus, .input-item select:focus {
     border-color: #d4a759;
-    background-color: rgba(255, 255, 255, 0.12);
     outline: none;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.input-item label {
+    color: #ddd;
+    font-weight: 500;
+    margin-bottom: 6px;
+    display: block;
+    letter-spacing: 0.3px;
 }
 
 
@@ -809,22 +818,16 @@ input[type="number"] {
 
 /* Button Styles for + and - (glass effect) */
 button.btn-add, button.btn-remove {
-    font-size: 16px;
-    background-color: rgba(255, 255, 255, 0.1); /* Transparent, glass-like background */
-    border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border for glass effect */
-    border-radius: 6px; /* Rounded corners but less sharp than before */
-    color: #f5f5f5; /* Light text color */
-    padding: 4px 12px; /* Compact padding */
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #f5f5f5;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
     cursor: pointer;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-    backdrop-filter: blur(6px); /* For a more glassy effect */
+    transition: background-color 0.2s ease;
 }
 
 button.btn-add:hover, button.btn-remove:hover {
-    background-color: rgba(255, 255, 255, 0.2); /* Slightly darker glass effect on hover */
-    transform: translateY(-1px); /* Lift on hover */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Deepen shadow on hover */
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 /* Subtle + and - button appearance */

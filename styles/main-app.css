@@ -815,6 +815,20 @@ input[type="number"] {
     align-items: center;
 }
 
+.modal-actions .btn-cancel {
+    background-color: #444;
+}
+
+.modal-actions .btn-save {
+    background-color: #d4a759;
+    color: #333;
+}
+
+.modal-actions button:hover {
+    background-color: #e0b984;
+}
+
+
 
 /* Button Styles for + and - (glass effect) */
 button.btn-add, button.btn-remove {

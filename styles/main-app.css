@@ -1247,7 +1247,7 @@ input-item select {
 }
 
 .full-width input {
-    width: calc(250% - 32px); /* Full width to span two columns */
+    width: calc(230% - 32px); /* Full width to span two columns */
 }
 
 /* Adjust font size for the Loan Type label */

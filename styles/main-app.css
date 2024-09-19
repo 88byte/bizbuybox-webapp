@@ -424,8 +424,7 @@ body {
 .card-modal-content {
     background: #222; /* Sleeker dark background */
     display: flex;
-    width: 900px; /* Adjusted width */
-    max-width: 95%;
+    width: 1050px; /* Adjusted width */
     padding: 32px;
     border-radius: 16px;
     color: #f5f5f5;
@@ -436,6 +435,16 @@ body {
     transform: translateY(-50px); /* Subtle slide up effect */
     opacity: 0;
     transition: transform 0.5s ease, opacity 0.5s ease; /* Smoother fade and slide */
+}
+
+/* Status Dropdown Next to Header */
+.status-dropdown {
+    margin-left: auto;
+    padding: 8px 12px;
+    background-color: #333;
+    color: #f5f5f5;
+    border: none;
+    border-radius: 6px;
 }
 
 /* Left Section (Form) */
@@ -665,12 +674,12 @@ button:hover {
 
 /* Section Heading */
 .section-heading {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 600;
     color: #ddd;
     margin: 20px 0 10px;
-    border-bottom: 1px solid #444;
     padding-bottom: 10px;
+    border-bottom: 1px solid #444;
 }
 
 /* Input Items */
@@ -683,6 +692,32 @@ button:hover {
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 6px;
     color: #f0f0f0;
+}
+
+/* Custom Font for Notes */
+.custom-font {
+    font-family: "Arial", sans-serif;
+    font-size: 14px;
+}
+
+/* Input Styling */
+input, textarea {
+    padding: 10px;
+    background-color: #333;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    color: #f5f5f5;
+}
+
+/* Remove Number Spinner on Input Fields */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
 }
 
 
@@ -742,18 +777,17 @@ button:hover {
 
 /* Subtle Add/Remove Buttons */
 button.btn-add, button.btn-remove {
-    font-size: 14px;
-    background-color: #444;
-    border: none;
-    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0.1);
     color: #f5f5f5;
-    padding: 4px 12px;
+    font-size: 14px;
+    padding: 4px 10px;
+    border: none;
+    border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
 }
 
 button.btn-add:hover, button.btn-remove:hover {
-    background-color: #d2a679;
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 button.btn-remove {
@@ -762,6 +796,11 @@ button.btn-remove {
 
 button.btn-remove:hover {
     background-color: #e55;
+}
+
+/* Business Name Wider */
+.wider .input-item {
+    grid-column: span 2;
 }
 
 .results-section {

@@ -799,14 +799,14 @@ button:hover {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 12px;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
 }
 
 .revenue-cashflow-row {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 12px;
-    margin-bottom: 8px; /* Reduced gap between rows */
+    margin-bottom: 2px; /* Reduced gap between rows */
 }
 
 /* Label Styling */

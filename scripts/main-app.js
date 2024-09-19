@@ -776,7 +776,7 @@ window.closeDocModal = function() {
     document.getElementById('docModal').style.display = 'none';
 }
 
-// Function to handle the document upload
+// Function to handle the document upload and display them in the list
 window.uploadDocument = function() {
     const documentList = document.getElementById('documentList');
     const fileInput = document.getElementById('documentFile');
@@ -786,11 +786,12 @@ window.uploadDocument = function() {
     for (let i = 0; i < files.length; i++) {
         const file = files[i];
         const fileElement = document.createElement('div');
-        fileElement.textContent = `${file.name} `;
+        fileElement.textContent = `${file.name}`;
         
         // Add delete button next to the file name
         const deleteButton = document.createElement('button');
         deleteButton.textContent = 'Delete';
+        deleteButton.classList.add('delete-document');
         deleteButton.onclick = function() {
             documentList.removeChild(fileElement);
         };
@@ -802,11 +803,3 @@ window.uploadDocument = function() {
     // Clear the file input after uploading
     fileInput.value = '';
 };
-
-
-
-
-
-
-
-

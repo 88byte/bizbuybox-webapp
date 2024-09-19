@@ -1043,6 +1043,27 @@ input-item select {
     }
 }
 
+
+
+
+/* Reduce the size of the broker/seller contact buttons */
+.contact-button {
+    font-size: 70%;  /* Reduce the font size */
+    padding: 6px 12px;  /* Smaller padding */
+    background-color: rgba(255, 255, 255, 0.1); /* Glass-like button */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s;
+}
+
+.contact-button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+
 /* Contact Modal Overlay */
 .contact-modal {
     display: none;  /* Hidden by default */
@@ -1064,18 +1085,17 @@ input-item select {
 
 /* Contact Modal Content */
 .contact-modal-content {
-    background-color: #222; /* Sleeker dark background */
-    padding: 32px;
-    border-radius: 16px;
+    background-color: #2c2c2c; /* Slightly lighter background */
+    padding: 24px;
+    border-radius: 12px;
     color: #f5f5f5;
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3); /* Strong shadow for depth */
-    width: 500px; /* Adjusted width */
-    max-width: 90%; /* Responsive for smaller screens */
-    max-height: 85vh; /* Prevent overflow */
-    overflow-y: auto; /* Scroll if content exceeds modal height */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); /* Softer shadow for depth */
+    width: 450px;
+    max-width: 90%; /* Responsive */
+    max-height: 80vh;
+    overflow-y: auto;
     position: relative;
 }
-
 
 
 
@@ -1085,48 +1105,65 @@ input-item select {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 24px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Clean divider */
+    margin-bottom: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     padding-bottom: 12px;
 }
 
 .contact-modal-header h2 {
-    font-size: 24px;
-    font-weight: bold;
-    color: #fff;
-    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: #f0f0f0;
     text-transform: uppercase;
-    letter-spacing: 0.6px;
 }
+
 
 .contact-modal-header .close {
-    font-size: 26px;
+    font-size: 24px;
     color: #bbb;
     cursor: pointer;
-    border-radius: 50%;
     background: none;
+    transition: color 0.3s ease;
 }
 
-/* Form Input Fields in Modal */
+.contact-modal-header .close:hover {
+    color: #f5f5f5;
+}
+
+
+/* Contact form styling */
+.contact-modal form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+
+
+/* Input fields */
 .contact-modal form input {
-    width: 100%;
     padding: 12px;
-    margin-bottom: 16px;
-    background-color: #333; /* Darker input background */
-    border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border */
-    border-radius: 8px; /* Rounded corners */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background-color: #333;
+    border-radius: 8px;
     color: #f0f0f0;
-    font-size: 16px;
-    transition: border-color 0.3s ease;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4); /* Subtle inner shadow for depth */
+    font-size: 14px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3); /* Inner shadow for depth */
+    transition: border-color 0.3s ease, background-color 0.3s ease;
 }
 
-.contact-modal form input:focus {
-    border-color: #d4a759;
-    background-color: rgba(255, 255, 255, 0.12);
-    outline: none;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Stronger shadow on focus */
+.contact-modal form input::placeholder {
+    color: #aaa;
 }
+
+
+/* Input hover/focus effects */
+.contact-modal form input:focus, .contact-modal form input:hover {
+    border-color: #d4a759;
+    background-color: #3a3a3a;
+    outline: none;
+}
+
 
 /* Tooltip Styling for Contact Info */
 .contact-tooltip {

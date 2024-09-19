@@ -389,31 +389,42 @@
 	<!-- Broker Contact Modal -->
 	<div id="brokerContactModal" class="contact-modal">
 	    <div class="contact-modal-content">
-	        <h3>Broker Contact Information</h3>
-	        <input type="text" id="brokerName" placeholder="Broker Name">
-	        <input type="text" id="brokerCompany" placeholder="Broker Company">
-	        <input type="text" id="brokerPhone" placeholder="Broker Phone">
-	        <input type="text" id="brokerEmail" placeholder="Broker Email">
-	        <div class="modal-actions">
-	            <button type="button" class="btn-cancel" onclick="closeBrokerContactModal()">Cancel</button>
-	            <button type="button" class="btn-save" onclick="saveBrokerContact()">Save</button>
+	        <div class="contact-modal-header">
+	            <h2>Broker Contact</h2>
+	            <span class="close" onclick="window.closeBrokerContactModal()">&times;</span>
 	        </div>
+	        <form id="brokerContactForm">
+	            <input type="text" id="brokerCompany" placeholder="Company" required>
+	            <input type="text" id="brokerName" placeholder="Name" required>
+	            <input type="tel" id="brokerPhone" placeholder="Phone" required>
+	            <input type="email" id="brokerEmail" placeholder="Email" required>
+	            <div class="modal-actions">
+	                <button type="button" class="contact-button" onclick="window.saveBrokerContact()">Save</button>
+	                <button type="button" class="contact-button" onclick="window.closeBrokerContactModal()">Cancel</button>
+	            </div>
+	        </form>
 	    </div>
 	</div>
 
 	<!-- Seller Contact Modal -->
 	<div id="sellerContactModal" class="contact-modal">
 	    <div class="contact-modal-content">
-	        <h3>Seller Contact Information</h3>
-	        <input type="text" id="sellerName" placeholder="Seller Name">
-	        <input type="text" id="sellerPhone" placeholder="Seller Phone">
-	        <input type="text" id="sellerEmail" placeholder="Seller Email">
-	        <div class="modal-actions">
-	            <button type="button" class="btn-cancel" onclick="closeSellerContactModal()">Cancel</button>
-	            <button type="button" class="btn-save" onclick="saveSellerContact()">Save</button>
+	        <div class="contact-modal-header">
+	            <h2>Seller Contact</h2>
+	            <span class="close" onclick="window.closeSellerContactModal()">&times;</span>
 	        </div>
+	        <form id="sellerContactForm">
+	            <input type="text" id="sellerName" placeholder="Name" required>
+	            <input type="tel" id="sellerPhone" placeholder="Phone" required>
+	            <input type="email" id="sellerEmail" placeholder="Email" required>
+	            <div class="modal-actions">
+	                <button type="button" class="contact-button" onclick="window.saveSellerContact()">Save</button>
+	                <button type="button" class="contact-button" onclick="window.closeSellerContactModal()">Cancel</button>
+	            </div>
+	        </form>
 	    </div>
 	</div>
+
 
 
 

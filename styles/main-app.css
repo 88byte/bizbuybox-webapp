@@ -842,16 +842,6 @@ button {
 
 
 
-.results-section {
-    background-color: #2a2a2a;
-    padding: 16px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    color: #f5f5f5;
-    margin-left: 20px;
-    min-width: 200px;
-}
-
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {

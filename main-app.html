@@ -150,12 +150,14 @@
 	<!-- Card Modal (hidden by default) -->
 	<div id="cardModal" class="card-modal">
 	    <div class="card-modal-content">
-	        <div class="card-modal-header">
-	            <h2 id="modalTitle">Deal Details</h2>
-	            <span class="close" onclick="closeCardModal()">&times;</span>
-	        </div>
-	        <form id="dealForm" onsubmit="saveDeal(); return false;">
-	            <input type="hidden" id="dealId">
+	        <!-- Left Section: Form -->
+	        <div class="card-modal-form-section">
+	            <div class="card-modal-header">
+	                <h2 id="modalTitle">Deal Details</h2>
+	                <span class="close" onclick="closeCardModal()">&times;</span>
+	            </div>
+	            <form id="dealForm" onsubmit="saveDeal(); return false;">
+	                <input type="hidden" id="dealId">
 
 	            <!-- Business Information -->
 	            <div class="two-column">
@@ -205,42 +207,33 @@
 				    <h3>Revenue & Cashflow <button type="button" class="btn-add" onclick="addRevenueCashflowRow()">+</button></h3>
 				</div>
 
-				<div id="revenueCashflowSection">
-				    <div class="revenue-cashflow-entry">
-				        <div class="revenue-cashflow-row">
-				            <!-- Remove Button -->
-				            <div class="input-item button-container">
-				                <button type="button" class="btn-remove" onclick="removeRevenueCashflowRow(this)">−</button>
-				            </div>
-				            <!-- Editable Year -->
-				            <div class="input-item year-text">
-				                <div contenteditable="true" class="editable-year" name="revenueYear[]" id="revenueYear1">Year</div>
-				            </div>
-				            <!-- Revenue Field -->
-				            <div class="input-item small-input">
-				                <input type="text" name="revenue[]" id="revenue1" placeholder="$0" oninput="updateProfitMargin(this)">
-				            </div>
-				            <!-- Cashflow Field -->
-				            <div class="input-item small-input">
-				                <input type="text" name="cashflow[]" id="cashflow1" placeholder="$0" oninput="updateProfitMargin(this)">
-				            </div>
-				            <!-- Profit Margin Display -->
-				            <div class="input-item profit-margin">
-				                <span id="profitMargin1">0%</span>
-				            </div>
-				        </div>
-				    </div>
-				</div>
-
-				<!-- Results Section (Placeholder for Future Calculations) -->
-				<div class="results-section">
-				    <h3>Deal Calculations</h3>
-				    <div id="resultsContent">Results will appear here...</div>
-				</div>
-
-
-
-
+				<!-- Revenue & Cashflow Section -->
+                <div class="section-heading">
+                    <h3>Revenue & Cashflow 
+                        <button type="button" class="btn-add" onclick="addRevenueCashflowRow()">+</button>
+                    </h3>
+                </div>
+                <div id="revenueCashflowSection">
+                    <div class="revenue-cashflow-entry">
+                        <div class="revenue-cashflow-row">
+                            <div class="input-item button-container">
+                                <button type="button" class="btn-remove" onclick="removeRevenueCashflowRow(this)">−</button>
+                            </div>
+                            <div class="input-item year-text">
+                                <div contenteditable="true" class="editable-year" name="revenueYear[]" id="revenueYear1">Year</div>
+                            </div>
+                            <div class="input-item small-input">
+                                <input type="text" name="revenue[]" id="revenue1" placeholder="$0" oninput="updateProfitMargin(this)">
+                            </div>
+                            <div class="input-item small-input">
+                                <input type="text" name="cashflow[]" id="cashflow1" placeholder="$0" oninput="updateProfitMargin(this)">
+                            </div>
+                            <div class="input-item profit-margin">
+                                <span id="profitMargin1">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
 	            <!-- Notes Section -->
@@ -249,14 +242,25 @@
 	                <textarea id="notes" placeholder="Additional notes about the deal"></textarea>
 	            </div>
 
-	            <!-- Action Buttons -->
 	            <div class="modal-actions">
-	                <button type="button" class="btn-cancel" onclick="closeCardModal()">Cancel</button>
-	                <button type="submit" class="btn-save">Save Deal</button>
-	            </div>
-	        </form>
-	    </div>
-	</div>
+                    <button type="button" class="btn-cancel" onclick="closeCardModal()">Cancel</button>
+                    <button type="submit" class="btn-save">Save Deal</button>
+                </div>
+            </form>
+        </div>
+        <!-- Right Section: Deal Calculations -->
+        <div class="deal-calculations-section">
+            <h3>Deal Calculations</h3>
+            <div id="resultsContent">
+                <!-- Calculations based on input will go here -->
+                <p><strong>Total Revenue:</strong> $<span id="totalRevenue">0</span></p>
+                <p><strong>Total Cashflow:</strong> $<span id="totalCashflow">0</span></p>
+                <p><strong>Average Profit Margin:</strong> <span id="averageProfitMargin">0%</span></p>
+                <!-- Add more dynamic calculation results here -->
+            </div>
+        </div>
+    </div>
+</div>
 
 
 

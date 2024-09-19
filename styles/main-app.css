@@ -423,13 +423,13 @@ body {
 /* Modal Content */
 .card-modal-content {
     background: #222; /* Sleeker dark background */
-    padding: 32px; /* Comfortable padding */
-    border-radius: 16px; /* Smooth rounded corners */
-    width: 550px;
-    max-width: 90%;
+    padding: 32px;
+    border-radius: 16px;
+    width: 800px; /* Wider for more fields */
+    max-width: 95%; /* Better fit for smaller screens */
     color: #f5f5f5;
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.75); /* Strong shadow for depth */
-    max-height: 80vh;
+    max-height: 85vh; /* Increased height */
     overflow-y: auto;
     transform: translateY(-50px); /* Subtle slide up effect */
     opacity: 0;
@@ -447,7 +447,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 24px; /* Spacing between header and content */
+    margin-bottom: 24px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Clean divider */
     padding-bottom: 12px;
 }
@@ -469,6 +469,19 @@ body {
     border-radius: 50%;
     transition: color 0.3s ease;
     background: none;
+}
+
+/* Two-Column Layout for Input Fields */
+.two-column {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.three-column {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
 }
 
 /* Input Styles */
@@ -494,26 +507,6 @@ body {
     background-color: rgba(255, 255, 255, 0.12); /* Lighten on focus */
     outline: none;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Stronger shadow on focus */
-}
-
-/* Grouping input fields */
-.input-group {
-    display: flex;
-    justify-content: space-between;
-    gap: 16px;
-    margin-bottom: 12px;
-}
-
-.input-item {
-    flex: 1;
-}
-
-/* Button Styles */
-.modal-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 16px;
-    margin-top: 24px;
 }
 
 button {
@@ -573,8 +566,10 @@ button:hover {
         width: 90%;
         padding: 16px;
     }
+    .two-column, .three-column {
+        grid-template-columns: 1fr; /* Stack fields for mobile */
+    }
 }
-
 /* Form Label Styles */
 .card-modal form label {
     color: #ddd;
@@ -600,8 +595,10 @@ button:hover {
 
 
 
+/* Button Styles */
 .modal-actions {
     display: flex;
-    justify-content: space-between;
-    margin-top: 16px;
+    justify-content: flex-end;
+    gap: 16px;
+    margin-top: 24px;
 }

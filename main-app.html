@@ -159,106 +159,104 @@
 	            <form id="dealForm" onsubmit="saveDeal(); return false;">
 	                <input type="hidden" id="dealId">
 
-	            <!-- Business Information -->
-	            <div class="two-column">
-	                <div class="input-item">
-	                    <label for="businessName">Business Name</label>
-	                    <input type="text" id="businessName" placeholder="Enter business name" required>
+	                <!-- Business Information -->
+	                <div class="two-column">
+	                    <div class="input-item">
+	                        <label for="businessName">Business Name</label>
+	                        <input type="text" id="businessName" placeholder="Enter business name" required>
+	                    </div>
+	                    <div class="input-item">
+	                        <label for="industry">Industry</label>
+	                        <input type="text" id="industry" placeholder="Enter industry">
+	                    </div>
 	                </div>
-	                <div class="input-item">
-	                    <label for="industry">Industry</label>
-	                    <input type="text" id="industry" placeholder="Enter industry">
+
+	                <!-- Status and Years in Business -->
+	                <div class="two-column">
+	                    <div class="input-item">
+	                        <label for="status">Status</label>
+	                        <select id="status" required>
+	                            <option value="active">Active</option>
+	                            <option value="closed">Closed</option>
+	                            <option value="opportunity">Opportunity</option>
+	                        </select>
+	                    </div>
+	                    <div class="input-item">
+	                        <label for="yearsInBusiness">Years in Business</label>
+	                        <input type="number" id="yearsInBusiness" placeholder="Years in business">
+	                    </div>
 	                </div>
+
+	                <!-- Employees, Contractors, and Address Fields -->
+	                <div class="three-column">
+	                    <div class="input-item">
+	                        <label for="fullTimeEmployees">Full Time Employees</label>
+	                        <input type="number" id="fullTimeEmployees" placeholder="Full-time employees">
+	                    </div>
+	                    <div class="input-item">
+	                        <label for="partTimeEmployees">Part Time Employees</label>
+	                        <input type="number" id="partTimeEmployees" placeholder="Part-time employees">
+	                    </div>
+	                    <div class="input-item">
+	                        <label for="contractors">Contractors</label>
+	                        <input type="number" id="contractors" placeholder="Contractors">
+	                    </div>
+	                </div>
+
+	                <!-- Revenue & Cashflow Section -->
+	                <div class="section-heading">
+	                    <h3>Revenue & Cashflow 
+	                        <button type="button" class="btn-add" onclick="addRevenueCashflowRow()">+</button>
+	                    </h3>
+	                </div>
+	                <div id="revenueCashflowSection">
+	                    <div class="revenue-cashflow-entry">
+	                        <div class="revenue-cashflow-row">
+	                            <div class="input-item button-container">
+	                                <button type="button" class="btn-remove" onclick="removeRevenueCashflowRow(this)">−</button>
+	                            </div>
+	                            <div class="input-item year-text">
+	                                <div contenteditable="true" class="editable-year" name="revenueYear[]" id="revenueYear1">Year</div>
+	                            </div>
+	                            <div class="input-item small-input">
+	                                <input type="text" name="revenue[]" id="revenue1" placeholder="$0" oninput="updateProfitMargin(this)">
+	                            </div>
+	                            <div class="input-item small-input">
+	                                <input type="text" name="cashflow[]" id="cashflow1" placeholder="$0" oninput="updateProfitMargin(this)">
+	                            </div>
+	                            <div class="input-item profit-margin">
+	                                <span id="profitMargin1">0%</span>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+
+	                <!-- Notes Section -->
+	                <div class="input-item">
+	                    <label for="notes">Notes</label>
+	                    <textarea id="notes" placeholder="Additional notes about the deal"></textarea>
+	                </div>
+
+	                <div class="modal-actions">
+	                    <button type="button" class="btn-cancel" onclick="closeCardModal()">Cancel</button>
+	                    <button type="submit" class="btn-save">Save Deal</button>
+	                </div>
+	            </form>
+	        </div>
+	        <!-- Right Section: Deal Calculations -->
+	        <div class="deal-calculations-section">
+	            <h3>Deal Calculations</h3>
+	            <div id="resultsContent">
+	                <!-- Calculations based on input will go here -->
+	                <p><strong>Total Revenue:</strong> $<span id="totalRevenue">0</span></p>
+	                <p><strong>Total Cashflow:</strong> $<span id="totalCashflow">0</span></p>
+	                <p><strong>Average Profit Margin:</strong> <span id="averageProfitMargin">0%</span></p>
+	                <!-- Add more dynamic calculation results here -->
 	            </div>
+	        </div>
+	    </div>
+	</div>
 
-	            <!-- Status and Years in Business -->
-	            <div class="two-column">
-	                <div class="input-item">
-	                    <label for="status">Status</label>
-	                    <select id="status" required>
-	                        <option value="active">Active</option>
-	                        <option value="closed">Closed</option>
-	                        <option value="opportunity">Opportunity</option>
-	                    </select>
-	                </div>
-	                <div class="input-item">
-	                    <label for="yearsInBusiness">Years in Business</label>
-	                    <input type="number" id="yearsInBusiness" placeholder="Years in business">
-	                </div>
-	            </div>
-
-	            <!-- Employees, Contractors, and Address Fields -->
-	            <div class="three-column">
-	                <div class="input-item">
-	                    <label for="fullTimeEmployees">Full Time Employees</label>
-	                    <input type="number" id="fullTimeEmployees" placeholder="Full-time employees">
-	                </div>
-	                <div class="input-item">
-	                    <label for="partTimeEmployees">Part Time Employees</label>
-	                    <input type="number" id="partTimeEmployees" placeholder="Part-time employees">
-	                </div>
-	                <div class="input-item">
-	                    <label for="contractors">Contractors</label>
-	                    <input type="number" id="contractors" placeholder="Contractors">
-	                </div>
-	            </div>
-
-
-
-				<!-- Revenue & Cashflow Section -->
-                <div class="section-heading">
-                    <h3>Revenue & Cashflow 
-                        <button type="button" class="btn-add" onclick="addRevenueCashflowRow()">+</button>
-                    </h3>
-                </div>
-                <div id="revenueCashflowSection">
-                    <div class="revenue-cashflow-entry">
-                        <div class="revenue-cashflow-row">
-                            <div class="input-item button-container">
-                                <button type="button" class="btn-remove" onclick="removeRevenueCashflowRow(this)">−</button>
-                            </div>
-                            <div class="input-item year-text">
-                                <div contenteditable="true" class="editable-year" name="revenueYear[]" id="revenueYear1">Year</div>
-                            </div>
-                            <div class="input-item small-input">
-                                <input type="text" name="revenue[]" id="revenue1" placeholder="$0" oninput="updateProfitMargin(this)">
-                            </div>
-                            <div class="input-item small-input">
-                                <input type="text" name="cashflow[]" id="cashflow1" placeholder="$0" oninput="updateProfitMargin(this)">
-                            </div>
-                            <div class="input-item profit-margin">
-                                <span id="profitMargin1">0%</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-	            <!-- Notes Section -->
-	            <div class="input-item">
-	                <label for="notes">Notes</label>
-	                <textarea id="notes" placeholder="Additional notes about the deal"></textarea>
-	            </div>
-
-	            <div class="modal-actions">
-                    <button type="button" class="btn-cancel" onclick="closeCardModal()">Cancel</button>
-                    <button type="submit" class="btn-save">Save Deal</button>
-                </div>
-            </form>
-        </div>
-        <!-- Right Section: Deal Calculations -->
-        <div class="deal-calculations-section">
-            <h3>Deal Calculations</h3>
-            <div id="resultsContent">
-                <!-- Calculations based on input will go here -->
-                <p><strong>Total Revenue:</strong> $<span id="totalRevenue">0</span></p>
-                <p><strong>Total Cashflow:</strong> $<span id="totalCashflow">0</span></p>
-                <p><strong>Average Profit Margin:</strong> <span id="averageProfitMargin">0%</span></p>
-                <!-- Add more dynamic calculation results here -->
-            </div>
-        </div>
-    </div>
-</div>
 
 
 

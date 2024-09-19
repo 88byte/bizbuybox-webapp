@@ -148,176 +148,176 @@
 
 
 	<!-- Card Modal (hidden by default) -->
-<div id="cardModal" class="card-modal">
-    <div class="card-modal-content">
-        <!-- Left Section: Form -->
-        <div class="card-modal-form-section">
-            <div class="card-modal-header">
-                <h2 id="modalTitle">Deal Details</h2>
-                <!-- Status Dropdown to the right of the header, without label -->
-                <select id="status" class="status-dropdown" required>
-                    <option value="active">Active</option>
-                    <option value="closed">Closed</option>
-                    <option value="opportunity">Opportunity</option>
-                </select>
-                <span class="close" onclick="closeCardModal()">&times;</span>
-            </div>
+	<div id="cardModal" class="card-modal">
+	    <div class="card-modal-content">
+	        <!-- Left Section: Form -->
+	        <div class="card-modal-form-section">
+	            <div class="card-modal-header">
+	                <h2 id="modalTitle">Deal Details</h2>
+	                <!-- Status Dropdown to the right of the header, without label -->
+	                <select id="status" class="status-dropdown" required>
+	                    <option value="active">Active</option>
+	                    <option value="closed">Closed</option>
+	                    <option value="opportunity">Opportunity</option>
+	                </select>
+	                <span class="close" onclick="closeCardModal()">&times;</span>
+	            </div>
 
-            <form id="dealForm" onsubmit="saveDeal(); return false;">
-                <input type="hidden" id="dealId">
+	            <form id="dealForm" onsubmit="saveDeal(); return false;">
+	                <input type="hidden" id="dealId">
 
-                <!-- Business Name, Industry, Years in Business -->
-                <div class="three-column wider">
-                    <div class="input-item">
-                        <label for="businessName">Business Name</label>
-                        <input type="text" id="businessName" placeholder="Enter business name" required>
-                    </div>
-                    <div class="input-item">
-                        <label for="industry">Industry</label>
-                        <input type="text" id="industry" placeholder="Enter industry">
-                    </div>
-                    <div class="input-item">
-                        <label for="yearsInBusiness">Years</label>
-                        <input type="number" id="yearsInBusiness" placeholder="Years in business">
-                    </div>
-                </div>
+	                <!-- Business Name, Industry, Years in Business -->
+	                <div class="three-column wider">
+	                    <div class="input-item">
+	                        <label for="businessName">Business Name</label>
+	                        <input type="text" id="businessName" placeholder="Enter business name" required>
+	                    </div>
+	                    <div class="input-item">
+	                        <label for="industry">Industry</label>
+	                        <input type="text" id="industry" placeholder="Enter industry">
+	                    </div>
+	                    <div class="input-item">
+	                        <label for="yearsInBusiness">Years</label>
+	                        <input type="number" id="yearsInBusiness" placeholder="Years in business">
+	                    </div>
+	                </div>
 
-                <!-- Full Time, Part Time, Contractors -->
-                <div class="three-column">
-                    <div class="input-item">
-                        <label for="fullTimeEmployees">Full Time</label>
-                        <input type="number" id="fullTimeEmployees" placeholder="Full-time">
-                    </div>
-                    <div class="input-item">
-                        <label for="partTimeEmployees">Part Time</label>
-                        <input type="number" id="partTimeEmployees" placeholder="Part-time">
-                    </div>
-                    <div class="input-item">
-                        <label for="contractors">Contractors</label>
-                        <input type="number" id="contractors" placeholder="Contractors">
-                    </div>
-                </div>
+	                <!-- Full Time, Part Time, Contractors -->
+	                <div class="three-column">
+	                    <div class="input-item">
+	                        <label for="fullTimeEmployees">Full Time</label>
+	                        <input type="number" id="fullTimeEmployees" placeholder="Full-time">
+	                    </div>
+	                    <div class="input-item">
+	                        <label for="partTimeEmployees">Part Time</label>
+	                        <input type="number" id="partTimeEmployees" placeholder="Part-time">
+	                    </div>
+	                    <div class="input-item">
+	                        <label for="contractors">Contractors</label>
+	                        <input type="number" id="contractors" placeholder="Contractors">
+	                    </div>
+	                </div>
 
-                <!-- Business Address, License, Asking Price, Real Estate, FF&E -->
-                <div class="three-column wider">
-                    <div class="input-item">
-                        <label for="businessAddress">Business Address</label>
-                        <input type="text" id="businessAddress" placeholder="Business Address">
-                    </div>
-                    <div class="input-item">
-                        <label for="licenses">Licenses</label>
-                        <input type="text" id="licenses" placeholder="Licenses">
-                    </div>
-                    <div class="input-item">
-                        <label for="askingPrice">Asking Price</label>
-                        <input type="text" id="askingPrice" placeholder="$0">
-                    </div>
-                    <div class="input-item">
-                        <label for="realEstatePrice">Real Estate</label>
-                        <input type="text" id="realEstatePrice" placeholder="$0">
-                    </div>
-                    <div class="input-item">
-                        <label for="ffe">FF&E</label>
-                        <input type="text" id="ffe" placeholder="$0">
-                    </div>
-                </div>
+	                <!-- Business Address, License, Asking Price, Real Estate, FF&E -->
+	                <div class="three-column wider">
+	                    <div class="input-item">
+	                        <label for="businessAddress">Business Address</label>
+	                        <input type="text" id="businessAddress" placeholder="Business Address">
+	                    </div>
+	                    <div class="input-item">
+	                        <label for="licenses">Licenses</label>
+	                        <input type="text" id="licenses" placeholder="Licenses">
+	                    </div>
+	                    <div class="input-item">
+	                        <label for="askingPrice">Asking Price</label>
+	                        <input type="text" id="askingPrice" placeholder="$0">
+	                    </div>
+	                    <div class="input-item">
+	                        <label for="realEstatePrice">Real Estate</label>
+	                        <input type="text" id="realEstatePrice" placeholder="$0">
+	                    </div>
+	                    <div class="input-item">
+	                        <label for="ffe">FF&E</label>
+	                        <input type="text" id="ffe" placeholder="$0">
+	                    </div>
+	                </div>
 
-                <!-- Business Financials Section -->
-				<div class="section-heading">
-				    <h4>Business Financials 
-				        <button type="button" class="btn-add" onclick="addRevenueCashflowRow()">+</button>
-				    </h4>
-				</div>
-				<div id="revenueCashflowSection">
-				    <div class="revenue-cashflow-entry">
-				        <div class="revenue-cashflow-row">
-				            <div class="input-item button-container">
-				                <button type="button" class="btn-remove" onclick="removeRevenueCashflowRow(this)">−</button>
-				            </div>
-				            <div class="input-item year-text">
-				                <div contenteditable="true" class="editable-year" name="revenueYear[]" id="revenueYear1">Year</div>
-				            </div>
-				            <div class="input-item small-input">
-				                <input type="text" name="revenue[]" id="revenue1" placeholder="$0" oninput="updateProfitMargin(this)">
-				            </div>
-				            <div class="input-item small-input">
-				                <input type="text" name="cashflow[]" id="cashflow1" placeholder="$0" oninput="updateProfitMargin(this)">
-				            </div>
-				            <div class="input-item profit-margin">
-				                <span id="profitMargin1">0%</span>
-				            </div>
-				        </div>
-				    </div>
-				</div>
+	                <!-- Business Financials Section -->
+					<div class="section-heading">
+					    <h4>Business Financials 
+					        <button type="button" class="btn-add" onclick="addRevenueCashflowRow()">+</button>
+					    </h4>
+					</div>
+					<div id="revenueCashflowSection">
+					    <div class="revenue-cashflow-entry">
+					        <div class="revenue-cashflow-row">
+					            <div class="input-item button-container">
+					                <button type="button" class="btn-remove" onclick="removeRevenueCashflowRow(this)">−</button>
+					            </div>
+					            <div class="input-item year-text">
+					                <div contenteditable="true" class="editable-year" name="revenueYear[]" id="revenueYear1">Year</div>
+					            </div>
+					            <div class="input-item small-input">
+					                <input type="text" name="revenue[]" id="revenue1" placeholder="$0" oninput="updateProfitMargin(this)">
+					            </div>
+					            <div class="input-item small-input">
+					                <input type="text" name="cashflow[]" id="cashflow1" placeholder="$0" oninput="updateProfitMargin(this)">
+					            </div>
+					            <div class="input-item profit-margin">
+					                <span id="profitMargin1">0%</span>
+					            </div>
+					        </div>
+					    </div>
+					</div>
 
 
-                <!-- Funding Section -->
-				<div class="section-heading">
-				    <h4>Funding</h4>
-				</div>
+	                <!-- Funding Section -->
+					<div class="section-heading">
+					    <h4>Funding</h4>
+					</div>
 
-				<!-- Down Payment & Buyer Salary Row -->
-				<div class="two-column">
-				    <div class="input-item">
-				        <label for="downPayment">Down Payment</label>
-				        <input type="text" id="downPayment" placeholder="$0">
-				    </div>
-				    <div class="input-item">
-				        <label for="buyerSalary">Buyer Salary</label>
-				        <input type="text" id="buyerSalary" placeholder="$0">
-				    </div>
-				</div>
+					<!-- Down Payment & Buyer Salary Row -->
+					<div class="two-column">
+					    <div class="input-item">
+					        <label for="downPayment">Down Payment</label>
+					        <input type="text" id="downPayment" placeholder="$0">
+					    </div>
+					    <div class="input-item">
+					        <label for="buyerSalary">Buyer Salary</label>
+					        <input type="text" id="buyerSalary" placeholder="$0">
+					    </div>
+					</div>
 
-				<!-- Loan Type, Interest Rate, Terms, Loan Amount Row -->
-				<div class="four-column">
-				    <div class="input-item">
-				        <label for="loanType">Loan Type</label>
-				        <select id="loanType" class="loanType-dropdown" required>
-				            <option value="SBA">SBA</option>
-				            <option value="Seller Finance">Seller Finance</option>
-				            <option value="SBA + Seller Finance">SBA + Seller Finance</option>
-				            <option value="Blended">Blended</option>
-				            <option value="Conventional">Conventional</option>
-				        </select>
-				    </div>
-				    <div class="input-item">
-				        <label for="interestRate">Interest Rate</label>
-				        <input type="number" id="interestRate" placeholder="%" step="0.01">
-				    </div>
-				    <div class="input-item">
-				        <label for="loanTerm">Terms (Years)</label>
-				        <input type="number" id="loanTerm" placeholder="0">
-				    </div>
-				    <div class="input-item">
-				        <label for="loanAmount">Loan Amount</label>
-				        <input type="text" id="loanAmount" placeholder="$0">
-				    </div>
-				</div>
+					<!-- Loan Type, Interest Rate, Terms, Loan Amount Row -->
+					<div class="four-column">
+					    <div>
+					        <label for="loanType">Loan Type</label>
+					        <select id="loanType" class="loanType-dropdown" required>
+					            <option value="SBA">SBA</option>
+					            <option value="Seller Finance">Seller Finance</option>
+					            <option value="SBA + Seller Finance">SBA + Seller Finance</option>
+					            <option value="Blended">Blended</option>
+					            <option value="Conventional">Conventional</option>
+					        </select>
+					    </div>
+					    <div class="input-item">
+					        <label for="interestRate">Interest Rate</label>
+					        <input type="number" id="interestRate" placeholder="%" step="0.01">
+					    </div>
+					    <div class="input-item">
+					        <label for="loanTerm">Terms (Years)</label>
+					        <input type="number" id="loanTerm" placeholder="0">
+					    </div>
+					    <div class="input-item">
+					        <label for="loanAmount">Loan Amount</label>
+					        <input type="text" id="loanAmount" placeholder="$0">
+					    </div>
+					</div>
 
-                <!-- Notes Section -->
-                <div class="input-item">
-                    <label for="notes">Notes</label>
-                    <textarea id="notes" placeholder="Additional notes about the deal" class="custom-font"></textarea>
-                </div>
+	                <!-- Notes Section -->
+	                <div class="input-item">
+	                    <label for="notes">Notes</label>
+	                    <textarea id="notes" placeholder="Additional notes about the deal" class="custom-font"></textarea>
+	                </div>
 
-                <div class="modal-actions">
-                    <button type="button" class="btn-cancel" onclick="closeCardModal()">Cancel</button>
-                    <button type="submit" class="btn-save">Save Deal</button>
-                </div>
-            </form>
-        </div>
+	                <div class="modal-actions">
+	                    <button type="button" class="btn-cancel" onclick="closeCardModal()">Cancel</button>
+	                    <button type="submit" class="btn-save">Save Deal</button>
+	                </div>
+	            </form>
+	        </div>
 
-        <!-- Right Section: Deal Calculations -->
-        <div class="deal-calculations-section">
-            <h3>Deal Calculations</h3>
-            <div id="resultsContent">
-                <p><strong>Total Revenue:</strong> $<span id="totalRevenue">0</span></p>
-                <p><strong>Total Cashflow:</strong> $<span id="totalCashflow">0</span></p>
-                <p><strong>Average Profit Margin:</strong> <span id="averageProfitMargin">0%</span></p>
-            </div>
-        </div>
-    </div>
-</div>
+	        <!-- Right Section: Deal Calculations -->
+	        <div class="deal-calculations-section">
+	            <h3>Deal Calculations</h3>
+	            <div id="resultsContent">
+	                <p><strong>Total Revenue:</strong> $<span id="totalRevenue">0</span></p>
+	                <p><strong>Total Cashflow:</strong> $<span id="totalCashflow">0</span></p>
+	                <p><strong>Average Profit Margin:</strong> <span id="averageProfitMargin">0%</span></p>
+	            </div>
+	        </div>
+	    </div>
+	</div>
 
 
 

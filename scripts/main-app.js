@@ -513,32 +513,61 @@ let revenueCashflowCounter = 1;
 
 // Function to add new Revenue & Cashflow row
 window.addRevenueCashflowRow = function() {
-    revenueCashflowCounter++;
     const section = document.getElementById('revenueCashflowSection');
+    const currentRows = section.querySelectorAll('.revenue-cashflow-entry').length;
+    const newRowNumber = currentRows + 1;
+
     const newRow = document.createElement('div');
     newRow.className = 'three-column revenue-cashflow-entry';
-    newRow.id = `revenueCashflowRow${revenueCashflowCounter}`;
     newRow.innerHTML = `
         <div class="input-item">
-            <label for="revenue${revenueCashflowCounter}">Revenue Year ${revenueCashflowCounter}</label>
-            <input type="number" name="revenue[]" placeholder="Revenue for Year ${revenueCashflowCounter}">
+            <label for="revenue${newRowNumber}">Revenue Year ${newRowNumber}</label>
+            <input type="number" name="revenue[]" id="revenue${newRowNumber}" placeholder="Revenue for Year ${newRowNumber}">
         </div>
         <div class="input-item">
-            <label for="cashflow${revenueCashflowCounter}">Cashflow Year ${revenueCashflowCounter}</label>
-            <input type="number" name="cashflow[]" placeholder="Cashflow for Year ${revenueCashflowCounter}">
+            <label for="cashflow${newRowNumber}">Cashflow Year ${newRowNumber}</label>
+            <input type="number" name="cashflow[]" id="cashflow${newRowNumber}" placeholder="Cashflow for Year ${newRowNumber}">
         </div>
         <div class="input-item remove-btn-container">
-            <button type="button" class="btn-remove" onclick="removeRevenueCashflowRow(${revenueCashflowCounter})">Remove</button>
+            <button type="button" class="btn-remove" onclick="removeRevenueCashflowRow(this)">Remove</button>
         </div>
     `;
     section.appendChild(newRow);
+
+    reindexRows(); // Re-index rows after adding
 }
 
 // Function to remove a Revenue & Cashflow row
-window.removeRevenueCashflowRow = function(rowId) {
-    const row = document.getElementById(`revenueCashflowRow${rowId}`);
+window.removeRevenueCashflowRow = function(button) {
+    const row = button.closest('.revenue-cashflow-entry');
     row.parentNode.removeChild(row);
+
+    reindexRows(); // Re-index rows after removal
 }
+
+// Function to re-index the Revenue and Cashflow rows
+function reindexRows() {
+    const rows = document.querySelectorAll('.revenue-cashflow-entry');
+    rows.forEach((row, index) => {
+        const rowNumber = index + 1;
+        const revenueLabel = row.querySelector('label[for^="revenue"]');
+        const revenueInput = row.querySelector('input[name="revenue[]"]');
+        const cashflowLabel = row.querySelector('label[for^="cashflow"]');
+        const cashflowInput = row.querySelector('input[name="cashflow[]"]');
+
+        // Update label and input attributes based on the current row index
+        revenueLabel.innerHTML = `Revenue Year ${rowNumber}`;
+        revenueLabel.setAttribute('for', `revenue${rowNumber}`);
+        revenueInput.id = `revenue${rowNumber}`;
+        revenueInput.placeholder = `Revenue for Year ${rowNumber}`;
+
+        cashflowLabel.innerHTML = `Cashflow Year ${rowNumber}`;
+        cashflowLabel.setAttribute('for', `cashflow${rowNumber}`);
+        cashflowInput.id = `cashflow${rowNumber}`;
+        cashflowInput.placeholder = `Cashflow for Year ${rowNumber}`;
+    });
+}
+
 
 
 

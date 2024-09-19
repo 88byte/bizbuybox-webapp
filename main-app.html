@@ -217,6 +217,18 @@
 	                    </div>
 	                </div>
 
+	                <!-- Broker and Seller Contact Information -->
+				    <div class="two-column">
+				        <div class="input-item">
+				            <button type="button" class="btn-open-modal" onclick="openBrokerContactModal()">Broker Contact Info</button>
+				            <span id="brokerContactName" class="contact-tooltip" data-tooltip=""></span>
+				        </div>
+				        <div class="input-item">
+				            <button type="button" class="btn-open-modal" onclick="openSellerContactModal()">Seller Contact Info</button>
+				            <span id="sellerContactName" class="contact-tooltip" data-tooltip=""></span>
+				        </div>
+				    </div>
+
 	                
 
 	                <!-- Business Financials Section -->
@@ -359,7 +371,36 @@
 	                    <button type="submit" class="btn-save">Save Deal</button>
 	                </div>
 	            </form>
-	        </div>
+
+	            
+		        <!-- Broker Contact Modal -->
+				<div id="brokerContactModal" class="modal">
+				    <div class="modal-content">
+				        <h3>Broker Contact Information</h3>
+				        <input type="text" id="brokerName" placeholder="Broker Name">
+				        <input type="text" id="brokerCompany" placeholder="Broker Company">
+				        <input type="text" id="brokerPhone" placeholder="Broker Phone">
+				        <input type="text" id="brokerEmail" placeholder="Broker Email">
+				        <div class="modal-actions">
+				            <button type="button" class="btn-cancel" onclick="closeBrokerContactModal()">Cancel</button>
+				            <button type="button" class="btn-save" onclick="saveBrokerContact()">Save</button>
+				        </div>
+				    </div>
+				</div>
+
+				<!-- Seller Contact Modal -->
+				<div id="sellerContactModal" class="modal">
+				    <div class="modal-content">
+				        <h3>Seller Contact Information</h3>
+				        <input type="text" id="sellerName" placeholder="Seller Name">
+				        <input type="text" id="sellerPhone" placeholder="Seller Phone">
+				        <input type="text" id="sellerEmail" placeholder="Seller Email">
+				        <div class="modal-actions">
+				            <button type="button" class="btn-cancel" onclick="closeSellerContactModal()">Cancel</button>
+				            <button type="button" class="btn-save" onclick="saveSellerContact()">Save</button>
+				        </div>
+				    </div>
+				</div>
 
 
 

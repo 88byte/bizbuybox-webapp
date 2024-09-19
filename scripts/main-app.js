@@ -437,48 +437,7 @@ window.editDeal = function(dealId) {
 };
 
 
-// Function to load existing documents when opening a deal
-window.loadExistingDocuments = function(dealId) {
-    fetch(`/api/deals/${dealId}/documents`)
-        .then(response => response.json())
-        .then(documents => {
-            const documentList = document.getElementById('documentList');
-            documentList.innerHTML = ''; // Clear previous entries
 
-            // Display existing documents with View and Delete buttons
-            documents.forEach(doc => {
-                const fileElement = document.createElement('div');
-                fileElement.textContent = `${doc.name}`;
-
-                const viewButton = document.createElement('button');
-                viewButton.textContent = 'View';
-                viewButton.classList.add('view-document');
-                viewButton.onclick = function() {
-                    // Assuming the backend returns a URL to the file
-                    window.open(doc.url, '_blank');
-                };
-                fileElement.appendChild(viewButton);
-
-                const deleteButton = document.createElement('button');
-                deleteButton.textContent = 'Delete';
-                deleteButton.classList.add('delete-document');
-                deleteButton.onclick = function() {
-                    documentList.removeChild(fileElement);
-                    // Also delete from backend
-                    fetch(`/api/deals/${dealId}/documents/${doc.id}`, {
-                        method: 'DELETE'
-                    }).then(response => {
-                        if (!response.ok) {
-                            alert('Error deleting document.');
-                        }
-                    });
-                };
-                fileElement.appendChild(deleteButton);
-
-                documentList.appendChild(fileElement);
-            });
-        });
-};
 
 
 

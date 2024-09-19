@@ -585,6 +585,47 @@ function renderDeals() {
 }
 
 
+// Function to format numbers as dollar amounts with commas and no decimals
+window.formatAsCurrency = function(input) {
+    // Remove any non-digit characters, except for commas
+    let value = input.value.replace(/[^\d]/g, '');
+
+    if (value === '') {
+        input.value = '0'; // If no input, set value to 0
+    } else {
+        // Format value as currency with commas and no decimals
+        input.value = parseInt(value, 10).toLocaleString('en-US');
+    }
+}
+
+// Add event listeners for each field
+window.addCurrencyFormattingListeners = function() {
+    const fields = [
+        'askingPrice', 
+        'ffe', 
+        'realEstatePrice', 
+        'downPayment', 
+        'buyerSalary', 
+        'loanAmount1', 
+        'loanAmount2'
+    ];
+    
+    fields.forEach(fieldId => {
+        const field = document.getElementById(fieldId);
+        if (field) {
+            field.addEventListener('input', function() {
+                formatAsCurrency(field);
+            });
+        }
+    });
+}
+
+// Call this function when the modal opens to apply formatting listeners
+document.addEventListener('DOMContentLoaded', function() {
+    addCurrencyFormattingListeners();
+});
+
+
 
 
 let revenueCashflowCount = 1;

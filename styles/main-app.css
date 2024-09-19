@@ -597,7 +597,7 @@ input#businessName {
 /* General Button Styles */
 button {
     padding: 12px 24px;
-    background-color: #ffffff;
+    background-color: #5e5e5e;
     border: none;
     border-radius: 8px;
     color: #f5f5f5;
@@ -875,12 +875,48 @@ input-item select {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important;
 }
 
-/* Modal Action Buttons */
-.modal-actions {
+/* Deal Actions Container */
+.deal-actions {
     display: flex;
     justify-content: flex-end;
-    gap: 12px;
+    gap: 12px; /* Space between buttons */
+    margin-top: 16px; /* Add spacing above the buttons */
 }
+
+/* Base Style for Edit and Delete Buttons */
+.deal-actions button {
+    padding: 8px 16px;
+    background-color: rgba(255, 255, 255, 0.1); /* Transparent, glass-like background */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle glass border */
+    border-radius: 6px; /* Slightly rounded corners */
+    color: #f5f5f5;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+}
+
+/* Hover Effect for Edit and Delete Buttons */
+.deal-actions button:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* Darker glass effect on hover */
+    transform: translateY(-1px); /* Slight lift on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Increase shadow depth on hover */
+}
+
+/* Specific Style for Delete Button (optional red tint) */
+.deal-actions button:last-child {
+    background-color: rgba(255, 0, 0, 0.1); /* Slight red tint for delete */
+    border: 1px solid rgba(255, 0, 0, 0.2); /* Red border */
+    transition: background-color 0.3s ease, transform 0.2s;
+}
+
+.deal-actions button:last-child:hover {
+    background-color: rgba(255, 0, 0, 0.2); /* Darker red glass effect on hover */
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
 
 
 

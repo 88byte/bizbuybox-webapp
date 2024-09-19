@@ -509,7 +509,7 @@ function renderDeals() {
 }
 
 
-function updateStatusColor() {
+ function updateStatusColor() {
         const statusDropdown = document.getElementById('status');
         const statusValue = statusDropdown.value;
 
@@ -527,6 +527,13 @@ function updateStatusColor() {
             'no-longer-interested': '#f43f5e',
             'nurture': '#eab308'
         };
+
+        // Change the background color based on selected status
+        statusDropdown.style.backgroundColor = statusColors[statusValue] || '#333'; // Fallback color
+    }
+
+    // Initialize the color when the modal loads
+    document.addEventListener('DOMContentLoaded', updateStatusColor);
 
 let revenueCashflowCount = 1;
 

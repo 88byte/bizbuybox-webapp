@@ -509,31 +509,45 @@ function renderDeals() {
 }
 
 
- function updateStatusColor() {
-        const statusDropdown = document.getElementById('status');
-        const statusValue = statusDropdown.value;
+// Function to update status dropdown background color
+function updateStatusColor() {
+    const statusDropdown = document.getElementById('status');
+    const statusValue = statusDropdown.value;
 
-        // Define the colors for each status
-        const statusColors = {
-            'new-deal': '#3b82f6',
-            'cim-review': '#6366f1',
-            'seller-meeting': '#8b5cf6',
-            'loi-submitted': '#22c55e',
-            'loi-accepted': '#22c55e',
-            'kyle-review': '#ec4899',
-            'sba-loan': '#f97316',
-            'due-diligence': '#10b981',
-            'deal-closed-won': '#16a34a',
-            'no-longer-interested': '#f43f5e',
-            'nurture': '#eab308'
-        };
+    // Define the colors for each status
+    const statusColors = {
+        'new-deal': '#3b82f6',
+        'cim-review': '#6366f1',
+        'seller-meeting': '#8b5cf6',
+        'loi-submitted': '#22c55e',
+        'loi-accepted': '#22c55e',
+        'kyle-review': '#ec4899',
+        'sba-loan': '#f97316',
+        'due-diligence': '#10b981',
+        'deal-closed-won': '#16a34a',
+        'no-longer-interested': '#f43f5e',
+        'nurture': '#eab308'
+    };
 
-        // Change the background color based on selected status
-        statusDropdown.style.backgroundColor = statusColors[statusValue] || '#333'; // Fallback color
-    }
+    // Update the background color based on the selected status
+    statusDropdown.style.backgroundColor = statusColors[statusValue] || '#333'; // Fallback color
+}
 
-    // Initialize the color when the modal loads
-    document.addEventListener('DOMContentLoaded', updateStatusColor);
+// Call updateStatusColor when the modal is opened
+window.openCardModal = function() {
+    const modal = document.getElementById('cardModal');
+    modal.style.display = 'flex'; // Ensure the modal is visible
+    setTimeout(() => {
+        modal.classList.add('show'); // Add the 'show' class for animation
+    }, 10); // Slight delay for transition
+
+    // Update the status color when the modal is opened
+    updateStatusColor();
+};
+
+// Ensure dropdown updates when the value changes
+document.getElementById('status').addEventListener('change', updateStatusColor);
+
 
 let revenueCashflowCount = 1;
 

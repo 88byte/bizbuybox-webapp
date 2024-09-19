@@ -519,7 +519,7 @@ window.addRevenueCashflowRow = function() {
     newRow.classList.add('revenue-cashflow-row');
 
     newRow.innerHTML = `
-        <div class="input-item btn-add">
+        <div class="btn-add">
             <button onclick="removeRevenueCashflowRow(this)">−</button>
         </div>
         <div class="input-item year-text">

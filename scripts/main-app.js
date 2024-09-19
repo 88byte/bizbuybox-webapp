@@ -410,6 +410,81 @@ window.saveDeal = async function() {
     }
 };
 
+
+// Function to handle loan type changes
+window.handleLoanTypeChange = function() {
+    const loanType = document.getElementById('loanType').value;
+
+    // Reset interest rate, loan term, and loan amount for the first row
+    const interestRate1 = document.getElementById('interestRate1');
+    const loanTerm1 = document.getElementById('loanTerm1');
+    const loanAmount1 = document.getElementById('loanAmount1');
+
+    if (loanType === 'SBA') {
+        interestRate1.value = '11.5';
+        loanTerm1.value = '10';
+        loanAmount1.value = '0';
+    } else if (loanType === 'Seller Finance') {
+        interestRate1.value = '11.5';
+        loanTerm1.value = '10';
+        loanAmount1.value = '0';
+    } else if (loanType === 'Blended') {
+        interestRate1.value = '11.5';
+        loanTerm1.value = '15';
+        loanAmount1.value = '0';
+    } else {
+        // Clear the fields when selecting other loan types
+        interestRate1.value = '';
+        loanTerm1.value = '';
+        loanAmount1.value = '';
+    }
+
+    // Handle SBA + Seller Finance selection
+    if (loanType === 'SBA + Seller Finance') {
+        window.addSecondLoanRow();
+    } else {
+        window.removeSecondLoanRow();
+    }
+}
+
+// Function to add second loan details row
+window.addSecondLoanRow = function() {
+    if (!document.getElementById('loanDetailsRow2')) {
+        const additionalLoanDetails = document.getElementById('additionalLoanDetails');
+
+        const newRow = document.createElement('div');
+        newRow.classList.add('three-column');
+        newRow.id = 'loanDetailsRow2'; // Second loan row
+
+        newRow.innerHTML = `
+            <div class="input-item">
+                <input type="text" id="interestRate2" placeholder="Interest Rate (%)" />
+            </div>
+            <div class="input-item">
+                <input type="text" id="loanTerm2" placeholder="Loan Term (Years)" />
+            </div>
+            <div class="input-item">
+                <input type="text" id="loanAmount2" placeholder="Loan Amount ($)" />
+            </div>
+        `;
+
+        additionalLoanDetails.appendChild(newRow);
+    }
+}
+
+// Function to remove the second loan details row
+window.removeSecondLoanRow = function() {
+    const secondRow = document.getElementById('loanDetailsRow2');
+    if (secondRow) {
+        secondRow.remove();
+    }
+}
+
+
+
+
+
+
 let dealToDelete = null;
 
 // Function to open the delete confirmation modal

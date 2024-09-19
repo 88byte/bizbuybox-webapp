@@ -293,26 +293,44 @@
 	                </div>
 
 	                <!-- Loan Type, Interest Rate, Terms, Loan Amount Row -->
-	                <div class="four-column">
-	                    <div class="input-item">
-	                        <select id="loanType" class="loanType-dropdown" required>
-	                            <option value="SBA">SBA</option>
-	                            <option value="Seller Finance">Seller Finance</option>
-	                            <option value="SBA + Seller Finance">SBA + Seller Finance</option>
-	                            <option value="Blended">Blended</option>
-	                            <option value="Conventional">Conventional</option>
-	                        </select>
-	                    </div>
-	                    <div class="input-item">
-	                        <input type="number" id="interestRate" placeholder="Interest Rate (%)" step="0.01">
-	                    </div>
-	                    <div class="input-item">
-	                        <input type="number" id="loanTerm" placeholder="Loan Term (Years)">
-	                    </div>
-	                    <div class="input-item">
-	                        <input type="text" id="loanAmount" placeholder="Loan Amount">
-	                    </div>
-	                </div>
+	                <div class="two-column">
+					    <div class="input-item">
+					        <label for="loanType">Loan Type</label>
+					        <select id="loanType" class="loanType-dropdown" onchange="handleLoanTypeChange()" required>
+					            <option value="SBA">SBA</option>
+					            <option value="Seller Finance">Seller Finance</option>
+					            <option value="SBA + Seller Finance">SBA + Seller Finance</option>
+					            <option value="Blended">Blended</option>
+					            <option value="Conventional">Conventional</option>
+					        </select>
+					    </div>
+					</div>
+
+	                    <!-- Loan Details Row -->
+						<div class="three-column" id="loanDetailsRow1">
+						    <div class="input-item">
+						        <input type="text" id="interestRate1" placeholder="Interest Rate (%)" />
+						    </div>
+						    <div class="input-item">
+						        <input type="text" id="loanTerm1" placeholder="Loan Term (Years)" />
+						    </div>
+						    <div class="input-item">
+						        <input type="text" id="loanAmount1" placeholder="Loan Amount ($)" />
+						    </div>
+						</div>
+
+						<!-- Placeholder for dynamically added loan details row -->
+						<div id="additionalLoanDetails"></div>
+
+						<!-- Down Payment & Buyer Salary Row -->
+						<div class="two-column">
+						    <div class="input-item">
+						        <input type="text" id="downPayment" placeholder="Down Payment ($)" />
+						    </div>
+						    <div class="input-item">
+						        <input type="text" id="buyerSalary" placeholder="Buyer Salary ($)" />
+						    </div>
+						</div>
 
 	                <!-- Notes Section (Full Width) -->
 	                <div class="section-heading">
@@ -328,6 +346,12 @@
 	                </div>
 	            </form>
 	        </div>
+
+
+
+
+
+
 
 	        <!-- Right Section: Deal Calculations -->
 	        <div class="deal-calculations-section">

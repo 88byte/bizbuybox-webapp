@@ -686,7 +686,35 @@ button:hover {
 
 /* Option colors will dynamically change based on selection via JavaScript */
 
+#status {
+        appearance: none; /* Remove default arrow */
+        padding: 8px 12px;
+        background-color: #333; /* Default background */
+        color: #fff;
+        border: 1px solid #555;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
 
+    /* Add custom arrow for the dropdown */
+    #status {
+        background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="%23fff" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>');
+        background-repeat: no-repeat;
+        background-position: right 12px center;
+        background-size: 14px;
+    }
+
+    /* Change background color of the dropdown when an option is selected */
+    #status:focus {
+        background-color: #333; /* Keep background on dropdown focus */
+    }
+
+    /* Reset the background color for dropdown options list */
+    #status option {
+        background-color: #fff; /* Default option background */
+        color: #000; /* Default text color */
+    }
 
 
 /* Glass-Like "+" and "-" Button Styles */

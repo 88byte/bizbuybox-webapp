@@ -615,7 +615,6 @@ button:hover {
 /* Save Button */
 .btn-save {
     background-color: #d2a679;
-    color: #1a1a1a;
 }
 
 .btn-save:hover {
@@ -829,7 +828,6 @@ input-item select {
 
 .modal-actions .btn-save {
     background-color: #d4a759;
-    color: #333;
 }
 
 .modal-actions button:hover {

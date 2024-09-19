@@ -174,7 +174,7 @@
 	            <form id="dealForm" onsubmit="saveDeal(); return false;">
 	                <input type="hidden" id="dealId">
 
-	                <!-- Business Name, Industry, Years in Business -->
+	                <!-- Business Name, Industry, Years in Business, Business Address -->
 	                <div class="three-column wider">
 	                    <div class="input-item">
 	                        <input type="text" id="businessName" placeholder="Business Name" required>
@@ -184,6 +184,9 @@
 	                    </div>
 	                    <div class="input-item">
 	                        <input type="number" id="yearsInBusiness" placeholder="Years">
+	                    </div>
+	                    <div class="input-item">
+	                        <input type="text" id="businessAddress" placeholder="Business Address">
 	                    </div>
 	                </div>
 
@@ -200,14 +203,8 @@
 	                    </div>
 	                </div>
 
-	                <!-- Business Address, License, Asking Price, Real Estate, FF&E -->
-	                <div class="three-column wider">
-	                    <div class="input-item">
-	                        <input type="text" id="businessAddress" placeholder="Business Address">
-	                    </div>
-	                    <div class="input-item">
-	                        <input type="text" id="licenses" placeholder="Licenses">
-	                    </div>
+	                <!-- Asking Price, Real Estate, FF&E -->
+	                <div class="three-column wider">	                    
 	                    <div class="input-item">
 	                        <input type="text" id="askingPrice" placeholder="Asking Price">
 	                    </div>
@@ -344,8 +341,12 @@
 
 	                <!-- Notes Section (Full Width) -->
 	                <div class="section-heading">
-	                    <h4>Notes</h4>
+	                    <h4>Additional Info</h4>
 	                </div>
+
+	                <div class="input-item">
+	                        <input type="text" id="licenses" placeholder="Licenses">
+	                    </div>
 	                <div class="input-item">
 	                    <textarea id="notes" placeholder="Additional notes about the deal" class="custom-font"></textarea>
 	                </div>

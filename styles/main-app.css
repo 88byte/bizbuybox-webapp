@@ -1047,25 +1047,29 @@ input-item select {
 .contact-column {
     display: flex;
     flex-direction: column; /* Stack buttons vertically */
-    gap: 4px; /* Space between buttons */
+    gap: 8px; /* Space between buttons */
+    align-items: flex-end; /* Align the buttons to the right */
 }
 
 /* Smaller Contact Info Buttons (70% size reduction) */
 .contact-info-button {
-    font-size: 100%;  /* Reduce the font size */
+    font-size: 70%;  /* Reduce the font size */
     padding: 6px 12px;  /* Smaller padding */
     background-color: rgba(255, 255, 255, 0.1); /* Glass-like button */
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 6px;
     cursor: pointer;
     transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s;
+    position: relative;
+    width: 180px; /* Adjust width for alignment consistency */
 }
 
-.contact-info-button:hover::after {
+.contact-info-button[data-tooltip]:hover::after {
     content: attr(data-tooltip); /* Tooltip content from the button's data-tooltip attribute */
     position: absolute;
-    left: 0;
-    bottom: 100%;
+    right: 105%; /* Position the tooltip to the left of the button */
+    top: 50%;
+    transform: translateY(-50%); /* Center the tooltip vertically */
     background-color: #333;
     color: #fff;
     padding: 8px;
@@ -1074,6 +1078,12 @@ input-item select {
     z-index: 10;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
     width: 220px;
+    display: block;
+}
+
+/* Hide tooltip if there's no data-tooltip content */
+.contact-info-button:not([data-tooltip]):hover::after {
+    display: none; /* Do not display the tooltip if there is no contact info */
 }
 
 .contact-info-button:hover {

@@ -156,19 +156,19 @@
 	                <h2 id="modalTitle">Deal Details</h2>
 	                <!-- Status Dropdown (Without Label) -->
 	                <select id="status" class="status-dropdown" onchange="updateStatusColor()" required>
-					    <option value="new-deal">New Deal</option>
-					    <option value="cim-review">CIM Review</option>
-					    <option value="seller-meeting">Seller Meeting</option>
-					    <option value="loi-submitted">LOI Submitted</option>
-					    <option value="loi-accepted">LOI Accepted</option>
-					    <option value="kyle-review">Kyle Review</option>
-					    <option value="sba-loan">SBA Loan</option>
-					    <option value="due-diligence">Due Diligence</option>
-					    <option value="deal-closed-won">Deal Closed (Won)</option>
-					    <option value="no-longer-interested">No Longer Interested</option>
-					    <option value="nurture">Nurture</option>
-					</select>
-	                <span class="close" onclick="closeCardModal()">&times;</span>
+                    <option value="new-deal" data-color="#3b82f6">New Deal</option>
+                    <option value="cim-review" data-color="#6366f1">CIM Review</option>
+                    <option value="seller-meeting" data-color="#8b5cf6">Seller Meeting</option>
+                    <option value="loi-submitted" data-color="#22c55e">LOI Submitted</option>
+                    <option value="loi-accepted" data-color="#22c55e">LOI Accepted</option>
+                    <option value="kyle-review" data-color="#ec4899">Kyle Review</option>
+                    <option value="sba-loan" data-color="#f97316">SBA Loan</option>
+                    <option value="due-diligence" data-color="#10b981">Due Diligence</option>
+                    <option value="deal-closed-won" data-color="#16a34a">Deal Closed (Won)</option>
+                    <option value="no-longer-interested" data-color="#f43f5e">No Longer Interested</option>
+                    <option value="nurture" data-color="#eab308">Nurture</option>
+                </select>
+                <span class="close" onclick="closeCardModal()">&times;</span>
 	            </div>
 
 	            <form id="dealForm" onsubmit="saveDeal(); return false;">
@@ -247,35 +247,23 @@
 	                </div>
 
 	                <script>
-				    // Ensure the function is properly defined
-				    function updateStatusColor() {
-				        const statusDropdown = document.getElementById('status');
-				        const statusValue = statusDropdown.value;
+					    function updateStatusColor() {
+					        const statusDropdown = document.getElementById('status');
+					        const selectedOption = statusDropdown.options[statusDropdown.selectedIndex];
 
-				        // Define the colors for each status
-				        const statusColors = {
-				            'new-deal': '#3b82f6',
-				            'cim-review': '#6366f1',
-				            'seller-meeting': '#8b5cf6',
-				            'loi-submitted': '#22c55e',
-				            'loi-accepted': '#22c55e',
-				            'kyle-review': '#ec4899',
-				            'sba-loan': '#f97316',
-				            'due-diligence': '#10b981',
-				            'deal-closed-won': '#16a34a',
-				            'no-longer-interested': '#f43f5e',
-				            'nurture': '#eab308'
-				        };
+					        // Get the color from the selected option's data-color attribute
+					        const selectedColor = selectedOption.getAttribute('data-color');
 
-				        // Change the background color based on selected status
-				        statusDropdown.style.backgroundColor = statusColors[statusValue] || '#333'; // Fallback color
-				    }
+					        // Only change the background color of the selected option (not the entire dropdown)
+					        statusDropdown.style.backgroundColor = ''; // Reset any background color applied to the dropdown
+					        selectedOption.style.backgroundColor = selectedColor; // Apply color only to the selected option
+					    }
 
-				    // Ensure the dropdown color updates when the modal is opened
-				    window.onload = function() {
-				        updateStatusColor();
-				    }
-				</script>
+					    // Ensure the dropdown color updates when the modal is opened
+					    window.onload = function() {
+					        updateStatusColor();
+					    };
+					</script>
 
 	                <!-- Funding Section -->
 	                <div class="section-heading">

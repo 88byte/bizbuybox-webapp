@@ -521,13 +521,13 @@ window.addRevenueCashflowRow = function() {
     newRow.className = 'three-column revenue-cashflow-entry';
     newRow.innerHTML = `
         <div class="input-item">
-            <label for="revenueYear${newRowNumber}">Revenue Year</label>
-            <input type="text" class="small-input" name="revenueYear[]" id="revenueYear${newRowNumber}" placeholder="Year">
+            <label>Revenue Year</label>
+            <div contenteditable="true" class="editable-year" name="revenueYear[]" id="revenueYear${newRowNumber}">Year</div>
             <input type="number" name="revenue[]" id="revenue${newRowNumber}" placeholder="Revenue">
         </div>
         <div class="input-item">
-            <label for="cashflowYear${newRowNumber}">Cashflow Year</label>
-            <input type="text" class="small-input" name="cashflowYear[]" id="cashflowYear${newRowNumber}" placeholder="Year">
+            <label>Cashflow Year</label>
+            <div contenteditable="true" class="editable-year" name="cashflowYear[]" id="cashflowYear${newRowNumber}">Year</div>
             <input type="number" name="cashflow[]" id="cashflow${newRowNumber}" placeholder="Cashflow">
         </div>
         <div class="input-item remove-btn-container">
@@ -553,21 +553,19 @@ function reindexRows() {
     rows.forEach((row, index) => {
         const rowNumber = index + 1;
 
-        const revenueYearInput = row.querySelector('input[name="revenueYear[]"]');
+        const revenueYearInput = row.querySelector('.editable-year[name="revenueYear[]"]');
         const revenueInput = row.querySelector('input[name="revenue[]"]');
-        const cashflowYearInput = row.querySelector('input[name="cashflowYear[]"]');
+        const cashflowYearInput = row.querySelector('.editable-year[name="cashflowYear[]"]');
         const cashflowInput = row.querySelector('input[name="cashflow[]"]');
 
         // Update input IDs and placeholders for dynamic re-indexing
         revenueYearInput.id = `revenueYear${rowNumber}`;
         revenueInput.id = `revenue${rowNumber}`;
-        revenueInput.placeholder = `Revenue`;
-
         cashflowYearInput.id = `cashflowYear${rowNumber}`;
         cashflowInput.id = `cashflow${rowNumber}`;
-        cashflowInput.placeholder = `Cashflow`;
     });
 }
+
 
 
 

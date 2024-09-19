@@ -209,13 +209,13 @@
 				<div id="revenueCashflowSection">
 				    <div class="three-column revenue-cashflow-entry">
 				        <div class="input-item">
-				            <label for="revenueYear1">Revenue Year</label>
-				            <input type="text" class="small-input" name="revenueYear[]" id="revenueYear1" placeholder="Year">
+				            <label>Revenue Year</label>
+				            <div contenteditable="true" class="editable-year" name="revenueYear[]" id="revenueYear1">Year</div>
 				            <input type="number" name="revenue[]" id="revenue1" placeholder="Revenue">
 				        </div>
 				        <div class="input-item">
-				            <label for="cashflowYear1">Cashflow Year</label>
-				            <input type="text" class="small-input" name="cashflowYear[]" id="cashflowYear1" placeholder="Year">
+				            <label>Cashflow Year</label>
+				            <div contenteditable="true" class="editable-year" name="cashflowYear[]" id="cashflowYear1">Year</div>
 				            <input type="number" name="cashflow[]" id="cashflow1" placeholder="Cashflow">
 				        </div>
 				        <div class="input-item remove-btn-container">
@@ -225,6 +225,7 @@
 				</div>
 				<!-- Add Button -->
 				<button type="button" class="btn-add" onclick="addRevenueCashflowRow()">+</button>
+
 
 
 

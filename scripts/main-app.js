@@ -512,7 +512,7 @@ function renderDeals() {
 let revenueCashflowCounter = 1;
 
 // Function to add new Revenue & Cashflow row
-function addRevenueCashflowRow() {
+window.addRevenueCashflowRow = function() {
     revenueCashflowCounter++;
     const section = document.getElementById('revenueCashflowSection');
     const newRow = document.createElement('div');
@@ -535,10 +535,11 @@ function addRevenueCashflowRow() {
 }
 
 // Function to remove a Revenue & Cashflow row
-function removeRevenueCashflowRow(rowId) {
+window.removeRevenueCashflowRow = function(rowId) {
     const row = document.getElementById(`revenueCashflowRow${rowId}`);
     row.parentNode.removeChild(row);
 }
+
 
 
 

@@ -205,22 +205,24 @@
 	            <div class="section-heading">
 	                <h3>Revenue & Cashflow</h3>
 	            </div>
-	            <div id="revenueCashflowSection">
-	                <div class="three-column revenue-cashflow-entry" id="revenueCashflowRow1">
-	                    <div class="input-item">
-	                        <label for="revenue1">Revenue Year 1</label>
-	                        <input type="number" name="revenue[]" placeholder="Revenue for Year 1">
-	                    </div>
-	                    <div class="input-item">
-	                        <label for="cashflow1">Cashflow Year 1</label>
-	                        <input type="number" name="cashflow[]" placeholder="Cashflow for Year 1">
-	                    </div>
-	                    <div class="input-item remove-btn-container">
-	                        <button type="button" class="btn-remove" onclick="removeRevenueCashflowRow(1)">Remove</button>
-	                    </div>
-	                </div>
-	            </div>
-	            <button type="button" class="btn-add" onclick="addRevenueCashflowRow()">Add Revenue & Cashflow</button>
+	            <!-- Revenue & Cashflow Section -->
+				<div id="revenueCashflowSection">
+				    <div class="three-column revenue-cashflow-entry" id="revenueCashflowRow1">
+				        <div class="input-item">
+				            <label for="revenue1">Revenue Year 1</label>
+				            <input type="number" name="revenue[]" placeholder="Revenue for Year 1">
+				        </div>
+				        <div class="input-item">
+				            <label for="cashflow1">Cashflow Year 1</label>
+				            <input type="number" name="cashflow[]" placeholder="Cashflow for Year 1">
+				        </div>
+				        <div class="input-item remove-btn-container">
+				            <button type="button" class="btn-remove" onclick="removeRevenueCashflowRow(1)">Remove</button>
+				        </div>
+				    </div>
+				</div>
+				<button type="button" class="btn-add" onclick="addRevenueCashflowRow()">Add Revenue & Cashflow</button>
+
 
 	            <!-- Notes Section -->
 	            <div class="input-item">

@@ -613,13 +613,7 @@ button:hover {
     margin-top: 24px;
 }
 
-/* Section Heading */
-.section-heading h3 {
-    font-size: 20px;
-    font-weight: 600;
-    color: #fff;
-    margin-bottom: 12px;
-}
+
 
 /* Revenue & Cashflow Entry */
 .revenue-cashflow-entry {
@@ -629,86 +623,67 @@ button:hover {
     margin-bottom: 12px;
 }
 
-/* Layout for each row - aligned horizontally */
+/* Layout for each row - side by side alignment */
 .revenue-cashflow-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 50px; /* Adjust grid to align inputs & buttons */
-    gap: 16px;
+    display: flex;
     align-items: center;
+    gap: 16px;
 }
 
-/* Compact Year Input */
-.year-input {
-    width: 70px;
-    display: flex;
-    flex-direction: column;
-}
-
-/* Editable year field - compact and clean */
-.editable-year {
+/* Editable year - simple text style (no input box) */
+.year-text .editable-year {
     padding: 4px;
-    font-size: 14px;
-    background-color: #3a3a3a;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 4px;
+    font-size: 16px;
+    background: transparent;
     color: #f0f0f0;
-    text-align: center;
+    border-bottom: 1px dashed #d2a679;
     cursor: text;
-    transition: border-color 0.3s ease;
+    width: auto;
+    min-width: 50px;
 }
 
-/* Editable field hover/focus */
-.editable-year:hover,
-.editable-year:focus {
-    border-color: #d4a759;
-    background-color: rgba(255, 255, 255, 0.12);
+.year-text .editable-year:focus {
+    outline: none;
+    border-bottom: 1px solid #d2a679;
 }
 
-/* Input Fields for Revenue & Cashflow */
-.revenue-input,
-.cashflow-input {
-    display: flex;
-    flex-direction: column;
-    width: 120px;
+/* Compact input fields for numbers */
+.small-input {
+    max-width: 140px;
 }
 
 .revenue-cashflow-row .input-item input {
-    padding: 6px 8px;
+    padding: 8px 10px;
+    width: 100%;
     background-color: #3a3a3a;
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 4px;
+    border-radius: 6px;
     color: #f0f0f0;
     font-size: 14px;
     transition: border-color 0.3s ease;
 }
 
-/* Button Container */
+/* Button Container for Add/Remove */
 .button-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 12px;
 }
 
-/* Button Styles for Add/Remove */
-button.btn-add,
-button.btn-remove {
-    font-size: 16px;
+button.btn-add, button.btn-remove {
+    font-size: 18px;
     background-color: #5e5e5e;
     border: 1px solid #5e5e5e;
     border-radius: 50%;
     color: #f5f5f5;
-    padding: 4px 10px;
+    padding: 6px 12px;
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width: 40px; /* Reduced width */
-    height: 40px;
 }
 
-button.btn-add:hover,
-button.btn-remove:hover {
+button.btn-add:hover, button.btn-remove:hover {
     background-color: #d2a679;
     transform: translateY(-2px);
 }
@@ -721,14 +696,25 @@ button.btn-remove:hover {
     background-color: #e55;
 }
 
+/* Add Button Container */
+.add-button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 12px;
+}
+
+button.btn-add {
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+}
+
 /* Responsive Adjustments */
 @media (max-width: 768px) {
     .revenue-cashflow-row {
-        grid-template-columns: 1fr 1fr 1fr 50px;
+        flex-direction: column;
     }
 }
-
-
 
 
 /* Modal Action Buttons */

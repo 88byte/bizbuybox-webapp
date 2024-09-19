@@ -432,22 +432,22 @@ window.handleLoanTypeChange = function() {
         interestRate1.value = '11.5';
         loanTerm1.value = '15';
         loanAmount1.value = '0';
+    } else if (loanType === 'SBA + Seller Finance') {
+        // For SBA + Seller Finance, pre-fill first row and add a second row
+        interestRate1.value = '11.5';
+        loanTerm1.value = '10';
+        loanAmount1.value = '0';
+        window.addSecondLoanRow();
     } else {
         // Clear the fields when selecting other loan types
         interestRate1.value = '';
         loanTerm1.value = '';
         loanAmount1.value = '';
-    }
-
-    // Handle SBA + Seller Finance selection
-    if (loanType === 'SBA + Seller Finance') {
-        window.addSecondLoanRow();
-    } else {
-        window.removeSecondLoanRow();
+        window.removeSecondLoanRow(); // Ensure second row is removed if any
     }
 }
 
-// Function to add second loan details row
+// Function to add second loan details row (for SBA + Seller Finance)
 window.addSecondLoanRow = function() {
     if (!document.getElementById('loanDetailsRow2')) {
         const additionalLoanDetails = document.getElementById('additionalLoanDetails');
@@ -458,13 +458,13 @@ window.addSecondLoanRow = function() {
 
         newRow.innerHTML = `
             <div class="input-item">
-                <input type="text" id="interestRate2" placeholder="Interest Rate (%)" />
+                <input type="text" id="interestRate2" placeholder="Interest Rate (%)" value="11.5" />
             </div>
             <div class="input-item">
-                <input type="text" id="loanTerm2" placeholder="Loan Term (Years)" />
+                <input type="text" id="loanTerm2" placeholder="Loan Term (Years)" value="10" />
             </div>
             <div class="input-item">
-                <input type="text" id="loanAmount2" placeholder="Loan Amount ($)" />
+                <input type="text" id="loanAmount2" placeholder="Loan Amount ($)" value="0" />
             </div>
         `;
 
@@ -479,6 +479,7 @@ window.removeSecondLoanRow = function() {
         secondRow.remove();
     }
 }
+
 
 
 

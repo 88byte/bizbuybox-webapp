@@ -873,6 +873,19 @@ input-item select {
 }
 
 
+/* Format down payment and buyer salary fields */
+input#downPayment, input#buyerSalary, input#loanAmount1, input#loanAmount2 {
+    text-align: right;
+    padding: 6px 8px;
+    background-color: #333;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #f5f5f5;
+    border-radius: 6px;
+    width: 100%;
+    max-width: 140px;
+}
+
+
 /* Button Styles */
 .modal-actions {
     display: flex;

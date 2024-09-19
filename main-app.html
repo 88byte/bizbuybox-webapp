@@ -292,8 +292,8 @@
 	                    </div>
 	                </div>
 
-	                <!-- Loan Type, Interest Rate, Terms, Loan Amount Row -->
-	                <div class="two-column">
+	                <!-- Loan Type Row -->
+					<div class="two-column">
 					    <div class="input-item">
 					        <label for="loanType">Loan Type</label>
 					        <select id="loanType" class="loanType-dropdown" onchange="handleLoanTypeChange()" required>
@@ -306,8 +306,8 @@
 					    </div>
 					</div>
 
-	                    <!-- Loan Details Row -->
-						<div class="three-column" id="loanDetailsRow1">
+	                    <!-- Loan Details Row 1 (Interest Rate, Loan Term, Loan Amount) -->
+						<div class="three-column">
 						    <div class="input-item">
 						        <input type="text" id="interestRate1" placeholder="Interest Rate (%)" />
 						    </div>
@@ -319,7 +319,7 @@
 						    </div>
 						</div>
 
-						<!-- Placeholder for dynamically added loan details row -->
+						<!-- Additional Loan Details (Second Row for SBA + Seller Finance) -->
 						<div id="additionalLoanDetails"></div>
 
 						<!-- Down Payment & Buyer Salary Row -->

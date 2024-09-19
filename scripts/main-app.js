@@ -712,25 +712,25 @@ function reindexRows() {
     });
 }
 
-// Open and Close Modals
-function openBrokerContactModal() {
+// Open and Close Contact Modals
+window.openBrokerContactModal = function() {
     document.getElementById('brokerContactModal').style.display = 'block';
 }
 
-function closeBrokerContactModal() {
+window.closeBrokerContactModal = function() {
     document.getElementById('brokerContactModal').style.display = 'none';
 }
 
-function openSellerContactModal() {
+window.openSellerContactModal = function() {
     document.getElementById('sellerContactModal').style.display = 'block';
 }
 
-function closeSellerContactModal() {
+window.closeSellerContactModal = function() {
     document.getElementById('sellerContactModal').style.display = 'none';
 }
 
 // Save Broker Contact Information
-function saveBrokerContact() {
+window.saveBrokerContact = function() {
     const name = document.getElementById('brokerName').value;
     const company = document.getElementById('brokerCompany').value;
     const phone = document.getElementById('brokerPhone').value;
@@ -744,7 +744,7 @@ function saveBrokerContact() {
 }
 
 // Save Seller Contact Information
-function saveSellerContact() {
+window.saveSellerContact = function() {
     const name = document.getElementById('sellerName').value;
     const phone = document.getElementById('sellerPhone').value;
     const email = document.getElementById('sellerEmail').value;

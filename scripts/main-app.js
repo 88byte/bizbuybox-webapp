@@ -591,7 +591,7 @@ window.formatAsCurrency = function(input) {
     let value = input.value.replace(/[^\d]/g, '');
 
     if (value === '') {
-        input.value = '0'; // If no input, set value to 0
+        input.value = ''; // Set input to an empty string to show placeholder
     } else {
         // Format value as currency with commas and no decimals
         input.value = parseInt(value, 10).toLocaleString('en-US');
@@ -624,6 +624,7 @@ window.addCurrencyFormattingListeners = function() {
 document.addEventListener('DOMContentLoaded', function() {
     addCurrencyFormattingListeners();
 });
+
 
 
 

@@ -447,17 +447,17 @@ body {
 
 /* Right Section (Calculations) */
 .deal-calculations-section {
-    flex: 1; /* Narrower for results */
-    padding-left: 24px;
+    flex: 1;
+    margin-left: 24px; /* Add space between form and results */
     background-color: #1c1c1c; /* Slightly darker background */
     border-radius: 12px;
     box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5); /* Inner shadow for depth */
+    padding: 16px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    width: 400px; /* Fixed width for results section */
-    max-height: 85vh;
+    min-width: 300px;
 }
 
 /* Header for Deal Calculations */

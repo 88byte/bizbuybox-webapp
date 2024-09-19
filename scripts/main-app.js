@@ -519,8 +519,8 @@ window.addRevenueCashflowRow = function() {
     newRow.classList.add('revenue-cashflow-row');
 
     newRow.innerHTML = `
-        <div class="btn-add">
-            <button onclick="removeRevenueCashflowRow(this)">−</button>
+        <div class="button-container">
+            <button class="btn-remove" onclick="removeRevenueCashflowRow(this)">−</button>
         </div>
         <div class="input-item year-text">
             <div contenteditable="true" class="editable-year" name="revenueYear[]" id="revenueYear${revenueCashflowCount}">Year</div>
@@ -538,6 +538,7 @@ window.addRevenueCashflowRow = function() {
 
     document.getElementById('revenueCashflowSection').appendChild(newRow);
 };
+
 
 // Function to remove a row
 window.removeRevenueCashflowRow = function(button) {

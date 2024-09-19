@@ -585,7 +585,7 @@ function renderDeals() {
 }
 
 
-// Function to format numbers as dollar amounts with commas and no decimals
+// Function to format numbers as dollar amounts with commas, no decimals, and a dollar sign
 window.formatAsCurrency = function(input) {
     // Remove any non-digit characters, except for commas
     let value = input.value.replace(/[^\d]/g, '');
@@ -593,8 +593,8 @@ window.formatAsCurrency = function(input) {
     if (value === '') {
         input.value = ''; // Set input to an empty string to show placeholder
     } else {
-        // Format value as currency with commas and no decimals
-        input.value = parseInt(value, 10).toLocaleString('en-US');
+        // Format value as currency with dollar sign and commas
+        input.value = '$' + parseInt(value, 10).toLocaleString('en-US');
     }
 }
 
@@ -624,6 +624,7 @@ window.addCurrencyFormattingListeners = function() {
 document.addEventListener('DOMContentLoaded', function() {
     addCurrencyFormattingListeners();
 });
+
 
 
 

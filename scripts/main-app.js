@@ -519,6 +519,9 @@ window.addRevenueCashflowRow = function() {
     newRow.classList.add('revenue-cashflow-row');
 
     newRow.innerHTML = `
+        <div class="input-item button-container">
+            <button type="button" class="btn-remove" onclick="removeRevenueCashflowRow(this)">−</button>
+        </div>
         <div class="input-item year-text">
             <div contenteditable="true" class="editable-year" name="revenueYear[]" id="revenueYear${revenueCashflowCount}">Year</div>
         </div>
@@ -531,9 +534,6 @@ window.addRevenueCashflowRow = function() {
         <div class="input-item profit-margin">
             <span id="profitMargin${revenueCashflowCount}">0%</span>
         </div>
-        <div class="input-item button-container">
-            <button type="button" class="btn-remove" onclick="removeRevenueCashflowRow(this)">−</button>
-        </div>
     `;
 
     document.getElementById('revenueCashflowSection').appendChild(newRow);
@@ -545,11 +545,11 @@ window.removeRevenueCashflowRow = function(button) {
     rowToRemove.remove();
 };
 
-// Function to format numbers as currency
+// Function to format numbers as currency (no decimals)
 function formatCurrency(value) {
     if (value === '') return '$0';
-    const number = parseFloat(value.replace(/[^\d.-]/g, ''));
-    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(number || 0);
+    const number = parseInt(value.replace(/[^\d]/g, ''), 10);
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(number || 0);
 }
 
 // Function to update profit margin
@@ -559,11 +559,11 @@ window.updateProfitMargin = function(inputElement) {
     const cashflowInput = row.querySelector('input[name="cashflow[]"]');
     const profitMarginElement = row.querySelector('.profit-margin span');
 
-    const revenue = parseFloat(revenueInput.value.replace(/[^\d.-]/g, '')) || 0;
-    const cashflow = parseFloat(cashflowInput.value.replace(/[^\d.-]/g, '')) || 0;
+    const revenue = parseInt(revenueInput.value.replace(/[^\d]/g, ''), 10) || 0;
+    const cashflow = parseInt(cashflowInput.value.replace(/[^\d]/g, ''), 10) || 0;
 
     // Calculate the profit margin
-    const profitMargin = revenue > 0 ? ((cashflow / revenue) * 100).toFixed(2) : 0;
+    const profitMargin = revenue > 0 ? ((cashflow / revenue) * 100).toFixed(0) : 0;
     profitMarginElement.textContent = `${profitMargin}%`;
 
     // Format the inputs as currency

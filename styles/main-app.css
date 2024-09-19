@@ -1045,7 +1045,7 @@ input-item select {
 
 /* Contact Modal Overlay */
 .contact-modal {
-    display: none;
+    display: none; /* Initially hidden */
     position: fixed;
     top: 0;
     left: 0;
@@ -1059,7 +1059,7 @@ input-item select {
 
 /* Show Modal */
 .contact-modal.show {
-    display: flex;
+    display: flex; /* Flex display only when the modal is shown */
     justify-content: center;
     align-items: center; /* Ensure it remains centered */
 }
@@ -1075,9 +1075,9 @@ input-item select {
     max-width: 90%; /* Responsive for smaller screens */
     max-height: 85vh; /* Prevent overflow */
     overflow-y: auto; /* Scroll if content exceeds modal height */
-    margin: 0 auto; /* Ensure the modal centers horizontally */
     position: relative; /* Ensure it's centered vertically */
 }
+
 
 
 /* Modal Header */

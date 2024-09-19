@@ -1203,3 +1203,8 @@ input-item select {
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
     width: 220px;
 }
+
+.full-width input {
+    width: calc(200% - 32px); /* Full width to span two columns */
+}
+

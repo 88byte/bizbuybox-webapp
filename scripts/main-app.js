@@ -939,9 +939,22 @@ window.removeRevenueCashflowRow = function(button) {
 
 // Function to format numbers as currency without decimals
 function formatCurrency(value) {
+    // Check if the value is already a number, if not, convert it to a string
+    if (typeof value === 'number') {
+        value = value.toString();
+    }
+
+    // Remove any non-digit characters (except for "." for decimals and "-" for negative numbers)
     const number = parseFloat(value.replace(/[^\d.-]/g, '')) || 0;
-    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(number);
+
+    // Format as USD currency
+    return new Intl.NumberFormat('en-US', { 
+        style: 'currency', 
+        currency: 'USD', 
+        minimumFractionDigits: 0 
+    }).format(number);
 }
+
 
 // Function to update profit margin
 window.updateProfitMargin = function(inputElement) {

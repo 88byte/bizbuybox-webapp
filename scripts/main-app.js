@@ -1143,17 +1143,8 @@ window.getDealDataFromForm = function() {
 };
 
 // Function to update the Buy Box Checklist
+// Function to update the Buy Box Checklist
 window.updateBuyBoxChecklist = function(deal) {
-    // Ensure the totalRevenue, totalCashflow, and averageProfitMargin elements exist
-    const totalRevenueElement = document.getElementById('totalRevenue');
-    const totalCashflowElement = document.getElementById('totalCashflow');
-    const averageProfitMarginElement = document.getElementById('averageProfitMargin');
-    
-    if (!totalRevenueElement || !totalCashflowElement || !averageProfitMarginElement) {
-        console.error("One or more elements for deal calculations are missing.");
-        return;
-    }
-
     // 1. Check for 10+ years in business
     const yearsInBusiness = parseInt(deal.yearsInBusiness, 10);
     const yearsInBusinessCheck = yearsInBusiness >= 10;
@@ -1164,41 +1155,74 @@ window.updateBuyBoxChecklist = function(deal) {
     const fullTimeEmployeesCheck = fullTimeEmployees >= 10;
     document.getElementById('checkFullTimeEmployees').classList.toggle('success', fullTimeEmployeesCheck);
 
-    // 3. Check if revenue is between $1M and $5M
+    // 3. Check if average revenue is between $1M and $5M (orange if over $5M)
     let totalRevenue = 0;
     if (deal.revenueCashflowEntries && deal.revenueCashflowEntries.length > 0) {
         totalRevenue = deal.revenueCashflowEntries.reduce((sum, entry) => sum + entry.revenue, 0);
     }
-    const revenueCheck = totalRevenue >= 1000000 && totalRevenue <= 5000000;
-    document.getElementById('checkRevenue').classList.toggle('success', revenueCheck);
+    const avgRevenue = totalRevenue / deal.revenueCashflowEntries.length;
+    const revenueElement = document.getElementById('checkRevenue');
 
-    // 4. Check if average profit margin is 20% or higher
+    if (avgRevenue >= 1000000 && avgRevenue <= 5000000) {
+        revenueElement.classList.add('success');
+        revenueElement.classList.remove('warning', 'error');
+    } else if (avgRevenue > 5000000) {
+        revenueElement.classList.add('warning');
+        revenueElement.classList.remove('success', 'error');
+    } else {
+        revenueElement.classList.add('error');
+        revenueElement.classList.remove('success', 'warning');
+    }
+
+    // 4. Check if average profit margin is categorized properly (red <16%, orange 17-19%, green >=20%)
     let totalCashflow = 0;
     if (deal.revenueCashflowEntries && deal.revenueCashflowEntries.length > 0) {
         totalCashflow = deal.revenueCashflowEntries.reduce((sum, entry) => sum + entry.cashflow, 0);
     }
-    
-    const avgProfitMargin = totalRevenue > 0 ? (totalCashflow / totalRevenue) * 100 : 0;
-    const profitMarginCheck = avgProfitMargin >= 20;
-    document.getElementById('checkProfitMargin').classList.toggle('success', profitMarginCheck);
 
-    // 5. Check if revenue is growing year over year
+    const avgProfitMargin = totalRevenue > 0 ? (totalCashflow / totalRevenue) * 100 : 0;
+    const profitMarginElement = document.getElementById('checkProfitMargin');
+
+    if (avgProfitMargin >= 20) {
+        profitMarginElement.classList.add('success');
+        profitMarginElement.classList.remove('warning', 'error');
+    } else if (avgProfitMargin >= 17 && avgProfitMargin <= 19) {
+        profitMarginElement.classList.add('warning');
+        profitMarginElement.classList.remove('success', 'error');
+    } else {
+        profitMarginElement.classList.add('error');
+        profitMarginElement.classList.remove('success', 'warning');
+    }
+
+    // 5. Check if revenue is growing year over year (green if growing, orange within 5%, red if declining)
     let revenueGrowthCheck = true;
+    let revenueGrowthStatus = 'success'; // Default to growing
+
     if (deal.revenueCashflowEntries && deal.revenueCashflowEntries.length > 1) {
         for (let i = 1; i < deal.revenueCashflowEntries.length; i++) {
-            if (deal.revenueCashflowEntries[i].revenue < deal.revenueCashflowEntries[i - 1].revenue) {
-                revenueGrowthCheck = false;
+            const currentYearRevenue = deal.revenueCashflowEntries[i].revenue;
+            const previousYearRevenue = deal.revenueCashflowEntries[i - 1].revenue;
+
+            const revenueDifference = ((currentYearRevenue - previousYearRevenue) / previousYearRevenue) * 100;
+
+            if (revenueDifference > 0) {
+                // Growing
+                revenueGrowthStatus = 'success';
+            } else if (Math.abs(revenueDifference) <= 5) {
+                // Stable within 5% range
+                revenueGrowthStatus = 'warning';
+            } else {
+                // Declining significantly
+                revenueGrowthStatus = 'error';
                 break;
             }
         }
     }
-    document.getElementById('checkRevenueGrowth').classList.toggle('success', revenueGrowthCheck);
-
-    // Update the deal calculations section
-    totalRevenueElement.textContent = totalRevenue.toLocaleString('en-US');
-    totalCashflowElement.textContent = totalCashflow.toLocaleString('en-US');
-    averageProfitMarginElement.textContent = avgProfitMargin.toFixed(2) + '%';
+    const revenueGrowthElement = document.getElementById('checkRevenueGrowth');
+    revenueGrowthElement.classList.remove('success', 'warning', 'error');
+    revenueGrowthElement.classList.add(revenueGrowthStatus);
 };
+
 
 
 

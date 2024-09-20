@@ -1397,33 +1397,51 @@ input-item select {
 }
 
 .checklist-item {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 48px;
+    width: 48px; /* Make the items smaller */
     height: 48px;
-    margin: 0 4px;
+    background-color: #2a2a2a;
+    border-radius: 50%;
+    margin: 0 4px; /* Compact spacing between items */
+    padding: 4px;
     transition: background-color 0.3s ease;
     cursor: pointer;
 }
 
+.checklist-item:hover {
+    background-color: #353535; /* Subtle darkening on hover */
+}
+
 .checklist-item i {
-    font-size: 24px;
-    color: #bbb; /* Default neutral color */
-    transition: color 0.3s ease;
+    font-size: 16px;
+    color: #fff;
 }
 
-.checklist-item.success i {
-    color: #4caf50; /* Green */
+.marker {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: red; /* Default red */
+    transition: background-color 0.3s ease;
 }
 
-.checklist-item.warning i {
-    color: #f39c12; /* Orange */
+.marker.success {
+    background-color: #4caf50; /* Green for success */
 }
 
-.checklist-item.error i {
-    color: #e74c3c; /* Red */
+.marker.warning {
+    background-color: #f39c12; /* Orange for warning */
+}
+
+.marker.error {
+    background-color: #e74c3c; /* Red for error */
 }
 
 /* Add hover tooltips for more information */

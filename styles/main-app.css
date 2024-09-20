@@ -1336,7 +1336,7 @@ input-item select {
 }
 
 
-.revenue-cashflow-labels {
+.loan-type-labels {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* Three equal columns for the labels */
     gap: 10px; /* Space between columns */
@@ -1344,7 +1344,7 @@ input-item select {
     margin-bottom: 10px; /* Space between labels and inputs */
 }
 
-.revenue-cashflow-labels label {
+.loan-type-labels label {
     display: block;
     text-align: center; /* Center each label within its container */
 }

@@ -484,40 +484,7 @@ button.btn-create:hover {
     border-right: 1px solid rgba(255, 255, 255, 0.2); /* Divider between sections */
 }
 
-/* Right Section (Calculations) */
-.deal-calculations-section {
-    flex: 2;
-    margin-left: 24px; /* Add space between form and results */
-    background-color: #1c1c1c; /* Slightly darker background */
-    border-radius: 12px;
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5); /* Inner shadow for depth */
-    padding: 16px;
-    color: #f0f0f0;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    min-width: 300px;
-}
 
-/* Header for Deal Calculations */
-.deal-calculations-section h3 {
-    color: #d4a759;
-    font-size: 16px;
-    margin-bottom: 16px;
-    text-transform: uppercase;
-}
-
-/* Calculations Display */
-#resultsContent p {
-    font-size: 16px;
-    margin: 8px 0;
-}
-
-#resultsContent span {
-    font-weight: bold;
-    color: #d2a679; /* Gold for highlighting numbers */
-}
 
 /* Modal Content Active (Slide and Fade in) */
 .card-modal.show .card-modal-content {
@@ -1338,6 +1305,9 @@ input-item select {
     box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
 }
 
+
+
+
 /* Specific styles for loan-related labels */
 .loan-input-labels {
     display: grid;
@@ -1354,8 +1324,20 @@ input-item select {
     margin-bottom: 3px; /* Small gap between label and input field */
 }
 
+
+
+
 /* Specific styles for loan-related input fields */
 .loan-input-row {
+    background-color: #2e2e2e; /* Dark background to blend with the modal */
+    border: none; /* Remove borders */
+    border-radius: 8px; /* Soft rounded corners */
+    padding: 12px 16px; /* More padding for better UX */
+    color: #f5f5f5; /* Light text for readability */
+    font-size: 14px; /* Adjust font size for consistency */
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4); /* Subtle inner shadow for box effect */
+    transition: box-shadow 0.3s ease, background-color 0.3s ease; /* Smooth transition effects */
+    width: 100%; /* Ensure it stretches fully */
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* Align input fields in three columns */
     gap: 5px; /* Reduce gap between input fields */
@@ -1375,3 +1357,43 @@ input-item select {
     box-sizing: border-box;
 }
 
+
+
+
+
+
+
+/* Right Section (Calculations) */
+.deal-calculations-section {
+    flex: 2;
+    margin-left: 24px; /* Add space between form and results */
+    background-color: #1c1c1c; /* Slightly darker background */
+    border-radius: 12px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5); /* Inner shadow for depth */
+    padding: 16px;
+    color: #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    min-width: 300px;
+}
+
+/* Header for Deal Calculations */
+.deal-calculations-section h3 {
+    color: #d4a759;
+    font-size: 16px;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+}
+
+/* Calculations Display */
+#resultsContent p {
+    font-size: 16px;
+    margin: 8px 0;
+}
+
+#resultsContent span {
+    font-weight: bold;
+    color: #d2a679; /* Gold for highlighting numbers */
+}

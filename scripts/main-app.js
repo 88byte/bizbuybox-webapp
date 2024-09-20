@@ -340,7 +340,7 @@ window.closeCardModal = function() {
 // Function to edit a deal (opens the modal pre-filled with the deal data)
 window.editDeal = function(dealId) {
 	console.log(deals); // Inspect the deals array
-	
+
 
     const deal = deals.find(d => d.dealId === dealId); // Find deal by its Firestore ID
     if (deal) {
@@ -742,13 +742,13 @@ window.addSecondLoanRow = function() {
 
         newRow.innerHTML = `
             <div class="input-item">
-                <input type="text" id="interestRate2" placeholder="Interest Rate (%)" value="11.5" />
+                <input class="loan-input-row" type="text" id="interestRate2" placeholder="Interest Rate (%)" value="11.5" />
             </div>
             <div class="input-item">
-                <input type="text" id="loanTerm2" placeholder="Loan Term (Years)" value="10" />
+                <input class="loan-input-row" type="text" id="loanTerm2" placeholder="Loan Term (Years)" value="10" />
             </div>
             <div class="input-item">
-                <input type="text" id="loanAmount2" placeholder="Loan Amount ($)" value="0" />
+                <input class="loan-input-row" type="text" id="loanAmount2" placeholder="Loan Amount ($)" value="0" />
             </div>
         `;
 

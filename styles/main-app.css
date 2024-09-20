@@ -1331,7 +1331,7 @@ input-item select {
     grid-template-columns: repeat(3, 1fr); /* Align input fields in three columns */
     gap: 5px; /* Reduce gap between input fields */
     margin-top: 0; /* No gap between label and input fields */
-    padding: 12px 0; /* Padding for the input field area */
+    padding: 13px 0; /* Padding for the input field area */
     width: 100%; /* Ensure it stretches fully */
 }
 

@@ -737,24 +737,25 @@ window.addSecondLoanRow = function() {
         const additionalLoanDetails = document.getElementById('additionalLoanDetails');
 
         const newRow = document.createElement('div');
-        newRow.classList.add('three-column');
+        newRow.classList.add('loan-input-row'); // Match the same class as loanDetailsRow1
         newRow.id = 'loanDetailsRow2'; // Second loan row
 
         newRow.innerHTML = `
-            <div class="input-item">
-                <input type="text" class="loan-input-item" id="interestRate2" placeholder="Interest Rate (%)" value="11.5" />
+            <div class="loan-input-item">
+                <input type="text" id="interestRate2" placeholder="Interest Rate (%)" value="11.5" />
             </div>
-            <div class="input-item">
-                <input type="text" class="loan-input-item" id="loanTerm2" placeholder="Loan Term (Years)" value="10" />
+            <div class="loan-input-item">
+                <input type="text" id="loanTerm2" placeholder="Loan Term (Years)" value="10" />
             </div>
-            <div class="input-item">
-                <input type="text" class="loan-input-item" id="loanAmount2" placeholder="Loan Amount ($)" value="0" />
+            <div class="loan-input-item">
+                <input type="text" id="loanAmount2" placeholder="Loan Amount ($)" value="0" />
             </div>
         `;
 
         additionalLoanDetails.appendChild(newRow);
     }
 };
+
 
 
 // Function to remove the second loan details row

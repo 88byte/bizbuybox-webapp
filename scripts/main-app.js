@@ -922,24 +922,25 @@ window.addRevenueCashflowRow = function() {
 
     document.getElementById('revenueCashflowSection').appendChild(newRow);
 
-    // Immediately apply currency formatting and reindex rows
+    // Attach event listeners to the newly added revenue and cashflow inputs
     const newRevenueInput = document.getElementById(`revenue${revenueCashflowCount}`);
     const newCashflowInput = document.getElementById(`cashflow${revenueCashflowCount}`);
-    
-    formatAsCurrency(newRevenueInput);
-    formatAsCurrency(newCashflowInput);
-    
-    // Trigger the profit margin calculation
+
+    newRevenueInput.addEventListener('input', triggerBuyBoxUpdate);
+    newCashflowInput.addEventListener('input', triggerBuyBoxUpdate);
+
+    // Ensure real-time profit margin calculation
     updateProfitMargin(newRevenueInput);
-    reindexRows();
 };
 
-// Function to remove a row
+// Function to remove a row and reindex the remaining rows
 window.removeRevenueCashflowRow = function(button) {
     const rowToRemove = button.closest('.revenue-cashflow-row');
     rowToRemove.remove();
     reindexRows(); // Re-index rows after removing one
+    triggerBuyBoxUpdate(); // Recalculate Buy Box Checklist after removing a row
 };
+
 
 // Function to format numbers as currency without decimals
 function formatCurrency(value) {
@@ -1012,8 +1013,24 @@ function reindexRows() {
         revenueInput.id = `revenue${rowNumber}`;
         cashflowInput.id = `cashflow${rowNumber}`;
         profitMarginElement.id = `profitMargin${rowNumber}`;
+
+        // Remove any existing event listeners to avoid duplicates
+        revenueInput.removeEventListener('input', updateProfitMargin);
+        cashflowInput.removeEventListener('input', updateProfitMargin);
+
+        // Attach event listeners to update profit margin and Buy Box dynamically
+        revenueInput.addEventListener('input', () => {
+            updateProfitMargin(revenueInput);
+            triggerBuyBoxUpdate(); // Dynamically update the Buy Box when values change
+        });
+
+        cashflowInput.addEventListener('input', () => {
+            updateProfitMargin(cashflowInput);
+            triggerBuyBoxUpdate(); // Dynamically update the Buy Box when values change
+        });
     });
 }
+
 
 
 

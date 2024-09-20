@@ -926,13 +926,16 @@ window.addRevenueCashflowRow = function() {
 
     document.getElementById('revenueCashflowSection').appendChild(newRow);
 
-    // Apply formatting immediately to new row inputs
+    // Immediately apply currency formatting and reindex rows
     const newRevenueInput = document.getElementById(`revenue${revenueCashflowCount}`);
     const newCashflowInput = document.getElementById(`cashflow${revenueCashflowCount}`);
     
-    // Ensure input fields are formatted as currency
-    newRevenueInput.value = formatCurrency(newRevenueInput.value);
-    newCashflowInput.value = formatCurrency(newCashflowInput.value);
+    formatAsCurrency(newRevenueInput);
+    formatAsCurrency(newCashflowInput);
+    
+    // Trigger the profit margin calculation
+    updateProfitMargin(newRevenueInput);
+    reindexRows();
 };
 
 // Function to remove a row
@@ -951,23 +954,29 @@ function formatCurrency(value) {
 // Function to update profit margin
 window.updateProfitMargin = function(inputElement) {
     const row = inputElement.closest('.revenue-cashflow-row');
+    if (!row) {
+        console.error('Row element not found');
+        return;
+    }
+
     const revenueInput = row.querySelector('input[name="revenue[]"]');
     const cashflowInput = row.querySelector('input[name="cashflow[]"]');
     const profitMarginElement = row.querySelector('.profit-column span');
 
-    if (!profitMarginElement) {
-        console.error('Profit column element not found');
+    if (!revenueInput || !cashflowInput || !profitMarginElement) {
+        console.error('Required elements not found in the row');
         return;
     }
 
-    // Remove formatting to perform calculation
+    // Perform profit margin calculation
     const revenue = parseFloat(revenueInput.value.replace(/[^\d.-]/g, '')) || 0;
     const cashflow = parseFloat(cashflowInput.value.replace(/[^\d.-]/g, '')) || 0;
-
     const profitMargin = revenue > 0 ? ((cashflow / revenue) * 100).toFixed(2) : 0;
+    
+    // Update the profit margin display
     profitMarginElement.textContent = `${profitMargin}%`;
 
-    // Reformat the inputs for display
+    // Reformat revenue and cashflow inputs
     revenueInput.value = formatCurrency(revenueInput.value);
     cashflowInput.value = formatCurrency(cashflowInput.value);
 };

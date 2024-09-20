@@ -1370,112 +1370,88 @@ input-item select {
 
 
 
-/* Make the Deal Calculations Section 40% wider */
+/* Deal Calculations Section - Widen by 40% */
 .deal-calculations-section {
-    background-color: #1a1a1a;
-    padding: 18px;
-    border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background-color: #1c1c1c;
+    padding: 16px;
+    border-radius: 12px;
+    width: 120%; /* Increase the width by 40% */
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
     margin-top: 20px;
-    width: 140%; /* 40% wider */
-    transition: all 0.3s ease-in-out;
-    position: relative;
-    z-index: 1;
+    transition: all 0.3s ease;
 }
 
-/* Modern Heading with subtle glow effect */
 .deal-calculations-section h3 {
-    color: #fff;
+    color: #d4a759;
     font-size: 18px;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 15px;
-    font-weight: 600;
-    position: relative;
-    padding-bottom: 10px;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    letter-spacing: 0.8px;
+    margin-bottom: 12px;
+    font-weight: 700;
 }
 
-/* Compact and Horizontal Layout */
-.checklist-row {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;  /* If screen is small, wrap into next line */
-    margin: 0;
-    padding: 10px 0;
-}
-
-/* Each checklist item as a compact block */
+/* Checklist Item Styling (More Compact) */
 .checklist-item {
     display: flex;
     align-items: center;
-    padding: 8px 12px;
+    padding: 6px; /* Make the items smaller */
+    background-color: #2a2a2a;
     border-radius: 8px;
-    background-color: #2c2c2c;
-    margin-bottom: 10px;
+    margin-bottom: 8px; /* Less spacing */
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    flex: 1; /* Make them take equal space */
-    min-width: 120px;
-    text-align: center;
-    justify-content: center;
 }
 
 .checklist-item p {
-    margin-left: 8px;
-    font-size: 12px;
+    margin-left: 10px;
+    font-size: 12px; /* Reduce font size */
     color: #f0f0f0;
     font-weight: 500;
+    text-transform: capitalize;
+    flex-grow: 1;
+    letter-spacing: 0.3px; /* Subtle letter spacing */
 }
 
-/* Sleek Marker with Neon-like Glow */
+/* Marker (Status) Styling */
 .marker {
-    width: 14px;
-    height: 14px;
+    width: 16px;
+    height: 16px;
     display: inline-block;
     border-radius: 50%;
-    margin-right: 8px;
-    background-color: red;
-    box-shadow: 0 0 5px rgba(255, 0, 0, 0.7);
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    margin-right: 10px;
+    background-color: red; /* Default: Red for error */
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .marker.success {
-    background-color: #1abc9c; /* Green */
-    box-shadow: 0 0 6px rgba(26, 188, 156, 0.7);
+    background-color: #4caf50; /* Green for success */
+    transform: scale(1.1); /* Subtle scale for success */
 }
 
 .marker.warning {
-    background-color: #f39c12; /* Orange */
-    box-shadow: 0 0 6px rgba(243, 156, 18, 0.7);
+    background-color: #f39c12; /* Orange for warning */
 }
 
 .marker.error {
-    background-color: #e74c3c; /* Red */
-    box-shadow: 0 0 6px rgba(231, 76, 60, 0.7);
+    background-color: #e74c3c; /* Red for error */
 }
 
-/* Hover effects with futuristic feel */
+/* Hover effect for checklist items */
 .checklist-item:hover {
-    background-color: #3a3a3a;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    background-color: #353535;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
 }
 
-/* Deal section glow effect when focused */
+/* Innovative Design Enhancements */
+.checklist-item:hover .marker.success {
+    transform: scale(1.2); /* Slightly more responsive hover on success marker */
+}
+
 .deal-calculations-section:hover {
-    box-shadow: 0 6px 16px rgba(0, 255, 255, 0.2);
+    background-color: #252525; /* Subtle background shift on hover */
 }
 
-/* Responsive behavior */
-@media (max-width: 768px) {
-    .deal-calculations-section {
-        width: 100%; /* Fit to smaller screens */
-    }
-
-    .checklist-row {
-        flex-direction: column; /* Stack items vertically */
-    }
-
-    .checklist-item {
-        min-width: 100%; /* Full width items */
-    }
+/* Use a distinct font style for an innovative look */
+.deal-calculations-section, .checklist-item p {
+    font-family: 'Roboto', sans-serif; /* Use a modern, clean font */
 }

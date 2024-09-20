@@ -1370,14 +1370,14 @@ input-item select {
 
 
 
-/* Deal Calculations Section - Widen by 40% */
+/* Deal Calculations Section - 40% Wider */
 .deal-calculations-section {
     background-color: #1c1c1c;
-    padding: 16px;
+    padding: 12px;
     border-radius: 12px;
-    width: 50%; /* Increase the width by 40% */
+    width: 50%;
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
+    margin-top: 16px;
     transition: all 0.3s ease;
 }
 
@@ -1385,46 +1385,55 @@ input-item select {
     color: #d4a759;
     font-size: 18px;
     text-transform: uppercase;
-    letter-spacing: 0.8px;
-    margin-bottom: 12px;
-    font-weight: 700;
+    margin-bottom: 8px;
 }
 
-/* Checklist Item Styling (More Compact) */
-.checklist-item {
+/* Compact Checklist: Icons and Markers */
+.compact-checklist {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    padding: 4px; /* Make the items smaller */
+    padding: 8px 0;
+}
+
+.checklist-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 48px; /* Make the items smaller */
+    height: 48px;
     background-color: #2a2a2a;
-    border-radius: 8px;
-    margin-bottom: 8px; /* Less spacing */
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.checklist-item p {
-    margin-left: 10px;
-    font-size: 12px; /* Reduce font size */
-    color: #f0f0f0;
-    font-weight: 500;
-    text-transform: capitalize;
-    flex-grow: 1;
-    letter-spacing: 0.3px; /* Subtle letter spacing */
-}
-
-/* Marker (Status) Styling */
-.marker {
-    width: 16px;
-    height: 16px;
-    display: inline-block;
     border-radius: 50%;
-    margin-right: 10px;
-    background-color: red; /* Default: Red for error */
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin: 0 4px; /* Compact spacing between items */
+    padding: 4px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.checklist-item:hover {
+    background-color: #353535; /* Subtle darkening on hover */
+}
+
+.checklist-item i {
+    font-size: 16px;
+    color: #fff;
+}
+
+.marker {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: red; /* Default red */
+    transition: background-color 0.3s ease;
 }
 
 .marker.success {
     background-color: #4caf50; /* Green for success */
-    transform: scale(1.1); /* Subtle scale for success */
 }
 
 .marker.warning {
@@ -1435,20 +1444,24 @@ input-item select {
     background-color: #e74c3c; /* Red for error */
 }
 
-/* Hover effect for checklist items */
-.checklist-item:hover {
-    background-color: #353535;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-    cursor: pointer;
+/* Add hover tooltips for more information */
+.checklist-item[title]::before {
+    content: attr(title);
+    position: absolute;
+    bottom: -28px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 6px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
 }
 
-/* Innovative Design Enhancements */
-.checklist-item:hover .marker.success {
-    transform: scale(1.2); /* Slightly more responsive hover on success marker */
-}
-
-
-/* Use a distinct font style for an innovative look */
-.deal-calculations-section, .checklist-item p {
-    font-family: 'Roboto', sans-serif; /* Use a modern, clean font */
+.checklist-item:hover::before {
+    opacity: 1;
 }

@@ -389,36 +389,34 @@ window.editDeal = function(dealId) {
         }
 
         // Populate Revenue and Cashflow rows
-        const revenueCashflowSection = document.getElementById('revenueCashflowSection');
-        revenueCashflowSection.innerHTML = ''; // Clear current rows
-        if (deal.revenueCashflowEntries) {
-		    deal.revenueCashflowEntries.forEach((entry, index) => {
-		        const newRow = document.createElement('div');
-		        newRow.classList.add('revenue-cashflow-row');
-		        newRow.innerHTML = `
-				    <div class="button-container">
-				        <button class="btn-remove" onclick="removeRevenueCashflowRow(this)">−</button>
-				    </div>
-				    <div class="input-item year-text">
-				        <div contenteditable="true" class="editable-year" name="revenueYear[]" id="revenueYear${revenueCashflowCount}">Year</div>
-				    </div>
-				    <div class="input-item small-input">
-				        <input type="text" name="revenue[]" id="revenue${revenueCashflowCount}" oninput="updateProfitMargin(this)">
-				    </div>
-				    <div class="input-item small-input">
-				        <input type="text" name="cashflow[]" id="cashflow${revenueCashflowCount}" oninput="updateProfitMargin(this)">
-				    </div>
-				    <div class="input-item profit-column">
-				        <span id="profitMargin${revenueCashflowCount}">0%</span>
-				    </div>
-				`;
+        deal.revenueCashflowEntries.forEach((entry, index) => {
+            addRevenueCashflowRow(); // Adds a new row
+            const revenueInput = document.getElementById(`revenue${index + 1}`);
+            const cashflowInput = document.getElementById(`cashflow${index + 1}`);
+            const revenueYearInput = document.getElementById(`revenueYear${index + 1}`);
 
-		        revenueCashflowSection.appendChild(newRow);
+            if (revenueInput && cashflowInput && revenueYearInput) {
+                revenueYearInput.textContent = entry.year;
+                revenueInput.value = formatCurrency(entry.revenue);
+                cashflowInput.value = formatCurrency(entry.cashflow);
 
-		        // Call updateProfitMargin to calculate and update profit margin for each row
-		        updateProfitMargin(document.getElementById(`revenue${index + 1}`));
-		    });
-		}
+                // Update profit margin for each row
+                updateProfitMargin(revenueInput);
+            } else {
+                console.error('Error: Unable to populate revenue/cashflow row.');
+            }
+        });
+
+        // Update the checklist, other elements
+        window.updateBuyBoxChecklist(deal);
+        window.addRealTimeChecklistUpdates();
+
+        // Open the modal
+        openCardModal();
+    } else {
+        console.error('Deal not found.');
+    }
+};
 
 
 
@@ -455,7 +453,11 @@ window.editDeal = function(dealId) {
         // Update the modal title
         document.getElementById('modalTitle').textContent = 'Edit Deal';
 
+        // Call updateBuyBoxChecklist with the current deal data
+        window.updateBuyBoxChecklist(deal);
 
+        // Add real-time event listeners
+        window.addRealTimeChecklistUpdates();
 
         // Open the modal using the new method
         openCardModal();
@@ -951,7 +953,7 @@ function formatCurrency(value) {
 window.updateProfitMargin = function(inputElement) {
     const row = inputElement.closest('.revenue-cashflow-row');
     if (!row) {
-        console.error('Row element not found');
+        console.error('Error: Cannot find the closest row.');
         return;
     }
 
@@ -960,11 +962,11 @@ window.updateProfitMargin = function(inputElement) {
     const profitMarginElement = row.querySelector('.profit-column span');
 
     if (!revenueInput || !cashflowInput || !profitMarginElement) {
-        console.error('Required elements not found in the row');
+        console.error('Error: Required input elements not found.');
         return;
     }
 
-    // Perform profit margin calculation
+    // Perform the profit margin calculation
     const revenue = parseFloat(revenueInput.value.replace(/[^\d.-]/g, '')) || 0;
     const cashflow = parseFloat(cashflowInput.value.replace(/[^\d.-]/g, '')) || 0;
     const profitMargin = revenue > 0 ? ((cashflow / revenue) * 100).toFixed(2) : 0;
@@ -972,10 +974,11 @@ window.updateProfitMargin = function(inputElement) {
     // Update the profit margin display
     profitMarginElement.textContent = `${profitMargin}%`;
 
-    // Reformat revenue and cashflow inputs
+    // Reformat the inputs for display
     revenueInput.value = formatCurrency(revenueInput.value);
     cashflowInput.value = formatCurrency(cashflowInput.value);
 };
+
 
 // Function to re-index the Revenue and Cashflow rows
 function reindexRows() {
@@ -986,14 +989,21 @@ function reindexRows() {
         const revenueYearInput = row.querySelector('.editable-year[name="revenueYear[]"]');
         const revenueInput = row.querySelector('input[name="revenue[]"]');
         const cashflowInput = row.querySelector('input[name="cashflow[]"]');
+        const profitMarginElement = row.querySelector('.profit-column span');
+
+        if (!revenueYearInput || !revenueInput || !cashflowInput || !profitMarginElement) {
+            console.error(`Error: Missing elements in row ${rowNumber}`);
+            return;
+        }
 
         // Update input IDs and placeholders for dynamic re-indexing
         revenueYearInput.id = `revenueYear${rowNumber}`;
         revenueInput.id = `revenue${rowNumber}`;
         cashflowInput.id = `cashflow${rowNumber}`;
-        row.querySelector('.profit-column span').id = `profitMargin${rowNumber}`;
+        profitMarginElement.id = `profitMargin${rowNumber}`;
     });
 }
+
 
 
 // Open and Close Contact Modals

@@ -822,10 +822,10 @@ button:hover {
 .input-item.profit-column span {
     display: inline-block;
     width: 100%;
-    text-align: left;
+    text-align: center;
     color: #f5f5f5;
     font-size: 14px;
-    align-items: left;
+    align-items: center;
 }
 
 /* Input Items */

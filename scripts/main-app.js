@@ -339,13 +339,15 @@ window.closeCardModal = function() {
 
 // Function to edit a deal (opens the modal pre-filled with the deal data)
 window.editDeal = function(dealId) {
-	console.log(deals); // Inspect the deals array
-
+    console.log(deals); // Inspect the deals array
 
     const deal = deals.find(d => d.dealId === dealId); // Find deal by its Firestore ID
     if (deal) {
+        // Clear any existing revenue and cashflow rows
+        document.getElementById('revenueCashflowSection').innerHTML = '';
+
         // Populate the modal with existing deal data
-        document.getElementById('dealId').value = deal.dealId; // Store the deal ID in a hidden field
+        document.getElementById('dealId').value = deal.dealId;
         document.getElementById('businessName').value = deal.businessName;
         document.getElementById('status').value = deal.status;
         document.getElementById('yearsInBusiness').value = deal.yearsInBusiness;
@@ -367,88 +369,56 @@ window.editDeal = function(dealId) {
         document.getElementById('loanTerm1').value = deal.loanTerm || '';
         document.getElementById('loanAmount1').value = deal.loanAmount || '';
 
-        // Populate broker contact info
-        if (deal.brokerContact) {
-            const brokerBtn = document.querySelector('button[onclick="window.openBrokerContactModal()"]');
-            brokerBtn.setAttribute('data-tooltip', `Company: ${deal.brokerContact.company}\nPhone: ${deal.brokerContact.phone}\nEmail: ${deal.brokerContact.email}`);
-            // Optionally open modal if needed
-            document.getElementById('brokerCompany').value = deal.brokerContact.company;
-            document.getElementById('brokerName').value = deal.brokerContact.name;
-            document.getElementById('brokerPhone').value = deal.brokerContact.phone;
-            document.getElementById('brokerEmail').value = deal.brokerContact.email;
-        }
-
-        // Populate seller contact info
-        if (deal.sellerContact) {
-            const sellerBtn = document.querySelector('button[onclick="window.openSellerContactModal()"]');
-            sellerBtn.setAttribute('data-tooltip', `Phone: ${deal.sellerContact.phone}\nEmail: ${deal.sellerContact.email}`);
-            // Optionally open modal if needed
-            document.getElementById('sellerName').value = deal.sellerContact.name;
-            document.getElementById('sellerPhone').value = deal.sellerContact.phone;
-            document.getElementById('sellerEmail').value = deal.sellerContact.email;
-        }
-
         // Populate Revenue and Cashflow rows
-        deal.revenueCashflowEntries.forEach((entry, index) => {
-            addRevenueCashflowRow(); // Adds a new row
-            const revenueInput = document.getElementById(`revenue${index + 1}`);
-            const cashflowInput = document.getElementById(`cashflow${index + 1}`);
-            const revenueYearInput = document.getElementById(`revenueYear${index + 1}`);
+        revenueCashflowCount = 0; // Reset the counter before adding rows
+        if (deal.revenueCashflowEntries) {
+            deal.revenueCashflowEntries.forEach((entry, index) => {
+                addRevenueCashflowRow(); // Adds a new row and increments revenueCashflowCount
+                const revenueInput = document.getElementById(`revenue${revenueCashflowCount}`);
+                const cashflowInput = document.getElementById(`cashflow${revenueCashflowCount}`);
+                const revenueYearInput = document.getElementById(`revenueYear${revenueCashflowCount}`);
 
-            if (revenueInput && cashflowInput && revenueYearInput) {
-                revenueYearInput.textContent = entry.year;
-                revenueInput.value = formatCurrency(entry.revenue);
-                cashflowInput.value = formatCurrency(entry.cashflow);
+                if (revenueInput && cashflowInput && revenueYearInput) {
+                    revenueYearInput.textContent = entry.year;
+                    revenueInput.value = formatCurrency(entry.revenue);
+                    cashflowInput.value = formatCurrency(entry.cashflow);
 
-                // Update profit margin for each row
-                updateProfitMargin(revenueInput);
-            } else {
-                console.error('Error: Unable to populate revenue/cashflow row.');
-            }
-        });
-
-        // Update the checklist, other elements
-        window.updateBuyBoxChecklist(deal);
-        window.addRealTimeChecklistUpdates();
-
-        // Open the modal
-        openCardModal();
-    } else {
-        console.error('Deal not found.');
-    }
-};
-
-
-
+                    // Update profit margin for each row
+                    updateProfitMargin(revenueInput);
+                } else {
+                    console.error('Error: Unable to populate revenue/cashflow row.');
+                }
+            });
+        }
 
         // Populate documents
-		const documentList = document.getElementById('documentList');
-		documentList.innerHTML = ''; // Clear current documents
+        const documentList = document.getElementById('documentList');
+        documentList.innerHTML = ''; // Clear current documents
 
-		if (deal.documents) {
-		    deal.documents.forEach((doc, index) => {
-		        const docElement = document.createElement('div');
-		        docElement.classList.add('document-item');
+        if (deal.documents) {
+            deal.documents.forEach((doc, index) => {
+                const docElement = document.createElement('div');
+                docElement.classList.add('document-item');
 
-		        // View link for the document
-		        const docLink = document.createElement('a');
-		        docLink.href = doc.url;  // Firebase Storage URL
-		        docLink.target = '_blank';  // Open in new tab
-		        docLink.textContent = doc.name;  // Display the document name
-		        docElement.appendChild(docLink);
+                // View link for the document
+                const docLink = document.createElement('a');
+                docLink.href = doc.url;  // Firebase Storage URL
+                docLink.target = '_blank';  // Open in new tab
+                docLink.textContent = doc.name;  // Display the document name
+                docElement.appendChild(docLink);
 
-		        // Delete button
-		        const deleteButton = document.createElement('button');
-		        deleteButton.textContent = 'Delete';
-		        deleteButton.classList.add('delete-doc-button');
-		        deleteButton.onclick = function() {
-		            deleteDocument(deal.dealId, doc.name, index); // Pass name and index to deleteDocument
-		        };
-		        docElement.appendChild(deleteButton);
+                // Delete button
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Delete';
+                deleteButton.classList.add('delete-doc-button');
+                deleteButton.onclick = function() {
+                    deleteDocument(deal.dealId, doc.name, index); // Pass name and index to deleteDocument
+                };
+                docElement.appendChild(deleteButton);
 
-		        documentList.appendChild(docElement);
-		    });
-		}
+                documentList.appendChild(docElement);
+            });
+        }
 
         // Update the modal title
         document.getElementById('modalTitle').textContent = 'Edit Deal';
@@ -465,6 +435,7 @@ window.editDeal = function(dealId) {
         console.error('Deal not found.');
     }
 };
+
 
 
 // Function to delete a document from Firebase Storage and Firestore

@@ -1047,3 +1047,64 @@ window.closeDocModal = function() {
 
 
 
+
+
+
+//RESULTS SECTION - BUYBOX CHECKLIST
+
+// Function to update the Buy Box Checklist
+function updateBuyBoxChecklist(deal) {
+    // 1. Check for 10+ years in business
+    const yearsInBusiness = parseInt(deal.yearsInBusiness, 10);
+    const yearsInBusinessCheck = yearsInBusiness >= 10;
+    document.getElementById('checkYearsInBusiness').classList.toggle('success', yearsInBusinessCheck);
+
+    // 2. Check for 10+ full-time employees
+    const fullTimeEmployees = parseInt(deal.fullTimeEmployees, 10);
+    const fullTimeEmployeesCheck = fullTimeEmployees >= 10;
+    document.getElementById('checkFullTimeEmployees').classList.toggle('success', fullTimeEmployeesCheck);
+
+    // 3. Check if revenue is between $1M and $5M
+    const totalRevenue = deal.revenueCashflowEntries.reduce((sum, entry) => sum + parseFloat(entry.revenue), 0);
+    const revenueCheck = totalRevenue >= 1000000 && totalRevenue <= 5000000;
+    document.getElementById('checkRevenue').classList.toggle('success', revenueCheck);
+
+    // 4. Check if average profit margin is 20% or higher
+    const totalCashflow = deal.revenueCashflowEntries.reduce((sum, entry) => sum + parseFloat(entry.cashflow), 0);
+    const avgProfitMargin = (totalCashflow / totalRevenue) * 100;
+    const profitMarginCheck = avgProfitMargin >= 20;
+    document.getElementById('checkProfitMargin').classList.toggle('success', profitMarginCheck);
+
+    // 5. Check if revenue is growing year over year
+    let revenueGrowthCheck = true;
+    for (let i = 1; i < deal.revenueCashflowEntries.length; i++) {
+        if (deal.revenueCashflowEntries[i].revenue < deal.revenueCashflowEntries[i - 1].revenue) {
+            revenueGrowthCheck = false;
+            break;
+        }
+    }
+    document.getElementById('checkRevenueGrowth').classList.toggle('success', revenueGrowthCheck);
+
+    // Update the deal calculations section
+    document.getElementById('totalRevenue').textContent = totalRevenue.toLocaleString('en-US');
+    document.getElementById('totalCashflow').textContent = totalCashflow.toLocaleString('en-US');
+    document.getElementById('averageProfitMargin').textContent = avgProfitMargin.toFixed(2) + '%';
+}
+
+// Example deal data structure
+const exampleDeal = {
+    yearsInBusiness: 12,
+    fullTimeEmployees: 15,
+    revenueCashflowEntries: [
+        { year: 2021, revenue: 1500000, cashflow: 300000 },
+        { year: 2022, revenue: 1600000, cashflow: 320000 },
+        { year: 2023, revenue: 1800000, cashflow: 360000 }
+    ]
+};
+
+// Call this function when the deal data is loaded
+updateBuyBoxChecklist(exampleDeal);
+
+
+
+

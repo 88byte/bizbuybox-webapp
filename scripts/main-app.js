@@ -408,7 +408,7 @@ window.editDeal = function(dealId) {
 				    <div class="input-item small-input">
 				        <input type="text" name="cashflow[]" id="cashflow${revenueCashflowCount}" oninput="updateProfitMargin(this)">
 				    </div>
-				    <div class="input-item profit-margin">
+				    <div class="input-item profit-column">
 				        <span id="profitMargin${revenueCashflowCount}">0%</span>
 				    </div>
 				`;
@@ -919,7 +919,7 @@ window.addRevenueCashflowRow = function() {
         <div class="input-item small-input">
             <input type="text" name="cashflow[]" id="cashflow${revenueCashflowCount}" oninput="updateProfitMargin(this)">
         </div>
-        <div class="input-item profit-margin">
+        <div class="input-item profit-column">
             <span id="profitMargin${revenueCashflowCount}">0%</span>
         </div>
     `;

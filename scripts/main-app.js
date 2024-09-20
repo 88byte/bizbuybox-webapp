@@ -455,7 +455,11 @@ window.editDeal = function(dealId) {
 
         // Add real-time event listeners for updating calculations
         window.addRealTimeChecklistUpdates();
-        window.setupRealTimeUpdates(); 
+        window.setupRealTimeUpdates();
+
+        // Trigger calculation immediately after form population
+        window.updateAskingPrice();
+        window.calculateDebtService();
 
         // Open the modal using the new method
         openCardModal();
@@ -463,7 +467,6 @@ window.editDeal = function(dealId) {
         console.error('Deal not found.');
     }
 };
-
 
 // Function to delete a document from Firebase Storage and Firestore
 async function deleteDocument(dealId, docName, index) {

@@ -1314,34 +1314,24 @@ input-item select {
     grid-template-columns: repeat(3, 1fr); /* Three equal columns */
     gap: 5px; /* Reduce gap between columns */
     text-align: center;
-    margin-bottom: 0; /* Remove excess space between labels and inputs */
+    margin-bottom: 3px; /* Reduce space between labels and inputs */
 }
 
 /* Center labels inside their containers */
 .loan-input-labels label {
     display: block;
     text-align: center;
-    margin-bottom: 3px; /* Small gap between label and input field */
+    margin-bottom: 0; /* Keep the space tight between labels and inputs */
 }
-
-
-
 
 /* Specific styles for loan-related input fields */
 .loan-input-row {
-    background-color: #2e2e2e; /* Dark background to blend with the modal */
-    border: none; /* Remove borders */
-    border-radius: 8px; /* Soft rounded corners */
-    padding: 12px 16px; /* More padding for better UX */
-    color: #f5f5f5; /* Light text for readability */
-    font-size: 14px; /* Adjust font size for consistency */
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4); /* Subtle inner shadow for box effect */
-    transition: box-shadow 0.3s ease, background-color 0.3s ease; /* Smooth transition effects */
-    width: 100%; /* Ensure it stretches fully */
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* Align input fields in three columns */
     gap: 5px; /* Reduce gap between input fields */
-    margin-top: 0; /* Remove top margin between labels and input fields */
+    margin-top: 0; /* No gap between label and input fields */
+    padding: 12px 0; /* Padding for the input field area */
+    width: 100%; /* Ensure it stretches fully */
 }
 
 /* Specific styling for loan input items */
@@ -1351,11 +1341,26 @@ input-item select {
     align-items: center; /* Center vertically */
 }
 
+/* Styling for the loan input fields */
 .loan-input-item input {
     padding: 8px;
     width: 100%;
     box-sizing: border-box;
+    background-color: #2e2e2e; /* Dark background to blend with the modal */
+    border: none; /* Remove borders */
+    border-radius: 8px; /* Soft rounded corners */
+    color: #f5f5f5; /* Light text for readability */
+    font-size: 14px; /* Consistent font size */
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4); /* Subtle inner shadow for box effect */
+    transition: box-shadow 0.3s ease, background-color 0.3s ease; /* Smooth transition effects */
 }
+
+/* Input focus state */
+.loan-input-item input:focus {
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.6), 0 0 5px #007bff; /* Add glow effect on focus */
+    background-color: #3e3e3e; /* Slightly lighter background on focus */
+}
+
 
 
 

@@ -413,18 +413,33 @@ window.editDeal = function(dealId) {
         }
 
         // Populate documents
-        const documentList = document.getElementById('documentList');
-        documentList.innerHTML = ''; // Clear current documents
-        if (deal.documents) {
-            deal.documents.forEach(doc => {
-                const docElement = document.createElement('div');
-                docElement.classList.add('document-item');
-                docElement.innerHTML = `
-                    <a href="${doc.url}" target="_blank">${doc.name}</a>
-                    <button type="button" class="delete-doc-button" onclick="deleteDocument('${deal.dealId}', '${doc.id}')">Delete</button>`;
-                documentList.appendChild(docElement);
-            });
-        }
+		const documentList = document.getElementById('documentList');
+		documentList.innerHTML = ''; // Clear current documents
+
+		if (deal.documents) {
+		    deal.documents.forEach((doc, index) => {
+		        const docElement = document.createElement('div');
+		        docElement.classList.add('document-item');
+
+		        // View link for the document
+		        const docLink = document.createElement('a');
+		        docLink.href = doc.url;  // Firebase Storage URL
+		        docLink.target = '_blank';  // Open in new tab
+		        docLink.textContent = doc.name;  // Display the document name
+		        docElement.appendChild(docLink);
+
+		        // Delete button
+		        const deleteButton = document.createElement('button');
+		        deleteButton.textContent = 'Delete';
+		        deleteButton.classList.add('delete-doc-button');
+		        deleteButton.onclick = function() {
+		            deleteDocument(deal.dealId, doc.name, index); // Pass name and index to deleteDocument
+		        };
+		        docElement.appendChild(deleteButton);
+
+		        documentList.appendChild(docElement);
+		    });
+		}
 
         // Update the modal title
         document.getElementById('modalTitle').textContent = 'Edit Deal';
@@ -435,6 +450,38 @@ window.editDeal = function(dealId) {
         console.error('Deal not found.');
     }
 };
+
+
+// Function to delete a document from Firebase Storage and Firestore
+async function deleteDocument(dealId, docName, index) {
+    try {
+        // Reference to the document in Firebase Storage
+        const docRef = ref(storage, `deals/${dealId}/documents/${docName}`);
+        
+        // Delete the file from Firebase Storage
+        await deleteObject(docRef);
+
+        // Optionally, remove the document reference from Firestore (adjust the path to your Firestore structure)
+        const dealRef = doc(db, 'deals', dealId);
+        
+        // Fetch the deal data
+        const dealDoc = await getDoc(dealRef);
+        if (dealDoc.exists()) {
+            const dealData = dealDoc.data();
+            
+            // Remove the deleted document from the documents array
+            dealData.documents.splice(index, 1);  // Remove the document at the specified index
+
+            // Update Firestore with the new documents array
+            await setDoc(dealRef, { documents: dealData.documents }, { merge: true });
+
+            showToast('Document deleted successfully!');
+        }
+    } catch (error) {
+        console.error('Error deleting document:', error);
+        showToast('Error deleting document: ' + error.message, false);
+    }
+}
 
 
 
@@ -517,7 +564,7 @@ window.saveDeal = async function() {
         sellerContact, // Add seller contact info
         lastUpdate: new Date().toISOString(),
         userId: user.uid,
-        dealId: dealId
+
     };
 
     try {
@@ -558,6 +605,17 @@ window.uploadDocument = function() {
         const file = files[i];
         const fileElement = document.createElement('div');
         fileElement.textContent = `${file.name}`;
+
+        // Add view button next to the file name
+        const viewButton = document.createElement('button');
+        viewButton.textContent = 'View';
+        viewButton.classList.add('view-document');
+        viewButton.onclick = function() {
+            // Create a URL for the file and open it in a new tab
+            const fileURL = URL.createObjectURL(file);
+            window.open(fileURL, '_blank');
+        };
+        fileElement.appendChild(viewButton);
 
         // Add delete button next to the file name
         const deleteButton = document.createElement('button');

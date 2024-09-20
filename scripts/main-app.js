@@ -777,13 +777,15 @@ let dealToDelete = null;
 // Function to open the delete confirmation modal
 window.openConfirmationModal = function(dealId) {
     dealToDelete = dealId; // Store the deal ID to be deleted
-    document.getElementById('confirmationModal').style.display = 'flex'; // Show the delete modal
+    const confirmationModal = document.getElementById('confirmationModal');
+    confirmationModal.style.display = 'flex'; // Show the delete modal
 };
 
 // Function to close the delete confirmation modal
 window.closeConfirmationModal = function() {
     dealToDelete = null; // Reset the deal ID
-    document.getElementById('confirmationModal').style.display = 'none'; // Hide the delete modal
+    const confirmationModal = document.getElementById('confirmationModal');
+    confirmationModal.style.display = 'none'; // Hide the delete modal
 };
 
 // Function to confirm the deletion of the deal

@@ -453,11 +453,8 @@ window.editDeal = function(dealId) {
         // Call updateBuyBoxChecklist with the current deal data
         window.updateBuyBoxChecklist(deal);
 
-        // Add real-time event listeners
+        // Add real-time event listeners for updating calculations
         window.addRealTimeChecklistUpdates();
-
-        // Call the function to update calculations based on the form data
-        window.updateAskingPrice();
         window.setupRealTimeUpdates(); 
 
         // Open the modal using the new method
@@ -1278,10 +1275,12 @@ window.updateAskingPrice = function() {
 };
 
 
-// Calculate debt service dynamically
-window.calculateDebtService = function(adjustedAskingPrice) {
+// Function to calculate debt service dynamically based on the loan amount, interest rate, and term
+window.calculateDebtService = function() {
     let downPayment = parseFloat(document.getElementById('downPayment').value.replace(/[^\d.-]/g, '')) || 0;
-    let loanAmount = adjustedAskingPrice - downPayment;
+    let loanAmount = parseFloat(document.getElementById('loanAmount1').value.replace(/[^\d.-]/g, '')) || 0;
+
+    const adjustedLoanAmount = loanAmount - downPayment;  // Use loan amount minus down payment
     let totalDebtService = 0;
     let loanBreakdown = '';
 
@@ -1290,17 +1289,19 @@ window.calculateDebtService = function(adjustedAskingPrice) {
     const loanTerm1 = parseInt(document.getElementById('loanTerm1').value, 10) || 0;
 
     if (loanType === 'SBA' || loanType === 'Seller Finance' || loanType === 'Blended') {
-        const annualDebtService1 = window.calculateAnnualDebtService(loanAmount, interestRate1, loanTerm1);
+        const annualDebtService1 = window.calculateAnnualDebtService(adjustedLoanAmount, interestRate1, loanTerm1);
         totalDebtService += annualDebtService1;
         loanBreakdown += `<p>${loanType} Loan Payment: $${annualDebtService1.toLocaleString('en-US')}</p>`;
     } else if (loanType === 'SBA + Seller Finance') {
-        const sbaLoanAmount = loanAmount * 0.75;
-        const sellerFinanceAmount = loanAmount * 0.25;
+        const sbaLoanAmount = adjustedLoanAmount * 0.75;
+        const sellerFinanceAmount = adjustedLoanAmount * 0.25;
 
+        // SBA Loan Calculation
         const sbaDebtService = window.calculateAnnualDebtService(sbaLoanAmount, interestRate1, loanTerm1);
         totalDebtService += sbaDebtService;
         loanBreakdown += `<p>SBA Loan Payment: $${sbaDebtService.toLocaleString('en-US')}</p>`;
 
+        // Seller Finance Loan Calculation
         const interestRate2 = parseFloat(document.getElementById('interestRate2').value) || 0;
         const loanTerm2 = parseInt(document.getElementById('loanTerm2').value, 10) || 0;
         const sellerDebtService = window.calculateAnnualDebtService(sellerFinanceAmount, interestRate2, loanTerm2);
@@ -1321,7 +1322,7 @@ window.calculateAnnualDebtService = function(amount, interestRate, termYears) {
     const numPayments = termYears * 12;
     const monthlyPayment = (amount * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -numPayments));
     return monthlyPayment * 12; // Annual payment
-}
+};
 
 // Function to calculate earnings section
 window.calculateEarnings = function(totalDebtService) {
@@ -1349,12 +1350,24 @@ window.calculateEarnings = function(totalDebtService) {
 
 // Real-time update triggers for dynamic updates
 window.setupRealTimeUpdates = function() {
-    document.getElementById('askingPrice').addEventListener('input', updateAskingPrice);
-    document.getElementById('realEstatePrice').addEventListener('input', updateAskingPrice);
-    document.getElementById('downPayment').addEventListener('input', updateAskingPrice);
-    document.getElementById('loanType').addEventListener('change', updateAskingPrice);
+    // Update debt service calculations dynamically based on loan amount, interest rate, and term
+    document.getElementById('loanAmount1').addEventListener('input', window.calculateDebtService);
+    document.getElementById('interestRate1').addEventListener('input', window.calculateDebtService);
+    document.getElementById('loanTerm1').addEventListener('input', window.calculateDebtService);
+    document.getElementById('loanType').addEventListener('change', window.calculateDebtService);
+
+    // Update other dynamic updates for BuyBoxChecklist
+    document.getElementById('askingPrice').addEventListener('input', window.updateAskingPrice);
+    document.getElementById('realEstatePrice').addEventListener('input', window.updateAskingPrice);
+    document.getElementById('downPayment').addEventListener('input', window.updateAskingPrice);
+
+    // Add listeners for revenue and cashflow changes
     document.querySelectorAll('input[name="cashflow[]"]').forEach(input => {
         input.addEventListener('input', triggerBuyBoxUpdate);
     });
     document.getElementById('revenueCashflowSection').addEventListener('input', triggerBuyBoxUpdate);
 };
+
+// Ensure event listeners are added when the modal is opened
+window.addRealTimeChecklistUpdates();
+window.setupRealTimeUpdates();

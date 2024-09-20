@@ -457,6 +457,10 @@ window.editDeal = function(dealId) {
         window.addRealTimeChecklistUpdates();
         window.setupRealTimeUpdates(); 
 
+        // Trigger calculation immediately after form population
+        window.updateAskingPrice();
+        window.calculateDebtService();
+
         // Open the modal using the new method
         openCardModal();
     } else {

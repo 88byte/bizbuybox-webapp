@@ -455,11 +455,7 @@ window.editDeal = function(dealId) {
         // Update the modal title
         document.getElementById('modalTitle').textContent = 'Edit Deal';
 
-        // Call updateBuyBoxChecklist with the current deal data
-        window.updateBuyBoxChecklist(deal);
 
-        // Add real-time event listeners
-        window.addRealTimeChecklistUpdates();
 
         // Open the modal using the new method
         openCardModal();

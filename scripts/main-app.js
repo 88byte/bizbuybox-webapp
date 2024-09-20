@@ -564,7 +564,6 @@ window.saveDeal = async function() {
         sellerContact, // Add seller contact info
         lastUpdate: new Date().toISOString(),
         userId: user.uid,
-
     };
 
     try {
@@ -578,14 +577,17 @@ window.saveDeal = async function() {
         // Step 3: Merge the document URLs into the deal document in Firestore
         await setDoc(doc(dealsCollection, dealId), { documents: uploadedDocumentURLs }, { merge: true });
 
+        // Refresh the deals array by calling fetchDeals() to make sure we have the latest data
+        await fetchDeals();  // Fetch the updated list of deals from Firestore
+
         showToast('Deal saved successfully!');
         closeCardModal();
-        fetchDeals(); // Refresh deals on the dashboard
     } catch (error) {
         console.error('Error saving deal:', error);
         showToast('Error saving deal: ' + error.message, false);
     }
 };
+
 
 
 

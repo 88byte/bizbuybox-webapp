@@ -1278,16 +1278,10 @@ window.updateAskingPrice = function() {
 };
 
 
-// Function to calculate debt service
-window.calculateDebtService = function() {
-    let downPayment = document.getElementById('downPayment').value;
-    let loanAmount = document.getElementById('loanAmount1').value;  // Use loan amount from form
-
-    // Strip non-numeric characters from input
-    downPayment = parseFloat(downPayment.replace(/[^\d.-]/g, '')) || 0;
-    loanAmount = parseFloat(loanAmount.replace(/[^\d.-]/g, '')) || 0;
-
-    const adjustedLoanAmount = loanAmount - downPayment;
+// Calculate debt service dynamically
+window.calculateDebtService = function(adjustedAskingPrice) {
+    let downPayment = parseFloat(document.getElementById('downPayment').value.replace(/[^\d.-]/g, '')) || 0;
+    let loanAmount = adjustedAskingPrice - downPayment;
     let totalDebtService = 0;
     let loanBreakdown = '';
 
@@ -1296,19 +1290,17 @@ window.calculateDebtService = function() {
     const loanTerm1 = parseInt(document.getElementById('loanTerm1').value, 10) || 0;
 
     if (loanType === 'SBA' || loanType === 'Seller Finance' || loanType === 'Blended') {
-        const annualDebtService1 = window.calculateAnnualDebtService(adjustedLoanAmount, interestRate1, loanTerm1);
+        const annualDebtService1 = window.calculateAnnualDebtService(loanAmount, interestRate1, loanTerm1);
         totalDebtService += annualDebtService1;
         loanBreakdown += `<p>${loanType} Loan Payment: $${annualDebtService1.toLocaleString('en-US')}</p>`;
     } else if (loanType === 'SBA + Seller Finance') {
-        const sbaLoanAmount = adjustedLoanAmount * 0.75;
-        const sellerFinanceAmount = adjustedLoanAmount * 0.25;
+        const sbaLoanAmount = loanAmount * 0.75;
+        const sellerFinanceAmount = loanAmount * 0.25;
 
-        // SBA Loan Calculation
         const sbaDebtService = window.calculateAnnualDebtService(sbaLoanAmount, interestRate1, loanTerm1);
         totalDebtService += sbaDebtService;
         loanBreakdown += `<p>SBA Loan Payment: $${sbaDebtService.toLocaleString('en-US')}</p>`;
 
-        // Seller Finance Loan Calculation
         const interestRate2 = parseFloat(document.getElementById('interestRate2').value) || 0;
         const loanTerm2 = parseInt(document.getElementById('loanTerm2').value, 10) || 0;
         const sellerDebtService = window.calculateAnnualDebtService(sellerFinanceAmount, interestRate2, loanTerm2);
@@ -1318,10 +1310,9 @@ window.calculateDebtService = function() {
 
     document.getElementById('loanBreakdown').innerHTML = loanBreakdown;
     document.getElementById('totalDebtService').textContent = totalDebtService.toLocaleString('en-US');
-
-    // Recalculate Earnings Section based on the new debt service
-    window.calculateEarnings(totalDebtService);
+    window.calculateEarnings(totalDebtService);  // Recalculate earnings
 };
+
 
 // Function to calculate annual debt service
 window.calculateAnnualDebtService = function(amount, interestRate, termYears) {
@@ -1356,13 +1347,14 @@ window.calculateEarnings = function(totalDebtService) {
     document.getElementById('cashflowAfterDebtAndInvestor').textContent = cashflowAfterDebtAndInvestor.toLocaleString('en-US');
 };
 
-// Real-time update triggers
+// Real-time update triggers for dynamic updates
 window.setupRealTimeUpdates = function() {
     document.getElementById('askingPrice').addEventListener('input', updateAskingPrice);
     document.getElementById('realEstatePrice').addEventListener('input', updateAskingPrice);
     document.getElementById('downPayment').addEventListener('input', updateAskingPrice);
     document.getElementById('loanType').addEventListener('change', updateAskingPrice);
     document.querySelectorAll('input[name="cashflow[]"]').forEach(input => {
-        input.addEventListener('input', updateAskingPrice);
+        input.addEventListener('input', triggerBuyBoxUpdate);
     });
+    document.getElementById('revenueCashflowSection').addEventListener('input', triggerBuyBoxUpdate);
 };

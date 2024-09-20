@@ -1412,8 +1412,18 @@ input-item select {
     background-color: red; /* Default red for failure */
 }
 
-.marker.success {
-    background-color: green; /* Green when condition is met */
+
+.success {
+    background-color: green; /* Green for success */
 }
+
+.warning {
+    background-color: orange; /* Orange for warning */
+}
+
+.error {
+    background-color: red; /* Red for error */
+}
+
 
 

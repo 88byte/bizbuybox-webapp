@@ -710,33 +710,33 @@ window.handleLoanTypeChange = function() {
     const loanAmount1 = document.getElementById('loanAmount1');
 
     // Always remove the second loan row before applying new loan type values
-    window.removeSecondLoanRow(); 
+    window.removeSecondLoanRow();
 
-    // Apply new loan type settings
-    if (loanType === 'SBA') {
-        interestRate1.value = '11.5';
-        loanTerm1.value = '10';
-        loanAmount1.value = '0'; // You might want to update this based on user input
-    } else if (loanType === 'Seller Finance') {
-        interestRate1.value = '11.5';
-        loanTerm1.value = '10';
-        loanAmount1.value = '0'; // Update based on user input
-    } else if (loanType === 'Blended') {
-        interestRate1.value = '11.5';
-        loanTerm1.value = '15';
-        loanAmount1.value = '0'; // Update based on user input
-    } else if (loanType === 'SBA + Seller Finance') {
+    if (loanType === 'SBA + Seller Finance') {
         // Pre-fill first row and add a second row for SBA + Seller Finance
         interestRate1.value = '11.5';
         loanTerm1.value = '10';
-        loanAmount1.value = '0'; // Update based on user input
-        window.addSecondLoanRow(); // Add second loan row for Seller Finance
+        loanAmount1.value = '0';
+
+        window.addSecondLoanRow();
+
+        // Add event listeners for real-time updates for loanAmount2, interestRate2, and loanTerm2
+        document.getElementById('loanAmount2').addEventListener('input', window.calculateDebtService);
+        document.getElementById('interestRate2').addEventListener('input', window.calculateDebtService);
+        document.getElementById('loanTerm2').addEventListener('input', window.calculateDebtService);
+
+    } else if (loanType === 'SBA' || loanType === 'Seller Finance' || loanType === 'Blended') {
+        interestRate1.value = '11.5';
+        loanTerm1.value = '10';
+        loanAmount1.value = '0';
     } else {
-        // Clear the fields for other loan types
         interestRate1.value = '';
         loanTerm1.value = '';
         loanAmount1.value = '';
     }
+
+    // Trigger debt service calculation whenever the loan type changes
+    window.calculateDebtService();
 };
 
 // Function to add second loan details row (for SBA + Seller Finance)
@@ -763,7 +763,6 @@ window.addSecondLoanRow = function() {
         additionalLoanDetails.appendChild(newRow);
     }
 };
-
 
 
 // Function to remove the second loan details row
@@ -1290,10 +1289,9 @@ window.calculateDebtService = function() {
     const loanType = document.getElementById('loanType').value;
     const interestRate1 = parseFloat(document.getElementById('interestRate1').value) || 0;
     const loanTerm1 = parseInt(document.getElementById('loanTerm1').value, 10) || 0;
-    let loanAmount1 = parseFloat(document.getElementById('loanAmount1').value.replace(/[^\d.-]/g, '')) || 0; // SBA Loan Amount
+    let loanAmount1 = parseFloat(document.getElementById('loanAmount1').value.replace(/[^\d.-]/g, '')) || 0;
 
     if (loanType === 'SBA' || loanType === 'Seller Finance' || loanType === 'Blended') {
-        // For single loan types, just calculate debt service for loanAmount1
         const annualDebtService1 = window.calculateAnnualDebtService(loanAmount1, interestRate1, loanTerm1);
         totalDebtService += annualDebtService1;
         loanBreakdown += `<p>${loanType} Loan Payment: $${annualDebtService1.toLocaleString('en-US')}</p>`;
@@ -1309,7 +1307,7 @@ window.calculateDebtService = function() {
         // Seller Finance Loan Calculation
         const interestRate2 = parseFloat(document.getElementById('interestRate2').value) || 0;
         const loanTerm2 = parseInt(document.getElementById('loanTerm2').value, 10) || 0;
-        const sellerLoanAmount = parseFloat(document.getElementById('loanAmount2').value.replace(/[^\d.-]/g, '')) || 0; // Seller Finance Loan Amount
+        const sellerLoanAmount = parseFloat(document.getElementById('loanAmount2').value.replace(/[^\d.-]/g, '')) || 0;
         const sellerDebtService = window.calculateAnnualDebtService(sellerLoanAmount, interestRate2, loanTerm2);
         totalDebtService += sellerDebtService;
         loanBreakdown += `<p>Seller Finance Loan Payment: $${sellerDebtService.toLocaleString('en-US')}</p>`;

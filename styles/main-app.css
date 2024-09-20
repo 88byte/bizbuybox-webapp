@@ -1334,3 +1334,17 @@ input-item select {
     transform: translateY(-1px);
     box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
 }
+
+
+.revenue-cashflow-labels {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Three equal columns for the labels */
+    gap: 10px; /* Space between columns */
+    text-align: center; /* Center the text horizontally */
+    margin-bottom: 10px; /* Space between labels and inputs */
+}
+
+.revenue-cashflow-labels label {
+    display: block;
+    text-align: center; /* Center each label within its container */
+}

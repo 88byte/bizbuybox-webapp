@@ -1145,18 +1145,19 @@ window.getDealDataFromForm = function() {
 
 // Function to update the Buy Box Checklist
 window.updateBuyBoxChecklist = function(deal) {
-	
     // 1. Check for 10+ years in business
     const yearsInBusiness = parseInt(deal.yearsInBusiness, 10);
     const yearsInBusinessCheck = yearsInBusiness >= 10;
-    document.getElementById('checkYearsInBusiness').classList.toggle('success', yearsInBusinessCheck);
-    document.querySelector('#checkYearsInBusiness i').classList.toggle('success', yearsInBusinessCheck);
+    const yearsIcon = document.getElementById('checkYearsInBusiness');
+    yearsIcon.classList.toggle('success', yearsInBusinessCheck);
+    yearsIcon.classList.toggle('error', !yearsInBusinessCheck);
 
     // 2. Check for 10+ full-time employees
     const fullTimeEmployees = parseInt(deal.fullTimeEmployees, 10);
     const fullTimeEmployeesCheck = fullTimeEmployees >= 10;
-    document.getElementById('checkFullTimeEmployees').classList.toggle('success', fullTimeEmployeesCheck);
-    document.querySelector('#checkFullTimeEmployees i').classList.toggle('success', fullTimeEmployeesCheck);
+    const employeesIcon = document.getElementById('checkFullTimeEmployees');
+    employeesIcon.classList.toggle('success', fullTimeEmployeesCheck);
+    employeesIcon.classList.toggle('error', !fullTimeEmployeesCheck);
 
     // 3. Check if average revenue is between $1M and $5M (orange if over $5M)
     let totalRevenue = 0;
@@ -1164,17 +1165,15 @@ window.updateBuyBoxChecklist = function(deal) {
         totalRevenue = deal.revenueCashflowEntries.reduce((sum, entry) => sum + parseFloat(entry.revenue || 0), 0);
     }
     const avgRevenue = totalRevenue / deal.revenueCashflowEntries.length;
-    const revenueElement = document.querySelector('#checkRevenue i'); // Select the icon
+    const revenueIcon = document.getElementById('checkRevenue');
 
+    revenueIcon.classList.remove('success', 'warning', 'error');
     if (avgRevenue >= 1000000 && avgRevenue <= 5000000) {
-        revenueElement.classList.add('success');
-        revenueElement.classList.remove('warning', 'error');
+        revenueIcon.classList.add('success');
     } else if (avgRevenue > 5000000) {
-        revenueElement.classList.add('warning');
-        revenueElement.classList.remove('success', 'error');
+        revenueIcon.classList.add('warning');
     } else {
-        revenueElement.classList.add('error');
-        revenueElement.classList.remove('success', 'warning');
+        revenueIcon.classList.add('error');
     }
 
     // 4. Check if average profit margin is categorized properly (red <16%, orange 17-19%, green >=20%)
@@ -1184,17 +1183,15 @@ window.updateBuyBoxChecklist = function(deal) {
     }
 
     const avgProfitMargin = totalRevenue > 0 ? (totalCashflow / totalRevenue) * 100 : 0;
-    const profitMarginElement = document.querySelector('#checkProfitMargin i'); // Select the icon
+    const profitMarginIcon = document.getElementById('checkProfitMargin');
 
+    profitMarginIcon.classList.remove('success', 'warning', 'error');
     if (avgProfitMargin >= 20) {
-        profitMarginElement.classList.add('success');
-        profitMarginElement.classList.remove('warning', 'error');
+        profitMarginIcon.classList.add('success');
     } else if (avgProfitMargin >= 17 && avgProfitMargin <= 19) {
-        profitMarginElement.classList.add('warning');
-        profitMarginElement.classList.remove('success', 'error');
+        profitMarginIcon.classList.add('warning');
     } else {
-        profitMarginElement.classList.add('error');
-        profitMarginElement.classList.remove('success', 'warning');
+        profitMarginIcon.classList.add('error');
     }
 
     // 5. Check if revenue is growing year over year (green if growing, orange within 5%, red if declining)
@@ -1218,9 +1215,9 @@ window.updateBuyBoxChecklist = function(deal) {
             }
         }
     }
-    const revenueGrowthElement = document.querySelector('#checkRevenueGrowth i'); // Select the icon
-    revenueGrowthElement.classList.remove('success', 'warning', 'error');
-    revenueGrowthElement.classList.add(revenueGrowthStatus);
+    const revenueGrowthIcon = document.getElementById('checkRevenueGrowth');
+    revenueGrowthIcon.classList.remove('success', 'warning', 'error');
+    revenueGrowthIcon.classList.add(revenueGrowthStatus);
 };
 
 

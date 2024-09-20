@@ -1396,7 +1396,27 @@ input-item select {
     padding: 8px 0;
 }
 
-/* Icon Colors for Checklist */
+
+
+.checklist-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    margin: 0 4px;
+    cursor: pointer;
+}
+
+.checklist-item i {
+    font-size: 24px;
+    color: #fff; /* Default icon color */
+    transition: color 0.3s ease;
+}
+
+/* Success (Green), Warning (Orange), Error (Red) Status */
 .checklist-item i.success {
     color: #4caf50; /* Green */
 }
@@ -1409,56 +1429,7 @@ input-item select {
     color: #e74c3c; /* Red */
 }
 
-
-.checklist-item {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 48px; /* Make the items smaller */
-    height: 48px;
-    background-color: #2a2a2a;
-    border-radius: 50%;
-    margin: 0 4px; /* Compact spacing between items */
-    padding: 4px;
-    transition: background-color 0.3s ease;
-    cursor: pointer;
-}
-
-.checklist-item:hover {
-    background-color: #353535; /* Subtle darkening on hover */
-}
-
-.checklist-item i {
-    font-size: 16px;
-    color: #fff;
-}
-
-.marker {
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background-color: red; /* Default red */
-    transition: background-color 0.3s ease;
-}
-
-.marker.success {
-    background-color: #4caf50; /* Green for success */
-}
-
-.marker.warning {
-    background-color: #f39c12; /* Orange for warning */
-}
-
-.marker.error {
-    background-color: #e74c3c; /* Red for error */
-}
-
-/* Add hover tooltips for more information */
+/* Tooltip on hover */
 .checklist-item[title]::before {
     content: attr(title);
     position: absolute;

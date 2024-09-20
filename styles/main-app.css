@@ -1426,4 +1426,100 @@ input-item select {
 }
 
 
+/* Buy Box Container */
+.buy-box-container {
+    background-color: #1e1e1e;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.buy-box-container h3 {
+    color: #d4a759;
+    font-size: 22px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+/* Checklist Item Styling */
+.checklist-item {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    background-color: #2a2a2a;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.checklist-item p {
+    margin-left: 16px;
+    font-size: 16px;
+    color: #f0f0f0;
+    font-weight: 500;
+    flex-grow: 1;
+    text-transform: capitalize;
+}
+
+/* Icon Check for Status */
+.icon-check {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.icon-check i {
+    color: #ffffff;
+}
+
+/* Success State (Green) */
+.checklist-item.success .icon-check {
+    background-color: #28a745;
+    box-shadow: 0px 4px 8px rgba(0, 128, 0, 0.3);
+}
+
+.checklist-item.success p {
+    color: #c3f9d5;
+}
+
+/* Warning State (Orange) */
+.checklist-item.warning .icon-check {
+    background-color: #f39c12;
+    box-shadow: 0px 4px 8px rgba(243, 156, 18, 0.3);
+}
+
+.checklist-item.warning p {
+    color: #f7d6a0;
+}
+
+/* Error State (Red) */
+.checklist-item.error .icon-check {
+    background-color: #e74c3c;
+    box-shadow: 0px 4px 8px rgba(231, 76, 60, 0.3);
+}
+
+.checklist-item.error p {
+    color: #f9b3a5;
+}
+
+/* Hover effect for checklist items */
+.checklist-item:hover {
+    background-color: #3a3a3a;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+
+/* Smooth animations for state change */
+.icon-check,
+p {
+    transition: all 0.3s ease;
+}
 

@@ -835,7 +835,6 @@ window.deleteDeal = async function(dealId) {
 
 
 
-
 // Function to format numbers as dollar amounts with commas, no decimals, and a dollar sign
 window.formatAsCurrency = function(input) {
     // Check if input is an object and has a value property, if not assume input is a number or string

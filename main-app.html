@@ -482,6 +482,59 @@
 			    </div>
 			</div>
 
+			<div class="deal-calculations-section">
+			    <h3>Buy Box Checklist</h3>
+			    <div id="buyBoxChecklist" class="compact-checklist">
+			        <div class="checklist-item" title="10+ Years in Business">
+			            <i id="checkYearsInBusiness" class="fas fa-briefcase"></i>
+			        </div>
+			        <div class="checklist-item" title="10+ Full Time Employees">
+			            <i id="checkFullTimeEmployees" class="fas fa-users"></i>
+			        </div>
+			        <div class="checklist-item" title="$1M to $5M in Revenue">
+			            <i id="checkRevenue" class="fas fa-dollar-sign"></i>
+			        </div>
+			        <div class="checklist-item" title="20% Avg Profit Margin">
+			            <i id="checkProfitMargin" class="fas fa-percentage"></i>
+			        </div>
+			        <div class="checklist-item" title="Revenue Growing Year over Year">
+			            <i id="checkRevenueGrowth" class="fas fa-chart-line"></i>
+			        </div>
+			    </div>
+
+			    <!-- Money Math Section -->
+			    <div class="money-math-section">
+			        <h3>Business Acquisition Money Math</h3>
+			        
+			        <!-- Asking Price and Real Estate Toggle -->
+			        <div class="asking-price-section">
+			            <h4>Asking Price: $<span id="displayAskingPrice"></span></h4>
+			            <label for="toggleRealEstate">Include Real Estate:</label>
+			            <select id="toggleRealEstate" onchange="updateAskingPrice()">
+			                <option value="with">With Real Estate</option>
+			                <option value="without">Without Real Estate</option>
+			            </select>
+			        </div>
+
+			        <!-- Loan Section -->
+			        <div class="loan-section">
+			            <h4>Annual Debt Service</h4>
+			            <div id="loanBreakdown"></div> <!-- Dynamically show loan breakdown here -->
+			            <p>Total Debt Service: $<span id="totalDebtService"></span></p>
+			        </div>
+
+			        <!-- Earnings Section -->
+			        <div class="earnings-section">
+			            <h4>Annual Earnings (Avg)</h4>
+			            <p>Avg Profit Margin: <span id="avgProfitMarginDisplay"></span>%</p>
+			            <p>Avg Cashflow: $<span id="avgCashflowDisplay"></span></p>
+			            <p>Cashflow Less Debt Service: $<span id="cashflowAfterDebt"></span></p>
+			            <p>Cashflow Less Debt & Investor Pay: $<span id="cashflowAfterDebtAndInvestor"></span></p>
+			        </div>
+			    </div>
+			</div>
+
+
 
 
 

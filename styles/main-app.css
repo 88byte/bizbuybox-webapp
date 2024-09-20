@@ -1394,13 +1394,26 @@ input-item select {
     text-transform: uppercase;
 }
 
-/* Calculations Display */
-#resultsContent p {
+/* Checklist styling */
+#buyBoxChecklist p {
     font-size: 16px;
     margin: 8px 0;
+    display: flex;
+    align-items: center;
 }
 
-#resultsContent span {
-    font-weight: bold;
-    color: #d2a679; /* Gold for highlighting numbers */
+/* Marker styles */
+.marker {
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+    margin-right: 10px;
+    border-radius: 50%;
+    background-color: red; /* Default red for failure */
 }
+
+.marker.success {
+    background-color: green; /* Green when condition is met */
+}
+
+

@@ -454,6 +454,12 @@ window.editDeal = function(dealId) {
         // Update the modal title
         document.getElementById('modalTitle').textContent = 'Edit Deal';
 
+        // Call updateBuyBoxChecklist with the current deal data
+        window.updateBuyBoxChecklist(deal);
+
+        // Add real-time event listeners
+        window.addRealTimeChecklistUpdates();
+
         // Open the modal using the new method
         openCardModal();
     } else {
@@ -1052,8 +1058,61 @@ window.closeDocModal = function() {
 
 //RESULTS SECTION - BUYBOX CHECKLIST
 
+// Add real-time update event listeners
+window.addRealTimeChecklistUpdates = function() {
+    const yearsInBusinessInput = document.getElementById('yearsInBusiness');
+    const fullTimeEmployeesInput = document.getElementById('fullTimeEmployees');
+    const revenueInputs = document.querySelectorAll('input[name="revenue[]"]');
+    const cashflowInputs = document.querySelectorAll('input[name="cashflow[]"]');
+
+    // Event listener for years in business
+    yearsInBusinessInput.addEventListener('input', function() {
+        window.updateBuyBoxChecklist(window.getDealDataFromForm());
+    });
+
+    // Event listener for full-time employees
+    fullTimeEmployeesInput.addEventListener('input', function() {
+        window.updateBuyBoxChecklist(window.getDealDataFromForm());
+    });
+
+    // Event listeners for revenue and cashflow
+    revenueInputs.forEach(input => {
+        input.addEventListener('input', function() {
+            window.updateBuyBoxChecklist(window.getDealDataFromForm());
+        });
+    });
+
+    cashflowInputs.forEach(input => {
+        input.addEventListener('input', function() {
+            window.updateBuyBoxChecklist(window.getDealDataFromForm());
+        });
+    });
+};
+
+// Function to get deal data from the form (for real-time updates)
+window.getDealDataFromForm = function() {
+    const yearsInBusiness = document.getElementById('yearsInBusiness').value;
+    const fullTimeEmployees = document.getElementById('fullTimeEmployees').value;
+    const revenueCashflowEntries = [];
+
+    const revenueInputs = document.querySelectorAll('input[name="revenue[]"]');
+    const cashflowInputs = document.querySelectorAll('input[name="cashflow[]"]');
+
+    revenueInputs.forEach((input, index) => {
+        const revenue = input.value;
+        const cashflow = cashflowInputs[index].value;
+        revenueCashflowEntries.push({ revenue: parseFloat(revenue) || 0, cashflow: parseFloat(cashflow) || 0 });
+    });
+
+    return {
+        yearsInBusiness,
+        fullTimeEmployees,
+        revenueCashflowEntries
+    };
+};
+
 // Function to update the Buy Box Checklist
-function updateBuyBoxChecklist(deal) {
+window.updateBuyBoxChecklist = function(deal) {
     // 1. Check for 10+ years in business
     const yearsInBusiness = parseInt(deal.yearsInBusiness, 10);
     const yearsInBusinessCheck = yearsInBusiness >= 10;
@@ -1065,12 +1124,12 @@ function updateBuyBoxChecklist(deal) {
     document.getElementById('checkFullTimeEmployees').classList.toggle('success', fullTimeEmployeesCheck);
 
     // 3. Check if revenue is between $1M and $5M
-    const totalRevenue = deal.revenueCashflowEntries.reduce((sum, entry) => sum + parseFloat(entry.revenue), 0);
+    const totalRevenue = deal.revenueCashflowEntries.reduce((sum, entry) => sum + entry.revenue, 0);
     const revenueCheck = totalRevenue >= 1000000 && totalRevenue <= 5000000;
     document.getElementById('checkRevenue').classList.toggle('success', revenueCheck);
 
     // 4. Check if average profit margin is 20% or higher
-    const totalCashflow = deal.revenueCashflowEntries.reduce((sum, entry) => sum + parseFloat(entry.cashflow), 0);
+    const totalCashflow = deal.revenueCashflowEntries.reduce((sum, entry) => sum + entry.cashflow, 0);
     const avgProfitMargin = (totalCashflow / totalRevenue) * 100;
     const profitMarginCheck = avgProfitMargin >= 20;
     document.getElementById('checkProfitMargin').classList.toggle('success', profitMarginCheck);
@@ -1089,22 +1148,7 @@ function updateBuyBoxChecklist(deal) {
     document.getElementById('totalRevenue').textContent = totalRevenue.toLocaleString('en-US');
     document.getElementById('totalCashflow').textContent = totalCashflow.toLocaleString('en-US');
     document.getElementById('averageProfitMargin').textContent = avgProfitMargin.toFixed(2) + '%';
-}
-
-// Example deal data structure
-const exampleDeal = {
-    yearsInBusiness: 12,
-    fullTimeEmployees: 15,
-    revenueCashflowEntries: [
-        { year: 2021, revenue: 1500000, cashflow: 300000 },
-        { year: 2022, revenue: 1600000, cashflow: 320000 },
-        { year: 2023, revenue: 1800000, cashflow: 360000 }
-    ]
 };
-
-// Call this function when the deal data is loaded
-updateBuyBoxChecklist(exampleDeal);
-
 
 
 

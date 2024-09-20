@@ -409,11 +409,16 @@ window.editDeal = function(dealId) {
 		                <input type="text" name="cashflow[]" id="cashflow${index + 1}" value="${formatAsCurrency(entry.cashflow)}" oninput="updateProfitMargin(this)">
 		            </div>
 		            <div class="input-item profit-column">
-		                <span id="profitMargin${index + 1}">${entry.profitMargin}</span>
+		                <span id="profitMargin${index + 1}">0%</span>
 		            </div>`;
+
 		        revenueCashflowSection.appendChild(newRow);
+
+		        // Call updateProfitMargin to calculate and update profit margin for each row
+		        updateProfitMargin(document.getElementById(`revenue${index + 1}`));
 		    });
 		}
+
 
 
 
@@ -898,10 +903,10 @@ window.addRevenueCashflowRow = function() {
             <div contenteditable="true" class="editable-year" name="revenueYear[]" id="revenueYear${revenueCashflowCount}">Year</div>
         </div>
         <div class="input-item small-input">
-            <input type="text" name="revenue[]" id="revenue${revenueCashflowCount}"  oninput="updateProfitMargin(this)">
+            <input type="text" name="revenue[]" id="revenue${revenueCashflowCount}" oninput="updateProfitMargin(this)">
         </div>
         <div class="input-item small-input">
-            <input type="text" name="cashflow[]" id="cashflow${revenueCashflowCount}"  oninput="updateProfitMargin(this)">
+            <input type="text" name="cashflow[]" id="cashflow${revenueCashflowCount}" oninput="updateProfitMargin(this)">
         </div>
         <div class="input-item profit-margin">
             <span id="profitMargin${revenueCashflowCount}">0%</span>
@@ -909,7 +914,12 @@ window.addRevenueCashflowRow = function() {
     `;
 
     document.getElementById('revenueCashflowSection').appendChild(newRow);
+
+    // Immediately apply currency formatting
+    formatAsCurrency(document.getElementById(`revenue${revenueCashflowCount}`));
+    formatAsCurrency(document.getElementById(`cashflow${revenueCashflowCount}`));
 };
+
 
 
 // Function to remove a row
@@ -932,6 +942,7 @@ window.updateProfitMargin = function(inputElement) {
     const cashflowInput = row.querySelector('input[name="cashflow[]"]');
     const profitMarginElement = row.querySelector('.profit-column span');
 
+    // Remove formatting to perform calculation
     const revenue = parseFloat(revenueInput.value.replace(/[^\d.-]/g, '')) || 0;
     const cashflow = parseFloat(cashflowInput.value.replace(/[^\d.-]/g, '')) || 0;
 
@@ -939,9 +950,10 @@ window.updateProfitMargin = function(inputElement) {
     profitMarginElement.textContent = `${profitMargin}%`;
 
     // Reformat the inputs for display
-    revenueInput.value = formatAsCurrency(revenue);
-    cashflowInput.value = formatAsCurrency(cashflow);
+    revenueInput.value = formatAsCurrency(revenueInput);
+    cashflowInput.value = formatAsCurrency(cashflowInput);
 };
+
 
 
 

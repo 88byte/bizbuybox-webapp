@@ -483,13 +483,11 @@ window.saveDeal = async function() {
         const year = row.querySelector('.editable-year').textContent;
         const revenue = row.querySelector('input[name="revenue[]"]').value;
         const cashflow = row.querySelector('input[name="cashflow[]"]').value;
-        const profitMargin = row.querySelector(`#profitMargin${index + 1}`).textContent;
 
         revenueCashflowEntries.push({
             year,
             revenue,
             cashflow,
-            profitMargin
         });
     });
 
@@ -523,13 +521,15 @@ window.saveDeal = async function() {
     };
 
     try {
-        // Save deal data to Firestore (deal data object creation omitted for brevity)
+        // Step 1: Save the deal data first
+        const dealsCollection = collection(db, 'deals');
+        await setDoc(doc(dealsCollection, dealId), dealData);
 
-        // Upload documents to Firebase Storage
+        // Step 2: Upload the documents after the deal is saved
         const uploadedDocumentURLs = await uploadDocuments(dealId);
 
-        // Add the document URLs to the deal data in Firestore
-        await setDoc(doc(collection(db, 'deals'), dealId), { documents: uploadedDocumentURLs }, { merge: true });
+        // Step 3: Merge the document URLs into the deal document in Firestore
+        await setDoc(doc(dealsCollection, dealId), { documents: uploadedDocumentURLs }, { merge: true });
 
         showToast('Deal saved successfully!');
         closeCardModal();
@@ -539,7 +539,6 @@ window.saveDeal = async function() {
         showToast('Error saving deal: ' + error.message, false);
     }
 };
-
 
 
 

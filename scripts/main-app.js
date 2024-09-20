@@ -1280,7 +1280,7 @@ window.updateAskingPrice = function() {
 };
 
 
-// Function to calculate debt service dynamically
+// Function to calculate debt service dynamically based on the loan amount, interest rate, and term
 window.calculateDebtService = function(adjustedAskingPrice) {
     let downPayment = parseFloat(document.getElementById('downPayment').value.replace(/[^\d.-]/g, '')) || 0;
     let loanAmount = adjustedAskingPrice - downPayment;
@@ -1288,50 +1288,42 @@ window.calculateDebtService = function(adjustedAskingPrice) {
     let loanBreakdown = '';
 
     const loanType = document.getElementById('loanType').value;
+
+    // Inputs for SBA loan
     const interestRate1 = parseFloat(document.getElementById('interestRate1').value) || 0;
     const loanTerm1 = parseInt(document.getElementById('loanTerm1').value, 10) || 0;
 
-    if (loanType === 'SBA') {
-        // Single loan calculation for SBA
+    if (loanType === 'SBA' || loanType === 'Seller Finance' || loanType === 'Blended') {
+        // Only one loan type (SBA or Seller Finance or Blended)
         const annualDebtService1 = window.calculateAnnualDebtService(loanAmount, interestRate1, loanTerm1);
         totalDebtService += annualDebtService1;
-        loanBreakdown += `<p>SBA Loan Payment: $${annualDebtService1.toLocaleString('en-US')}</p>`;
-    } else if (loanType === 'Seller Finance') {
-        // Single loan calculation for Seller Finance
-        const annualDebtService1 = window.calculateAnnualDebtService(loanAmount, interestRate1, loanTerm1);
-        totalDebtService += annualDebtService1;
-        loanBreakdown += `<p>Seller Finance Loan Payment: $${annualDebtService1.toLocaleString('en-US')}</p>`;
-    } else if (loanType === 'Blended') {
-        // Single loan calculation for Blended loan
-        const annualDebtService1 = window.calculateAnnualDebtService(loanAmount, interestRate1, loanTerm1);
-        totalDebtService += annualDebtService1;
-        loanBreakdown += `<p>Blended Loan Payment: $${annualDebtService1.toLocaleString('en-US')}</p>`;
+        loanBreakdown += `<p>${loanType} Loan Payment: $${annualDebtService1.toLocaleString('en-US')}</p>`;
     } else if (loanType === 'SBA + Seller Finance') {
-        // For SBA + Seller Finance, split the loan amount between SBA and Seller Finance
-        const sbaLoanAmount = loanAmount * 0.75; // 75% SBA
-        const sellerFinanceAmount = loanAmount * 0.25; // 25% Seller Finance
+        // Split loan amount between SBA and Seller Finance
+        const sbaLoanAmount = loanAmount * 0.75; // 75% for SBA
+        const sellerFinanceAmount = loanAmount * 0.25; // 25% for Seller Finance
 
         // SBA Loan Calculation
-        const sbaDebtService = window.calculateAnnualDebtService(sbaLoanAmount, interestRate1, loanTerm1);
+        const sbaInterestRate = parseFloat(document.getElementById('interestRate1').value) || 0;
+        const sbaLoanTerm = parseInt(document.getElementById('loanTerm1').value, 10) || 0;
+        const sbaDebtService = window.calculateAnnualDebtService(sbaLoanAmount, sbaInterestRate, sbaLoanTerm);
         totalDebtService += sbaDebtService;
         loanBreakdown += `<p>SBA Loan Payment: $${sbaDebtService.toLocaleString('en-US')}</p>`;
 
-        // Seller Finance Loan Calculation (from second loan row)
-        const interestRate2 = parseFloat(document.getElementById('interestRate2').value) || 0;
-        const loanTerm2 = parseInt(document.getElementById('loanTerm2').value, 10) || 0;
-        const sellerDebtService = window.calculateAnnualDebtService(sellerFinanceAmount, interestRate2, loanTerm2);
+        // Seller Finance Loan Calculation
+        const sellerInterestRate = parseFloat(document.getElementById('interestRate2').value) || 0;
+        const sellerLoanTerm = parseInt(document.getElementById('loanTerm2').value, 10) || 0;
+        const sellerDebtService = window.calculateAnnualDebtService(sellerFinanceAmount, sellerInterestRate, sellerLoanTerm);
         totalDebtService += sellerDebtService;
         loanBreakdown += `<p>Seller Finance Loan Payment: $${sellerDebtService.toLocaleString('en-US')}</p>`;
     }
 
-    // Display loan breakdown and total debt service
     document.getElementById('loanBreakdown').innerHTML = loanBreakdown;
     document.getElementById('totalDebtService').textContent = totalDebtService.toLocaleString('en-US');
 
     // Recalculate Earnings Section based on the new debt service
     window.calculateEarnings(totalDebtService);
 };
-
 
 
 // Function to calculate annual debt service

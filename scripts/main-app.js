@@ -1138,7 +1138,10 @@ window.getDealDataFromForm = function() {
     revenueInputs.forEach((input, index) => {
         const revenue = input.value;
         const cashflow = cashflowInputs[index].value;
-        revenueCashflowEntries.push({ revenue: parseFloat(revenue) || 0, cashflow: parseFloat(cashflow) || 0 });
+        revenueCashflowEntries.push({
+            revenue: parseFloat(revenue.replace(/[^\d.-]/g, '')) || 0,
+            cashflow: parseFloat(cashflow.replace(/[^\d.-]/g, '')) || 0
+        });
     });
 
     return {
@@ -1147,6 +1150,7 @@ window.getDealDataFromForm = function() {
         revenueCashflowEntries
     };
 };
+
 
 // Function to update the Buy Box Checklist
 window.updateBuyBoxChecklist = function(deal) {
@@ -1228,10 +1232,9 @@ window.updateBuyBoxChecklist = function(deal) {
 
 // Function to trigger Buy Box Checklist update in real-time
 window.triggerBuyBoxUpdate = function() {
-    const deal = collectCurrentDealData(); // Ensure you have a function that collects current input data
-    updateBuyBoxChecklist(deal);
+    const deal = window.getDealDataFromForm();  // Collect current form data
+    window.updateBuyBoxChecklist(deal);  // Update the Buy Box Checklist
 };
-
 
 // Function to collect current deal data (used to trigger updates in real-time)
 window.collectCurrentDealData = function() {
@@ -1264,20 +1267,14 @@ window.updateAskingPrice = function() {
     let askingPrice = document.getElementById('askingPrice').value;
     let realEstatePrice = document.getElementById('realEstatePrice').value;
 
-    // Strip non-numeric characters from input (dollar signs, commas)
     askingPrice = parseFloat(askingPrice.replace(/[^\d.-]/g, '')) || 0;
     realEstatePrice = parseFloat(realEstatePrice.replace(/[^\d.-]/g, '')) || 0;
 
     const includeRealEstate = document.getElementById('toggleRealEstate').value === 'with';
-
-    // Calculate asking price with or without real estate
     const adjustedAskingPrice = includeRealEstate ? askingPrice : askingPrice - realEstatePrice;
 
-    // Use the loan amount from the form instead of asking price in debt calculation
     document.getElementById('displayAskingPrice').textContent = adjustedAskingPrice.toLocaleString('en-US');
-
-    // Recalculate debt service based on the loan amount
-    calculateDebtService();
+    window.calculateDebtService(adjustedAskingPrice);  // Recalculate debt service
 };
 
 

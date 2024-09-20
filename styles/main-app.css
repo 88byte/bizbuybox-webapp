@@ -825,6 +825,7 @@ button:hover {
     text-align: left;
     color: #f5f5f5;
     font-size: 14px;
+    align-items: left;
 }
 
 /* Input Items */

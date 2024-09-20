@@ -416,6 +416,7 @@ window.editDeal = function(dealId) {
 		}
 
 
+
         // Populate documents
 		const documentList = document.getElementById('documentList');
 		documentList.innerHTML = ''; // Clear current documents
@@ -824,16 +825,30 @@ window.deleteDeal = async function(dealId) {
 
 // Function to format numbers as dollar amounts with commas, no decimals, and a dollar sign
 window.formatAsCurrency = function(input) {
-    // Remove any non-digit characters, except for commas
-    let value = input.value.replace(/[^\d]/g, '');
+    // Check if input is an object and has a value property, if not assume input is a number or string
+    let value = typeof input === 'object' && input !== null ? input.value : input;
 
-    if (value === '') {
-        input.value = ''; // Set input to an empty string to show placeholder
+    if (typeof value === 'string') {
+        // Remove any non-digit characters, except for commas
+        value = value.replace(/[^\d]/g, '');
+    }
+
+    if (value === '' || isNaN(value)) {
+        value = ''; // Set to empty string if invalid
     } else {
         // Format value as currency with dollar sign and commas
-        input.value = '$' + parseInt(value, 10).toLocaleString('en-US');
+        value = '$' + parseInt(value, 10).toLocaleString('en-US');
     }
-}
+
+    // If input is an object, update its value
+    if (typeof input === 'object' && input !== null) {
+        input.value = value;
+    } 
+
+    // Return the formatted value in case it's needed for display elsewhere
+    return value;
+};
+
 
 // Add event listeners for each field
 window.addCurrencyFormattingListeners = function() {

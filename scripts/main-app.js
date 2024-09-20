@@ -1227,6 +1227,7 @@ window.updateBuyBoxChecklist = function(deal) {
 };
 
 
+
 // Function to trigger Buy Box Checklist update in real-time
 window.triggerBuyBoxUpdate = function() {
     const deal = collectCurrentDealData(); // Ensure you have a function that collects current input data

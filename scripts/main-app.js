@@ -577,7 +577,7 @@ window.saveDeal = async function() {
         // Step 3: Merge the document URLs into the deal document in Firestore
         await setDoc(doc(dealsCollection, dealId), { documents: uploadedDocumentURLs }, { merge: true });
 
-        // Refresh the deals array by calling fetchDeals() to make sure we have the latest data
+        // Step 4: Fetch the latest deals and update the deals array
         await fetchDeals();  // Fetch the updated list of deals from Firestore
 
         showToast('Deal saved successfully!');
@@ -587,6 +587,7 @@ window.saveDeal = async function() {
         showToast('Error saving deal: ' + error.message, false);
     }
 };
+
 
 
 
@@ -775,22 +776,26 @@ window.deleteDeal = async function(dealId) {
 
 
 
-// Function to fetch and display deals
-window.fetchDeals = async function() {
-    const user = auth.currentUser;
-    if (!user) return;
+// Function to fetch deals from Firestore and update the deals array
+async function fetchDeals() {
+    const dealsCollection = collection(db, 'deals');
+    const dealsSnapshot = await getDocs(dealsCollection);
 
-    try {
-        const dealsCollection = collection(db, 'deals');
-        const dealsSnapshot = await getDocs(query(dealsCollection, where("userId", "==", user.uid)));
+    // Clear the deals array before adding the latest deals
+    deals = [];
 
-        deals = dealsSnapshot.docs.map(doc => doc.data()); // Fetch all deals for the user
+    // Populate the deals array with the fetched data
+    dealsSnapshot.forEach((doc) => {
+        deals.push({
+            dealId: doc.id,  // Store the Firestore document ID
+            ...doc.data()     // Spread the rest of the deal data
+        });
+    });
 
-        renderDeals(); // Render deal cards on the dashboard
-    } catch (error) {
-        console.error('Error fetching deals:', error);
-    }
-};
+    // Call the function to render or refresh deals on the UI
+    renderDeals();
+}
+
 
 // Function to render deals on the dashboard
 function renderDeals() {

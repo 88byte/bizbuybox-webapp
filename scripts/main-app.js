@@ -458,6 +458,7 @@ window.editDeal = function(dealId) {
 
         // Call the function to update calculations based on the form data
         updateAskingPrice();
+        setupRealTimeUpdates(); 
 
         // Open the modal using the new method
         openCardModal();
@@ -1330,8 +1331,6 @@ function calculateAnnualDebtService(amount, interestRate, termYears) {
 
 // Function to calculate earnings section
 function calculateEarnings(totalDebtService) {
-    const totalRevenue = document.getElementById('revenueCashflowSection').getElementsByTagName('input');
-    let avgCashflow = 0;
     let totalCashflow = 0;
 
     // Calculate total and average cashflow from the form
@@ -1339,28 +1338,28 @@ function calculateEarnings(totalDebtService) {
     cashflows.forEach(input => {
         totalCashflow += parseFloat(input.value.replace(/[^\d.-]/g, '')) || 0;
     });
-    avgCashflow = totalCashflow / cashflows.length;
-
-    const avgProfitMargin = avgCashflow / totalRevenue;
-
-    // Update the display
-    document.getElementById('avgProfitMarginDisplay').textContent = avgProfitMargin.toFixed(2);
-    document.getElementById('avgCashflowDisplay').textContent = avgCashflow.toLocaleString('en-US');
+    const avgCashflow = totalCashflow / cashflows.length;
 
     // Calculate cashflow after debt service
     const cashflowAfterDebt = avgCashflow - totalDebtService;
-    document.getElementById('cashflowAfterDebt').textContent = cashflowAfterDebt.toLocaleString('en-US');
 
     // Placeholder for cashflow after debt and investor pay (will update this logic later)
     const cashflowAfterDebtAndInvestor = cashflowAfterDebt; // Assuming no investor pay yet
+
+    // Update the display
+    document.getElementById('avgProfitMarginDisplay').textContent = (avgCashflow / totalCashflow * 100).toFixed(2) + '%';
+    document.getElementById('avgCashflowDisplay').textContent = avgCashflow.toLocaleString('en-US');
+    document.getElementById('cashflowAfterDebt').textContent = cashflowAfterDebt.toLocaleString('en-US');
     document.getElementById('cashflowAfterDebtAndInvestor').textContent = cashflowAfterDebtAndInvestor.toLocaleString('en-US');
 }
 
 // Real-time update triggers
-document.getElementById('askingPrice').addEventListener('input', updateAskingPrice);
-document.getElementById('realEstatePrice').addEventListener('input', updateAskingPrice);
-document.getElementById('downPayment').addEventListener('input', updateAskingPrice);
-document.getElementById('loanType').addEventListener('change', updateAskingPrice);
-document.querySelectorAll('input[name="cashflow[]"]').forEach(input => {
-    input.addEventListener('input', updateAskingPrice);
-});
+function setupRealTimeUpdates() {
+    document.getElementById('askingPrice').addEventListener('input', updateAskingPrice);
+    document.getElementById('realEstatePrice').addEventListener('input', updateAskingPrice);
+    document.getElementById('downPayment').addEventListener('input', updateAskingPrice);
+    document.getElementById('loanType').addEventListener('change', updateAskingPrice);
+    document.querySelectorAll('input[name="cashflow[]"]').forEach(input => {
+        input.addEventListener('input', updateAskingPrice);
+    });
+}

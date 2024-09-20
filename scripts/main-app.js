@@ -926,10 +926,11 @@ window.addRevenueCashflowRow = function() {
 
     document.getElementById('revenueCashflowSection').appendChild(newRow);
 
-    // Apply formatting on new row inputs
+    // Apply formatting immediately to new row inputs
     const newRevenueInput = document.getElementById(`revenue${revenueCashflowCount}`);
     const newCashflowInput = document.getElementById(`cashflow${revenueCashflowCount}`);
-
+    
+    // Ensure input fields are formatted as currency
     newRevenueInput.value = formatCurrency(newRevenueInput.value);
     newCashflowInput.value = formatCurrency(newCashflowInput.value);
 };
@@ -952,7 +953,7 @@ window.updateProfitMargin = function(inputElement) {
     const row = inputElement.closest('.revenue-cashflow-row');
     const revenueInput = row.querySelector('input[name="revenue[]"]');
     const cashflowInput = row.querySelector('input[name="cashflow[]"]');
-    const profitMarginElement = row.querySelector('.profit-column span');  // Update class name to match
+    const profitMarginElement = row.querySelector('.profit-column span');
 
     if (!profitMarginElement) {
         console.error('Profit column element not found');
@@ -970,7 +971,6 @@ window.updateProfitMargin = function(inputElement) {
     revenueInput.value = formatCurrency(revenueInput.value);
     cashflowInput.value = formatCurrency(cashflowInput.value);
 };
-
 
 // Function to re-index the Revenue and Cashflow rows
 function reindexRows() {

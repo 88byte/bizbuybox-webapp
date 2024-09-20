@@ -396,21 +396,22 @@ window.editDeal = function(dealId) {
 		        const newRow = document.createElement('div');
 		        newRow.classList.add('revenue-cashflow-row');
 		        newRow.innerHTML = `
-		            <div class="input-item button-container">
-		                <button type="button" class="btn-remove" onclick="removeRevenueCashflowRow(this)">−</button>
-		            </div>
-		            <div class="input-item year-text">
-		                <div contenteditable="true" class="editable-year" name="revenueYear[]" id="revenueYear${index + 1}">${entry.year}</div>
-		            </div>
-		            <div class="input-item small-input revenue-column">
-		                <input type="text" name="revenue[]" id="revenue${index + 1}" value="${formatAsCurrency(entry.revenue)}" oninput="updateProfitMargin(this)">
-		            </div>
-		            <div class="input-item small-input cashflow-column">
-		                <input type="text" name="cashflow[]" id="cashflow${index + 1}" value="${formatAsCurrency(entry.cashflow)}" oninput="updateProfitMargin(this)">
-		            </div>
-		            <div class="input-item profit-column">
-		                <span id="profitMargin${index + 1}">0%</span>
-		            </div>`;
+				    <div class="button-container">
+				        <button class="btn-remove" onclick="removeRevenueCashflowRow(this)">−</button>
+				    </div>
+				    <div class="input-item year-text">
+				        <div contenteditable="true" class="editable-year" name="revenueYear[]" id="revenueYear${revenueCashflowCount}">Year</div>
+				    </div>
+				    <div class="input-item small-input">
+				        <input type="text" name="revenue[]" id="revenue${revenueCashflowCount}" oninput="updateProfitMargin(this)">
+				    </div>
+				    <div class="input-item small-input">
+				        <input type="text" name="cashflow[]" id="cashflow${revenueCashflowCount}" oninput="updateProfitMargin(this)">
+				    </div>
+				    <div class="input-item profit-margin">
+				        <span id="profitMargin${revenueCashflowCount}">0%</span>
+				    </div>
+				`;
 
 		        revenueCashflowSection.appendChild(newRow);
 
@@ -951,7 +952,12 @@ window.updateProfitMargin = function(inputElement) {
     const row = inputElement.closest('.revenue-cashflow-row');
     const revenueInput = row.querySelector('input[name="revenue[]"]');
     const cashflowInput = row.querySelector('input[name="cashflow[]"]');
-    const profitMarginElement = row.querySelector('.profit-margin span');
+    const profitMarginElement = row.querySelector('.profit-margin span');  // Update class name to match
+
+    if (!profitMarginElement) {
+        console.error('Profit margin element not found');
+        return;
+    }
 
     // Remove formatting to perform calculation
     const revenue = parseFloat(revenueInput.value.replace(/[^\d.-]/g, '')) || 0;
@@ -964,6 +970,7 @@ window.updateProfitMargin = function(inputElement) {
     revenueInput.value = formatCurrency(revenueInput.value);
     cashflowInput.value = formatCurrency(cashflowInput.value);
 };
+
 
 // Function to re-index the Revenue and Cashflow rows
 function reindexRows() {

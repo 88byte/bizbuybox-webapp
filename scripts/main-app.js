@@ -1252,3 +1252,104 @@ window.collectCurrentDealData = function() {
 
 // Call this when the modal opens to add real-time event listeners
 window.addRealTimeChecklistUpdates();
+
+
+// Function to update Asking Price and Real Estate Toggle
+function updateAskingPrice() {
+    const askingPrice = parseFloat(document.getElementById('askingPrice').value) || 0;
+    const realEstatePrice = parseFloat(document.getElementById('realEstatePrice').value) || 0;
+    const includeRealEstate = document.getElementById('toggleRealEstate').value === 'with';
+
+    const adjustedAskingPrice = includeRealEstate ? askingPrice : askingPrice - realEstatePrice;
+    document.getElementById('displayAskingPrice').textContent = adjustedAskingPrice.toLocaleString('en-US');
+
+    // Recalculate debt service based on the new asking price
+    calculateDebtService(adjustedAskingPrice);
+}
+
+// Function to calculate debt service
+function calculateDebtService(adjustedAskingPrice) {
+    const downPayment = parseFloat(document.getElementById('downPayment').value) || 0;
+    const loanAmount = adjustedAskingPrice - downPayment;
+    let totalDebtService = 0;
+    let loanBreakdown = '';
+
+    const loanType = document.getElementById('loanType').value;
+    const interestRate1 = parseFloat(document.getElementById('interestRate1').value) || 0;
+    const loanTerm1 = parseInt(document.getElementById('loanTerm1').value, 10) || 0;
+
+    if (loanType === 'SBA' || loanType === 'Seller Finance' || loanType === 'Blended') {
+        const annualDebtService1 = calculateAnnualDebtService(loanAmount, interestRate1, loanTerm1);
+        totalDebtService += annualDebtService1;
+        loanBreakdown += `<p>${loanType} Loan Payment: $${annualDebtService1.toLocaleString('en-US')}</p>`;
+    } else if (loanType === 'SBA + Seller Finance') {
+        // Split loan amount between SBA and Seller Finance (adjust percentages as needed)
+        const sbaLoanAmount = loanAmount * 0.75;
+        const sellerFinanceAmount = loanAmount * 0.25;
+
+        // SBA Loan Calculation
+        const sbaDebtService = calculateAnnualDebtService(sbaLoanAmount, interestRate1, loanTerm1);
+        totalDebtService += sbaDebtService;
+        loanBreakdown += `<p>SBA Loan Payment: $${sbaDebtService.toLocaleString('en-US')}</p>`;
+
+        // Seller Finance Loan Calculation
+        const interestRate2 = parseFloat(document.getElementById('interestRate2').value) || 0;
+        const loanTerm2 = parseInt(document.getElementById('loanTerm2').value, 10) || 0;
+        const sellerDebtService = calculateAnnualDebtService(sellerFinanceAmount, interestRate2, loanTerm2);
+        totalDebtService += sellerDebtService;
+        loanBreakdown += `<p>Seller Finance Loan Payment: $${sellerDebtService.toLocaleString('en-US')}</p>`;
+    }
+
+    document.getElementById('loanBreakdown').innerHTML = loanBreakdown;
+    document.getElementById('totalDebtService').textContent = totalDebtService.toLocaleString('en-US');
+
+    // Recalculate Earnings Section based on the new debt service
+    calculateEarnings(totalDebtService);
+}
+
+// Function to calculate annual debt service
+function calculateAnnualDebtService(amount, interestRate, termYears) {
+    if (interestRate <= 0 || termYears <= 0 || amount <= 0) return 0;
+    const monthlyRate = interestRate / 100 / 12;
+    const numPayments = termYears * 12;
+    const monthlyPayment = (amount * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -numPayments));
+    return monthlyPayment * 12; // Annual payment
+}
+
+// Function to calculate earnings section
+function calculateEarnings(totalDebtService) {
+    const totalRevenue = document.getElementById('revenueCashflowSection').getElementsByTagName('input');
+    let avgCashflow = 0;
+    let totalCashflow = 0;
+
+    // Calculate total and average cashflow from the form
+    const cashflows = document.querySelectorAll('input[name="cashflow[]"]');
+    cashflows.forEach(input => {
+        totalCashflow += parseFloat(input.value.replace(/[^\d.-]/g, '')) || 0;
+    });
+    avgCashflow = totalCashflow / cashflows.length;
+
+    const avgProfitMargin = avgCashflow / totalRevenue;
+
+    // Update the display
+    document.getElementById('avgProfitMarginDisplay').textContent = avgProfitMargin.toFixed(2);
+    document.getElementById('avgCashflowDisplay').textContent = avgCashflow.toLocaleString('en-US');
+
+    // Calculate cashflow after debt service
+    const cashflowAfterDebt = avgCashflow - totalDebtService;
+    document.getElementById('cashflowAfterDebt').textContent = cashflowAfterDebt.toLocaleString('en-US');
+
+    // Placeholder for cashflow after debt and investor pay (will update this logic later)
+    const cashflowAfterDebtAndInvestor = cashflowAfterDebt; // Assuming no investor pay yet
+    document.getElementById('cashflowAfterDebtAndInvestor').textContent = cashflowAfterDebtAndInvestor.toLocaleString('en-US');
+}
+
+// Real-time update triggers
+document.getElementById('askingPrice').addEventListener('input', updateAskingPrice);
+document.getElementById('realEstatePrice').addEventListener('input', updateAskingPrice);
+document.getElementById('downPayment').addEventListener('input', updateAskingPrice);
+document.getElementById('loanType').addEventListener('change', updateAskingPrice);
+document.querySelectorAll('input[name="cashflow[]"]').forEach(input => {
+    input.addEventListener('input', updateAskingPrice);
+});
+

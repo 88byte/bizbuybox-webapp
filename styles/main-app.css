@@ -800,6 +800,8 @@ button:hover {
     grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 12px;
     margin-bottom: 2px;
+    text-align: left;
+
 }
 
 .revenue-cashflow-row {
@@ -820,7 +822,7 @@ button:hover {
 .input-item.profit-column span {
     display: inline-block;
     width: 100%;
-    text-align: right;
+    text-align: left;
     color: #f5f5f5;
     font-size: 14px;
 }

@@ -952,10 +952,10 @@ window.updateProfitMargin = function(inputElement) {
     const row = inputElement.closest('.revenue-cashflow-row');
     const revenueInput = row.querySelector('input[name="revenue[]"]');
     const cashflowInput = row.querySelector('input[name="cashflow[]"]');
-    const profitMarginElement = row.querySelector('.profit-margin span');  // Update class name to match
+    const profitMarginElement = row.querySelector('.profit-column span');  // Update class name to match
 
     if (!profitMarginElement) {
-        console.error('Profit margin element not found');
+        console.error('Profit column element not found');
         return;
     }
 
@@ -986,7 +986,7 @@ function reindexRows() {
         revenueYearInput.id = `revenueYear${rowNumber}`;
         revenueInput.id = `revenue${rowNumber}`;
         cashflowInput.id = `cashflow${rowNumber}`;
-        row.querySelector('.profit-margin span').id = `profitMargin${rowNumber}`;
+        row.querySelector('.profit-column span').id = `profitMargin${rowNumber}`;
     });
 }
 

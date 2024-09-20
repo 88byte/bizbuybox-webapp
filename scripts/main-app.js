@@ -1269,7 +1269,10 @@ function updateAskingPrice() {
 
     const includeRealEstate = document.getElementById('toggleRealEstate').value === 'with';
 
+    // Calculate asking price with or without real estate
     const adjustedAskingPrice = includeRealEstate ? askingPrice : askingPrice - realEstatePrice;
+    
+    // Update the display
     document.getElementById('displayAskingPrice').textContent = adjustedAskingPrice.toLocaleString('en-US');
 
     // Recalculate debt service based on the new asking price

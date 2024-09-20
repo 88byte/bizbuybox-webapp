@@ -1299,7 +1299,6 @@ function calculateDebtService(adjustedAskingPrice) {
         totalDebtService += annualDebtService1;
         loanBreakdown += `<p>${loanType} Loan Payment: $${annualDebtService1.toLocaleString('en-US')}</p>`;
     } else if (loanType === 'SBA + Seller Finance') {
-        // Split loan amount between SBA and Seller Finance (adjust percentages as needed)
         const sbaLoanAmount = loanAmount * 0.75;
         const sellerFinanceAmount = loanAmount * 0.25;
 

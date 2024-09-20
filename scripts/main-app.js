@@ -1284,26 +1284,24 @@ window.updateAskingPrice = function() {
 
 // Function to calculate debt service dynamically based on the loan amount, interest rate, and term
 window.calculateDebtService = function() {
-    let downPayment = parseFloat(document.getElementById('downPayment').value.replace(/[^\d.-]/g, '')) || 0;
-    let loanAmount = parseFloat(document.getElementById('loanAmount1').value.replace(/[^\d.-]/g, '')) || 0;
-
-    const adjustedLoanAmount = loanAmount - downPayment;  // Use loan amount minus down payment
     let totalDebtService = 0;
     let loanBreakdown = '';
 
     const loanType = document.getElementById('loanType').value;
     const interestRate1 = parseFloat(document.getElementById('interestRate1').value) || 0;
     const loanTerm1 = parseInt(document.getElementById('loanTerm1').value, 10) || 0;
+    let loanAmount1 = parseFloat(document.getElementById('loanAmount1').value.replace(/[^\d.-]/g, '')) || 0; // SBA Loan Amount
 
     if (loanType === 'SBA' || loanType === 'Seller Finance' || loanType === 'Blended') {
-        const annualDebtService1 = window.calculateAnnualDebtService(adjustedLoanAmount, interestRate1, loanTerm1);
+        // For single loan types, just calculate debt service for loanAmount1
+        const annualDebtService1 = window.calculateAnnualDebtService(loanAmount1, interestRate1, loanTerm1);
         totalDebtService += annualDebtService1;
         loanBreakdown += `<p>${loanType} Loan Payment: $${annualDebtService1.toLocaleString('en-US')}</p>`;
     } else if (loanType === 'SBA + Seller Finance') {
-        const sbaLoanAmount = adjustedLoanAmount * 0.75;
-        const sellerFinanceAmount = adjustedLoanAmount * 0.25;
+        // For SBA + Seller Finance, we handle two separate loans
 
         // SBA Loan Calculation
+        const sbaLoanAmount = parseFloat(document.getElementById('loanAmount1').value.replace(/[^\d.-]/g, '')) || 0;
         const sbaDebtService = window.calculateAnnualDebtService(sbaLoanAmount, interestRate1, loanTerm1);
         totalDebtService += sbaDebtService;
         loanBreakdown += `<p>SBA Loan Payment: $${sbaDebtService.toLocaleString('en-US')}</p>`;
@@ -1311,7 +1309,8 @@ window.calculateDebtService = function() {
         // Seller Finance Loan Calculation
         const interestRate2 = parseFloat(document.getElementById('interestRate2').value) || 0;
         const loanTerm2 = parseInt(document.getElementById('loanTerm2').value, 10) || 0;
-        const sellerDebtService = window.calculateAnnualDebtService(sellerFinanceAmount, interestRate2, loanTerm2);
+        const sellerLoanAmount = parseFloat(document.getElementById('loanAmount2').value.replace(/[^\d.-]/g, '')) || 0; // Seller Finance Loan Amount
+        const sellerDebtService = window.calculateAnnualDebtService(sellerLoanAmount, interestRate2, loanTerm2);
         totalDebtService += sellerDebtService;
         loanBreakdown += `<p>Seller Finance Loan Payment: $${sellerDebtService.toLocaleString('en-US')}</p>`;
     }
@@ -1321,7 +1320,6 @@ window.calculateDebtService = function() {
     window.calculateEarnings(totalDebtService);  // Recalculate earnings
 };
 
-
 // Function to calculate annual debt service
 window.calculateAnnualDebtService = function(amount, interestRate, termYears) {
     if (interestRate <= 0 || termYears <= 0 || amount <= 0) return 0;
@@ -1330,6 +1328,7 @@ window.calculateAnnualDebtService = function(amount, interestRate, termYears) {
     const monthlyPayment = (amount * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -numPayments));
     return monthlyPayment * 12; // Annual payment
 };
+
 
 // Function to calculate earnings section
 window.calculateEarnings = function(totalDebtService) {

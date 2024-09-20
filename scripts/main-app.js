@@ -742,19 +742,20 @@ window.addSecondLoanRow = function() {
 
         newRow.innerHTML = `
             <div class="input-item">
-                <input class="loan-input-row" type="text" id="interestRate2" placeholder="Interest Rate (%)" value="11.5" />
+                <input type="text" class="loan-input-item" id="interestRate2" placeholder="Interest Rate (%)" value="11.5" />
             </div>
             <div class="input-item">
-                <input class="loan-input-row" type="text" id="loanTerm2" placeholder="Loan Term (Years)" value="10" />
+                <input type="text" class="loan-input-item" id="loanTerm2" placeholder="Loan Term (Years)" value="10" />
             </div>
             <div class="input-item">
-                <input class="loan-input-row" type="text" id="loanAmount2" placeholder="Loan Amount ($)" value="0" />
+                <input type="text" class="loan-input-item" id="loanAmount2" placeholder="Loan Amount ($)" value="0" />
             </div>
         `;
 
         additionalLoanDetails.appendChild(newRow);
     }
 };
+
 
 // Function to remove the second loan details row
 window.removeSecondLoanRow = function() {

@@ -701,6 +701,10 @@ window.handleLoanTypeChange = function() {
     const loanTerm1 = document.getElementById('loanTerm1');
     const loanAmount1 = document.getElementById('loanAmount1');
 
+    // Always remove the second loan row before applying new loan type values
+    window.removeSecondLoanRow(); 
+
+    // Apply new loan type settings
     if (loanType === 'SBA') {
         interestRate1.value = '11.5';
         loanTerm1.value = '10';
@@ -714,20 +718,18 @@ window.handleLoanTypeChange = function() {
         loanTerm1.value = '15';
         loanAmount1.value = '0';
     } else if (loanType === 'SBA + Seller Finance') {
-        // For SBA + Seller Finance, pre-fill first row and add a second row
+        // Pre-fill first row and add a second row for SBA + Seller Finance
         interestRate1.value = '11.5';
         loanTerm1.value = '10';
         loanAmount1.value = '0';
         window.addSecondLoanRow();
     } else {
-        // Clear the fields when selecting other loan types
+        // Clear the fields for other loan types
         interestRate1.value = '';
         loanTerm1.value = '';
         loanAmount1.value = '';
-        window.removeSecondLoanRow(); // Ensure second row is removed if any
     }
-}
-
+};
 
 // Function to add second loan details row (for SBA + Seller Finance)
 window.addSecondLoanRow = function() {
@@ -752,7 +754,7 @@ window.addSecondLoanRow = function() {
 
         additionalLoanDetails.appendChild(newRow);
     }
-}
+};
 
 // Function to remove the second loan details row
 window.removeSecondLoanRow = function() {

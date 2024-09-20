@@ -1112,7 +1112,6 @@ window.closeDocModal = function() {
 
 // Add real-time update event listeners
 window.addRealTimeChecklistUpdates = function() {
-    // Attach input event listeners to relevant inputs
     const revenueInputs = document.querySelectorAll('input[name="revenue[]"]');
     const cashflowInputs = document.querySelectorAll('input[name="cashflow[]"]');
     const yearsInBusinessInput = document.getElementById('yearsInBusiness');
@@ -1123,8 +1122,10 @@ window.addRealTimeChecklistUpdates = function() {
     cashflowInputs.forEach(input => input.addEventListener('input', triggerBuyBoxUpdate));
     yearsInBusinessInput.addEventListener('input', triggerBuyBoxUpdate);
     fullTimeEmployeesInput.addEventListener('input', triggerBuyBoxUpdate);
-};
 
+    // Attach listeners for newly added rows dynamically
+    document.getElementById('revenueCashflowSection').addEventListener('input', triggerBuyBoxUpdate);
+};
 // Function to get deal data from the form (for real-time updates)
 window.getDealDataFromForm = function() {
     const yearsInBusiness = document.getElementById('yearsInBusiness').value;

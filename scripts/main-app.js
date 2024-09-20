@@ -438,7 +438,20 @@ window.editDeal = function(dealId) {
 
 
 
+// Function to upload documents to Firebase Storage and return the file URLs
+async function uploadDocuments(dealId) {
+    const storageRef = ref(storage, `deals/${dealId}/documents/`);
+    const uploadedURLs = [];
 
+    for (const file of window.uploadedDocuments) {
+        const fileRef = ref(storageRef, file.name);
+        await uploadBytes(fileRef, file);
+        const fileURL = await getDownloadURL(fileRef);
+        uploadedURLs.push({ name: file.name, url: fileURL });
+    }
+
+    return uploadedURLs;
+}
 
 
 // Function to save a new or edited deal
@@ -480,14 +493,6 @@ window.saveDeal = async function() {
         });
     });
 
-
-
-    // Gather document data (you can use FormData for the file uploads)
-    const formData = new FormData();
-    window.uploadedDocuments.forEach((file, index) => {
-        formData.append(`documents[${index}]`, file);
-    });
-
     // Create deal data object
     const dealData = {
         businessName: document.getElementById('businessName').value,
@@ -522,23 +527,51 @@ window.saveDeal = async function() {
         const dealsCollection = collection(db, 'deals');
         await setDoc(doc(dealsCollection, dealId), dealData);
 
-        // Handle document upload via API
-        const uploadResponse = await fetch(`/api/deals/${dealId}/upload-documents`, {
-            method: 'POST',
-            body: formData
-        });
-        if (!uploadResponse.ok) {
-            throw new Error('Error uploading documents');
-        }
+        // Upload documents to Firebase Storage
+        const uploadedDocumentURLs = await uploadDocuments(dealId);
 
-        showToast('Deal saved successfully!');
-        closeCardModal();
-        fetchDeals(); // Refresh deals on the dashboard
-    } catch (error) {
-        console.error('Error saving deal:', error);
-        showToast('Error saving deal: ' + error.message, false);
+        // Add the document URLs to the deal data in Fire
+
+
+
+
+
+
+// Global object to store uploaded documents
+window.uploadedDocuments = [];
+
+// Function to handle the document upload in the modal (before saving to Firebase)
+window.uploadDocument = function() {
+    const documentList = document.getElementById('documentList');
+    const fileInput = document.getElementById('documentFile');
+    const files = fileInput.files;
+
+    // Iterate through the files and display them in the modal
+    for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const fileElement = document.createElement('div');
+        fileElement.textContent = `${file.name}`;
+
+        // Add delete button next to the file name
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.classList.add('delete-document');
+        deleteButton.onclick = function() {
+            documentList.removeChild(fileElement);
+            window.uploadedDocuments = window.uploadedDocuments.filter(doc => doc !== file);
+        };
+        fileElement.appendChild(deleteButton);
+
+        documentList.appendChild(fileElement);
+        window.uploadedDocuments.push(file); // Add to global list of uploaded documents
     }
+
+    // Clear the file input after uploading
+    fileInput.value = '';
 };
+
+
+
 
 
 
@@ -904,75 +937,6 @@ window.closeDocModal = function() {
     document.getElementById('docModal').style.display = 'none';
 }
 
-// Function to handle the document upload and display them in the list
-window.uploadDocument = function() {
-    const documentList = document.getElementById('documentList');
-    const fileInput = document.getElementById('documentFile');
-    const files = fileInput.files;
-
-    // Iterate through the files and display them in the modal
-    for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        const fileElement = document.createElement('div');
-        fileElement.textContent = `${file.name}`;
-        
-        // Add delete button next to the file name
-        const deleteButton = document.createElement('button');
-        deleteButton.textContent = 'Delete';
-        deleteButton.classList.add('delete-document');
-        deleteButton.onclick = function() {
-            documentList.removeChild(fileElement);
-        };
-        fileElement.appendChild(deleteButton);
-        
-        documentList.appendChild(fileElement);
-    }
-
-    // Clear the file input after uploading
-    fileInput.value = '';
-};
 
 
-// Global object to store uploaded documents
-window.uploadedDocuments = [];
 
-// Function to handle the document upload
-window.uploadDocument = function() {
-    const documentList = document.getElementById('documentList');
-    const fileInput = document.getElementById('documentFile');
-    const files = fileInput.files;
-
-    // Iterate through the files and display them in the modal
-    for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        const fileElement = document.createElement('div');
-        fileElement.textContent = `${file.name}`;
-
-        // Add view button next to the file name
-        const viewButton = document.createElement('button');
-        viewButton.textContent = 'View';
-        viewButton.classList.add('view-document');
-        viewButton.onclick = function() {
-            // Create a URL for the file and open it in a new tab
-            const fileURL = URL.createObjectURL(file);
-            window.open(fileURL, '_blank');
-        };
-        fileElement.appendChild(viewButton);
-
-        // Add delete button next to the file name
-        const deleteButton = document.createElement('button');
-        deleteButton.textContent = 'Delete';
-        deleteButton.classList.add('delete-document');
-        deleteButton.onclick = function() {
-            documentList.removeChild(fileElement);
-            window.uploadedDocuments = window.uploadedDocuments.filter(doc => doc !== file);
-        };
-        fileElement.appendChild(deleteButton);
-
-        documentList.appendChild(fileElement);
-        window.uploadedDocuments.push(file); // Add to global list of uploaded documents
-    }
-
-    // Clear the file input after uploading
-    fileInput.value = '';
-};

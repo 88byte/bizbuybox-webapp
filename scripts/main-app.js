@@ -1091,33 +1091,17 @@ window.closeDocModal = function() {
 
 // Add real-time update event listeners
 window.addRealTimeChecklistUpdates = function() {
-    const yearsInBusinessInput = document.getElementById('yearsInBusiness');
-    const fullTimeEmployeesInput = document.getElementById('fullTimeEmployees');
+    // Attach input event listeners to relevant inputs
     const revenueInputs = document.querySelectorAll('input[name="revenue[]"]');
     const cashflowInputs = document.querySelectorAll('input[name="cashflow[]"]');
+    const yearsInBusinessInput = document.getElementById('yearsInBusiness');
+    const fullTimeEmployeesInput = document.getElementById('fullTimeEmployees');
 
-    // Event listener for years in business
-    yearsInBusinessInput.addEventListener('input', function() {
-        window.updateBuyBoxChecklist(window.getDealDataFromForm());
-    });
-
-    // Event listener for full-time employees
-    fullTimeEmployeesInput.addEventListener('input', function() {
-        window.updateBuyBoxChecklist(window.getDealDataFromForm());
-    });
-
-    // Event listeners for revenue and cashflow
-    revenueInputs.forEach(input => {
-        input.addEventListener('input', function() {
-            window.updateBuyBoxChecklist(window.getDealDataFromForm());
-        });
-    });
-
-    cashflowInputs.forEach(input => {
-        input.addEventListener('input', function() {
-            window.updateBuyBoxChecklist(window.getDealDataFromForm());
-        });
-    });
+    // Update when revenue, cashflow, years in business, or full-time employees change
+    revenueInputs.forEach(input => input.addEventListener('input', triggerBuyBoxUpdate));
+    cashflowInputs.forEach(input => input.addEventListener('input', triggerBuyBoxUpdate));
+    yearsInBusinessInput.addEventListener('input', triggerBuyBoxUpdate);
+    fullTimeEmployeesInput.addEventListener('input', triggerBuyBoxUpdate);
 };
 
 // Function to get deal data from the form (for real-time updates)
@@ -1143,7 +1127,6 @@ window.getDealDataFromForm = function() {
 };
 
 // Function to update the Buy Box Checklist
-// Function to update the Buy Box Checklist
 window.updateBuyBoxChecklist = function(deal) {
     // 1. Check for 10+ years in business
     const yearsInBusiness = parseInt(deal.yearsInBusiness, 10);
@@ -1158,7 +1141,7 @@ window.updateBuyBoxChecklist = function(deal) {
     // 3. Check if average revenue is between $1M and $5M (orange if over $5M)
     let totalRevenue = 0;
     if (deal.revenueCashflowEntries && deal.revenueCashflowEntries.length > 0) {
-        totalRevenue = deal.revenueCashflowEntries.reduce((sum, entry) => sum + entry.revenue, 0);
+        totalRevenue = deal.revenueCashflowEntries.reduce((sum, entry) => sum + parseFloat(entry.revenue || 0), 0);
     }
     const avgRevenue = totalRevenue / deal.revenueCashflowEntries.length;
     const revenueElement = document.getElementById('checkRevenue');
@@ -1177,7 +1160,7 @@ window.updateBuyBoxChecklist = function(deal) {
     // 4. Check if average profit margin is categorized properly (red <16%, orange 17-19%, green >=20%)
     let totalCashflow = 0;
     if (deal.revenueCashflowEntries && deal.revenueCashflowEntries.length > 0) {
-        totalCashflow = deal.revenueCashflowEntries.reduce((sum, entry) => sum + entry.cashflow, 0);
+        totalCashflow = deal.revenueCashflowEntries.reduce((sum, entry) => sum + parseFloat(entry.cashflow || 0), 0);
     }
 
     const avgProfitMargin = totalRevenue > 0 ? (totalCashflow / totalRevenue) * 100 : 0;
@@ -1200,19 +1183,16 @@ window.updateBuyBoxChecklist = function(deal) {
 
     if (deal.revenueCashflowEntries && deal.revenueCashflowEntries.length > 1) {
         for (let i = 1; i < deal.revenueCashflowEntries.length; i++) {
-            const currentYearRevenue = deal.revenueCashflowEntries[i].revenue;
-            const previousYearRevenue = deal.revenueCashflowEntries[i - 1].revenue;
+            const currentYearRevenue = parseFloat(deal.revenueCashflowEntries[i].revenue || 0);
+            const previousYearRevenue = parseFloat(deal.revenueCashflowEntries[i - 1].revenue || 0);
 
             const revenueDifference = ((currentYearRevenue - previousYearRevenue) / previousYearRevenue) * 100;
 
             if (revenueDifference > 0) {
-                // Growing
                 revenueGrowthStatus = 'success';
             } else if (Math.abs(revenueDifference) <= 5) {
-                // Stable within 5% range
                 revenueGrowthStatus = 'warning';
             } else {
-                // Declining significantly
                 revenueGrowthStatus = 'error';
                 break;
             }
@@ -1223,8 +1203,34 @@ window.updateBuyBoxChecklist = function(deal) {
     revenueGrowthElement.classList.add(revenueGrowthStatus);
 };
 
+// Function to trigger Buy Box Checklist update in real-time
+window.triggerBuyBoxUpdate = function() {
+    const deal = collectCurrentDealData(); // Ensure you have a function that collects current input data
+    updateBuyBoxChecklist(deal);
+};
 
 
+// Function to collect current deal data (used to trigger updates in real-time)
+window.collectCurrentDealData = function() {
+    const revenueCashflowEntries = [];
+    const revenueInputs = document.querySelectorAll('input[name="revenue[]"]');
+    const cashflowInputs = document.querySelectorAll('input[name="cashflow[]"]');
+    const yearInputs = document.querySelectorAll('.editable-year');
 
+    revenueInputs.forEach((input, index) => {
+        revenueCashflowEntries.push({
+            revenue: parseFloat(input.value.replace(/[^\d.-]/g, '')) || 0,
+            cashflow: parseFloat(cashflowInputs[index].value.replace(/[^\d.-]/g, '')) || 0,
+            year: yearInputs[index].textContent || "Year"
+        });
+    });
 
+    return {
+        yearsInBusiness: document.getElementById('yearsInBusiness').value,
+        fullTimeEmployees: document.getElementById('fullTimeEmployees').value,
+        revenueCashflowEntries
+    };
+};
 
+// Call this when the modal opens to add real-time event listeners
+window.addRealTimeChecklistUpdates();

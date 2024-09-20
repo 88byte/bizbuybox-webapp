@@ -1375,7 +1375,7 @@ input-item select {
     background-color: #1c1c1c;
     padding: 16px;
     border-radius: 12px;
-    width: 30%; /* Increase the width by 40% */
+    width: 50%; /* Increase the width by 40% */
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
     margin-top: 20px;
     transition: all 0.3s ease;

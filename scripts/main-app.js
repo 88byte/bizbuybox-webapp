@@ -339,6 +339,9 @@ window.closeCardModal = function() {
 
 // Function to edit a deal (opens the modal pre-filled with the deal data)
 window.editDeal = function(dealId) {
+	console.log(deals); // Inspect the deals array
+	
+
     const deal = deals.find(d => d.dealId === dealId); // Find deal by its Firestore ID
     if (deal) {
         // Populate the modal with existing deal data
@@ -598,13 +601,14 @@ window.fetchDeals = async function() {
         const dealsCollection = collection(db, 'deals');
         const dealsSnapshot = await getDocs(query(dealsCollection, where("userId", "==", user.uid)));
 
-        deals = dealsSnapshot.docs.map(doc => doc.data()); // Fetch all deals for the user
-
+        // Add dealId from Firestore document metadata
+        deals = dealsSnapshot.docs.map(doc => ({ dealId: doc.id, ...doc.data() })); // Include dealId
         renderDeals(); // Render deal cards on the dashboard
     } catch (error) {
         console.error('Error fetching deals:', error);
     }
 };
+
 
 // Function to render deals on the dashboard
 function renderDeals() {
@@ -620,13 +624,14 @@ function renderDeals() {
             <p>Asking Price: ${deal.askingPrice}</p>
             <p>Last Updated: ${new Date(deal.lastUpdate).toLocaleDateString()}</p>
             <div class="deal-actions">
-                <button onclick="editDeal('${deal.dealId}')">Edit</button>
+                <button onclick="editDeal('${deal.dealId}')">Edit</button> <!-- Ensure dealId is correct -->
                 <button onclick="openConfirmationModal('${deal.dealId}')">Delete</button>
             </div>
         `;
         dealGrid.appendChild(dealCard);
     });
 }
+
 
 
 

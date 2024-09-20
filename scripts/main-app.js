@@ -577,7 +577,7 @@ window.saveDeal = async function() {
         // Step 3: Merge the document URLs into the deal document in Firestore
         await setDoc(doc(dealsCollection, dealId), { documents: uploadedDocumentURLs }, { merge: true });
 
-        // Step 4: Fetch the latest deals and update the deals array
+        // Refresh the deals array by calling fetchDeals() to make sure we have the latest data
         await fetchDeals();  // Fetch the updated list of deals from Firestore
 
         showToast('Deal saved successfully!');
@@ -587,7 +587,6 @@ window.saveDeal = async function() {
         showToast('Error saving deal: ' + error.message, false);
     }
 };
-
 
 
 

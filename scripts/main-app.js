@@ -1113,6 +1113,16 @@ window.getDealDataFromForm = function() {
 
 // Function to update the Buy Box Checklist
 window.updateBuyBoxChecklist = function(deal) {
+    // Check if the elements exist
+    const totalRevenueElement = document.getElementById('totalRevenue');
+    const totalCashflowElement = document.getElementById('totalCashflow');
+    const averageProfitMarginElement = document.getElementById('averageProfitMargin');
+    
+    if (!totalRevenueElement || !totalCashflowElement || !averageProfitMarginElement) {
+        console.error("One or more elements for deal calculations are missing.");
+        return;
+    }
+
     // 1. Check for 10+ years in business
     const yearsInBusiness = parseInt(deal.yearsInBusiness, 10);
     const yearsInBusinessCheck = yearsInBusiness >= 10;
@@ -1145,10 +1155,11 @@ window.updateBuyBoxChecklist = function(deal) {
     document.getElementById('checkRevenueGrowth').classList.toggle('success', revenueGrowthCheck);
 
     // Update the deal calculations section
-    document.getElementById('totalRevenue').textContent = totalRevenue.toLocaleString('en-US');
-    document.getElementById('totalCashflow').textContent = totalCashflow.toLocaleString('en-US');
-    document.getElementById('averageProfitMargin').textContent = avgProfitMargin.toFixed(2) + '%';
+    totalRevenueElement.textContent = totalRevenue.toLocaleString('en-US');
+    totalCashflowElement.textContent = totalCashflow.toLocaleString('en-US');
+    averageProfitMarginElement.textContent = avgProfitMargin.toFixed(2) + '%';
 };
+
 
 
 

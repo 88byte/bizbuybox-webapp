@@ -1146,21 +1146,25 @@ window.getDealDataFromForm = function() {
 // Function to update the Buy Box Checklist
 window.updateBuyBoxChecklist = function(deal) {
     // 1. Check for 10+ years in business
-    const yearsInBusiness = parseInt(deal.yearsInBusiness, 10);
+    const yearsInBusiness = parseInt(deal.yearsInBusiness, 10) || 0;
     const yearsInBusinessCheck = yearsInBusiness >= 10;
-    document.getElementById('checkYearsInBusiness').classList.toggle('success', yearsInBusinessCheck);
+    const yearsInBusinessElement = document.getElementById('checkYearsInBusiness');
+    yearsInBusinessElement.classList.toggle('success', yearsInBusinessCheck);
+    yearsInBusinessElement.classList.toggle('error', !yearsInBusinessCheck);
 
     // 2. Check for 10+ full-time employees
-    const fullTimeEmployees = parseInt(deal.fullTimeEmployees, 10);
+    const fullTimeEmployees = parseInt(deal.fullTimeEmployees, 10) || 0;
     const fullTimeEmployeesCheck = fullTimeEmployees >= 10;
-    document.getElementById('checkFullTimeEmployees').classList.toggle('success', fullTimeEmployeesCheck);
+    const fullTimeEmployeesElement = document.getElementById('checkFullTimeEmployees');
+    fullTimeEmployeesElement.classList.toggle('success', fullTimeEmployeesCheck);
+    fullTimeEmployeesElement.classList.toggle('error', !fullTimeEmployeesCheck);
 
     // 3. Check if average revenue is between $1M and $5M (orange if over $5M)
     let totalRevenue = 0;
     if (deal.revenueCashflowEntries && deal.revenueCashflowEntries.length > 0) {
         totalRevenue = deal.revenueCashflowEntries.reduce((sum, entry) => sum + parseFloat(entry.revenue || 0), 0);
     }
-    const avgRevenue = totalRevenue / deal.revenueCashflowEntries.length;
+    const avgRevenue = totalRevenue / deal.revenueCashflowEntries.length || 0;
     const revenueElement = document.getElementById('checkRevenue');
 
     if (avgRevenue >= 1000000 && avgRevenue <= 5000000) {
@@ -1195,7 +1199,6 @@ window.updateBuyBoxChecklist = function(deal) {
     }
 
     // 5. Check if revenue is growing year over year (green if growing, orange within 5%, red if declining)
-    let revenueGrowthCheck = true;
     let revenueGrowthStatus = 'success'; // Default to growing
 
     if (deal.revenueCashflowEntries && deal.revenueCashflowEntries.length > 1) {
@@ -1203,7 +1206,9 @@ window.updateBuyBoxChecklist = function(deal) {
             const currentYearRevenue = parseFloat(deal.revenueCashflowEntries[i].revenue || 0);
             const previousYearRevenue = parseFloat(deal.revenueCashflowEntries[i - 1].revenue || 0);
 
-            const revenueDifference = ((currentYearRevenue - previousYearRevenue) / previousYearRevenue) * 100;
+            const revenueDifference = previousYearRevenue > 0 
+                ? ((currentYearRevenue - previousYearRevenue) / previousYearRevenue) * 100 
+                : 0;
 
             if (revenueDifference > 0) {
                 revenueGrowthStatus = 'success';
@@ -1215,10 +1220,12 @@ window.updateBuyBoxChecklist = function(deal) {
             }
         }
     }
+
     const revenueGrowthElement = document.getElementById('checkRevenueGrowth');
     revenueGrowthElement.classList.remove('success', 'warning', 'error');
     revenueGrowthElement.classList.add(revenueGrowthStatus);
 };
+
 
 // Function to trigger Buy Box Checklist update in real-time
 window.triggerBuyBoxUpdate = function() {

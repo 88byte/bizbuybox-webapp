@@ -1256,8 +1256,13 @@ window.addRealTimeChecklistUpdates();
 
 // Function to update Asking Price and Real Estate Toggle
 function updateAskingPrice() {
-    const askingPrice = parseFloat(document.getElementById('askingPrice').value) || 0;
-    const realEstatePrice = parseFloat(document.getElementById('realEstatePrice').value) || 0;
+    let askingPrice = document.getElementById('askingPrice').value;
+    let realEstatePrice = document.getElementById('realEstatePrice').value;
+
+    // Strip non-numeric characters from input (dollar signs, commas)
+    askingPrice = parseFloat(askingPrice.replace(/[^\d.-]/g, '')) || 0;
+    realEstatePrice = parseFloat(realEstatePrice.replace(/[^\d.-]/g, '')) || 0;
+
     const includeRealEstate = document.getElementById('toggleRealEstate').value === 'with';
 
     const adjustedAskingPrice = includeRealEstate ? askingPrice : askingPrice - realEstatePrice;
@@ -1269,7 +1274,11 @@ function updateAskingPrice() {
 
 // Function to calculate debt service
 function calculateDebtService(adjustedAskingPrice) {
-    const downPayment = parseFloat(document.getElementById('downPayment').value) || 0;
+    let downPayment = document.getElementById('downPayment').value;
+    
+    // Strip non-numeric characters from input
+    downPayment = parseFloat(downPayment.replace(/[^\d.-]/g, '')) || 0;
+
     const loanAmount = adjustedAskingPrice - downPayment;
     let totalDebtService = 0;
     let loanBreakdown = '';
@@ -1352,4 +1361,3 @@ document.getElementById('loanType').addEventListener('change', updateAskingPrice
 document.querySelectorAll('input[name="cashflow[]"]').forEach(input => {
     input.addEventListener('input', updateAskingPrice);
 });
-

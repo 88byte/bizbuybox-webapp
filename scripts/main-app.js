@@ -925,24 +925,25 @@ window.addRevenueCashflowRow = function() {
 
     document.getElementById('revenueCashflowSection').appendChild(newRow);
 
-    // Immediately apply currency formatting
-    formatAsCurrency(document.getElementById(`revenue${revenueCashflowCount}`));
-    formatAsCurrency(document.getElementById(`cashflow${revenueCashflowCount}`));
+    // Apply formatting on new row inputs
+    const newRevenueInput = document.getElementById(`revenue${revenueCashflowCount}`);
+    const newCashflowInput = document.getElementById(`cashflow${revenueCashflowCount}`);
+
+    newRevenueInput.value = formatCurrency(newRevenueInput.value);
+    newCashflowInput.value = formatCurrency(newCashflowInput.value);
 };
-
-
 
 // Function to remove a row
 window.removeRevenueCashflowRow = function(button) {
     const rowToRemove = button.closest('.revenue-cashflow-row');
     rowToRemove.remove();
+    reindexRows(); // Re-index rows after removing one
 };
 
 // Function to format numbers as currency without decimals
 function formatCurrency(value) {
-    
-    const number = parseFloat(value.replace(/[^\d]/g, ''));
-    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(number || 0);
+    const number = parseFloat(value.replace(/[^\d.-]/g, '')) || 0;
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(number);
 }
 
 // Function to update profit margin
@@ -950,7 +951,7 @@ window.updateProfitMargin = function(inputElement) {
     const row = inputElement.closest('.revenue-cashflow-row');
     const revenueInput = row.querySelector('input[name="revenue[]"]');
     const cashflowInput = row.querySelector('input[name="cashflow[]"]');
-    const profitMarginElement = row.querySelector('.profit-column span');
+    const profitMarginElement = row.querySelector('.profit-margin span');
 
     // Remove formatting to perform calculation
     const revenue = parseFloat(revenueInput.value.replace(/[^\d.-]/g, '')) || 0;
@@ -960,31 +961,28 @@ window.updateProfitMargin = function(inputElement) {
     profitMarginElement.textContent = `${profitMargin}%`;
 
     // Reformat the inputs for display
-    revenueInput.value = formatAsCurrency(revenueInput);
-    cashflowInput.value = formatAsCurrency(cashflowInput);
+    revenueInput.value = formatCurrency(revenueInput.value);
+    cashflowInput.value = formatCurrency(cashflowInput.value);
 };
-
-
-
 
 // Function to re-index the Revenue and Cashflow rows
 function reindexRows() {
-    const rows = document.querySelectorAll('.revenue-cashflow-entry');
+    const rows = document.querySelectorAll('.revenue-cashflow-row');
     rows.forEach((row, index) => {
         const rowNumber = index + 1;
 
         const revenueYearInput = row.querySelector('.editable-year[name="revenueYear[]"]');
         const revenueInput = row.querySelector('input[name="revenue[]"]');
-        const cashflowYearInput = row.querySelector('.editable-year[name="cashflowYear[]"]');
         const cashflowInput = row.querySelector('input[name="cashflow[]"]');
 
         // Update input IDs and placeholders for dynamic re-indexing
         revenueYearInput.id = `revenueYear${rowNumber}`;
         revenueInput.id = `revenue${rowNumber}`;
-        cashflowYearInput.id = `cashflowYear${rowNumber}`;
         cashflowInput.id = `cashflow${rowNumber}`;
+        row.querySelector('.profit-margin span').id = `profitMargin${rowNumber}`;
     });
 }
+
 
 // Open and Close Contact Modals
 window.openBrokerContactModal = function() {

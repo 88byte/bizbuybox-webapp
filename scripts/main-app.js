@@ -457,8 +457,8 @@ window.editDeal = function(dealId) {
         window.addRealTimeChecklistUpdates();
 
         // Call the function to update calculations based on the form data
-        updateAskingPrice();
-        setupRealTimeUpdates(); 
+        window.updateAskingPrice();
+        window.setupRealTimeUpdates(); 
 
         // Open the modal using the new method
         openCardModal();
@@ -1258,8 +1258,8 @@ window.collectCurrentDealData = function() {
 window.addRealTimeChecklistUpdates();
 
 
-// Function to update Asking Price and Real Estate Toggle
-function updateAskingPrice() {
+// Ensure this function is defined globally (outside any other function)
+window.updateAskingPrice = function() {
     let askingPrice = document.getElementById('askingPrice').value;
     let realEstatePrice = document.getElementById('realEstatePrice').value;
 
@@ -1277,10 +1277,11 @@ function updateAskingPrice() {
 
     // Recalculate debt service based on the new asking price
     calculateDebtService(adjustedAskingPrice);
-}
+};
+
 
 // Function to calculate debt service
-function calculateDebtService(adjustedAskingPrice) {
+window.calculateDebtService = function(adjustedAskingPrice) {
     let downPayment = document.getElementById('downPayment').value;
     
     // Strip non-numeric characters from input
@@ -1295,7 +1296,7 @@ function calculateDebtService(adjustedAskingPrice) {
     const loanTerm1 = parseInt(document.getElementById('loanTerm1').value, 10) || 0;
 
     if (loanType === 'SBA' || loanType === 'Seller Finance' || loanType === 'Blended') {
-        const annualDebtService1 = calculateAnnualDebtService(loanAmount, interestRate1, loanTerm1);
+        const annualDebtService1 = window.calculateAnnualDebtService(loanAmount, interestRate1, loanTerm1);
         totalDebtService += annualDebtService1;
         loanBreakdown += `<p>${loanType} Loan Payment: $${annualDebtService1.toLocaleString('en-US')}</p>`;
     } else if (loanType === 'SBA + Seller Finance') {
@@ -1303,14 +1304,14 @@ function calculateDebtService(adjustedAskingPrice) {
         const sellerFinanceAmount = loanAmount * 0.25;
 
         // SBA Loan Calculation
-        const sbaDebtService = calculateAnnualDebtService(sbaLoanAmount, interestRate1, loanTerm1);
+        const sbaDebtService = window.calculateAnnualDebtService(sbaLoanAmount, interestRate1, loanTerm1);
         totalDebtService += sbaDebtService;
         loanBreakdown += `<p>SBA Loan Payment: $${sbaDebtService.toLocaleString('en-US')}</p>`;
 
         // Seller Finance Loan Calculation
         const interestRate2 = parseFloat(document.getElementById('interestRate2').value) || 0;
         const loanTerm2 = parseInt(document.getElementById('loanTerm2').value, 10) || 0;
-        const sellerDebtService = calculateAnnualDebtService(sellerFinanceAmount, interestRate2, loanTerm2);
+        const sellerDebtService = window.calculateAnnualDebtService(sellerFinanceAmount, interestRate2, loanTerm2);
         totalDebtService += sellerDebtService;
         loanBreakdown += `<p>Seller Finance Loan Payment: $${sellerDebtService.toLocaleString('en-US')}</p>`;
     }
@@ -1319,11 +1320,11 @@ function calculateDebtService(adjustedAskingPrice) {
     document.getElementById('totalDebtService').textContent = totalDebtService.toLocaleString('en-US');
 
     // Recalculate Earnings Section based on the new debt service
-    calculateEarnings(totalDebtService);
+    window.calculateEarnings(totalDebtService);
 }
 
 // Function to calculate annual debt service
-function calculateAnnualDebtService(amount, interestRate, termYears) {
+window.calculateAnnualDebtService = function(amount, interestRate, termYears) {
     if (interestRate <= 0 || termYears <= 0 || amount <= 0) return 0;
     const monthlyRate = interestRate / 100 / 12;
     const numPayments = termYears * 12;
@@ -1332,7 +1333,7 @@ function calculateAnnualDebtService(amount, interestRate, termYears) {
 }
 
 // Function to calculate earnings section
-function calculateEarnings(totalDebtService) {
+window.calculateEarnings = function(totalDebtService) {
     let totalCashflow = 0;
 
     // Calculate total and average cashflow from the form
@@ -1356,7 +1357,7 @@ function calculateEarnings(totalDebtService) {
 }
 
 // Real-time update triggers
-function setupRealTimeUpdates() {
+window.setupRealTimeUpdates = function() {
     document.getElementById('askingPrice').addEventListener('input', updateAskingPrice);
     document.getElementById('realEstatePrice').addEventListener('input', updateAskingPrice);
     document.getElementById('downPayment').addEventListener('input', updateAskingPrice);

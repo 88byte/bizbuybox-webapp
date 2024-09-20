@@ -925,7 +925,7 @@ input-item select {
 
 .revenue-cashflow-row {
     display: flex;
-    align-items: center;
+    align-items: left;
     gap: 8px;
     justify-content: flex-start;
 }

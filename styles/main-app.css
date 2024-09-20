@@ -942,7 +942,7 @@ input-item select {
     padding: 6px 12px;
     font-size: 14px;
     max-width: 110px;
-    text-align: right;
+    text-align: left;
 }
 
 .profit-margin span {

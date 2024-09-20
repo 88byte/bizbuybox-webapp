@@ -1370,72 +1370,112 @@ input-item select {
 
 
 
-/* Buy Box Section */
+/* Make the Deal Calculations Section 40% wider */
 .deal-calculations-section {
-    background-color: #1e1e1e;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: #1a1a1a;
+    padding: 18px;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     margin-top: 20px;
+    width: 140%; /* 40% wider */
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    z-index: 1;
 }
 
+/* Modern Heading with subtle glow effect */
 .deal-calculations-section h3 {
-    color: #d4a759;
-    font-size: 22px;
+    color: #fff;
+    font-size: 18px;
     text-transform: uppercase;
     letter-spacing: 1px;
     margin-bottom: 15px;
-    font-weight: bold;
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
 }
 
-/* Checklist Item Styling */
+/* Compact and Horizontal Layout */
+.checklist-row {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;  /* If screen is small, wrap into next line */
+    margin: 0;
+    padding: 10px 0;
+}
+
+/* Each checklist item as a compact block */
 .checklist-item {
     display: flex;
     align-items: center;
-    padding: 12px;
-    background-color: #2a2a2a;
-    border-radius: 10px;
-    margin-bottom: 12px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background-color: #2c2c2c;
+    margin-bottom: 10px;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    flex: 1; /* Make them take equal space */
+    min-width: 120px;
+    text-align: center;
+    justify-content: center;
 }
 
 .checklist-item p {
-    margin-left: 16px;
-    font-size: 16px;
+    margin-left: 8px;
+    font-size: 12px;
     color: #f0f0f0;
     font-weight: 500;
-    text-transform: capitalize;
-    flex-grow: 1;
 }
 
-/* Marker (Status) Styling */
+/* Sleek Marker with Neon-like Glow */
 .marker {
-    width: 24px;
-    height: 24px;
+    width: 14px;
+    height: 14px;
     display: inline-block;
     border-radius: 50%;
-    margin-right: 16px;
-    background-color: red; /* Default: Red for error */
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin-right: 8px;
+    background-color: red;
+    box-shadow: 0 0 5px rgba(255, 0, 0, 0.7);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .marker.success {
-    background-color: #28a745; /* Green for success */
-    transform: scale(1.1); /* Slight scale-up for success */
+    background-color: #1abc9c; /* Green */
+    box-shadow: 0 0 6px rgba(26, 188, 156, 0.7);
 }
 
 .marker.warning {
-    background-color: #f39c12; /* Orange for warning */
+    background-color: #f39c12; /* Orange */
+    box-shadow: 0 0 6px rgba(243, 156, 18, 0.7);
 }
 
 .marker.error {
-    background-color: #e74c3c; /* Red for error */
+    background-color: #e74c3c; /* Red */
+    box-shadow: 0 0 6px rgba(231, 76, 60, 0.7);
 }
 
-/* Hover effect for checklist items */
+/* Hover effects with futuristic feel */
 .checklist-item:hover {
     background-color: #3a3a3a;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
+/* Deal section glow effect when focused */
+.deal-calculations-section:hover {
+    box-shadow: 0 6px 16px rgba(0, 255, 255, 0.2);
+}
+
+/* Responsive behavior */
+@media (max-width: 768px) {
+    .deal-calculations-section {
+        width: 100%; /* Fit to smaller screens */
+    }
+
+    .checklist-row {
+        flex-direction: column; /* Stack items vertically */
+    }
+
+    .checklist-item {
+        min-width: 100%; /* Full width items */
+    }
+}

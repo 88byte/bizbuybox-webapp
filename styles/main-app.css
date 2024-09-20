@@ -1338,16 +1338,40 @@ input-item select {
     box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
 }
 
-.loan-type-labels {
+/* Specific styles for loan-related labels */
+.loan-input-labels {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Three equal columns for the labels */
-    gap: 10px; /* Space between columns */
-    text-align: center; /* Center the text horizontally */
-    margin-bottom: 2px; /* Space between labels and inputs */
-    font-size: 12px;
+    grid-template-columns: repeat(3, 1fr); /* Three equal columns */
+    gap: 5px; /* Reduce gap between columns */
+    text-align: center;
+    margin-bottom: 0; /* Remove excess space between labels and inputs */
 }
 
-.loan-type-labels label {
+/* Center labels inside their containers */
+.loan-input-labels label {
     display: block;
-    text-align: center; /* Center each label within its container */
+    text-align: center;
+    margin-bottom: 3px; /* Small gap between label and input field */
 }
+
+/* Specific styles for loan-related input fields */
+.loan-input-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Align input fields in three columns */
+    gap: 5px; /* Reduce gap between input fields */
+    margin-top: 0; /* Remove top margin between labels and input fields */
+}
+
+/* Specific styling for loan input items */
+.loan-input-item {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+}
+
+.loan-input-item input {
+    padding: 8px;
+    width: 100%;
+    box-sizing: border-box;
+}
+

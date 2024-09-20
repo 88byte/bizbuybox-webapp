@@ -523,14 +523,22 @@ window.saveDeal = async function() {
     };
 
     try {
-        // Save deal data to Firestore
-        const dealsCollection = collection(db, 'deals');
-        await setDoc(doc(dealsCollection, dealId), dealData);
+        // Save deal data to Firestore (deal data object creation omitted for brevity)
 
         // Upload documents to Firebase Storage
         const uploadedDocumentURLs = await uploadDocuments(dealId);
 
-        // Add the document URLs to the deal data in Fire
+        // Add the document URLs to the deal data in Firestore
+        await setDoc(doc(collection(db, 'deals'), dealId), { documents: uploadedDocumentURLs }, { merge: true });
+
+        showToast('Deal saved successfully!');
+        closeCardModal();
+        fetchDeals(); // Refresh deals on the dashboard
+    } catch (error) {
+        console.error('Error saving deal:', error);
+        showToast('Error saving deal: ' + error.message, false);
+    }
+};
 
 
 

@@ -1322,6 +1322,7 @@ input-item select {
     display: block;
     text-align: center;
     margin-bottom: 0; /* Keep the space tight between labels and inputs */
+    font-size: 12px;
 }
 
 /* Specific styles for loan-related input fields */

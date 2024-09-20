@@ -1394,7 +1394,7 @@ input-item select {
 .checklist-item {
     display: flex;
     align-items: center;
-    padding: 6px; /* Make the items smaller */
+    padding: 4px; /* Make the items smaller */
     background-color: #2a2a2a;
     border-radius: 8px;
     margin-bottom: 8px; /* Less spacing */
@@ -1447,9 +1447,6 @@ input-item select {
     transform: scale(1.2); /* Slightly more responsive hover on success marker */
 }
 
-.deal-calculations-section:hover {
-    background-color: #252525; /* Subtle background shift on hover */
-}
 
 /* Use a distinct font style for an innovative look */
 .deal-calculations-section, .checklist-item p {

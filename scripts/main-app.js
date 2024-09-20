@@ -394,27 +394,26 @@ window.editDeal = function(dealId) {
         revenueCashflowCount = 0; // Reset the counter before adding rows
         if (deal.revenueCashflowEntries) {
             deal.revenueCashflowEntries.forEach((entry, index) => {
-			    addRevenueCashflowRow(); // Adds a new row
-			    const revenueInput = document.getElementById(`revenue${revenueCashflowCount}`);
-			    const cashflowInput = document.getElementById(`cashflow${revenueCashflowCount}`);
-			    const revenueYearInput = document.getElementById(`revenueYear${revenueCashflowCount}`);
+                addRevenueCashflowRow(); // Adds a new row
+                const revenueInput = document.getElementById(`revenue${revenueCashflowCount}`);
+                const cashflowInput = document.getElementById(`cashflow${revenueCashflowCount}`);
+                const revenueYearInput = document.getElementById(`revenueYear${revenueCashflowCount}`);
 
-			    if (revenueInput && cashflowInput && revenueYearInput) {
-			        revenueYearInput.textContent = entry.year;
-			        
-			        // Ensure the revenue and cashflow are formatted correctly
-			        revenueInput.value = formatCurrency(entry.revenue);  // Format the revenue as currency
-			        cashflowInput.value = formatCurrency(entry.cashflow); // Format the cashflow as currency
+                if (revenueInput && cashflowInput && revenueYearInput) {
+                    revenueYearInput.textContent = entry.year;
+                    
+                    // Ensure the revenue and cashflow are formatted correctly
+                    revenueInput.value = formatCurrency(entry.revenue);  // Format the revenue as currency
+                    cashflowInput.value = formatCurrency(entry.cashflow); // Format the cashflow as currency
 
-			        // Update profit margin for each row
-			        updateProfitMargin(revenueInput);
-			    } else {
-			        console.error('Error: Unable to populate revenue/cashflow row.');
-			    }
-			});
+                    // Update profit margin for each row
+                    updateProfitMargin(revenueInput);
+                } else {
+                    console.error('Error: Unable to populate revenue/cashflow row.');
+                }
+            });
 
         }
-
 
 
 
@@ -455,11 +454,13 @@ window.editDeal = function(dealId) {
 
         // Add real-time event listeners for updating calculations
         window.addRealTimeChecklistUpdates();
-        window.setupRealTimeUpdates(); 
+        window.setupRealTimeUpdates();
 
-        // Trigger calculation immediately after form population
-        window.updateAskingPrice();
-        window.calculateDebtService();
+        // Ensure the form has loaded before calculating
+        setTimeout(() => {
+            window.updateAskingPrice(); // Calculate asking price
+            window.calculateDebtService(); // Calculate debt service
+        }, 0); // A slight delay ensures that the form elements are rendered
 
         // Open the modal using the new method
         openCardModal();

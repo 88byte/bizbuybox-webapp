@@ -1144,7 +1144,7 @@ window.getDealDataFromForm = function() {
 
 // Function to update the Buy Box Checklist
 window.updateBuyBoxChecklist = function(deal) {
-    // Check if the elements exist
+    // Ensure the totalRevenue, totalCashflow, and averageProfitMargin elements exist
     const totalRevenueElement = document.getElementById('totalRevenue');
     const totalCashflowElement = document.getElementById('totalCashflow');
     const averageProfitMarginElement = document.getElementById('averageProfitMargin');
@@ -1165,22 +1165,31 @@ window.updateBuyBoxChecklist = function(deal) {
     document.getElementById('checkFullTimeEmployees').classList.toggle('success', fullTimeEmployeesCheck);
 
     // 3. Check if revenue is between $1M and $5M
-    const totalRevenue = deal.revenueCashflowEntries.reduce((sum, entry) => sum + entry.revenue, 0);
+    let totalRevenue = 0;
+    if (deal.revenueCashflowEntries && deal.revenueCashflowEntries.length > 0) {
+        totalRevenue = deal.revenueCashflowEntries.reduce((sum, entry) => sum + entry.revenue, 0);
+    }
     const revenueCheck = totalRevenue >= 1000000 && totalRevenue <= 5000000;
     document.getElementById('checkRevenue').classList.toggle('success', revenueCheck);
 
     // 4. Check if average profit margin is 20% or higher
-    const totalCashflow = deal.revenueCashflowEntries.reduce((sum, entry) => sum + entry.cashflow, 0);
-    const avgProfitMargin = (totalCashflow / totalRevenue) * 100;
+    let totalCashflow = 0;
+    if (deal.revenueCashflowEntries && deal.revenueCashflowEntries.length > 0) {
+        totalCashflow = deal.revenueCashflowEntries.reduce((sum, entry) => sum + entry.cashflow, 0);
+    }
+    
+    const avgProfitMargin = totalRevenue > 0 ? (totalCashflow / totalRevenue) * 100 : 0;
     const profitMarginCheck = avgProfitMargin >= 20;
     document.getElementById('checkProfitMargin').classList.toggle('success', profitMarginCheck);
 
     // 5. Check if revenue is growing year over year
     let revenueGrowthCheck = true;
-    for (let i = 1; i < deal.revenueCashflowEntries.length; i++) {
-        if (deal.revenueCashflowEntries[i].revenue < deal.revenueCashflowEntries[i - 1].revenue) {
-            revenueGrowthCheck = false;
-            break;
+    if (deal.revenueCashflowEntries && deal.revenueCashflowEntries.length > 1) {
+        for (let i = 1; i < deal.revenueCashflowEntries.length; i++) {
+            if (deal.revenueCashflowEntries[i].revenue < deal.revenueCashflowEntries[i - 1].revenue) {
+                revenueGrowthCheck = false;
+                break;
+            }
         }
     }
     document.getElementById('checkRevenueGrowth').classList.toggle('success', revenueGrowthCheck);
@@ -1190,6 +1199,7 @@ window.updateBuyBoxChecklist = function(deal) {
     totalCashflowElement.textContent = totalCashflow.toLocaleString('en-US');
     averageProfitMarginElement.textContent = avgProfitMargin.toFixed(2) + '%';
 };
+
 
 
 

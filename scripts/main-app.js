@@ -456,6 +456,9 @@ window.editDeal = function(dealId) {
         // Add real-time event listeners
         window.addRealTimeChecklistUpdates();
 
+        // Call the function to update calculations based on the form data
+        updateAskingPrice();
+
         // Open the modal using the new method
         openCardModal();
     } else {

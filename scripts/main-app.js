@@ -589,7 +589,44 @@ window.saveDeal = async function() {
 };
 
 
+// Function to fetch and display deals
+window.fetchDeals = async function() {
+    const user = auth.currentUser;
+    if (!user) return;
 
+    try {
+        const dealsCollection = collection(db, 'deals');
+        const dealsSnapshot = await getDocs(query(dealsCollection, where("userId", "==", user.uid)));
+
+        deals = dealsSnapshot.docs.map(doc => doc.data()); // Fetch all deals for the user
+
+        renderDeals(); // Render deal cards on the dashboard
+    } catch (error) {
+        console.error('Error fetching deals:', error);
+    }
+};
+
+// Function to render deals on the dashboard
+function renderDeals() {
+    const dealGrid = document.getElementById('dealGrid');
+    dealGrid.innerHTML = ''; // Clear the existing content
+
+    deals.forEach(deal => {
+        const dealCard = document.createElement('div');
+        dealCard.className = 'deal-card';
+        dealCard.innerHTML = `
+            <h4>${deal.businessName}</h4>
+            <p>Status: ${deal.status}</p>
+            <p>Asking Price: ${deal.askingPrice}</p>
+            <p>Last Updated: ${new Date(deal.lastUpdate).toLocaleDateString()}</p>
+            <div class="deal-actions">
+                <button onclick="editDeal('${deal.dealId}')">Edit</button>
+                <button onclick="openConfirmationModal('${deal.dealId}')">Delete</button>
+            </div>
+        `;
+        dealGrid.appendChild(dealCard);
+    });
+}
 
 
 
@@ -775,48 +812,7 @@ window.deleteDeal = async function(dealId) {
 
 
 
-// Function to fetch deals from Firestore and update the deals array
-async function fetchDeals() {
-    const dealsCollection = collection(db, 'deals');
-    const dealsSnapshot = await getDocs(dealsCollection);
 
-    // Clear the deals array before adding the latest deals
-    deals = [];
-
-    // Populate the deals array with the fetched data
-    dealsSnapshot.forEach((doc) => {
-        deals.push({
-            dealId: doc.id,  // Store the Firestore document ID
-            ...doc.data()     // Spread the rest of the deal data
-        });
-    });
-
-    // Call the function to render or refresh deals on the UI
-    renderDeals();
-}
-
-
-// Function to render deals on the dashboard
-function renderDeals() {
-    const dealGrid = document.getElementById('dealGrid');
-    dealGrid.innerHTML = ''; // Clear the existing content
-
-    deals.forEach(deal => {
-        const dealCard = document.createElement('div');
-        dealCard.className = 'deal-card';
-        dealCard.innerHTML = `
-            <h4>${deal.businessName}</h4>
-            <p>Status: ${deal.status}</p>
-            <p>Asking Price: ${deal.askingPrice}</p>
-            <p>Last Updated: ${new Date(deal.lastUpdate).toLocaleDateString()}</p>
-            <div class="deal-actions">
-                <button onclick="editDeal('${deal.dealId}')">Edit</button>
-                <button onclick="openConfirmationModal('${deal.dealId}')">Delete</button>
-            </div>
-        `;
-        dealGrid.appendChild(dealCard);
-    });
-}
 
 
 // Function to format numbers as dollar amounts with commas, no decimals, and a dollar sign

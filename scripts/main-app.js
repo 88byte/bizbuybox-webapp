@@ -369,7 +369,28 @@ window.editDeal = function(dealId) {
         document.getElementById('loanTerm1').value = deal.loanTerm || '';
         document.getElementById('loanAmount1').value = deal.loanAmount || '';
 
-        // Populate Revenue and Cashflow rows
+        // Populate broker contact info
+        if (deal.brokerContact) {
+            const brokerBtn = document.querySelector('button[onclick="window.openBrokerContactModal()"]');
+            brokerBtn.setAttribute('data-tooltip', `Company: ${deal.brokerContact.company}\nPhone: ${deal.brokerContact.phone}\nEmail: ${deal.brokerContact.email}`);
+            // Optionally open modal if needed
+            document.getElementById('brokerCompany').value = deal.brokerContact.company;
+            document.getElementById('brokerName').value = deal.brokerContact.name;
+            document.getElementById('brokerPhone').value = deal.brokerContact.phone;
+            document.getElementById('brokerEmail').value = deal.brokerContact.email;
+        }
+
+        // Populate seller contact info
+        if (deal.sellerContact) {
+            const sellerBtn = document.querySelector('button[onclick="window.openSellerContactModal()"]');
+            sellerBtn.setAttribute('data-tooltip', `Phone: ${deal.sellerContact.phone}\nEmail: ${deal.sellerContact.email}`);
+            // Optionally open modal if needed
+            document.getElementById('sellerName').value = deal.sellerContact.name;
+            document.getElementById('sellerPhone').value = deal.sellerContact.phone;
+            document.getElementById('sellerEmail').value = deal.sellerContact.email;
+        }
+
+         // Populate Revenue and Cashflow rows
         revenueCashflowCount = 0; // Reset the counter before adding rows
         if (deal.revenueCashflowEntries) {
             deal.revenueCashflowEntries.forEach((entry, index) => {
@@ -390,6 +411,9 @@ window.editDeal = function(dealId) {
                 }
             });
         }
+
+
+
 
         // Populate documents
         const documentList = document.getElementById('documentList');
@@ -435,7 +459,6 @@ window.editDeal = function(dealId) {
         console.error('Deal not found.');
     }
 };
-
 
 
 // Function to delete a document from Firebase Storage and Firestore

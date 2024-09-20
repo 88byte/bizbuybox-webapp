@@ -1150,11 +1150,13 @@ window.updateBuyBoxChecklist = function(deal) {
     const yearsInBusiness = parseInt(deal.yearsInBusiness, 10);
     const yearsInBusinessCheck = yearsInBusiness >= 10;
     document.getElementById('checkYearsInBusiness').classList.toggle('success', yearsInBusinessCheck);
+    document.querySelector('#checkYearsInBusiness i').classList.toggle('success', yearsInBusinessCheck);
 
     // 2. Check for 10+ full-time employees
     const fullTimeEmployees = parseInt(deal.fullTimeEmployees, 10);
     const fullTimeEmployeesCheck = fullTimeEmployees >= 10;
     document.getElementById('checkFullTimeEmployees').classList.toggle('success', fullTimeEmployeesCheck);
+    document.querySelector('#checkFullTimeEmployees i').classList.toggle('success', fullTimeEmployeesCheck);
 
     // 3. Check if average revenue is between $1M and $5M (orange if over $5M)
     let totalRevenue = 0;
@@ -1162,7 +1164,7 @@ window.updateBuyBoxChecklist = function(deal) {
         totalRevenue = deal.revenueCashflowEntries.reduce((sum, entry) => sum + parseFloat(entry.revenue || 0), 0);
     }
     const avgRevenue = totalRevenue / deal.revenueCashflowEntries.length;
-    const revenueElement = document.getElementById('checkRevenue');
+    const revenueElement = document.querySelector('#checkRevenue i'); // Select the icon
 
     if (avgRevenue >= 1000000 && avgRevenue <= 5000000) {
         revenueElement.classList.add('success');
@@ -1182,7 +1184,7 @@ window.updateBuyBoxChecklist = function(deal) {
     }
 
     const avgProfitMargin = totalRevenue > 0 ? (totalCashflow / totalRevenue) * 100 : 0;
-    const profitMarginElement = document.getElementById('checkProfitMargin');
+    const profitMarginElement = document.querySelector('#checkProfitMargin i'); // Select the icon
 
     if (avgProfitMargin >= 20) {
         profitMarginElement.classList.add('success');
@@ -1216,10 +1218,11 @@ window.updateBuyBoxChecklist = function(deal) {
             }
         }
     }
-    const revenueGrowthElement = document.getElementById('checkRevenueGrowth');
+    const revenueGrowthElement = document.querySelector('#checkRevenueGrowth i'); // Select the icon
     revenueGrowthElement.classList.remove('success', 'warning', 'error');
     revenueGrowthElement.classList.add(revenueGrowthStatus);
 };
+
 
 // Function to trigger Buy Box Checklist update in real-time
 window.triggerBuyBoxUpdate = function() {

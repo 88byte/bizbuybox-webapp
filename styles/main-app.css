@@ -1396,6 +1396,20 @@ input-item select {
     padding: 8px 0;
 }
 
+/* Icon Colors for Checklist */
+.checklist-item i.success {
+    color: #4caf50; /* Green */
+}
+
+.checklist-item i.warning {
+    color: #f39c12; /* Orange */
+}
+
+.checklist-item i.error {
+    color: #e74c3c; /* Red */
+}
+
+
 .checklist-item {
     position: relative;
     display: flex;

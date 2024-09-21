@@ -1447,3 +1447,24 @@ window.calculateDebtService();
 
 
 
+// Function to switch between tabs
+function openTab(evt, tabName) {
+    // Hide all tabs
+    var tabContent = document.getElementsByClassName("tab-content");
+    for (var i = 0; i < tabContent.length; i++) {
+        tabContent[i].style.display = "none";
+    }
+    
+    // Remove active class from all buttons
+    var tabLinks = document.getElementsByClassName("tab-link");
+    for (var i = 0; i < tabLinks.length; i++) {
+        tabLinks[i].className = tabLinks[i].className.replace(" active", "");
+    }
+    
+    // Show the selected tab
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+
+// By default, show the overview tab
+document.getElementById('overviewTab').style.display = 'block';

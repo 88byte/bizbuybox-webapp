@@ -243,7 +243,7 @@
 	                <!-- Business Financials Section -->
 	                <div class="section-heading">
 	                    <h4>Business Financials</h4>
-	                    <button type="button" class="btn-add" onclick="window.openDocModal()">Upload Documents</button>
+	                    <button type="button" class=".btn-docupload" onclick="window.openDocModal()">Upload Documents</button>
 	                </div>
 
 
@@ -533,27 +533,7 @@
 					        This calculation can guide your financial planning by providing insight into the revenue needed to cover your expenses.
 					    </p>
 
-					    <!-- Sales Price Per Unit -->
-					    <label for="salesPricePerUnit">Sales Price Per Unit ($):</label>
-					    <small>This is the price at which each unit of your product or service is sold.</small>
-					    <input type="text" id="salesPricePerUnit" placeholder="Enter sales price" oninput="calculateBreakEvenRevenue()" />
-
-					    <!-- Variable Cost Per Unit -->
-					    <label for="variableCostPerUnit">Variable Cost Per Unit ($):</label>
-					    <small>This is the cost incurred for each unit sold, such as production materials or labor directly tied to sales.</small>
-					    <input type="text" id="variableCostPerUnit" placeholder="Enter variable cost" oninput="calculateBreakEvenRevenue()" />
-
-					    <!-- Fixed Costs -->
-					    <label for="fixedCosts">Fixed Costs (Annual $):</label>
-					    <small>These are the costs that remain constant, such as rent, utilities, or salaried employees, regardless of how much you sell.</small>
-					    <input type="text" id="fixedCosts" placeholder="Enter fixed costs" oninput="calculateBreakEvenRevenue()" />
-
-					    <!-- Break-Even Calculations -->
-					    <h5>Break-Even Point</h5>
-					    <p>Break-Even Units: <span id="breakEvenUnits"></span></p>
-					    <p>Break-Even Revenue: $<span id="breakEvenRevenue"></span></p>
-					    <p>Monthly Revenue Needed: $<span id="monthlyRevenueNeeded"></span></p>
-					</div>
+	
 
 
 				    <!-- Sensitivity Tab -->

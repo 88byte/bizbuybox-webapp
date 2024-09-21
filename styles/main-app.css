@@ -399,7 +399,6 @@ button.btn-create:hover {
     cursor: pointer;
     width: 40px;  /* Set width and height to make it circular */
     height: 40px;
-    border-radius: 50%; /* Make the button circular */
     display: flex;
     align-items: center;
     justify-content: center;

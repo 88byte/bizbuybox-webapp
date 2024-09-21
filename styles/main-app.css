@@ -502,12 +502,15 @@ button.btn-create:hover {
 }
 
 .card-modal-header .close {
+    position: absolute; /* Position the close button independently */
+    top: 16px; /* Space from the top of the modal */
+    right: 16px; /* Space from the right of the modal */
     font-size: 26px;
     color: #bbb;
     cursor: pointer;
     border-radius: 50%;
-    transition: color 0.3s ease;
     background: none;
+    transition: color 0.3s ease, transform 0.2s;
 }
 
 /* Status next to header */

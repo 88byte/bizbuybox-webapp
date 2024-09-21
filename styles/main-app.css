@@ -380,76 +380,94 @@ button.btn-create:hover {
     color: #fff;
 }
 
+/* Grid Layout for Cards */
 .deal-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
     padding: 20px;
-    background-color: #1e1e1e; /* Dark background to make cards pop */
+    background-color: #1c1c1c; /* Slightly darker for depth */
     border-radius: 12px;
 }
 
-
-/* Deal Card Styling */
+/* Deal Card Styling with Gradients and Elevation */
 .deal-card {
-    background-color: #2a2a2a;
-    color: #f0f0f0;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    background: linear-gradient(145deg, #2b2b2b, #323232); /* Gradient for depth */
+    color: #e0e0e0;
+    border-radius: 16px;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
     cursor: pointer;
-    position: relative; /* To position quick action buttons */
 }
 
-/* Deal Card Hover Effect */
+/* Deal Card Hover Effect with Glow */
 .deal-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+    transform: translateY(-10px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
 }
 
-/* Deal Card Header */
+/* Subtle glow under the title */
+.deal-card:before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    left: -40px;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(151, 131, 90, 0.3), transparent);
+    z-index: 0;
+}
+
+/* Deal Card Header with Floating Title */
 .deal-card-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 12px;
+    margin-bottom: 18px;
+    z-index: 1;
 }
 
 .deal-card-title {
-    font-size: 18px;
-    font-weight: 600;
+    font-size: 20px;
+    font-weight: bold;
     color: #ffffff;
     margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .deal-card-status {
     font-size: 12px;
-    padding: 4px 8px;
-    border-radius: 4px;
-    background-color: #97835a; /* Status background color */
+    padding: 6px 12px;
+    border-radius: 8px;
+    background-color: #97835a;
     color: #fff;
     text-transform: uppercase;
 }
 
-/* Deal Card Content */
+/* Content Sections with Clear Hierarchy */
 .deal-card-content {
-    margin: 10px 0;
+    margin-bottom: 16px;
+    z-index: 1;
 }
 
 .deal-card p {
     font-size: 14px;
-    margin: 6px 0;
-    color: #b0bec5;
+    font-weight: 500;
+    color: #bdbdbd;
+    margin: 8px 0;
+    position: relative;
+    z-index: 1;
 }
 
-/* Highlight important numbers */
+/* Emphasized Numbers */
 .deal-card p span {
     font-weight: bold;
     color: #fff;
+    font-size: 18px;
 }
 
 /* Quick Action Buttons */

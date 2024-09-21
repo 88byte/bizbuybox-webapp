@@ -1447,20 +1447,3 @@ window.calculateDebtService();
 
 
 
-// Function to switch between tabs
-document.querySelectorAll('.tab-button').forEach(button => {
-    button.addEventListener('click', () => {
-        const tabId = button.getAttribute('data-tab');
-
-        document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
-        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-
-        button.classList.add('active');
-        document.getElementById(tabId).classList.add('active');
-    });
-});
-
-// Initial state - load the first tab
-document.addEventListener('DOMContentLoaded', () => {
-    document.querySelector('.tab-button').click();
-});

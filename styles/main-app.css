@@ -1452,34 +1452,106 @@ input-item select {
 }
 
 
+/* General Styling */
 .money-math-section {
-    margin-top: 16px;
-    background-color: #2c2c2c;
-    padding: 16px;
-    border-radius: 12px;
-    color: #f0f0f0;
+    margin-top: 24px;
+    background-color: #1e1e1e; /* Darker background for a modern feel */
+    padding: 24px;
+    border-radius: 16px;
+    color: #ffffff; /* Bright text color */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Soft shadow for depth */
+    font-family: 'Poppins', sans-serif; /* Modern font family */
+    transition: all 0.3s ease-in-out; /* Smooth transitions */
+}
+
+.money-math-section h3 {
+    color: #f0c674;
+    font-size: 24px;
+    margin-bottom: 16px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-align: center;
 }
 
 .money-math-section h4 {
-    color: #d4a759;
-    font-size: 16px;
-    margin-bottom: 8px;
+    color: #f0c674;
+    font-size: 18px;
+    margin-bottom: 12px;
     text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid #3a3a3a;
+    padding-bottom: 8px;
 }
 
 .asking-price-section,
 .loan-section,
 .earnings-section {
-    margin-bottom: 16px;
+    margin-bottom: 24px;
 }
 
 .asking-price-section label {
-    margin-right: 8px;
+    margin-right: 12px;
+    font-size: 16px;
+    color: #d4d4d4;
+}
+
+.asking-price-section select {
+    background-color: #2a2a2a;
+    color: #f0f0f0;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
     font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.asking-price-section select:hover {
+    background-color: #3b3b3b;
+    cursor: pointer;
 }
 
 .loan-section p,
 .earnings-section p {
-    font-size: 14px;
-    margin: 4px 0;
+    font-size: 16px;
+    margin: 8px 0;
+    color: #bcbcbc;
+    padding: 8px;
+    border-radius: 8px;
+    background-color: #2a2a2a;
+    transition: background-color 0.3s ease;
+}
+
+.loan-section p span,
+.earnings-section p span {
+    font-weight: 600;
+    color: #f0c674;
+}
+
+.loan-section p:hover,
+.earnings-section p:hover {
+    background-color: #333333;
+}
+
+/* Divider between sections */
+.divider {
+    height: 2px;
+    width: 100%;
+    background-color: #3a3a3a;
+    margin: 16px 0;
+}
+
+/* Subtle animation */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 5px rgba(240, 198, 116, 0.4);
+    }
+    100% {
+        box-shadow: 0 0 20px rgba(240, 198, 116, 0.9);
+    }
+}
+
+#displayAskingPrice {
+    animation: pulse 2s infinite alternate;
+    font-weight: 700;
+    font-size: 22px;
 }

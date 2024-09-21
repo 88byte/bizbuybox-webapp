@@ -1726,3 +1726,10 @@ input-item select {
 .real-estate-toggle select option:hover {
     background-color: #6495ED; /* Slight blue on hover */
 }
+
+
+
+
+#cashFlowTab, #roiTab, #sensitivityTab {
+    display: none;
+}

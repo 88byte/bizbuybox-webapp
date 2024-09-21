@@ -1506,12 +1506,12 @@ input-item select {
 }
 
 .tab-link.active {
-    background-color: #00796b;
+    background-color: #97835a;
     color: white;
 }
 
 .tab-link:hover {
-    background-color: #004d40;
+    background-color: #97835a;
 }
 
 /* Tab content */
@@ -1574,7 +1574,7 @@ input-item select {
 .loan-section p span,
 .earnings-section p span {
     font-weight: 600;
-    color: #80deea; /* Light blue for emphasis */
+    color: white; /* Light blue for emphasis */
 }
 
 .loan-section p:hover,
@@ -1582,13 +1582,7 @@ input-item select {
     background-color: #3a3a3a; /* Darker on hover */
 }
 
-/* Subtle divider between sections */
-.divider {
-    height: 1px;
-    width: 100%;
-    background-color: #37474f; /* Subtle blue-gray divider */
-    margin: 12px 0;
-}
+
 
 /* Animation for the asking price */
 @keyframes subtle-pulse {
@@ -1603,69 +1597,7 @@ input-item select {
 #displayAskingPrice {
     font-weight: 700;
     font-size: 20px;
-    color: #80deea; /* Modern blue tone */
+    color: white; /* Modern blue tone */
     animation: subtle-pulse 2s infinite alternate;
 }
 
-/* Break-Even Section Header */
-#breakEvenTab h4 {
-    font-size: 20px;
-    font-weight: bold;
-    color: #eceff1;
-    margin-bottom: 8px;
-}
-
-#breakEvenTab .summary {
-    color: #b0bec5;
-    font-size: 14px;
-    margin-bottom: 16px;
-}
-
-/* Labels */
-#breakEvenTab label {
-    margin-right: 12px;
-    font-size: 14px;
-    font-weight: 500;
-    color: #b0bec5; /* Cool, soft gray */
-    display: block;
-    margin-bottom: 4px;
-}
-
-/* Input Descriptions */
-#breakEvenTab .input-description {
-    color: #90a4ae;
-    font-size: 12px;
-    margin-bottom: 8px;
-}
-
-/* Input Fields */
-#breakEvenTab input {
-    width: 100%;
-    padding: 10px;
-    font-size: 14px;
-    color: #ffffff;
-    background-color: #263238;
-    border: none;
-    border-radius: 6px;
-    margin-bottom: 16px;
-    transition: background-color 0.2s ease;
-}
-
-#breakEvenTab input:focus {
-    outline: none;
-    background-color: #37474f;
-}
-
-/* Break-Even Point Display */
-#breakEvenTab span {
-    font-weight: bold;
-    color: #80cbc4; /* Soft teal color */
-    font-size: 16px;
-}
-
-/* Break-Even Titles */
-#breakEvenTab h5 {
-    font-size: 16px;
-    color: #eceff1;
-    margin-top: 16px;
-}

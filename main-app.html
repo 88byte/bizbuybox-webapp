@@ -540,9 +540,10 @@
 					</div>
 
 
+
 				    <!-- Cash Flow Analysis Tab -->
 				    <!-- Cash Flow Tab -->
-					<div id="cashFlowTab" class="tab-content">
+					<div id="cashFlowTab" class="tab-content"  style="display: none;"">
 					    <h3>Cash Flow Analysis</h3>
 					    <p class="description">
 					        This section helps you evaluate the company's cash flow from operations and how it performs after debt servicing.
@@ -553,7 +554,7 @@
 					</div>
 
 					<!-- ROI Tab -->
-					<div id="roiTab" class="tab-content">
+					<div id="roiTab" class="tab-content" style="display: none;">
 					    <h3>Return on Investment (ROI)</h3>
 					    <p class="description">
 					        Calculate the projected ROI based on the initial investment and expected cash flow. Understand how long it will take to recover your investment.
@@ -565,7 +566,7 @@
 					</div>
 
 					<!-- Sensitivity Analysis Tab -->
-					<div id="sensitivityTab" class="tab-content">
+					<div id="sensitivityTab" class="tab-content" style="display: none;">
 					    <h3>Sensitivity Analysis</h3>
 					    <p class="description">
 					        Test how changes in profit margins impact cash flow and ROI. This helps you gauge risk and prepare for different scenarios.
@@ -574,7 +575,7 @@
 					    <input type="number" id="profitMarginScenario" placeholder="Enter %" oninput="runSensitivityAnalysis()" />
 					    <p>Adjusted Cashflow: <span id="sensitivityCashflow" class="highlight"></span></p>
 					    <p>Impact on ROI: <span id="sensitivityROI" class="highlight"></span>%</p>
-					</div>
+					</div> 
 
 
 

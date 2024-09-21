@@ -369,6 +369,16 @@ window.editDeal = function(dealId) {
         document.getElementById('loanTerm1').value = deal.loanTerm || '';
         document.getElementById('loanAmount1').value = deal.loanAmount || '';
 
+         // If the loan type is SBA + Seller Finance, add and populate the second loan row
+        if (deal.loanType === 'SBA + Seller Finance') {
+            window.addSecondLoanRow();  // Add the second loan row dynamically
+
+            // Populate the second loan row with values from Firebase
+            document.getElementById('interestRate2').value = deal.interestRate2 || '';
+            document.getElementById('loanTerm2').value = deal.loanTerm2 || '';
+            document.getElementById('loanAmount2').value = formatCurrency(deal.loanAmount2 || '0');
+        }
+
         // Populate broker contact info
         if (deal.brokerContact) {
             const brokerBtn = document.querySelector('button[onclick="window.openBrokerContactModal()"]');

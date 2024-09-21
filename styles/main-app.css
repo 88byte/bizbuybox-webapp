@@ -1477,40 +1477,45 @@ input-item select {
     padding-bottom: 6px;
 }
 
-/* Container for tab buttons */
+/* Updated Tab Container */
 .tab-container {
     display: flex;
-    justify-content: space-evenly;
-    background-color: #212121;
+    justify-content: space-around;
+    background-color: #1c1c1c;
     border-radius: 12px;
-    padding: 10px;
+    padding: 12px;
+    margin-bottom: 20px;
 }
 
-/* Tab Link Styling */
+/* Updated Tab Link */
 .tab-link {
     flex-grow: 1;
     text-align: center;
-    padding: 12px 0;
-    color: #f0f0f0;
-    background-color: #333333;
-    cursor: pointer;
+    padding: 12px 20px;
+    color: #fff;
+    background-color: #282828;
     border-radius: 8px;
-    transition: background-color 0.3s;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .tab-link.active {
-    background-color: #97835a;
-    color: white;
+    background-color: #d4a759;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
 }
 
 .tab-link:hover {
-    background-color: #97835a;
+    background-color: #3a3a3a;
 }
 
 /* Tab Content Styling */
 .tab-content {
     display: none;
-    padding: 20px;
+    padding: 24px;
     background-color: #333333;
     border-radius: 12px;
     color: #ffffff;
@@ -1521,6 +1526,23 @@ input-item select {
 .tab-content.active {
     display: block;
 }
+
+/* Clean Section Titles */
+.tab-content h3 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #d4a759;
+    margin-bottom: 16px;
+}
+
+/* Button Hover Effect */
+.tab-link:hover {
+    cursor: pointer;
+    background-color: #d4a759;
+    color: #fff;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
 
 @keyframes fadeIn {
     from {
@@ -1540,57 +1562,71 @@ input-item select {
     margin-bottom: 24px;
 }
 
-.asking-price-section label {
-    margin-right: 12px;
-    font-size: 14px;
-    font-weight: 500;
-    color: #b0bec5; /* Cool, soft gray */
+
+
+/* Cleaned Up Overview Styling */
+.overview-section h4 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #d4a759;
+    margin-bottom: 12px;
 }
 
-.asking-price-section select {
-    background-color: rgba(100, 149, 237, 0.1);
-    border: 1px solid rgba(100, 149, 237, 0.2);
+.overview-section .highlight {
+    font-size: 20px;
+    font-weight: 700;
     color: #ffffff;
-    border: none;
-    padding: 8px 14px;
-    border-radius: 6px;
-    font-size: 14px;
-    transition: all 0.2s ease;
+    margin-bottom: 10px;
+    background-color: #404040;
+    padding: 10px;
+    border-radius: 8px;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.asking-price-section select:hover {
-    background-color: #6495ED;
-    cursor: pointer;
+.overview-section p {
+    font-size: 14px;
+    font-weight: 400;
+    color: #b0bec5;
+    margin: 6px 0;
+    padding: 8px 0;
 }
 
 /* Callout Style */
 #displayAskingPrice {
-    font-size: 24px;
+    font-size: 28px;
     font-weight: 700;
-    color: white;
+    color: #ffffff;
     animation: pulse 1.5s infinite alternate;
+    padding: 10px 14px;
+    background-color: #404040;
+    border-radius: 10px;
 }
 
+/* Overview Layout Cleanup */
+.loan-section, .earnings-section {
+    background-color: #3a3a3a;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 20px;
+}
 
-.loan-section p,
-.earnings-section p {
+.loan-section h4, .earnings-section h4 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #d4a759;
+    margin-bottom: 12px;
+}
+
+.loan-section p, .earnings-section p {
     font-size: 15px;
-    margin: 4px 0;
-    color: #cfd8dc; /* Soft text color for readability */
+    margin: 6px 0;
+    color: #d4d4d4;
     padding: 6px 12px;
     border-radius: 6px;
-    background-color: #2b2b2b; /* Subtle background to differentiate text */
-}
-
-.loan-section p span,
-.earnings-section p span {
-    font-weight: 600;
-    color: white; /* Light blue for emphasis */
-}
-
-.loan-section p:hover,
-.earnings-section p:hover {
-    background-color: #3a3a3a; /* Darker on hover */
+    background-color: #444444;
 }
 
 

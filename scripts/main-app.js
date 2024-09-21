@@ -1495,3 +1495,45 @@ window.runSensitivityAnalysis = function() {
     document.getElementById('sensitivityROI').textContent = currentROI;
 };
 
+// Function to calculate cash flow from operations
+window.calculateCashFlow = function() {
+    const totalRevenue = parseFloat(document.getElementById('totalRevenue').value.replace(/[^\d.-]/g, '')) || 0;
+    const totalExpenses = parseFloat(document.getElementById('totalExpenses').value.replace(/[^\d.-]/g, '')) || 0;
+    const debtService = parseFloat(document.getElementById('totalDebtService').textContent.replace(/[^\d.-]/g, '')) || 0;
+
+    const cashFlowFromOperations = totalRevenue - totalExpenses;
+    const cashFlowAfterDebtService = cashFlowFromOperations - debtService;
+    const netCashFlow = cashFlowAfterDebtService; // Assuming no further adjustments for investor pay
+
+    document.getElementById('cashFlowFromOperations').textContent = cashFlowFromOperations.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+    document.getElementById('cashFlowAfterDebtService').textContent = cashFlowAfterDebtService.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+    document.getElementById('netCashFlow').textContent = netCashFlow.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+};
+
+// Function to calculate Debt-to-Equity Ratio
+window.calculateDebtToEquity = function() {
+    const totalDebt = parseFloat(document.getElementById('totalDebtService').textContent.replace(/[^\d.-]/g, '')) || 0;
+    const totalEquity = parseFloat(document.getElementById('totalEquity').value.replace(/[^\d.-]/g, '')) || 0;
+
+    if (totalEquity === 0) {
+        document.getElementById('debtToEquityRatio').textContent = 'N/A';
+        return;
+    }
+
+    const debtToEquityRatio = (totalDebt / totalEquity).toFixed(2);
+    document.getElementById('debtToEquityRatio').textContent = debtToEquityRatio;
+};
+
+// Function to calculate Investor ROI
+window.calculateInvestorROI = function() {
+    const initialInvestment = parseFloat(document.getElementById('investmentAmount').value.replace(/[^\d.-]/g, '')) || 0;
+    const annualCashFlow = parseFloat(document.getElementById('avgCashflowDisplay').textContent.replace(/[^\d.-]/g, '')) || 0;
+
+    if (initialInvestment === 0) {
+        document.getElementById('investorROI').textContent = 'N/A';
+        return;
+    }
+
+    const roi = ((annualCashFlow / initialInvestment) * 100).toFixed(2);
+    document.getElementById('investorROI').textContent = roi + '%';
+};

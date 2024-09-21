@@ -1477,63 +1477,8 @@ input-item select {
     padding-bottom: 6px;
 }
 
-/* Updated Tab Container */
 .tab-container {
-    display: flex;
-    justify-content: space-around;
-    background-color: #1c1c1c;
-    border-radius: 12px;
-    padding: 12px;
-    margin-bottom: 20px;
-}
 
-/* Updated Tab Link */
-.tab-link {
-    flex-grow: 1;
-    text-align: center;
-    padding: 12px 20px;
-    color: #fff;
-    background-color: #282828;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: bold;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.tab-link.active {
-    background-color: #97835a;
-    color: #fff;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
-}
-
-.tab-link:hover {
-    background-color: #3a3a3a;
-}
-
-/* Tab Content Styling */
-.tab-content {
-    display: none;
-    padding: 24px;
-    background-color: #333333;
-    border-radius: 12px;
-    color: #ffffff;
-    margin-top: 20px;
-    animation: fadeIn 0.4s ease;
-}
-
-.tab-content.active {
-    display: block;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
 
 /* Updated Overview Section */
 .overview-section h4 {

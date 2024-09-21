@@ -408,7 +408,6 @@ button.btn-create:hover {
 
 /* Tight circular hover effect */
 .favorite-btn:hover {
-    background-color: rgba(255, 204, 0, 0.2); /* Soft yellow hover background */
     color: #ffcc00; /* Bright yellow star on hover */
 }
 

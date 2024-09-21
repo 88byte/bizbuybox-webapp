@@ -703,12 +703,12 @@ window.uploadDocument = function() {
 };
 
 // Function to format loan amount inputs in real-time
-function setupLoanAmountFormatting() {
+window.setupLoanAmountFormatting = function() {
     const loanAmountInputs = document.querySelectorAll('input[id^="loanAmount"]');
 
     loanAmountInputs.forEach(input => {
         input.addEventListener('input', function() {
-            const formattedValue = formatCurrency(input.value);
+            const formattedValue = window.formatCurrency(input.value);
             input.value = formattedValue;
         });
     });
@@ -971,7 +971,7 @@ window.removeRevenueCashflowRow = function(button) {
 
 
 // Function to format numbers as currency without decimals
-function formatCurrency(value) {
+window.formatCurrency = function(value) {
     // Check if the value is already a number, if not, convert it to a string
     if (typeof value === 'number') {
         value = value.toString();
@@ -1021,7 +1021,7 @@ window.updateProfitMargin = function(inputElement) {
 
 
 // Function to re-index the Revenue and Cashflow rows
-function reindexRows() {
+window.reindexRows = function() {
     const rows = document.querySelectorAll('.revenue-cashflow-row');
     rows.forEach((row, index) => {
         const rowNumber = index + 1;
@@ -1048,13 +1048,13 @@ function reindexRows() {
 
         // Attach event listeners to update profit margin and Buy Box dynamically
         revenueInput.addEventListener('input', () => {
-            updateProfitMargin(revenueInput);
-            triggerBuyBoxUpdate(); // Dynamically update the Buy Box when values change
+            window.updateProfitMargin(revenueInput);
+            window.triggerBuyBoxUpdate(); // Dynamically update the Buy Box when values change
         });
 
         cashflowInput.addEventListener('input', () => {
-            updateProfitMargin(cashflowInput);
-            triggerBuyBoxUpdate(); // Dynamically update the Buy Box when values change
+            window.updateProfitMargin(cashflowInput);
+            window.triggerBuyBoxUpdate(); // Dynamically update the Buy Box when values change
         });
     });
 }

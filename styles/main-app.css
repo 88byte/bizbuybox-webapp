@@ -665,7 +665,18 @@ button:hover {
         background-color: #333; /* Keep background on dropdown focus */
     }
 
-
+/* UPLOAD DOC BUTTON */
+.card-modal-content .btn-remove {
+    font-size: 14px;
+    background-color: rgba(137, 207, 240, 0.1); !important; /* Transparent, glass-like background */
+    border: 1px solid rgba(137, 207, 240, 0.2) !important; /* Subtle glass border */
+    border-radius: 8px !important; /* Slightly rounded corners */
+    color: #f5f5f5 !important;
+    padding: 4px 8px !important; /* Compact padding */
+    cursor: pointer !important;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2) !important; /* Subtle shadow for depth */
+}
 
 /* Glass-Like "+" and "-" Button Styles */
 .card-modal-content .btn-remove {

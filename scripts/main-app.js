@@ -1511,30 +1511,3 @@ window.runSensitivityAnalysis = function() {
 };
 
 
-// Function to calculate Debt-to-Equity Ratio
-window.calculateDebtToEquity = function() {
-    const totalDebt = parseFloat(document.getElementById('totalDebtService').textContent.replace(/[^\d.-]/g, '')) || 0;
-    const totalEquity = parseFloat(document.getElementById('totalEquity').value.replace(/[^\d.-]/g, '')) || 0;
-
-    if (totalEquity === 0) {
-        document.getElementById('debtToEquityRatio').textContent = 'N/A';
-        return;
-    }
-
-    const debtToEquityRatio = (totalDebt / totalEquity).toFixed(2);
-    document.getElementById('debtToEquityRatio').textContent = debtToEquityRatio;
-};
-
-// Function to calculate Investor ROI
-window.calculateInvestorROI = function() {
-    const initialInvestment = parseFloat(document.getElementById('investmentAmount').value.replace(/[^\d.-]/g, '')) || 0;
-    const annualCashFlow = parseFloat(document.getElementById('avgCashflowDisplay').textContent.replace(/[^\d.-]/g, '')) || 0;
-
-    if (initialInvestment === 0) {
-        document.getElementById('investorROI').textContent = 'N/A';
-        return;
-    }
-
-    const roi = ((annualCashFlow / initialInvestment) * 100).toFixed(2);
-    document.getElementById('investorROI').textContent = roi + '%';
-};

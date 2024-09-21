@@ -1492,19 +1492,19 @@ input-item select {
     text-align: center;
     padding: 12px 0;
     color: #f0f0f0;
-    background-color: #333333;
+    background-color: #97835a;
     cursor: pointer;
     border-radius: 8px;
     transition: background-color 0.3s;
 }
 
 .tab-link.active {
-    background-color: #009688;
+    background-color: #97835a;
     color: white;
 }
 
 .tab-link:hover {
-    background-color: #00695c;
+    background-color: #97835a;
 }
 
 

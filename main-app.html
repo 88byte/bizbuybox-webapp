@@ -486,78 +486,80 @@
 			    <!-- Money Math Section -->
 				<div class="money-math-section">
 				    <h3>Business Acquisition Money Math</h3>
-				    
+
 				    <!-- Tab Navigation -->
 				    <div class="tab-container">
 				        <button class="tab-link active" onclick="openTab(event, 'overviewTab')">Overview</button>
-				        <button class="tab-link" onclick="openTab(event, 'breakEvenTab')">Break-Even</button>
-				        <button class="tab-link" onclick="openTab(event, 'valuationTab')">Valuation</button>
+				        <button class="tab-link" onclick="openTab(event, 'cashFlowTab')">Cash Flow</button>
+				        <button class="tab-link" onclick="openTab(event, 'roiTab')">ROI</button>
 				        <button class="tab-link" onclick="openTab(event, 'sensitivityTab')">Sensitivity</button>
 				        <button class="tab-link" onclick="openTab(event, 'additionalMetricsTab')">Additional</button>
 				    </div>
 
 				    <!-- Tab Content -->
-				    
+
 				    <!-- Overview Tab -->
-					<div id="overviewTab" class="tab-content active">
-					    <h3>Overview</h3>
-					    <!-- Asking Price and Real Estate Toggle -->
-					    <div class="asking-price-section">
-					        <h4>Asking Price: $<span id="displayAskingPrice"></span></h4>
-					        <label for="toggleRealEstate">Include Real Estate:</label>
-					        <select id="toggleRealEstate" onchange="updateAskingPrice()">
-					            <option value="with">With Real Estate</option>
-					            <option value="without">Without Real Estate</option>
-					        </select>
-					    </div>
-					    <!-- Loan Section -->
-					    <div class="loan-section">
-					        <h4>Annual Debt Service</h4>
-					        <div id="loanBreakdown"></div>
-					        <p>Total Debt Service: $<span id="totalDebtService"></span></p>
-					    </div>
-					    <!-- Earnings Section -->
-					    <div class="earnings-section">
-					        <h4>Projected Annual Earnings</h4>
-					        <p>Avg Profit Margin: <span id="avgProfitMarginDisplay"></span>%</p>
-					        <p>Avg Cashflow: $<span id="avgCashflowDisplay"></span></p>
-					        <p>Cashflow Less Debt Service: $<span id="cashflowAfterDebt"></span></p>
-					        <p>Cashflow Less Debt & Investor Pay: $<span id="cashflowAfterDebtAndInvestor"></span></p>
-					    </div>
-					</div>
+				    <div id="overviewTab" class="tab-content active">
+				        <h3>Overview</h3>
+				        <!-- Asking Price and Real Estate Toggle -->
+				        <div class="asking-price-section">
+				            <h4>Asking Price: $<span id="displayAskingPrice"></span></h4>
+				            <label for="toggleRealEstate">Include Real Estate:</label>
+				            <select id="toggleRealEstate" onchange="updateAskingPrice()">
+				                <option value="with">With Real Estate</option>
+				                <option value="without">Without Real Estate</option>
+				            </select>
+				        </div>
+				        <!-- Loan Section -->
+				        <div class="loan-section">
+				            <h4>Annual Debt Service</h4>
+				            <div id="loanBreakdown"></div>
+				            <p>Total Debt Service: $<span id="totalDebtService"></span></p>
+				        </div>
+				        <!-- Earnings Section -->
+				        <div class="earnings-section">
+				            <h4>Projected Annual Earnings</h4>
+				            <p>Avg Profit Margin: <span id="avgProfitMarginDisplay"></span>%</p>
+				            <p>Avg Cashflow: $<span id="avgCashflowDisplay"></span></p>
+				            <p>Cashflow Less Debt Service: $<span id="cashflowAfterDebt"></span></p>
+				            <p>Cashflow Less Debt & Investor Pay: $<span id="cashflowAfterDebtAndInvestor"></span></p>
+				        </div>
+				    </div>
 
-					<!-- Cash Flow Analysis Tab -->
-					<div id="cashFlowTab" class="tab-content">
-					    <h3>Cash Flow Analysis</h3>
-					    <p>Cash Flow from Operations: $<span id="cashFlowFromOperations"></span></p>
-					    <p>Cash Flow After Debt Service: $<span id="cashFlowAfterDebtService"></span></p>
-					    <p>Net Cash Flow (Post-Debt & Investor Pay): $<span id="netCashFlow"></span></p>
-					</div>
+				    <!-- Cash Flow Analysis Tab -->
+				    <div id="cashFlowTab" class="tab-content">
+				        <h3>Cash Flow Analysis</h3>
+				        <p>Cash Flow from Operations: $<span id="cashFlowFromOperations"></span></p>
+				        <p>Cash Flow After Debt Service: $<span id="cashFlowAfterDebtService"></span></p>
+				        <p>Net Cash Flow (Post-Debt & Investor Pay): $<span id="netCashFlow"></span></p>
+				    </div>
 
-					<!-- ROI Tab -->
-					<div id="roiTab" class="tab-content">
-					    <h3>Return on Investment (ROI)</h3>
-					    <label for="investmentAmount">Investment Amount ($):</label>
-					    <input type="number" id="investmentAmount" placeholder="Enter investment amount" oninput="calculateROI()" />
-					    <p>Projected ROI: <span id="projectedROI"></span>%</p>
-					    <p>Investment Payback Period: <span id="paybackPeriod"></span> years</p>
-					</div>
+				    <!-- ROI Tab -->
+				    <div id="roiTab" class="tab-content">
+				        <h3>Return on Investment (ROI)</h3>
+				        <label for="investmentAmount">Investment Amount ($):</label>
+				        <input type="number" id="investmentAmount" placeholder="Enter investment amount" oninput="calculateROI()" />
+				        <p>Projected ROI: <span id="projectedROI"></span>%</p>
+				        <p>Investment Payback Period: <span id="paybackPeriod"></span> years</p>
+				    </div>
 
-					<!-- Sensitivity Analysis Tab -->
-					<div id="sensitivityTab" class="tab-content">
-					    <h3>Sensitivity Analysis</h3>
-					    <label for="profitMarginScenario">Test Profit Margin (%)</label>
-					    <input type="number" id="profitMarginScenario" placeholder="Enter %" oninput="runSensitivityAnalysis()" />
-					    <p>Adjusted Cashflow: $<span id="sensitivityCashflow"></span></p>
-					    <p>Impact on ROI: <span id="sensitivityROI"></span>%</p>
-					</div>
+				    <!-- Sensitivity Analysis Tab -->
+				    <div id="sensitivityTab" class="tab-content">
+				        <h3>Sensitivity Analysis</h3>
+				        <label for="profitMarginScenario">Test Profit Margin (%)</label>
+				        <input type="number" id="profitMarginScenario" placeholder="Enter %" oninput="runSensitivityAnalysis()" />
+				        <p>Adjusted Cashflow: $<span id="sensitivityCashflow"></span></p>
+				        <p>Impact on ROI: <span id="sensitivityROI"></span>%</p>
+				    </div>
 
-					<!-- Additional Metrics Tab -->
-					<div id="additionalMetricsTab" class="tab-content">
-					    <h3>Additional Metrics</h3>
-					    <p>Debt-to-Equity Ratio: <span id="debtToEquityRatio"></span></p>
-					    <p>Investor ROI: <span id="investorROI"></span>%</p>
-					</div>
+				    <!-- Additional Metrics Tab -->
+				    <div id="additionalMetricsTab" class="tab-content">
+				        <h3>Additional Metrics</h3>
+				        <p>Debt-to-Equity Ratio: <span id="debtToEquityRatio"></span></p>
+				        <p>Investor ROI: <span id="investorROI"></span>%</p>
+				    </div>
+				</div>
+
 
 
 

@@ -1465,6 +1465,7 @@ window.openTab = function(evt, tabName) {
     evt.currentTarget.className += " active";
 };
 
+
 // Function to calculate ROI
 window.calculateROI = function() {
     const investmentAmount = parseFloat(document.getElementById('investmentAmount').value) || 0;
@@ -1475,6 +1476,7 @@ window.calculateROI = function() {
     document.getElementById('projectedROI').textContent = projectedROI;
     document.getElementById('paybackPeriod').textContent = paybackPeriod;
 };
+
 
 // Sensitivity Analysis
 window.runSensitivityAnalysis = function() {
@@ -1492,3 +1494,4 @@ window.runSensitivityAnalysis = function() {
     document.getElementById('sensitivityCashflow').textContent = adjustedCashflow.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
     document.getElementById('sensitivityROI').textContent = currentROI;
 };
+

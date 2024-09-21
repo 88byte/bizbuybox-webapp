@@ -1507,7 +1507,6 @@ input-item select {
     background-color: #97835a;
 }
 
-
 /* Tab Content Styling */
 .tab-content {
     display: none;
@@ -1532,8 +1531,7 @@ input-item select {
     }
 }
 
-
-
+/* Section Styling */
 .asking-price-section,
 .loan-section,
 .earnings-section,
@@ -1542,8 +1540,6 @@ input-item select {
     margin-bottom: 24px;
 }
 
-
-
 .asking-price-section label {
     margin-right: 12px;
     font-size: 14px;
@@ -1551,12 +1547,9 @@ input-item select {
     color: #b0bec5; /* Cool, soft gray */
 }
 
-
-
-
 .asking-price-section select {
-    background-color: rgba(100, 149, 237, 0.1) !important; /* Transparent, glass-like background */
-    border: 1px solid rgba(100, 149, 237, 0.2) !important; /* Subtle glass border */
+    background-color: rgba(100, 149, 237, 0.1);
+    border: 1px solid rgba(100, 149, 237, 0.2);
     color: #ffffff;
     border: none;
     padding: 8px 14px;
@@ -1569,6 +1562,15 @@ input-item select {
     background-color: #6495ED;
     cursor: pointer;
 }
+
+/* Callout Style */
+#displayAskingPrice {
+    font-size: 24px;
+    font-weight: 700;
+    color: white;
+    animation: pulse 1.5s infinite alternate;
+}
+
 
 .loan-section p,
 .earnings-section p {
@@ -1593,13 +1595,6 @@ input-item select {
 
 
 
-/* Callout Style */
-#displayAskingPrice {
-    font-size: 24px;
-    font-weight: 700;
-    color: white;
-    animation: pulse 1.5s infinite alternate;
-}
 
 @keyframes pulse {
     from {

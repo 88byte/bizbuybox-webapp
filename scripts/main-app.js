@@ -407,7 +407,7 @@ window.editDeal = function(dealId) {
                     cashflowInput.value = formatCurrency(entry.cashflow); // Format the cashflow as currency
 
                     // Update profit margin for each row
-                    updateProfitMargin(revenueInput);
+                    window.updateProfitMargin(revenueInput);
                 } else {
                     console.error('Error: Unable to populate revenue/cashflow row.');
                 }
@@ -958,15 +958,15 @@ window.addRevenueCashflowRow = function() {
     newCashflowInput.addEventListener('input', triggerBuyBoxUpdate);
 
     // Ensure real-time profit margin calculation
-    updateProfitMargin(newRevenueInput);
+    window.updateProfitMargin(newRevenueInput);
 };
 
 // Function to remove a row and reindex the remaining rows
 window.removeRevenueCashflowRow = function(button) {
     const rowToRemove = button.closest('.revenue-cashflow-row');
     rowToRemove.remove();
-    reindexRows(); // Re-index rows after removing one
-    triggerBuyBoxUpdate(); // Recalculate Buy Box Checklist after removing a row
+    window.reindexRows(); // Re-index rows after removing one
+    window.triggerBuyBoxUpdate(); // Recalculate Buy Box Checklist after removing a row
 };
 
 

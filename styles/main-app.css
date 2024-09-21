@@ -1731,5 +1731,5 @@ input-item select {
 
 
 #cashFlowTab, #roiTab, #sensitivityTab {
-    display: none;
+    display: none !important;  
 }

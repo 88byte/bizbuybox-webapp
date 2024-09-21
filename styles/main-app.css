@@ -1498,11 +1498,10 @@ input-item select {
     font-size: 14px;
     font-weight: bold;
     transition: background-color 0.3s ease, transform 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .tab-link.active {
-    background-color: #d4a759;
+    background-color: #97835a;
     color: #fff;
     transform: translateY(-2px);
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
@@ -1527,23 +1526,6 @@ input-item select {
     display: block;
 }
 
-/* Clean Section Titles */
-.tab-content h3 {
-    font-size: 24px;
-    font-weight: 600;
-    color: #d4a759;
-    margin-bottom: 16px;
-}
-
-/* Button Hover Effect */
-.tab-link:hover {
-    cursor: pointer;
-    background-color: #d4a759;
-    color: #fff;
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-}
-
-
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -1553,58 +1535,23 @@ input-item select {
     }
 }
 
-/* Section Styling */
-.asking-price-section,
-.loan-section,
-.earnings-section,
-.cash-flow-section,
-.sensitivity-section {
-    margin-bottom: 24px;
-}
-
-.asking-price-section label {
-    margin-right: 12px;
-    font-size: 14px;
-    font-weight: 500;
-    color: #b0bec5; /* Cool, soft gray */
-}
-
-.asking-price-section select {
-    background-color: rgba(100, 149, 237, 0.1);
-    border: 1px solid rgba(100, 149, 237, 0.2);
-    color: #ffffff;
-    border: none;
-    padding: 8px 14px;
-    border-radius: 6px;
-    font-size: 14px;
-    transition: all 0.2s ease;
-}
-
-.asking-price-section select:hover {
-    background-color: #6495ED;
-    cursor: pointer;
-}
-
-/* Cleaned Up Overview Styling */
+/* Updated Overview Section */
 .overview-section h4 {
     font-size: 18px;
     font-weight: 600;
-    color: #d4a759;
+    color: #97835a;
     margin-bottom: 12px;
 }
 
 .overview-section .highlight {
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 700;
     color: #ffffff;
-    margin-bottom: 10px;
     background-color: #404040;
-    padding: 10px;
+    padding: 10px 14px;
     border-radius: 8px;
-    display: inline-block;
+    margin-bottom: 10px;
     text-align: center;
-    width: 100%;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .overview-section p {
@@ -1612,36 +1559,26 @@ input-item select {
     font-weight: 400;
     color: #b0bec5;
     margin: 6px 0;
-    padding: 8px 0;
 }
 
-/* Callout Style */
-#displayAskingPrice {
-    font-size: 28px;
-    font-weight: 700;
-    color: #ffffff;
-    animation: pulse 1.5s infinite alternate;
-    padding: 10px 14px;
-    background-color: #404040;
+/* Clean Layout */
+.loan-section,
+.earnings-section {
+    background-color: #2e2e2e;
     border-radius: 10px;
-}
-
-/* Overview Layout Cleanup */
-.loan-section, .earnings-section {
-    background-color: #3a3a3a;
-    border-radius: 8px;
     padding: 16px;
     margin-bottom: 20px;
 }
 
-.loan-section h4, .earnings-section h4 {
-    font-size: 18px;
+.loan-section h4,
+.earnings-section h4 {
+    font-size: 16px;
     font-weight: bold;
-    color: #d4a759;
-    margin-bottom: 12px;
+    color: #97835a;
 }
 
-.loan-section p, .earnings-section p {
+.loan-section p,
+.earnings-section p {
     font-size: 15px;
     margin: 6px 0;
     color: #d4d4d4;
@@ -1650,15 +1587,11 @@ input-item select {
     background-color: #444444;
 }
 
-
-
-
-@keyframes pulse {
-    from {
-        opacity: 0.8;
-    }
-    to {
-        opacity: 1;
-    }
+/* Highlight important numbers */
+.loan-section p span,
+.earnings-section p span {
+    font-weight: 600;
+    color: #97835a;
 }
+
 

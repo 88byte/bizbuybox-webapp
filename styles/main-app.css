@@ -390,35 +390,38 @@ button.btn-create:hover {
     border-radius: 12px;
 }
 
-/* Deal Card Styling with Gradients and Elevation */
+/* Deal Card Styling with Rustic Metallic Look */
 .deal-card {
-    background: linear-gradient(145deg, #2b2b2b, #323232); /* Gradient for depth */
+    background: linear-gradient(145deg, #2e2e2e, #3a3a3a); /* Base gradient for metallic feel */
+    background-image: url('https://www.transparenttextures.com/patterns/brushed-alum.png'); /* Metallic texture overlay */
     color: #e0e0e0;
     border-radius: 16px;
     padding: 24px;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4); /* Deeper shadow for elevation */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Faint light border to simulate light reflection */
     transition: transform 0.4s ease, box-shadow 0.4s ease;
     cursor: pointer;
 }
 
-/* Deal Card Hover Effect with Glow */
+/* Deal Card Hover Effect with a Glow */
 .deal-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
 }
 
-/* Subtle glow under the title */
+/* Subtle glow and rustic metallic details under the title */
 .deal-card:before {
     content: '';
     position: absolute;
     top: -40px;
     left: -40px;
-    width: 200px;
-    height: 200px;
-    background: radial-gradient(circle, rgba(151, 131, 90, 0.3), transparent);
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent); /* Light spot glow */
     z-index: 0;
+    opacity: 0.8;
 }
 
 /* Deal Card Header with Floating Title */
@@ -428,6 +431,7 @@ button.btn-create:hover {
     align-items: center;
     margin-bottom: 18px;
     z-index: 1;
+    position: relative;
 }
 
 .deal-card-title {
@@ -437,15 +441,17 @@ button.btn-create:hover {
     margin: 0;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); /* Soft text shadow for depth */
 }
 
 .deal-card-status {
     font-size: 12px;
     padding: 6px 12px;
     border-radius: 8px;
-    background-color: #97835a;
+    background-color: #97835a; /* Warm gold tone for status */
     color: #fff;
     text-transform: uppercase;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Shadow for depth */
 }
 
 /* Content Sections with Clear Hierarchy */
@@ -466,8 +472,9 @@ button.btn-create:hover {
 /* Emphasized Numbers */
 .deal-card p span {
     font-weight: bold;
-    color: #fff;
+    color: #ffffff;
     font-size: 18px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); /* Subtle shadow for numbers */
 }
 
 /* Quick Action Buttons */

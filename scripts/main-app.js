@@ -1364,13 +1364,27 @@ window.calculateAnnualDebtService = function(amount, interestRate, termYears) {
 // Function to calculate earnings section
 window.calculateEarnings = function(totalDebtService) {
     let totalCashflow = 0;
+    let totalProfitMargin = 0;
+    let profitMarginCount = 0;
 
-    // Calculate total and average cashflow from the form
+    // Calculate total cashflow and profit margins from the form
     const cashflows = document.querySelectorAll('input[name="cashflow[]"]');
-    cashflows.forEach(input => {
-        totalCashflow += parseFloat(input.value.replace(/[^\d.-]/g, '')) || 0;
+    const revenues = document.querySelectorAll('input[name="revenue[]"]');
+    cashflows.forEach((input, index) => {
+        const cashflow = parseFloat(input.value.replace(/[^\d.-]/g, '')) || 0;
+        const revenue = parseFloat(revenues[index].value.replace(/[^\d.-]/g, '')) || 0;
+
+        totalCashflow += cashflow;
+
+        if (revenue > 0) {
+            const profitMargin = (cashflow / revenue) * 100;
+            totalProfitMargin += profitMargin;
+            profitMarginCount++;
+        }
     });
+
     const avgCashflow = totalCashflow / cashflows.length;
+    const avgProfitMargin = profitMarginCount > 0 ? totalProfitMargin / profitMarginCount : 0;
 
     // Calculate cashflow after debt service
     const cashflowAfterDebt = avgCashflow - totalDebtService;
@@ -1379,7 +1393,7 @@ window.calculateEarnings = function(totalDebtService) {
     const cashflowAfterDebtAndInvestor = cashflowAfterDebt; // Assuming no investor pay yet
 
     // Update the display
-    document.getElementById('avgProfitMarginDisplay').textContent = (avgCashflow / totalCashflow * 100).toFixed(2) + '%';
+    document.getElementById('avgProfitMarginDisplay').textContent = avgProfitMargin.toFixed(2) + '%';
     document.getElementById('avgCashflowDisplay').textContent = avgCashflow.toLocaleString('en-US');
     document.getElementById('cashflowAfterDebt').textContent = cashflowAfterDebt.toLocaleString('en-US');
     document.getElementById('cashflowAfterDebtAndInvestor').textContent = cashflowAfterDebtAndInvestor.toLocaleString('en-US');

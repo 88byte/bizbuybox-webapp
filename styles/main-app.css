@@ -390,18 +390,28 @@ button.btn-create:hover {
     border-radius: 12px;
 }
 
+/* Favorite Button */
 .favorite-btn {
     background: none;
     border: none;
     color: #f5f5f5;
     font-size: 22px;
     cursor: pointer;
-    transition: color 0.3s ease;
+    width: 40px;  /* Set width and height to make it circular */
+    height: 40px;
+    border-radius: 50%; /* Make the button circular */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* Tight circular hover effect */
 .favorite-btn:hover {
-    color: #ffcc00; /* Bright yellow when hovering on favorite star */
+    background-color: rgba(255, 204, 0, 0.2); /* Soft yellow hover background */
+    color: #ffcc00; /* Bright yellow star on hover */
 }
+
 
 /* Deal Card Status Label */
 .status-label {

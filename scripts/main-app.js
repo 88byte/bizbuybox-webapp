@@ -403,8 +403,8 @@ window.editDeal = function(dealId) {
                     revenueYearInput.textContent = entry.year;
                     
                     // Ensure the revenue and cashflow are formatted correctly
-                    revenueInput.value = formatCurrency(entry.revenue);  // Format the revenue as currency
-                    cashflowInput.value = formatCurrency(entry.cashflow); // Format the cashflow as currency
+                    revenueInput.value = window.formatCurrency(entry.revenue);  // Format the revenue as currency
+                    cashflowInput.value = window.formatCurrency(entry.cashflow); // Format the cashflow as currency
 
                     // Update profit margin for each row
                     window.updateProfitMargin(revenueInput);
@@ -732,20 +732,20 @@ window.handleLoanTypeChange = function() {
     if (loanType === 'SBA') {
         interestRate1.value = '11.5';
         loanTerm1.value = '10';
-        loanAmount1.value = formatCurrency('0');
+        loanAmount1.value = window.formatCurrency('0');
     } else if (loanType === 'Seller Finance') {
         interestRate1.value = '11.5';
         loanTerm1.value = '10';
-        loanAmount1.value = formatCurrency('0');
+        loanAmount1.value = window.formatCurrency('0');
     } else if (loanType === 'Blended') {
         interestRate1.value = '11.5';
         loanTerm1.value = '15';
-        loanAmount1.value = formatCurrency('0');
+        loanAmount1.value = window.formatCurrency('0');
     } else if (loanType === 'SBA + Seller Finance') {
         // Pre-fill first row and add a second row for SBA + Seller Finance
         interestRate1.value = '11.5';
         loanTerm1.value = '10';
-        loanAmount1.value = formatCurrency('0');
+        loanAmount1.value = window.formatCurrency('0');
         window.addSecondLoanRow();  // Dynamically add the second loan row
     } else {
         // Clear the fields for other loan types
@@ -755,7 +755,7 @@ window.handleLoanTypeChange = function() {
     }
 
     // Apply currency formatting and debt service calculation for both loan amounts
-    setupLoanAmountFormatting();
+    window.setupLoanAmountFormatting();
     window.calculateDebtService();
 };
 
@@ -784,7 +784,7 @@ window.addSecondLoanRow = function() {
         additionalLoanDetails.appendChild(newRow);
 
         // Apply event listeners to loanAmount2 for dynamic updates
-        setupLoanAmountFormatting();
+        window.setupLoanAmountFormatting();
         document.getElementById('loanAmount2').addEventListener('input', window.calculateDebtService);
     }
 };
@@ -1015,8 +1015,8 @@ window.updateProfitMargin = function(inputElement) {
     profitMarginElement.textContent = `${profitMargin}%`;
 
     // Reformat the inputs for display
-    revenueInput.value = formatCurrency(revenueInput.value);
-    cashflowInput.value = formatCurrency(cashflowInput.value);
+    revenueInput.value = window.formatCurrency(revenueInput.value);
+    cashflowInput.value = window.formatCurrency(cashflowInput.value);
 };
 
 

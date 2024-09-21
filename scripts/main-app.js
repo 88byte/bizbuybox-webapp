@@ -716,7 +716,6 @@ function setupLoanAmountFormatting() {
 
 
 
-
 // Function to handle loan type changes and format currency dynamically
 window.handleLoanTypeChange = function() {
     const loanType = document.getElementById('loanType').value;
@@ -747,7 +746,7 @@ window.handleLoanTypeChange = function() {
         interestRate1.value = '11.5';
         loanTerm1.value = '10';
         loanAmount1.value = formatCurrency('0');
-        window.addSecondLoanRow();
+        window.addSecondLoanRow();  // Dynamically add the second loan row
     } else {
         // Clear the fields for other loan types
         interestRate1.value = '';
@@ -755,7 +754,7 @@ window.handleLoanTypeChange = function() {
         loanAmount1.value = '';
     }
 
-    // Apply currency formatting to loanAmount1 and loanAmount2
+    // Apply currency formatting to loanAmount1 and loanAmount2 (if exists)
     setupLoanAmountFormatting();
 };
 
@@ -782,7 +781,7 @@ window.addSecondLoanRow = function() {
 
         additionalLoanDetails.appendChild(newRow);
 
-        // Apply currency formatting to loanAmount2
+        // Apply currency formatting to loanAmount2 dynamically
         setupLoanAmountFormatting();
     }
 };

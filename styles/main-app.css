@@ -390,74 +390,55 @@ button.btn-create:hover {
     border-radius: 12px;
 }
 
-/* Deal Card Styling with Rustic Metallic Look */
+/* Deal Card Styling with Subtle Minimalist Look */
 .deal-card {
-    background: linear-gradient(145deg, #2e2e2e, #3a3a3a); /* Base gradient for metallic feel */
-    background-image: url('https://www.transparenttextures.com/patterns/brushed-alum.png'); /* Metallic texture overlay */
+    background: linear-gradient(135deg, #2e2e2e, #3a3a3a); /* Simple, soft gradient */
     color: #e0e0e0;
-    border-radius: 16px;
+    border-radius: 12px;
     padding: 24px;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4); /* Deeper shadow for elevation */
-    border: 1px solid rgba(255, 255, 255, 0.1); /* Faint light border to simulate light reflection */
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Softer shadow for subtle depth */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
 }
 
-/* Deal Card Hover Effect with a Glow */
+/* Deal Card Hover Effect */
 .deal-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+    transform: translateY(-6px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25); /* Softer lift effect */
 }
 
-/* Subtle glow and rustic metallic details under the title */
-.deal-card:before {
-    content: '';
-    position: absolute;
-    top: -40px;
-    left: -40px;
-    width: 250px;
-    height: 250px;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent); /* Light spot glow */
-    z-index: 0;
-    opacity: 0.8;
-}
-
-/* Deal Card Header with Floating Title */
+/* Deal Card Header */
 .deal-card-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 18px;
-    z-index: 1;
-    position: relative;
+    margin-bottom: 12px;
 }
 
 .deal-card-title {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     color: #ffffff;
     margin: 0;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); /* Soft text shadow for depth */
 }
 
 .deal-card-status {
     font-size: 12px;
     padding: 6px 12px;
     border-radius: 8px;
-    background-color: #97835a; /* Warm gold tone for status */
+    background-color: #97835a; /* Warm neutral tone */
     color: #fff;
     text-transform: uppercase;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15); /* Subtle shadow for depth */
 }
 
-/* Content Sections with Clear Hierarchy */
+/* Deal Card Content */
 .deal-card-content {
     margin-bottom: 16px;
-    z-index: 1;
 }
 
 .deal-card p {
@@ -465,17 +446,15 @@ button.btn-create:hover {
     font-weight: 500;
     color: #bdbdbd;
     margin: 8px 0;
-    position: relative;
-    z-index: 1;
 }
 
-/* Emphasized Numbers */
+/* Highlighted Numbers for Emphasis */
 .deal-card p span {
     font-weight: bold;
-    color: #ffffff;
-    font-size: 18px;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); /* Subtle shadow for numbers */
+    color: #fff;
+    font-size: 16px;
 }
+
 
 /* Quick Action Buttons */
 .deal-card-actions {

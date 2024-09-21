@@ -500,88 +500,80 @@
 
 				    <!-- Overview Tab -->
 				    <div id="overviewTab" class="tab-content active">
-				        <div class="overview-section">
-				            <!-- Asking Price and Real Estate Toggle -->
-				            <h4>Asking Price</h4>
-				            <p class="highlight">$<span id="displayAskingPrice"></span></p>
-				            <label for="toggleRealEstate">Include Real Estate:</label>
-				            <select id="toggleRealEstate" onchange="updateAskingPrice()">
-				                <option value="with">With Real Estate</option>
-				                <option value="without">Without Real Estate</option>
-				            </select>
+    <div class="overview-section">
+        <!-- Asking Price Section -->
+        <h4>Asking Price</h4>
+        <p class="highlight">$<span id="displayAskingPrice"></span></p>
+        <label for="toggleRealEstate">Include Real Estate:</label>
+        <select id="toggleRealEstate" class="input-item" onchange="updateAskingPrice()">
+            <option value="with">With Real Estate</option>
+            <option value="without">Without Real Estate</option>
+        </select>
 
-				            <!-- Loan Section -->
-				            <div class="loan-section">
-				                <h4>Annual Debt Service</h4>
-				                <div id="loanBreakdown"></div>
-				                <p>Total Debt Service: <span id="totalDebtService"></span></p>
-				            </div>
+        <!-- Loan Section -->
+        <div class="loan-section">
+            <h4>Annual Debt Service</h4>
+            <p><span>SBA Loan Payment:</span> <span id="loanBreakdown" class="highlight"></span></p>
+            <p><span>Seller Finance Loan Payment:</span> <span id="sellerLoanPayment" class="highlight"></span></p>
+            <p class="highlight">Total Debt Service: $<span id="totalDebtService"></span></p>
+        </div>
 
-				            <!-- Earnings Section -->
-				            <div class="earnings-section">
-				                <h4>Projected Annual Earnings</h4>
-				                <p>Avg Profit Margin: <span id="avgProfitMarginDisplay"></span>%</p>
-				                <p>Avg Cashflow: $<span id="avgCashflowDisplay"></span></p>
-				                <p>Cashflow Less Debt Service: $<span id="cashflowAfterDebt"></span></p>
-				                <p>Cashflow Less Debt & Investor Pay: $<span id="cashflowAfterDebtAndInvestor"></span></p>
-				            </div>
-				        </div>
-				    </div>
+        <!-- Earnings Section -->
+        <div class="earnings-section">
+            <h4>Projected Annual Earnings</h4>
+            <p><span>Avg Profit Margin:</span> <span id="avgProfitMarginDisplay" class="highlight"></span>%</p>
+            <p><span>Avg Cashflow:</span> <span id="avgCashflowDisplay" class="highlight"></span></p>
+            <p class="highlight">Cashflow Less Debt Service: $<span id="cashflowAfterDebt"></span></p>
+            <p>Cashflow Less Debt & Investor Pay: $<span id="cashflowAfterDebtAndInvestor" class="highlight"></span></p>
+        </div>
+    </div>
+</div>
 
-				    <!-- Cash Flow Analysis Tab -->
-				    <!-- Cash Flow Tab -->
-					<div id="cashFlowTab" class="tab-content">
-					    <h3>Cash Flow Analysis</h3>
-					    <p class="description">
-					        This section helps you evaluate the company's cash flow from operations and how it performs after debt servicing.
-					    </p>
-					    <p>Cash Flow from Operations: <span id="cashFlowFromOperations" class="highlight"></span></p>
-					    <p>Cash Flow After Debt Service: <span id="cashFlowAfterDebtService" class="highlight"></span></p>
-					    <p>Net Cash Flow (Post-Debt & Investor Pay): <span id="netCashFlow" class="highlight"></span></p>
-					</div>
+<!-- Cash Flow Tab -->
+<div id="cashFlowTab" class="tab-content">
+    <h3>Cash Flow Analysis</h3>
+    <p class="description">
+        This section helps you evaluate the company's cash flow from operations and how it performs after debt servicing. Cash flow is a crucial indicator of a business's financial health.
+    </p>
+    <p><span>Cash Flow from Operations:</span> <span id="cashFlowFromOperations" class="highlight"></span></p>
+    <p><span>Cash Flow After Debt Service:</span> <span id="cashFlowAfterDebtService" class="highlight"></span></p>
+    <p><span>Net Cash Flow (Post-Debt & Investor Pay):</span> <span id="netCashFlow" class="highlight"></span></p>
+</div>
 
-					<!-- ROI Tab -->
-					<div id="roiTab" class="tab-content">
-					    <h3>Return on Investment (ROI)</h3>
-					    <p class="description">
-					        Calculate the projected ROI based on the initial investment and expected cash flow. Understand how long it will take to recover your investment.
-					    </p>
-					    <label for="investmentAmount">Investment Amount ($):</label>
-					    <input type="number" id="investmentAmount" placeholder="Enter investment amount" oninput="calculateROI()" />
-					    <p>Projected ROI: <span id="projectedROI" class="highlight"></span>%</p>
-					    <p>Investment Payback Period: <span id="paybackPeriod" class="highlight"></span> years</p>
-					</div>
+<!-- ROI Tab -->
+<div id="roiTab" class="tab-content">
+    <h3>Return on Investment (ROI)</h3>
+    <p class="description">
+        Calculate the projected ROI based on the initial investment and expected cash flow. This metric helps estimate how long it will take to recover your investment.
+    </p>
+    <label for="investmentAmount" class="input-item">Investment Amount ($):</label>
+    <input type="number" id="investmentAmount" class="input-item" placeholder="Enter investment amount" oninput="calculateROI()" />
+    <p><span>Projected ROI:</span> <span id="projectedROI" class="highlight"></span>%</p>
+    <p><span>Investment Payback Period:</span> <span id="paybackPeriod" class="highlight"></span> years</p>
+</div>
 
-					<!-- Sensitivity Analysis Tab -->
-					<div id="sensitivityTab" class="tab-content">
-					    <h3>Sensitivity Analysis</h3>
-					    <p class="description">
-					        Test how changes in profit margins impact cash flow and ROI. This helps you gauge risk and prepare for different scenarios.
-					    </p>
-					    <label for="profitMarginScenario">Test Profit Margin (%):</label>
-					    <input type="number" id="profitMarginScenario" placeholder="Enter %" oninput="runSensitivityAnalysis()" />
-					    <p>Adjusted Cashflow: <span id="sensitivityCashflow" class="highlight"></span></p>
-					    <p>Impact on ROI: <span id="sensitivityROI" class="highlight"></span>%</p>
-					</div>
+<!-- Sensitivity Analysis Tab -->
+<div id="sensitivityTab" class="tab-content">
+    <h3>Sensitivity Analysis</h3>
+    <p class="description">
+        Test how changes in profit margins impact cash flow and ROI. Sensitivity analysis helps you anticipate potential risks and outcomes under different financial conditions.
+    </p>
+    <label for="profitMarginScenario" class="input-item">Test Profit Margin (%):</label>
+    <input type="number" id="profitMarginScenario" class="input-item" placeholder="Enter %" oninput="runSensitivityAnalysis()" />
+    <p><span>Adjusted Cashflow:</span> <span id="sensitivityCashflow" class="highlight"></span></p>
+    <p><span>Impact on ROI:</span> <span id="sensitivityROI" class="highlight"></span>%</p>
+</div>
 
-					<!-- Additional Metrics Tab -->
-					<div id="additionalMetricsTab" class="tab-content">
-					    <h3>Additional Metrics</h3>
-					    <p class="description">
-					        Explore key financial ratios such as debt-to-equity ratio and investor ROI, which can provide deeper insights into the business's financial health.
-					    </p>
-					    <p>Debt-to-Equity Ratio: <span id="debtToEquityRatio" class="highlight"></span></p>
-					    <p>Investor ROI: <span id="investorROI" class="highlight"></span>%</p>
-					</div>
+<!-- Additional Metrics Tab -->
+<div id="additionalMetricsTab" class="tab-content">
+    <h3>Additional Metrics</h3>
+    <p class="description">
+        Explore additional financial metrics like Debt-to-Equity Ratio and Investor ROI to gain a deeper understanding of the business's financial structure and potential for growth.
+    </p>
+    <p><span>Debt-to-Equity Ratio:</span> <span id="debtToEquityRatio" class="highlight"></span></p>
+    <p><span>Investor ROI:</span> <span id="investorROI" class="highlight"></span>%</p>
+</div>
 
-
-				    <!-- Additional Metrics Tab -->
-				    <div id="additionalMetricsTab" class="tab-content">
-				        <h3>Additional Metrics</h3>
-				        <p>Debt-to-Equity Ratio: <span id="debtToEquityRatio"></span></p>
-				        <p>Investor ROI: <span id="investorROI"></span>%</p>
-				    </div>
-				</div>
 
 
 

@@ -591,7 +591,7 @@ window.saveDeal = async function() {
         dealData.loanTerm2 = document.getElementById('loanTerm2')?.value || '';
         dealData.loanAmount2 = document.getElementById('loanAmount2')?.value.replace(/[^\d.-]/g, '') || ''; // Strip formatting
     }
-    
+
     try {
         // Step 1: Save the deal data first
         const dealsCollection = collection(db, 'deals');
@@ -754,9 +754,11 @@ window.handleLoanTypeChange = function() {
         loanAmount1.value = '';
     }
 
-    // Apply currency formatting to loanAmount1 and loanAmount2 (if exists)
+    // Apply currency formatting and debt service calculation for both loan amounts
     setupLoanAmountFormatting();
+    window.calculateDebtService();
 };
+
 
 // Function to add second loan details row (for SBA + Seller Finance)
 window.addSecondLoanRow = function() {
@@ -781,8 +783,9 @@ window.addSecondLoanRow = function() {
 
         additionalLoanDetails.appendChild(newRow);
 
-        // Apply currency formatting to loanAmount2 dynamically
+        // Apply event listeners to loanAmount2 for dynamic updates
         setupLoanAmountFormatting();
+        document.getElementById('loanAmount2').addEventListener('input', window.calculateDebtService);
     }
 };
 
@@ -1379,6 +1382,11 @@ window.setupRealTimeUpdates = function() {
     document.getElementById('interestRate1').addEventListener('input', window.calculateDebtService);
     document.getElementById('loanTerm1').addEventListener('input', window.calculateDebtService);
     document.getElementById('loanType').addEventListener('change', window.calculateDebtService);
+
+    // Attach dynamic updates to loanAmount2 when it exists
+    if (document.getElementById('loanAmount2')) {
+        document.getElementById('loanAmount2').addEventListener('input', window.calculateDebtService);
+    }
 
     // Update other dynamic updates for BuyBoxChecklist
     document.getElementById('askingPrice').addEventListener('input', window.updateAskingPrice);

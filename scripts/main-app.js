@@ -1466,17 +1466,32 @@ window.openTab = function(evt, tabName) {
 };
 
 
-// Function to calculate ROI
+// Cash Flow Analysis
+window.calculateCashFlow = function() {
+    const totalRevenue = parseFloat(document.getElementById('totalRevenue').value.replace(/[^\d.-]/g, '')) || 0;
+    const totalExpenses = parseFloat(document.getElementById('totalExpenses').value.replace(/[^\d.-]/g, '')) || 0;
+    const debtService = parseFloat(document.getElementById('totalDebtService').textContent.replace(/[^\d.-]/g, '')) || 0;
+
+    const cashFlowFromOperations = totalRevenue - totalExpenses;
+    const cashFlowAfterDebtService = cashFlowFromOperations - debtService;
+    const netCashFlow = cashFlowAfterDebtService;
+
+    document.getElementById('cashFlowFromOperations').textContent = cashFlowFromOperations.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+    document.getElementById('cashFlowAfterDebtService').textContent = cashFlowAfterDebtService.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+    document.getElementById('netCashFlow').textContent = netCashFlow.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+};
+
+// ROI Calculation
 window.calculateROI = function() {
     const investmentAmount = parseFloat(document.getElementById('investmentAmount').value) || 0;
     const avgCashflow = parseFloat(document.getElementById('avgCashflowDisplay').textContent.replace(/[^\d.-]/g, '')) || 0;
+
     const projectedROI = ((avgCashflow / investmentAmount) * 100).toFixed(2);
     const paybackPeriod = (investmentAmount / avgCashflow).toFixed(2);
 
     document.getElementById('projectedROI').textContent = projectedROI;
     document.getElementById('paybackPeriod').textContent = paybackPeriod;
 };
-
 
 // Sensitivity Analysis
 window.runSensitivityAnalysis = function() {
@@ -1495,20 +1510,6 @@ window.runSensitivityAnalysis = function() {
     document.getElementById('sensitivityROI').textContent = currentROI;
 };
 
-// Function to calculate cash flow from operations
-window.calculateCashFlow = function() {
-    const totalRevenue = parseFloat(document.getElementById('totalRevenue').value.replace(/[^\d.-]/g, '')) || 0;
-    const totalExpenses = parseFloat(document.getElementById('totalExpenses').value.replace(/[^\d.-]/g, '')) || 0;
-    const debtService = parseFloat(document.getElementById('totalDebtService').textContent.replace(/[^\d.-]/g, '')) || 0;
-
-    const cashFlowFromOperations = totalRevenue - totalExpenses;
-    const cashFlowAfterDebtService = cashFlowFromOperations - debtService;
-    const netCashFlow = cashFlowAfterDebtService; // Assuming no further adjustments for investor pay
-
-    document.getElementById('cashFlowFromOperations').textContent = cashFlowFromOperations.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-    document.getElementById('cashFlowAfterDebtService').textContent = cashFlowAfterDebtService.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-    document.getElementById('netCashFlow').textContent = netCashFlow.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-};
 
 // Function to calculate Debt-to-Equity Ratio
 window.calculateDebtToEquity = function() {

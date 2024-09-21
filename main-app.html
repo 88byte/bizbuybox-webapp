@@ -526,20 +526,27 @@
 				    </div>
 
 				    <!-- Break-Even Tab -->
-				    <div id="breakEvenTab" class="tab-content">
-				        <h4>Break-Even Analysis</h4>
-				        <p>Break-Even Revenue: $<span id="breakEvenRevenue"></span></p>
-				        <p>Monthly Revenue Needed: $<span id="monthlyRevenueNeeded"></span></p>
-				        <label for="fixedCosts">Fixed Costs (Annual):</label>
-				        <input type="text" id="fixedCosts" placeholder="Enter fixed costs" oninput="calculateBreakEvenRevenue()" />
-				    </div>
+					<div id="breakEvenTab" class="tab-content">
+					    <h4>Break-Even Analysis</h4>
+					    
+					    <!-- Sales Price Per Unit -->
+					    <label for="salesPricePerUnit">Sales Price Per Unit ($):</label>
+					    <input type="text" id="salesPricePerUnit" placeholder="Enter sales price" oninput="calculateBreakEvenRevenue()" />
 
-				    <!-- Valuation Tab -->
-				    <div id="valuationTab" class="tab-content">
-				        <h4>Business Valuation Estimate</h4>
-				        <p>Valuation Based on EBITDA: $<span id="valuationEBITDA"></span></p>
-				        <p>Valuation Based on Revenue: $<span id="valuationRevenue"></span></p>
-				    </div>
+					    <!-- Variable Cost Per Unit -->
+					    <label for="variableCostPerUnit">Variable Cost Per Unit ($):</label>
+					    <input type="text" id="variableCostPerUnit" placeholder="Enter variable cost" oninput="calculateBreakEvenRevenue()" />
+
+					    <!-- Fixed Costs -->
+					    <label for="fixedCosts">Fixed Costs (Annual $):</label>
+					    <input type="text" id="fixedCosts" placeholder="Enter fixed costs" oninput="calculateBreakEvenRevenue()" />
+
+					    <!-- Break-Even Calculations -->
+					    <h5>Break-Even Point</h5>
+					    <p>Break-Even Units: <span id="breakEvenUnits"></span></p>
+					    <p>Break-Even Revenue: $<span id="breakEvenRevenue"></span></p>
+					    <p>Monthly Revenue Needed: $<span id="monthlyRevenueNeeded"></span></p>
+					</div>
 
 				    <!-- Sensitivity Tab -->
 				    <div id="sensitivityTab" class="tab-content">

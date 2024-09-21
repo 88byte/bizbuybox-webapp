@@ -1464,3 +1464,32 @@ window.openTab = function(evt, tabName) {
     document.getElementById(tabName).style.display = "block";
     evt.currentTarget.className += " active";
 };
+
+// Function to calculate Break-Even Analysis
+window. calculateBreakEvenRevenue = function() {
+    const salesPricePerUnit = parseFloat(document.getElementById('salesPricePerUnit').value.replace(/[^\d.-]/g, '')) || 0;
+    const variableCostPerUnit = parseFloat(document.getElementById('variableCostPerUnit').value.replace(/[^\d.-]/g, '')) || 0;
+    const fixedCosts = parseFloat(document.getElementById('fixedCosts').value.replace(/[^\d.-]/g, '')) || 0;
+
+    // Check to prevent division by zero
+    if (salesPricePerUnit <= variableCostPerUnit) {
+        document.getElementById('breakEvenUnits').textContent = 'N/A';
+        document.getElementById('breakEvenRevenue').textContent = 'N/A';
+        document.getElementById('monthlyRevenueNeeded').textContent = 'N/A';
+        return;
+    }
+
+    // Calculate break-even point in units
+    const breakEvenUnits = fixedCosts / (salesPricePerUnit - variableCostPerUnit);
+
+    // Calculate break-even revenue
+    const breakEvenRevenue = breakEvenUnits * salesPricePerUnit;
+
+    // Calculate monthly revenue needed to break even
+    const monthlyRevenueNeeded = breakEvenRevenue / 12;
+
+    // Display the results
+    document.getElementById('breakEvenUnits').textContent = Math.ceil(breakEvenUnits); // Round up to the nearest whole unit
+    document.getElementById('breakEvenRevenue').textContent = breakEvenRevenue.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+    document.getElementById('monthlyRevenueNeeded').textContent = monthlyRevenueNeeded.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+}

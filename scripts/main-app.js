@@ -1465,45 +1465,30 @@ window.openTab = function(evt, tabName) {
     evt.currentTarget.className += " active";
 };
 
-// Function to calculate Break-Even Analysis
-window.calculateBreakEvenRevenue = function() {
-    // Format input values with currency format as they are typed
-    const salesPricePerUnitInput = document.getElementById('salesPricePerUnit');
-    const variableCostPerUnitInput = document.getElementById('variableCostPerUnit');
-    const fixedCostsInput = document.getElementById('fixedCosts');
-    
-    salesPricePerUnitInput.value = window.formatCurrency(salesPricePerUnitInput.value);
-    variableCostPerUnitInput.value = window.formatCurrency(variableCostPerUnitInput.value);
-    fixedCostsInput.value = window.formatCurrency(fixedCostsInput.value);
+// Function to calculate ROI
+window.calculateROI = function() {
+    const investmentAmount = parseFloat(document.getElementById('investmentAmount').value) || 0;
+    const avgCashflow = parseFloat(document.getElementById('avgCashflowDisplay').textContent.replace(/[^\d.-]/g, '')) || 0;
+    const projectedROI = ((avgCashflow / investmentAmount) * 100).toFixed(2);
+    const paybackPeriod = (investmentAmount / avgCashflow).toFixed(2);
 
-    // Parse the values back into numbers for calculations
-    const salesPricePerUnit = parseFloat(salesPricePerUnitInput.value.replace(/[^\d.-]/g, '')) || 0;
-    const variableCostPerUnit = parseFloat(variableCostPerUnitInput.value.replace(/[^\d.-]/g, '')) || 0;
-    const fixedCosts = parseFloat(fixedCostsInput.value.replace(/[^\d.-]/g, '')) || 0;
+    document.getElementById('projectedROI').textContent = projectedROI;
+    document.getElementById('paybackPeriod').textContent = paybackPeriod;
+};
 
-    // Check to prevent division by zero or invalid break-even calculations
-    if (salesPricePerUnit <= variableCostPerUnit) {
-        document.getElementById('breakEvenUnits').textContent = 'N/A';
-        document.getElementById('breakEvenRevenue').textContent = 'N/A';
-        document.getElementById('monthlyRevenueNeeded').textContent = 'N/A';
-        return;
-    }
+// Sensitivity Analysis
+window.runSensitivityAnalysis = function() {
+    const profitMarginScenario = parseFloat(document.getElementById('profitMarginScenario').value) || 0;
+    const revenues = document.querySelectorAll('input[name="revenue[]"]');
+    let totalRevenue = 0;
 
-    // Calculate break-even point in units
-    const breakEvenUnits = fixedCosts / (salesPricePerUnit - variableCostPerUnit);
+    revenues.forEach(input => {
+        totalRevenue += parseFloat(input.value.replace(/[^\d.-]/g, '')) || 0;
+    });
 
-    // Calculate break-even revenue
-    const breakEvenRevenue = breakEvenUnits * salesPricePerUnit;
+    const adjustedCashflow = (profitMarginScenario / 100) * totalRevenue;
+    const currentROI = document.getElementById('projectedROI').textContent;
 
-    // Calculate monthly revenue needed to break even
-    const monthlyRevenueNeeded = breakEvenRevenue / 12;
-
-    // Display the results with proper currency formatting
-    document.getElementById('breakEvenUnits').textContent = Math.ceil(breakEvenUnits); // Round up to the nearest whole unit
-    document.getElementById('breakEvenRevenue').textContent = window.formatCurrency(breakEvenRevenue); // Format as currency
-    document.getElementById('monthlyRevenueNeeded').textContent = window.formatCurrency(monthlyRevenueNeeded); // Format as currency
-}
-
-
-
-
+    document.getElementById('sensitivityCashflow').textContent = adjustedCashflow.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+    document.getElementById('sensitivityROI').textContent = currentROI;
+};

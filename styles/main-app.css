@@ -1455,95 +1455,105 @@ input-item select {
 /* General Styling */
 .money-math-section {
     margin-top: 24px;
-    background-color: #1f1f1f; /* Dark background for modern feel */
-    padding: 24px;
+    background-color: #1a1a1a; /* Sleek, dark background */
+    padding: 20px;
     border-radius: 12px;
-    color: #eaeaea; /* Softer off-white text */
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
-    font-family: 'Inter', sans-serif; /* Clean and modern font */
-    transition: all 0.3s ease;
+    color: #e0e0e0; /* Light text for high contrast */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4); /* More pronounced shadow for depth */
+    font-family: 'Inter', sans-serif; /* Clean and modern sans-serif font */
+    max-width: 800px; /* Keep it compact */
+    margin: 0 auto; /* Center it on the page */
 }
 
 .money-math-section h3 {
-    color: #88c0d0; /* Cool tone accent color */
-    font-size: 22px;
-    margin-bottom: 16px;
+    color: #e0f7fa; /* Soft, modern teal */
+    font-size: 20px;
+    margin-bottom: 18px;
     text-transform: uppercase;
     letter-spacing: 1px;
     text-align: center;
+    font-weight: 500;
 }
 
 .money-math-section h4 {
-    color: #81a1c1; /* Subtle soft blue */
-    font-size: 18px;
-    margin-bottom: 12px;
+    color: #e0e0e0; /* Bright gray */
+    font-size: 16px;
+    margin-bottom: 10px;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
-    border-bottom: 2px solid #3b3b3b;
-    padding-bottom: 8px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 6px;
 }
 
 .asking-price-section,
 .loan-section,
 .earnings-section {
-    margin-bottom: 24px;
+    margin-bottom: 20px;
 }
 
 .asking-price-section label {
     margin-right: 12px;
     font-size: 14px;
-    color: #d4d4d4;
+    font-weight: 500;
+    color: #b0bec5; /* Cool, soft gray */
 }
 
 .asking-price-section select {
-    background-color: #2d2d2d;
-    color: #eaeaea;
+    background-color: #263238;
+    color: #ffffff;
     border: none;
-    padding: 8px 16px;
-    border-radius: 8px;
+    padding: 8px 14px;
+    border-radius: 6px;
     font-size: 14px;
     transition: all 0.2s ease;
 }
 
 .asking-price-section select:hover {
-    background-color: #393939;
+    background-color: #37474f;
     cursor: pointer;
 }
 
 .loan-section p,
 .earnings-section p {
-    font-size: 16px;
-    margin: 8px 0;
-    color: #bbbbbb;
-    padding: 8px;
-    border-radius: 8px;
-    background-color: #2a2a2a;
-    transition: background-color 0.3s ease;
+    font-size: 15px;
+    margin: 4px 0;
+    color: #cfd8dc; /* Soft text color for readability */
+    padding: 6px 12px;
+    border-radius: 6px;
+    background-color: #2b2b2b; /* Subtle background to differentiate text */
 }
 
 .loan-section p span,
 .earnings-section p span {
     font-weight: 600;
-    color: #88c0d0;
+    color: #80deea; /* Light blue for emphasis */
 }
 
 .loan-section p:hover,
 .earnings-section p:hover {
-    background-color: #333333;
+    background-color: #3a3a3a; /* Darker on hover */
 }
 
-/* Divider between sections */
+/* Subtle divider between sections */
 .divider {
     height: 1px;
     width: 100%;
-    background-color: #3b3b3b;
-    margin: 16px 0;
+    background-color: #37474f; /* Subtle blue-gray divider */
+    margin: 12px 0;
 }
 
-/* Asking Price Styling */
+/* Animation for the asking price */
+@keyframes subtle-pulse {
+    0% {
+        opacity: 0.8;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
 #displayAskingPrice {
     font-weight: 700;
-    font-size: 22px;
-    color: #88c0d0;
+    font-size: 20px;
+    color: #80deea; /* Modern blue tone */
+    animation: subtle-pulse 2s infinite alternate;
 }
-

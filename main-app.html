@@ -505,11 +505,14 @@
 					        <div class="asking-price-container">
 					            <h4 class="centered-title">Asking Price</h4>
 				            <p class="highlight">$<span id="displayAskingPrice"></span></p>
-				            <label for="toggleRealEstate">Include Real Estate:</label>
-				            <select id="toggleRealEstate" onchange="updateAskingPrice()">
-				                <option value="with">With Real Estate</option>
-				                <option value="without">Without Real Estate</option>
-				            </select>
+				            <div class="real-estate-toggle">
+							    <label for="toggleRealEstate">Include Real Estate:</label>
+							    <select id="toggleRealEstate" onchange="updateAskingPrice()">
+							        <option value="with">With Real Estate</option>
+							        <option value="without">Without Real Estate</option>
+							    </select>
+							</div>
+
 
 				            <!-- Loan Section -->
 				            <div class="loan-section">

@@ -1608,3 +1608,31 @@ input-item select {
     align-items: center; /* Ensure everything is centered */
     margin-bottom: 20px;
 }
+
+
+/* Real Estate Toggle Select (Styled like .btn-doc) */
+.real-estate-toggle select {
+    font-size: 14px;
+    background-color: rgba(100, 149, 237, 0.1); /* Transparent, glass-like background */
+    border: 1px solid rgba(100, 149, 237, 0.2); /* Subtle glass border */
+    border-radius: 8px; /* Slightly rounded corners */
+    color: #f5f5f5;
+    padding: 4px 8px; /* Compact padding */
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+}
+
+/* Hover Effect for Select */
+.real-estate-toggle select:hover {
+    background-color: #6495ED; /* Slight blue on hover */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+    transform: translateY(-2px); /* Slight lift effect */
+}
+
+/* Focus Effect */
+.real-estate-toggle select:focus {
+    outline: none;
+    box-shadow: 0 0 6px rgba(100, 149, 237, 0.8); /* Glow effect on focus */
+    background-color: rgba(100, 149, 237, 0.2); /* Slight color change on focus */
+}

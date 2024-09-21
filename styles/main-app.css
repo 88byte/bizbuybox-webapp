@@ -397,18 +397,24 @@ button.btn-create:hover {
     color: #f5f5f5;
     font-size: 22px;
     cursor: pointer;
-    width: 40px;  /* Set width and height to make it circular */
+    width: 40px;
     height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: color 0.3s ease;
 }
 
-/* Tight circular hover effect */
+/* Star turns yellow on hover */
 .favorite-btn:hover {
-    color: #ffcc00; /* Bright yellow star on hover */
+    color: #ffcc00;
 }
+
+/* Filled state for the favorite button */
+.favorite-btn.filled {
+    color: #ffcc00; /* Yellow when favorited */
+}
+
 
 
 /* Deal Card Status Label */
@@ -432,9 +438,12 @@ button.btn-create:hover {
     position: relative;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Softer shadow for subtle depth */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
     cursor: pointer;
+    user-select: none;
 }
+
+
 
 /* Deal Card Hover Effect */
 .deal-card:hover {

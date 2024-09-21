@@ -1562,7 +1562,28 @@ input-item select {
     margin-bottom: 24px;
 }
 
+.asking-price-section label {
+    margin-right: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #b0bec5; /* Cool, soft gray */
+}
 
+.asking-price-section select {
+    background-color: rgba(100, 149, 237, 0.1);
+    border: 1px solid rgba(100, 149, 237, 0.2);
+    color: #ffffff;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.asking-price-section select:hover {
+    background-color: #6495ED;
+    cursor: pointer;
+}
 
 /* Cleaned Up Overview Styling */
 .overview-section h4 {

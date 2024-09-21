@@ -670,7 +670,7 @@ button:hover {
 /* Glass-Like "+" and "-" Button Styles */
 .card-modal-content .btn-remove {
     font-size: 14px;
-    background-color: rgbargba(255, 0, 0, 0.1); !important; /* Transparent, glass-like background */
+    background-color: rgba(255, 0, 0, 0.1); !important; /* Transparent, glass-like background */
     border: 1px solid rgba(255, 0, 0, 0.2) !important; /* Subtle glass border */
     border-radius: 8px !important; /* Slightly rounded corners */
     color: #f5f5f5 !important;

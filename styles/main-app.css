@@ -1484,11 +1484,58 @@ input-item select {
     padding-bottom: 6px;
 }
 
+/* Container for tab buttons */
+.tab-container {
+    display: flex;
+    justify-content: space-between;
+    background-color: #3a3a3a;
+    border-radius: 8px;
+    overflow: hidden;
+}
 
+.tab-link {
+    flex: 1;
+    padding: 12px;
+    color: #f0f0f0;
+    background-color: #2c2c2c;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s;
+}
 
-.asking-price-section,
-.loan-section,
-.earnings-section {
+.tab-link.active {
+    background-color: #00796b;
+    color: white;
+}
+
+.tab-link:hover {
+    background-color: #004d40;
+}
+
+/* Tab content */
+.tab-content {
+    display: none;
+    padding: 20px;
+    background-color: #2c2c2c;
+    color: #f0f0f0;
+    border-radius: 8px;
+    margin-top: 20px;
+    animation: fadeIn 0.4s;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Section styling */
+.asking-price-section, .loan-section, .earnings-section, .break-even-section, .valuation-section, .sensitivity-section, .additional-metrics-section {
     margin-bottom: 20px;
 }
 

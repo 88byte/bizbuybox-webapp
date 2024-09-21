@@ -1607,67 +1607,65 @@ input-item select {
     animation: subtle-pulse 2s infinite alternate;
 }
 
-
-#breakEvenTab {
-    display: none; /* Will be activated by the tab system */
-    padding: 16px;
-    background-color: #f8f9fa;
-    border-radius: 10px;
-}
-
+/* Break-Even Section Header */
 #breakEvenTab h4 {
-    color: #2c3e50;
-    font-size: 22px;
+    font-size: 20px;
     font-weight: bold;
-    margin-bottom: 15px;
-}
-
-#breakEvenTab p.summary {
-    font-size: 14px;
-    color: #7f8c8d;
-    margin-bottom: 20px;
-}
-
-#breakEvenTab label {
-    display: block;
-    font-size: 14px;
-    color: #34495e;
-    margin-top: 15px;
-    margin-bottom: 6px;
-}
-
-#breakEvenTab small {
-    display: block;
-    font-size: 12px;
-    color: #95a5a6;
+    color: #eceff1;
     margin-bottom: 8px;
 }
 
+#breakEvenTab .summary {
+    color: #b0bec5;
+    font-size: 14px;
+    margin-bottom: 16px;
+}
+
+/* Labels */
+#breakEvenTab label {
+    margin-right: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #b0bec5; /* Cool, soft gray */
+    display: block;
+    margin-bottom: 4px;
+}
+
+/* Input Descriptions */
+#breakEvenTab .input-description {
+    color: #90a4ae;
+    font-size: 12px;
+    margin-bottom: 8px;
+}
+
+/* Input Fields */
 #breakEvenTab input {
     width: 100%;
-    padding: 8px 12px;
+    padding: 10px;
     font-size: 14px;
-    background-color: #ffffff;
-    border: 1px solid #ddd;
+    color: #ffffff;
+    background-color: #263238;
+    border: none;
     border-radius: 6px;
-    margin-bottom: 15px;
+    margin-bottom: 16px;
+    transition: background-color 0.2s ease;
 }
 
-#breakEvenTab h5 {
-    font-size: 18px;
-    color: #16a085;
-    font-weight: bold;
-    margin-top: 20px;
-    margin-bottom: 10px;
+#breakEvenTab input:focus {
+    outline: none;
+    background-color: #37474f;
 }
 
-#breakEvenTab p {
-    font-size: 14px;
-    color: #2c3e50;
-    margin-bottom: 8px;
-}
-
+/* Break-Even Point Display */
 #breakEvenTab span {
     font-weight: bold;
-    color: #16a085;
+    color: #80cbc4; /* Soft teal color */
+    font-size: 16px;
+}
+
+/* Break-Even Titles */
+#breakEvenTab h5 {
+    font-size: 16px;
+    color: #eceff1;
+    margin-top: 16px;
 }

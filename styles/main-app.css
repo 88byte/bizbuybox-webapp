@@ -390,6 +390,31 @@ button.btn-create:hover {
     border-radius: 12px;
 }
 
+.favorite-btn {
+    background: none;
+    border: none;
+    color: #f5f5f5;
+    font-size: 22px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.favorite-btn:hover {
+    color: #ffcc00; /* Bright yellow when hovering on favorite star */
+}
+
+/* Deal Card Status Label */
+.status-label {
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 8px;
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-left: 8px;
+    display: inline-block;
+}
+
 /* Deal Card Styling with Subtle Minimalist Look */
 .deal-card {
     background: linear-gradient(135deg, #2e2e2e, #3a3a3a); /* Simple, soft gradient */

@@ -642,31 +642,93 @@ window.fetchDeals = async function() {
     }
 };
 
+// Function to toggle favorite status of a deal
+window.toggleFavorite = function(dealId) {
+    const deal = deals.find(d => d.dealId === dealId);
+    if (deal) {
+        deal.favorite = !deal.favorite; // Toggle favorite status
+        renderDeals(); // Re-render the deals to sort favorites first
+    }
+};
 
 // Function to render deals on the dashboard
-function renderDeals() {
+window.renderDeals = function() {
     const dealGrid = document.getElementById('dealGrid');
     dealGrid.innerHTML = ''; // Clear the existing content
 
-    deals.forEach(deal => {
+    // Sort deals with favorites first
+    const sortedDeals = deals.sort((a, b) => b.favorite - a.favorite);
+
+    sortedDeals.forEach(deal => {
         const dealCard = document.createElement('div');
         dealCard.className = 'deal-card';
+
+        // Format the status to be more readable
+        const formattedStatus = formatStatus(deal.status);
+
+        // Add favorite icon (★) toggle
+        const favoriteIcon = deal.favorite ? '★' : '☆';
+
         dealCard.innerHTML = `
-            <h4>${deal.businessName}</h4>
-            <p>Status: ${deal.status}</p>
-            <p>Asking Price: ${deal.askingPrice}</p>
-            <p>Last Updated: ${new Date(deal.lastUpdate).toLocaleDateString()}</p>
-            <div class="deal-actions">
-                <button onclick="editDeal('${deal.dealId}')">Edit</button> <!-- Ensure dealId is correct -->
-                <button onclick="openConfirmationModal('${deal.dealId}')">Delete</button>
+            <div class="deal-card-header">
+                <h4>${deal.businessName}</h4>
+                <button class="favorite-btn" onclick="toggleFavorite('${deal.dealId}')">${favoriteIcon}</button>
+            </div>
+            <div class="deal-card-content">
+                <p>Status: <span class="status-label" style="background-color: ${getStatusColor(deal.status)};">${formattedStatus}</span></p>
+                <p>Asking Price: $${parseInt(deal.askingPrice).toLocaleString()}</p>
+                <p>Last Updated: ${new Date(deal.lastUpdate).toLocaleDateString()}</p>
+                <div class="deal-actions">
+                    <button onclick="editDeal('${deal.dealId}')">Edit</button>
+                    <button onclick="openConfirmationModal('${deal.dealId}')">Delete</button>
+                </div>
             </div>
         `;
         dealGrid.appendChild(dealCard);
     });
-}
+};
+
+// Function to format deal status to be more readable
+window.formatStatus = function(status) {
+    const statusMap = {
+        'new-deal': 'New Deal',
+        'cim-review': 'CIM Review',
+        'seller-meeting': 'Seller Meeting',
+        'loi-submitted': 'LOI Submitted',
+        'loi-accepted': 'LOI Accepted',
+        'kyle-review': 'Kyle Review',
+        'sba-loan': 'SBA Loan',
+        'due-diligence': 'Due Diligence',
+        'deal-closed-won': 'Deal Closed (Won)',
+        'no-longer-interested': 'No Longer Interested',
+        'nurture': 'Nurture'
+    };
+    return statusMap[status] || status;
+};
 
 
+// Function to get the background color based on status
+window.getStatusColor = function(status) {
+    const statusColors = {
+        'new-deal': '#3b82f6',
+        'cim-review': '#6366f1',
+        'seller-meeting': '#8b5cf6',
+        'loi-submitted': '#22c55e',
+        'loi-accepted': '#22c55e',
+        'kyle-review': '#ec4899',
+        'sba-loan': '#f97316',
+        'due-diligence': '#10b981',
+        'deal-closed-won': '#16a34a',
+        'no-longer-interested': '#f43f5e',
+        'nurture': '#eab308'
+    };
+    return statusColors[status] || '#333';
+};
 
+// Initial render on page load
+window.onload = function() {
+    renderDeals();
+};
 
 // Global object to store uploaded documents
 window.uploadedDocuments = [];

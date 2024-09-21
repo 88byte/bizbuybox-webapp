@@ -152,19 +152,7 @@ body {
     background-color: #e63946;
 }
 
-.btn-save {
-    background-color: #97835a;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
 
-.btn-save:hover {
-    background-color: #7a6a4b;
-}
 
 
 .sidebar-nav {
@@ -679,12 +667,24 @@ button:hover {
 
 
 
+/* Glass-Like "+" and "-" Button Styles */
+.card-modal-content .btn-remove {
+    font-size: 14px;
+    background-color: rgbargba(255, 0, 0, 0.1); !important; /* Transparent, glass-like background */
+    border: 1px solid rgba(255, 0, 0, 0.2) !important; /* Subtle glass border */
+    border-radius: 8px !important; /* Slightly rounded corners */
+    color: #f5f5f5 !important;
+    padding: 4px 8px !important; /* Compact padding */
+    cursor: pointer !important;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2) !important; /* Subtle shadow for depth */
+}
 
 /* Glass-Like "+" and "-" Button Styles */
-.card-modal-content .btn-add, .card-modal-content .btn-remove {
+.card-modal-content .btn-add {
     font-size: 14px;
-    background-color: rgba(255, 255, 255, 0.1) !important; /* Transparent, glass-like background */
-    border: 1px solid rgba(255, 255, 255, 0.2) !important; /* Subtle glass border */
+    background-color: rgba(0, 255, 0, 0.1) !important; /* Transparent, glass-like background */
+    border: 1px solid rgba(0, 255, 0, 0.2) !important; /* Subtle glass border */
     border-radius: 8px !important; /* Slightly rounded corners */
     color: #f5f5f5 !important;
     padding: 4px 8px !important; /* Compact padding */
@@ -941,24 +941,6 @@ input-item select {
 
 
 
-/* Ensure the glass-like style for "+" and "-" buttons in the modal */
-.card-modal-content button.btn-add, .card-modal-content button.btn-remove {
-    font-size: 14px !important;
-    background-color: rgba(255, 255, 255, 0.1) !important;
-    border: 1px solid rgba(255, 255, 255, 0.2) !important;
-    border-radius: 8px !important;
-    color: #f5f5f5 !important;
-    padding: 4px 8px !important;
-    cursor: pointer !important;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s !important;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2) !important;
-}
-
-.card-modal-content button.btn-add:hover, .card-modal-content button.btn-remove:hover {
-    background-color: rgba(255, 255, 255, 0.2) !important;
-    transform: translateY(-1px) !important;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important;
-}
 
 /* Deal Actions Container */
 .deal-actions {

@@ -1551,8 +1551,12 @@ input-item select {
     color: #b0bec5; /* Cool, soft gray */
 }
 
+
+
+
 .asking-price-section select {
-    background-color: #6495ED;
+    background-color: rgba(100, 149, 237, 0.1) !important; /* Transparent, glass-like background */
+    border: 1px solid rgba(100, 149, 237, 0.2) !important; /* Subtle glass border */
     color: #ffffff;
     border: none;
     padding: 8px 14px;

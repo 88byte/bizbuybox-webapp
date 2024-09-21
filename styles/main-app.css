@@ -1601,3 +1601,10 @@ input-item select {
     font-weight: bold;
     color: #ffffff;
 }
+/* Asking Price Container */
+.asking-price-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Ensure everything is centered */
+    margin-bottom: 20px;
+}

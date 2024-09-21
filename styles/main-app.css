@@ -1480,42 +1480,43 @@ input-item select {
 /* Container for tab buttons */
 .tab-container {
     display: flex;
-    justify-content: space-between;
-    background-color: #3a3a3a;
-    border-radius: 8px;
-    overflow: hidden;
+    justify-content: space-evenly;
+    background-color: #212121;
+    border-radius: 12px;
+    padding: 10px;
 }
 
+/* Tab Link Styling */
 .tab-link {
-    flex: 1;
-    padding: 12px;
-    color: #f0f0f0;
-    background-color: #2c2c2c;
-    border: none;
-    outline: none;
-    cursor: pointer;
+    flex-grow: 1;
     text-align: center;
+    padding: 12px 0;
+    color: #f0f0f0;
+    background-color: #333333;
+    cursor: pointer;
+    border-radius: 8px;
     transition: background-color 0.3s;
 }
 
 .tab-link.active {
-    background-color: #97835a;
+    background-color: #009688;
     color: white;
 }
 
 .tab-link:hover {
-    background-color: #97835a;
+    background-color: #00695c;
 }
 
-/* Tab content */
+
+/* Tab Content Styling */
 .tab-content {
     display: none;
     padding: 20px;
-    background-color: #2c2c2c;
-    color: #f0f0f0;
-    border-radius: 8px;
+    background-color: #333333;
+    border-radius: 12px;
+    color: #ffffff;
     margin-top: 20px;
-    animation: fadeIn 0.4s;
+    animation: fadeIn 0.4s ease;
 }
 
 .tab-content.active {
@@ -1523,14 +1524,25 @@ input-item select {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
-/* Section styling */
-.asking-price-section, .loan-section, .earnings-section, .break-even-section, .valuation-section, .sensitivity-section, .additional-metrics-section {
-    margin-bottom: 20px;
+
+
+.asking-price-section,
+.loan-section,
+.earnings-section,
+.cash-flow-section,
+.sensitivity-section {
+    margin-bottom: 24px;
 }
+
+
 
 .asking-price-section label {
     margin-right: 12px;
@@ -1577,20 +1589,20 @@ input-item select {
 
 
 
-/* Animation for the asking price */
-@keyframes subtle-pulse {
-    0% {
-        opacity: 0.8;
-    }
-    100% {
-        opacity: 1;
-    }
+/* Callout Style */
+#displayAskingPrice {
+    font-size: 24px;
+    font-weight: 700;
+    color: white;
+    animation: pulse 1.5s infinite alternate;
 }
 
-#displayAskingPrice {
-    font-weight: 700;
-    font-size: 20px;
-    color: white; /* Modern blue tone */
-    animation: subtle-pulse 2s infinite alternate;
+@keyframes pulse {
+    from {
+        opacity: 0.8;
+    }
+    to {
+        opacity: 1;
+    }
 }
 

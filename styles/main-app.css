@@ -668,8 +668,8 @@ button:hover {
 /* UPLOAD DOC BUTTON */
 .card-modal-content .btn-remove {
     font-size: 14px;
-    background-color: rgba(137, 207, 240, 0.1); !important; /* Transparent, glass-like background */
-    border: 1px solid rgba(137, 207, 240, 0.2) !important; /* Subtle glass border */
+    background-color: rgba(100, 149, 237, 0.1); !important; /* Transparent, glass-like background */
+    border: 1px solid rgba(100, 149, 237, 0.2) !important; /* Subtle glass border */
     border-radius: 8px !important; /* Slightly rounded corners */
     color: #f5f5f5 !important;
     padding: 4px 8px !important; /* Compact padding */

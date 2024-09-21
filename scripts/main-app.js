@@ -1447,8 +1447,7 @@ window.calculateDebtService();
 
 
 
-// Function to switch between tabs
-function openTab(evt, tabName) {
+window.openTab = function(evt, tabName) {
     // Hide all tabs
     var tabContent = document.getElementsByClassName("tab-content");
     for (var i = 0; i < tabContent.length; i++) {
@@ -1464,7 +1463,4 @@ function openTab(evt, tabName) {
     // Show the selected tab
     document.getElementById(tabName).style.display = "block";
     evt.currentTarget.className += " active";
-}
-
-// By default, show the overview tab
-document.getElementById('overviewTab').style.display = 'block';
+};

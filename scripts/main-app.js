@@ -376,7 +376,7 @@ window.editDeal = function(dealId) {
             // Populate the second loan row with values from Firebase
             document.getElementById('interestRate2').value = deal.interestRate2 || '';
             document.getElementById('loanTerm2').value = deal.loanTerm2 || '';
-            document.getElementById('loanAmount2').value = formatCurrency(deal.loanAmount2 || '0');
+            document.getElementById('loanAmount2').value = window.formatCurrency(deal.loanAmount2 || '0');
         }
 
         // Populate broker contact info
@@ -1466,12 +1466,22 @@ window.openTab = function(evt, tabName) {
 };
 
 // Function to calculate Break-Even Analysis
-window. calculateBreakEvenRevenue = function() {
-    const salesPricePerUnit = parseFloat(document.getElementById('salesPricePerUnit').value.replace(/[^\d.-]/g, '')) || 0;
-    const variableCostPerUnit = parseFloat(document.getElementById('variableCostPerUnit').value.replace(/[^\d.-]/g, '')) || 0;
-    const fixedCosts = parseFloat(document.getElementById('fixedCosts').value.replace(/[^\d.-]/g, '')) || 0;
+window.calculateBreakEvenRevenue = function() {
+    // Format input values with currency format as they are typed
+    const salesPricePerUnitInput = document.getElementById('salesPricePerUnit');
+    const variableCostPerUnitInput = document.getElementById('variableCostPerUnit');
+    const fixedCostsInput = document.getElementById('fixedCosts');
+    
+    salesPricePerUnitInput.value = window.formatCurrency(salesPricePerUnitInput.value);
+    variableCostPerUnitInput.value = window.formatCurrency(variableCostPerUnitInput.value);
+    fixedCostsInput.value = window.formatCurrency(fixedCostsInput.value);
 
-    // Check to prevent division by zero
+    // Parse the values back into numbers for calculations
+    const salesPricePerUnit = parseFloat(salesPricePerUnitInput.value.replace(/[^\d.-]/g, '')) || 0;
+    const variableCostPerUnit = parseFloat(variableCostPerUnitInput.value.replace(/[^\d.-]/g, '')) || 0;
+    const fixedCosts = parseFloat(fixedCostsInput.value.replace(/[^\d.-]/g, '')) || 0;
+
+    // Check to prevent division by zero or invalid break-even calculations
     if (salesPricePerUnit <= variableCostPerUnit) {
         document.getElementById('breakEvenUnits').textContent = 'N/A';
         document.getElementById('breakEvenRevenue').textContent = 'N/A';
@@ -1488,8 +1498,12 @@ window. calculateBreakEvenRevenue = function() {
     // Calculate monthly revenue needed to break even
     const monthlyRevenueNeeded = breakEvenRevenue / 12;
 
-    // Display the results
+    // Display the results with proper currency formatting
     document.getElementById('breakEvenUnits').textContent = Math.ceil(breakEvenUnits); // Round up to the nearest whole unit
-    document.getElementById('breakEvenRevenue').textContent = breakEvenRevenue.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-    document.getElementById('monthlyRevenueNeeded').textContent = monthlyRevenueNeeded.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+    document.getElementById('breakEvenRevenue').textContent = window.formatCurrency(breakEvenRevenue); // Format as currency
+    document.getElementById('monthlyRevenueNeeded').textContent = window.formatCurrency(monthlyRevenueNeeded); // Format as currency
 }
+
+
+
+

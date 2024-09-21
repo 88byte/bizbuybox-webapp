@@ -490,10 +490,10 @@
 				    <!-- Tab Navigation -->
 				    <div class="tab-container">
 				        <button class="tab-link active" onclick="openTab(event, 'overviewTab')">Overview</button>
-				        <button class="tab-link" onclick="openTab(event, 'breakEvenTab')">Break-Even Analysis</button>
+				        <button class="tab-link" onclick="openTab(event, 'breakEvenTab')">Break-Even</button>
 				        <button class="tab-link" onclick="openTab(event, 'valuationTab')">Valuation</button>
-				        <button class="tab-link" onclick="openTab(event, 'sensitivityTab')">Sensitivity Analysis</button>
-				        <button class="tab-link" onclick="openTab(event, 'additionalMetricsTab')">Additional Metrics</button>
+				        <button class="tab-link" onclick="openTab(event, 'sensitivityTab')">Sensitivity</button>
+				        <button class="tab-link" onclick="openTab(event, 'additionalMetricsTab')">Additional</button>
 				    </div>
 
 				    <!-- Tab Content -->
@@ -528,17 +528,24 @@
 				    <!-- Break-Even Tab -->
 					<div id="breakEvenTab" class="tab-content">
 					    <h4>Break-Even Analysis</h4>
-					    
+					    <p class="summary">
+					        The break-even analysis helps you determine the point at which your total revenue equals your total costs, meaning no profit but no loss.
+					        This calculation can guide your financial planning by providing insight into the revenue needed to cover your expenses.
+					    </p>
+
 					    <!-- Sales Price Per Unit -->
 					    <label for="salesPricePerUnit">Sales Price Per Unit ($):</label>
+					    <small>This is the price at which each unit of your product or service is sold.</small>
 					    <input type="text" id="salesPricePerUnit" placeholder="Enter sales price" oninput="calculateBreakEvenRevenue()" />
 
 					    <!-- Variable Cost Per Unit -->
 					    <label for="variableCostPerUnit">Variable Cost Per Unit ($):</label>
+					    <small>This is the cost incurred for each unit sold, such as production materials or labor directly tied to sales.</small>
 					    <input type="text" id="variableCostPerUnit" placeholder="Enter variable cost" oninput="calculateBreakEvenRevenue()" />
 
 					    <!-- Fixed Costs -->
 					    <label for="fixedCosts">Fixed Costs (Annual $):</label>
+					    <small>These are the costs that remain constant, such as rent, utilities, or salaried employees, regardless of how much you sell.</small>
 					    <input type="text" id="fixedCosts" placeholder="Enter fixed costs" oninput="calculateBreakEvenRevenue()" />
 
 					    <!-- Break-Even Calculations -->
@@ -547,6 +554,7 @@
 					    <p>Break-Even Revenue: $<span id="breakEvenRevenue"></span></p>
 					    <p>Monthly Revenue Needed: $<span id="monthlyRevenueNeeded"></span></p>
 					</div>
+
 
 				    <!-- Sensitivity Tab -->
 				    <div id="sensitivityTab" class="tab-content">

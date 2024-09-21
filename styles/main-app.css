@@ -1477,41 +1477,42 @@ input-item select {
     padding-bottom: 6px;
 }
 
-/* Updated Tab Container */
+/* Tab Container: More space between tabs, with floating effect */
 .tab-container {
     display: flex;
-    justify-content: space-around;
-    background-color: #1c1c1c;
-    border-radius: 12px;
-    padding: 12px;
+    justify-content: space-evenly;
+    background-color: transparent; /* No container background */
     margin-bottom: 20px;
+    gap: 16px; /* Space between each tab */
 }
 
-/* Updated Tab Link */
+/* Tab Link: Floating effect with a subtle shadow */
 .tab-link {
     flex-grow: 1;
-    text-align: center;
-    padding: 12px 20px;
-    color: #fff;
-    background-color: #282828;
-    border-radius: 8px;
-    font-size: 14px;
+    padding: 14px 20px;
+    color: #ffffff;
+    background-color: #2b2b2b;
+    border-radius: 30px; /* Rounded pills for a modern look */
+    font-size: 15px;
     font-weight: bold;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    transition: all 0.3s ease;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow for the floating effect */
 }
 
 .tab-link.active {
-    background-color: #97835a;
-    color: #fff;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+    background-color: #97835a; /* Use the gold color for active tabs */
+    color: #ffffff;
+    transform: translateY(-3px); /* Slight lift for active tabs */
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3); /* Deeper shadow for active */
 }
 
 .tab-link:hover {
-    background-color: #3a3a3a;
+    background-color: #3a3a3a; /* Darker hover state */
+    transform: translateY(-2px); /* Slight lift on hover */
 }
 
-/* Tab Content Styling */
+/* Tab Content: Sleek design with smooth fade-in */
 .tab-content {
     display: none;
     padding: 24px;
@@ -1520,6 +1521,7 @@ input-item select {
     color: #ffffff;
     margin-top: 20px;
     animation: fadeIn 0.4s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow */
 }
 
 .tab-content.active {
@@ -1535,7 +1537,7 @@ input-item select {
     }
 }
 
-/* Updated Overview Section */
+/* Overview Section */
 .overview-section h4 {
     font-size: 18px;
     font-weight: 600;
@@ -1545,7 +1547,7 @@ input-item select {
 
 .overview-section .highlight {
     font-size: 22px;
-    font-weight: 700;
+    font-weight: bold;
     color: #ffffff;
     background-color: #404040;
     padding: 10px 14px;
@@ -1561,13 +1563,14 @@ input-item select {
     margin: 6px 0;
 }
 
-/* Clean Layout */
+/* Modernized loan and earnings section */
 .loan-section,
 .earnings-section {
     background-color: #2e2e2e;
     border-radius: 10px;
     padding: 16px;
     margin-bottom: 20px;
+    border-left: 4px solid #97835a; /* Adding a vertical border for visual hierarchy */
 }
 
 .loan-section h4,
@@ -1591,7 +1594,11 @@ input-item select {
 .loan-section p span,
 .earnings-section p span {
     font-weight: 600;
-    color: #97835a;
+    color: #ffffff; /* Keeping the numbers white */
 }
 
-
+.loan-section p.highlight,
+.earnings-section p.highlight {
+    font-weight: bold;
+    color: #ffffff;
+}

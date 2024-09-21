@@ -483,42 +483,54 @@
 			
 
 
-			    <!-- Money Math Section -->
+				<!-- Tabbed Section for Money Math -->
 				<div class="money-math-section">
 				    <h3>Business Acquisition Money Math</h3>
 
-				    <!-- Asking Price and Real Estate Toggle -->
-				    <div class="asking-price-section">
-				        <h4>Asking Price: $<span id="displayAskingPrice"></span></h4>
-				        <label for="toggleRealEstate">Include Real Estate:</label>
-				        <select id="toggleRealEstate" onchange="updateAskingPrice()">
-				            <option value="with">With Real Estate</option>
-				            <option value="without">Without Real Estate</option>
-				        </select>
+				    <!-- Tab Navigation -->
+				    <div class="tab-nav">
+				        <button class="tab-button active" data-tab="overview">Overview</button>
+				        <button class="tab-button" data-tab="loan-info">Loan Information</button>
+				        <button class="tab-button" data-tab="earnings-profit">Earnings & Profit</button>
+				        <button class="tab-button" data-tab="break-even">Break-Even & Valuation</button>
 				    </div>
 
-				    <!-- Compact Divider -->
-				    <div class="divider"></div>
+				    <!-- Tab Content Section -->
+				    <div class="tab-content active" id="overview">
+				        <div class="asking-price-section">
+				            <h4>Asking Price: $<span id="displayAskingPrice"></span></h4>
+				            <label for="toggleRealEstate">Include Real Estate:</label>
+				            <select id="toggleRealEstate" onchange="updateAskingPrice()">
+				                <option value="with">With Real Estate</option>
+				                <option value="without">Without Real Estate</option>
+				            </select>
+				        </div>
+				    </div>
 
-				    <!-- Loan Section -->
-				    <div class="loan-section">
+				    <div class="tab-content" id="loan-info">
 				        <h4>Annual Debt Service</h4>
-				        <div id="loanBreakdown"></div> <!-- Dynamically show loan breakdown here -->
-				        <p>Total Debt Service: <span id="totalDebtService"></span></p>
+				        <div id="loanBreakdown"></div>
+				        <p>Total Debt Service: $<span id="totalDebtService"></span></p>
 				    </div>
 
-				    <!-- Compact Divider -->
-				    <div class="divider"></div>
-
-				    <!-- Earnings Section -->
-				    <div class="earnings-section">
+				    <div class="tab-content" id="earnings-profit">
 				        <h4>Annual Earnings (Avg)</h4>
 				        <p>Avg Profit Margin: <span id="avgProfitMarginDisplay"></span>%</p>
 				        <p>Avg Cashflow: $<span id="avgCashflowDisplay"></span></p>
 				        <p>Cashflow Less Debt Service: $<span id="cashflowAfterDebt"></span></p>
 				        <p>Cashflow Less Debt & Investor Pay: $<span id="cashflowAfterDebtAndInvestor"></span></p>
 				    </div>
+
+				    <div class="tab-content" id="break-even">
+				        <h4>Break-Even Analysis</h4>
+				        <p>Break-Even Revenue: $<span id="breakEvenRevenue"></span></p>
+				        <p>Monthly Revenue Needed: $<span id="monthlyRevenueNeeded"></span></p>
+				        <h4>Business Valuation Estimate</h4>
+				        <p>Valuation Based on EBITDA: $<span id="valuationEBITDA"></span></p>
+				        <p>Valuation Based on Revenue: $<span id="valuationRevenue"></span></p>
+				    </div>
 				</div>
+
 
 
 

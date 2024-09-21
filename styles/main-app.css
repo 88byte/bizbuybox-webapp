@@ -1477,51 +1477,71 @@ input-item select {
     padding-bottom: 6px;
 }
 
-/* Tab Container: More space between tabs, with floating effect */
+/* Tab Container */
 .tab-container {
     display: flex;
-    justify-content: space-evenly;
-    background-color: transparent; /* No container background */
-    margin-bottom: 20px;
-    gap: 16px; /* Space between each tab */
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1e1e1e; /* Unified dark background for the tab bar */
+    border-radius: 10px 10px 0 0; /* Rounded top corners */
+    padding: 10px 0;
+    position: relative; /* For the underline effect */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Soft shadow for the floating effect */
+    overflow: hidden;
 }
 
-/* Tab Link: Floating effect with a subtle shadow */
+/* Tab Link */
 .tab-link {
-    flex-grow: 1;
-    padding: 14px 20px;
-    color: #ffffff;
-    background-color: #2b2b2b;
-    border-radius: 30px; /* Rounded pills for a modern look */
-    font-size: 15px;
-    font-weight: bold;
-    transition: all 0.3s ease;
+    flex: 1;
     text-align: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow for the floating effect */
+    padding: 12px 0;
+    color: #b0bec5; /* Light gray text */
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+    position: relative;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    z-index: 1;
+}
+
+/* Hover and active effects */
+.tab-link:hover {
+    color: #ffffff; /* Highlighted text on hover */
 }
 
 .tab-link.active {
-    background-color: #97835a; /* Use the gold color for active tabs */
     color: #ffffff;
-    transform: translateY(-3px); /* Slight lift for active tabs */
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3); /* Deeper shadow for active */
+    background-color: transparent;
+    font-weight: bold;
 }
 
-.tab-link:hover {
-    background-color: #3a3a3a; /* Darker hover state */
-    transform: translateY(-2px); /* Slight lift on hover */
+/* The moving underline that follows the active tab */
+.tab-container::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    width: 20%;
+    background-color: #97835a; /* Gold underline */
+    transition: all 0.4s ease;
+    border-radius: 2px;
 }
 
-/* Tab Content: Sleek design with smooth fade-in */
+.tab-link.active ~ .tab-container::after {
+    left: calc(100% * var(--tab-index) / 5); /* Adjust based on active tab */
+}
+
+/* Tab Content Styling */
 .tab-content {
     display: none;
     padding: 24px;
-    background-color: #333333;
-    border-radius: 12px;
+    background-color: #2e2e2e;
+    border-radius: 0 0 10px 10px; /* Rounded bottom corners */
     color: #ffffff;
-    margin-top: 20px;
     animation: fadeIn 0.4s ease;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Consistent shadow with the tabs */
 }
 
 .tab-content.active {

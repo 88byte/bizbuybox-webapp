@@ -1477,69 +1477,47 @@ input-item select {
     padding-bottom: 6px;
 }
 
-/* Tab Container */
-.tab-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #1e1e1e; /* Unified dark background for the tab bar */
-    border-radius: 10px 10px 0 0; /* Rounded top corners */
-    padding: 10px 0;
-    position: relative; /* For the underline effect */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Soft shadow for the floating effect */
-    overflow: hidden;
-}
-
 /* Tab Link */
 .tab-link {
-    flex: 1;
+    flex-grow: 1;
     text-align: center;
-    padding: 12px 0;
-    color: #b0bec5; /* Light gray text */
-    font-size: 15px;
-    font-weight: 600;
-    text-transform: uppercase;
-    position: relative;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    z-index: 1;
-}
-
-/* Hover and active effects */
-.tab-link:hover {
-    color: #ffffff; /* Highlighted text on hover */
-}
-
-.tab-link.active {
-    color: #ffffff;
-    background-color: transparent;
+    padding: 12px 20px;
+    color: #b0bec5;
+    background-color: transparent; /* Remove the solid background from inactive tabs */
+    border-radius: 8px 8px 0 0; /* Only top corners rounded */
+    font-size: 14px;
     font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    border: none;
+    border-bottom: 2px solid transparent; /* Subtle bottom border */
+    cursor: pointer;
 }
 
-/* The moving underline that follows the active tab */
-.tab-container::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 3px;
-    width: 20%;
-    background-color: #97835a; /* Gold underline */
-    transition: all 0.4s ease;
-    border-radius: 2px;
+/* Hover effect for tabs */
+.tab-link:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Light hover effect */
+    color: #ffffff;
 }
 
-.tab-link.active ~ .tab-container::after {
-    left: calc(100% * var(--tab-index) / 5); /* Adjust based on active tab */
+/* Active Tab Styling */
+.tab-link.active {
+    background-color: #333333;
+    color: #ffffff;
+    font-weight: bold;
+    border-bottom: 2px solid #97835a; /* Gold accent for active tab */
+    box-shadow: none;
+    transform: none; /* No shift on active tab */
+    border-radius: 8px 8px 0 0;
 }
 
-/* Tab Content Styling */
+/* Tab Content */
 .tab-content {
     display: none;
     padding: 24px;
     background-color: #2e2e2e;
-    border-radius: 0 0 10px 10px; /* Rounded bottom corners */
+    border-radius: 0 0 12px 12px; /* Rounded bottom corners for content */
     color: #ffffff;
+    margin-top: -2px;
     animation: fadeIn 0.4s ease;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Consistent shadow with the tabs */
 }
@@ -1548,6 +1526,7 @@ input-item select {
     display: block;
 }
 
+/* Tab content fade-in animation */
 @keyframes fadeIn {
     from {
         opacity: 0;

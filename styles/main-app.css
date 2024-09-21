@@ -1612,24 +1612,39 @@ input-item select {
 
 /* Real Estate Toggle Select (Styled like .btn-doc) */
 .real-estate-toggle select {
-    background-color: #2e2e2e; /* Match other dropdowns with gray */
-    border: none; /* Remove the border */
-    border-radius: 8px; /* Soft rounded corners */
-    color: #f5f5f5; /* Text color */
-    padding: 8px 14px;
     font-size: 14px;
-    transition: background-color 0.3s ease;
-    width: 100%; /* Full width */
+    background-color: rgba(100, 149, 237, 0.1); /* Transparent, glass-like background */
+    border: 1px solid rgba(100, 149, 237, 0.2); /* Subtle glass border */
+    border-radius: 8px; /* Slightly rounded corners */
+    color: #f5f5f5;
+    padding: 4px 8px; /* Compact padding */
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    appearance: none; /* Hide default dropdown icon for custom styling */
 }
 
-/* Hover and Focus for Select */
-.real-estate-toggle select:hover, .real-estate-toggle select:focus {
-    background-color: #3a3a3a; /* Darker gray on hover/focus */
-    outline: none; /* Remove outline on focus */
+/* Hover Effect for Select */
+.real-estate-toggle select:hover {
+    background-color: #6495ED; /* Slight blue on hover */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+    transform: translateY(-2px); /* Slight lift effect */
 }
 
-/* Dropdown List Styling */
+/* Focus Effect */
+.real-estate-toggle select:focus {
+    outline: none;
+    box-shadow: 0 0 6px rgba(100, 149, 237, 0.8); /* Glow effect on focus */
+    background-color: rgba(100, 149, 237, 0.2); /* Slight color change on focus */
+}
+
+/* Style the dropdown options */
 .real-estate-toggle select option {
-    background-color: #2e2e2e; /* Set gray color for dropdown list */
-    color: #f5f5f5; /* Text color for options */
+    background-color: #333333; /* Gray background for options list */
+    color: #f5f5f5; /* White text for options */
+}
+
+/* Hover state for options */
+.real-estate-toggle select option:hover {
+    background-color: #6495ED; /* Slight blue on hover */
 }

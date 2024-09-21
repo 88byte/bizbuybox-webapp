@@ -589,9 +589,9 @@ window.saveDeal = async function() {
     if (dealData.loanType === 'SBA + Seller Finance') {
         dealData.interestRate2 = document.getElementById('interestRate2')?.value || '';
         dealData.loanTerm2 = document.getElementById('loanTerm2')?.value || '';
-        dealData.loanAmount2 = document.getElementById('loanAmount2')?.value || '';
+        dealData.loanAmount2 = document.getElementById('loanAmount2')?.value.replace(/[^\d.-]/g, '') || ''; // Strip formatting
     }
-
+    
     try {
         // Step 1: Save the deal data first
         const dealsCollection = collection(db, 'deals');

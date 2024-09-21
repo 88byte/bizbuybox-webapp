@@ -1540,7 +1540,7 @@ input-item select {
 }
 
 .asking-price-section select {
-    background-color: #263238;
+    background-color: #6495ED;
     color: #ffffff;
     border: none;
     padding: 8px 14px;
@@ -1550,7 +1550,7 @@ input-item select {
 }
 
 .asking-price-section select:hover {
-    background-color: #37474f;
+    background-color: #6495ED;
     cursor: pointer;
 }
 

@@ -78,18 +78,18 @@
             <!-- Deal Management Section -->
             <div class="deal-management">
                 <div class="deal-management-header">
-                    <h3>Manage Your Deals</h3>
-                    <div class="deal-actions">
-                        <input type="text" id="searchDeals" placeholder="Search Deals..." onkeyup="searchDeals()">
-                        <button class="btn-create" onclick="createDeal()">+ New Deal</button>
-                    </div>
-                </div>
+			        <h3>Manage Your Deals</h3>
+			        <div class="deal-actions">
+			            <input type="text" id="searchDeals" placeholder="Search Deals..." onkeyup="searchDeals()">
+			            <button class="btn-create" onclick="createDeal()">+ New Deal</button>
+			        </div>
+			    </div>
                 <div class="deal-filters">
-                    <button onclick="filterDeals('all')" class="filter-btn active">All</button>
-                    <button onclick="filterDeals('active')" class="filter-btn">Active</button>
-                    <button onclick="filterDeals('closed')" class="filter-btn">Closed</button>
-                    <button onclick="filterDeals('opportunity')" class="filter-btn">Opportunities</button>
-                </div>
+			        <button onclick="filterDeals('all')" class="filter-btn active">All</button>
+			        <button onclick="filterDeals('active')" class="filter-btn">Active</button>
+			        <button onclick="filterDeals('closed')" class="filter-btn">Closed</button>
+			        <button onclick="filterDeals('opportunity')" class="filter-btn">Opportunities</button>
+			    </div>
                 <div class="deal-grid" id="dealGrid">
                     <!-- Dynamic Deal Cards will be loaded here -->
                 </div>

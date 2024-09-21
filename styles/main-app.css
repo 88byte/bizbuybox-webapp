@@ -382,25 +382,100 @@ button.btn-create:hover {
 
 .deal-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 20px;
+    padding: 20px;
+    background-color: #1e1e1e; /* Dark background to make cards pop */
+    border-radius: 12px;
 }
 
-/* Deal Card Styles */
+
+/* Deal Card Styling */
 .deal-card {
-    background-color: #2e2e2e;
-    color: #ddd;
-    padding: 16px;
-    border-radius: 8px;
-    margin: 12px 0;
+    background-color: #2a2a2a;
+    color: #f0f0f0;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    position: relative; /* To position quick action buttons */
 }
 
+/* Deal Card Hover Effect */
 .deal-card:hover {
-    transform: scale(1.02);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* Deal Card Header */
+.deal-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.deal-card-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0;
+}
+
+.deal-card-status {
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    background-color: #97835a; /* Status background color */
+    color: #fff;
+    text-transform: uppercase;
+}
+
+/* Deal Card Content */
+.deal-card-content {
+    margin: 10px 0;
+}
+
+.deal-card p {
+    font-size: 14px;
+    margin: 6px 0;
+    color: #b0bec5;
+}
+
+/* Highlight important numbers */
+.deal-card p span {
+    font-weight: bold;
+    color: #fff;
+}
+
+/* Quick Action Buttons */
+.deal-card-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 12px;
+}
+
+.deal-card-action-btn {
+    background-color: transparent;
+    border: none;
+    color: #f0f0f0;
+    font-size: 16px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: color 0.3s ease;
+}
+
+.deal-card-action-btn:hover {
+    color: #97835a;
+}
+
+/* Quick Action Icons (for actions like edit or delete) */
+.deal-card-action-btn i {
+    font-size: 18px;
 }
 
 /* Card Modal Overlay */

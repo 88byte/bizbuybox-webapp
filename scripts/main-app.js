@@ -1417,13 +1417,17 @@ window.setupRealTimeUpdates = function() {
     document.getElementById('realEstatePrice').addEventListener('input', window.updateAskingPrice);
     document.getElementById('downPayment').addEventListener('input', window.updateAskingPrice);
 
-    // Add listeners for revenue and cashflow changes (attach listeners for recalculating debt service)
+    // Add listeners for revenue and cashflow changes (attach listeners for recalculating earnings)
     document.querySelectorAll('input[name="revenue[]"]').forEach(input => {
-        input.addEventListener('input', window.calculateDebtService);
+        input.addEventListener('input', () => {
+            window.calculateEarnings(0);  // Pass 0 if totalDebtService is not needed here
+        });
     });
 
     document.querySelectorAll('input[name="cashflow[]"]').forEach(input => {
-        input.addEventListener('input', window.calculateDebtService);
+        input.addEventListener('input', () => {
+            window.calculateEarnings(0);  // Pass 0 if totalDebtService is not needed here
+        });
     });
 
     // Add listeners for revenue and cashflow changes for BuyBoxChecklist

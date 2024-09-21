@@ -585,6 +585,13 @@ window.saveDeal = async function() {
         userId: user.uid,
     };
 
+    // If loan type is "SBA + Seller Finance," save additional loan data
+    if (dealData.loanType === 'SBA + Seller Finance') {
+        dealData.interestRate2 = document.getElementById('interestRate2')?.value || '';
+        dealData.loanTerm2 = document.getElementById('loanTerm2')?.value || '';
+        dealData.loanAmount2 = document.getElementById('loanAmount2')?.value || '';
+    }
+
     try {
         // Step 1: Save the deal data first
         const dealsCollection = collection(db, 'deals');
@@ -695,12 +702,22 @@ window.uploadDocument = function() {
     fileInput.value = '';
 };
 
+// Function to format loan amount inputs in real-time
+function setupLoanAmountFormatting() {
+    const loanAmountInputs = document.querySelectorAll('input[id^="loanAmount"]');
+
+    loanAmountInputs.forEach(input => {
+        input.addEventListener('input', function() {
+            const formattedValue = formatCurrency(input.value);
+            input.value = formattedValue;
+        });
+    });
+}
 
 
 
 
-
-// Function to handle loan type changes
+// Function to handle loan type changes and format currency dynamically
 window.handleLoanTypeChange = function() {
     const loanType = document.getElementById('loanType').value;
 
@@ -712,31 +729,34 @@ window.handleLoanTypeChange = function() {
     // Always remove the second loan row before applying new loan type values
     window.removeSecondLoanRow();
 
-    if (loanType === 'SBA + Seller Finance') {
+    // Apply new loan type settings
+    if (loanType === 'SBA') {
+        interestRate1.value = '11.5';
+        loanTerm1.value = '10';
+        loanAmount1.value = formatCurrency('0');
+    } else if (loanType === 'Seller Finance') {
+        interestRate1.value = '11.5';
+        loanTerm1.value = '10';
+        loanAmount1.value = formatCurrency('0');
+    } else if (loanType === 'Blended') {
+        interestRate1.value = '11.5';
+        loanTerm1.value = '15';
+        loanAmount1.value = formatCurrency('0');
+    } else if (loanType === 'SBA + Seller Finance') {
         // Pre-fill first row and add a second row for SBA + Seller Finance
         interestRate1.value = '11.5';
         loanTerm1.value = '10';
-        loanAmount1.value = '0';
-
+        loanAmount1.value = formatCurrency('0');
         window.addSecondLoanRow();
-
-        // Add event listeners for real-time updates for loanAmount2, interestRate2, and loanTerm2
-        document.getElementById('loanAmount2').addEventListener('input', window.calculateDebtService);
-        document.getElementById('interestRate2').addEventListener('input', window.calculateDebtService);
-        document.getElementById('loanTerm2').addEventListener('input', window.calculateDebtService);
-
-    } else if (loanType === 'SBA' || loanType === 'Seller Finance' || loanType === 'Blended') {
-        interestRate1.value = '11.5';
-        loanTerm1.value = '10';
-        loanAmount1.value = '0';
     } else {
+        // Clear the fields for other loan types
         interestRate1.value = '';
         loanTerm1.value = '';
         loanAmount1.value = '';
     }
 
-    // Trigger debt service calculation whenever the loan type changes
-    window.calculateDebtService();
+    // Apply currency formatting to loanAmount1 and loanAmount2
+    setupLoanAmountFormatting();
 };
 
 // Function to add second loan details row (for SBA + Seller Finance)
@@ -761,9 +781,11 @@ window.addSecondLoanRow = function() {
         `;
 
         additionalLoanDetails.appendChild(newRow);
+
+        // Apply currency formatting to loanAmount2
+        setupLoanAmountFormatting();
     }
 };
-
 
 // Function to remove the second loan details row
 window.removeSecondLoanRow = function() {
@@ -771,8 +793,7 @@ window.removeSecondLoanRow = function() {
     if (secondRow) {
         secondRow.remove();
     }
-}
-
+};
 
 
 

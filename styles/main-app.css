@@ -1492,7 +1492,7 @@ input-item select {
     text-align: center;
     padding: 12px 0;
     color: #f0f0f0;
-    background-color: #97835a;
+    background-color: #333333;
     cursor: pointer;
     border-radius: 8px;
     transition: background-color 0.3s;

@@ -696,6 +696,35 @@ window.renderDeals = function() {
     });
 };
 
+// Handle drag start
+function handleDragStart(event) {
+    draggedDealId = event.target.getAttribute('data-deal-id');
+}
+
+// Allow dragover (necessary for drop to work)
+function handleDragOver(event) {
+    event.preventDefault();
+}
+
+// Handle drop to reorder cards
+function handleDrop(event) {
+    event.preventDefault();
+    const targetDealId = event.target.closest('.deal-card').getAttribute('data-deal-id');
+    
+    // Get index positions of dragged and target deals
+    const draggedIndex = deals.findIndex(deal => deal.dealId === draggedDealId);
+    const targetIndex = deals.findIndex(deal => deal.dealId === targetDealId);
+
+    // Swap the deals in the array
+    [deals[draggedIndex], deals[targetIndex]] = [deals[targetIndex], deals[draggedIndex]];
+
+    // Re-render the deals in the new order
+    renderDeals();
+
+    // Save the updated deal order to Firebase
+    saveDealOrderToFirebase();
+}
+
 // Function to format deal status to be more readable
 window.formatStatus = function(status) {
     const statusMap = {

@@ -630,7 +630,7 @@ button.btn-create:hover {
 }
 
 /* Glass-Like "Edit" Button Styles */
-.table-actions .btn-edit {
+.table-actions .btn-tableedit {
     font-size: 14px;
     background-color: rgba(255, 255, 255, 0.1) !important; /* Transparent, glass-like background (green tint) */
     border: 1px solid rgba(255, 255, 255, 0.2) !important; /* Subtle glass border */
@@ -643,7 +643,7 @@ button.btn-create:hover {
 }
 
 /* Glass-Like "Delete" Button Styles */
-.table-actions .btn-remove {
+.table-actions .btn-tableremove {
     font-size: 14px;
     background-color: rgba(255, 0, 0, 0.1) !important; /* Transparent, glass-like background (red tint) */
     border: 1px solid rgba(255, 0, 0, 0.2) !important; /* Subtle glass border */

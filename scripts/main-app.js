@@ -437,8 +437,8 @@ window.renderDealTable = function() {
         // Actions column (edit/delete buttons with glass-like styles)
         const actionsCell = document.createElement('td');
         actionsCell.innerHTML = `
-            <button class="btn-edit" onclick="editDeal('${deal.dealId}')">Edit</button>
-            <button class="btn-remove" onclick="openConfirmationModal('${deal.dealId}')">Delete</button>
+            <button class="btn-tableedit" onclick="editDeal('${deal.dealId}')">Edit</button>
+            <button class="btn-tableremove" onclick="openConfirmationModal('${deal.dealId}')">Delete</button>
         `;
         row.appendChild(actionsCell);
 

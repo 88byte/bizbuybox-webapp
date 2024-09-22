@@ -7,6 +7,7 @@ import {
     signInWithPopup, 
     GoogleAuthProvider, 
     signOut, 
+    updateDoc,
     updateProfile, 
     updateEmail, 
     updatePassword, 

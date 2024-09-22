@@ -343,24 +343,25 @@ let isCardView = true;
 window.toggleView = function() {
     const dealGrid = document.getElementById('dealGrid');
     const dealTable = document.getElementById('dealTable');
-    const toggleBtn = document.getElementById('toggleViewBtn');
-
+    const viewModeLabel = document.getElementById('viewModeLabel');
+    
     if (isCardView) {
         // Switch to Table View
-        dealGrid.style.display = 'none'; // Hide the card grid
-        dealTable.style.display = 'block'; // Show the table
-        toggleBtn.textContent = 'Switch to Card View'; // Update button text
+        dealGrid.style.display = 'none';
+        dealTable.style.display = 'block';
+        viewModeLabel.textContent = 'Table View';
         renderDealTable(); // Render deals in table format
     } else {
         // Switch to Card View
-        dealGrid.style.display = 'grid'; // Show the card grid
-        dealTable.style.display = 'none'; // Hide the table
-        toggleBtn.textContent = 'Switch to Table View'; // Update button text
+        dealGrid.style.display = 'grid';
+        dealTable.style.display = 'none';
+        viewModeLabel.textContent = 'Card View';
         renderDeals(); // Render deals in card format
     }
 
     isCardView = !isCardView; // Toggle the state
 };
+
 
 
 

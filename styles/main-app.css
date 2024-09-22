@@ -249,6 +249,30 @@ body {
 }
 
 /* Deal Card Status Label */
+.status-metric {
+    font-size: 13px;  /* Slightly larger for readability */
+    padding: 6px 12px;  /* Balanced padding */
+    border-radius: 12px;  /* Smooth rounded corners */
+    color: #ffffff;  /* Keep the text white for contrast */
+    text-transform: uppercase;
+    font-weight: 600;  /* Medium weight for a polished look */
+    margin-left: 10px;  /* Consistent spacing */
+    display: inline-block;
+    
+    /* Glassmorphism background */
+    background: rgba(255, 255, 255, 0.1);  /* Transparent white background */
+    backdrop-filter: blur(10px);  /* Blur effect for the frosted glass look */
+    -webkit-backdrop-filter: blur(10px);  /* For Safari support */
+    border: 1px solid rgba(255, 255, 255, 0.2);  /* Subtle white border for glass effect */
+    
+    /* Soft shadow for depth */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15), 0 2px 6px rgba(0, 0, 0, 0.10);
+    
+    /* Smooth transition for hover effects */
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Deal Card Status Label */
 .status-label {
     font-size: 12px;
     padding: 4px 8px;

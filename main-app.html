@@ -84,17 +84,20 @@
 			        <div class="deal-actions">
 			            <input type="text" id="searchDeals" placeholder="Search Deals..." onkeyup="searchDeals()">
 			            <button class="btn-create" onclick="createDeal()">+ New Deal</button>
-			            <!-- Toggle Switch for Card/Table View -->
-						<div class="view-toggle-container">
-						    <span class="toggle-label">Card View</span>
-						    <label class="switch">
-						        <input type="checkbox" id="viewToggleSwitch" onclick="toggleView()">
-						        <span class="slider round"></span>
-						    </label>
-						    <span class="toggle-label">Table View</span>
-						</div>
 			        </div>
 			    </div>
+
+			     <!-- Toggle Switch for Card/Table View -->
+				<div class="view-toggle-container">
+				    <span class="toggle-label">View</span>
+				    <label class="switch">
+				        <input type="checkbox" id="viewToggleSwitch" onclick="toggleView()">
+				        <span class="slider round"></span>
+				</div>
+
+
+
+
                 <div class="deal-filters">
 			        <button onclick="filterDeals('all')" class="filter-btn active">All</button>
 			        <button onclick="filterDeals('active')" class="filter-btn">Active</button>

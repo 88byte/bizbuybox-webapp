@@ -651,6 +651,9 @@ window.toggleFavorite = function(dealId) {
     }
 };
 
+// Global variable to keep track of dragged element
+let draggedDealId = null;
+
 // Function to render deals on the dashboard
 window.renderDeals = function() {
     const dealGrid = document.getElementById('dealGrid');
@@ -662,6 +665,11 @@ window.renderDeals = function() {
     sortedDeals.forEach(deal => {
         const dealCard = document.createElement('div');
         dealCard.className = 'deal-card';
+        dealCard.setAttribute('draggable', 'true'); // Make the card draggable
+        dealCard.setAttribute('data-deal-id', deal.dealId); // Store deal ID in the card
+        dealCard.addEventListener('dragstart', handleDragStart);
+        dealCard.addEventListener('dragover', handleDragOver);
+        dealCard.addEventListener('drop', handleDrop);
 
         // Format the status to be more readable
         const formattedStatus = formatStatus(deal.status);

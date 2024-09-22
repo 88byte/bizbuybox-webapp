@@ -397,7 +397,7 @@ button.btn-create:hover {
     color: #f5f5f5;
     font-size: 22px;
     cursor: pointer;
-    width: 40px;
+    width: 40px;  
     height: 40px;
     display: flex;
     align-items: center;
@@ -405,15 +405,11 @@ button.btn-create:hover {
     transition: color 0.3s ease;
 }
 
-/* Only highlight the star on hover */
+/* Only the star reacts on hover, not the container */
 .favorite-btn:hover {
-    color: #ffcc00; /* Yellow star on hover */
+    color: #ffcc00; /* Bright yellow star on hover */
 }
 
-/* When the deal is favorited (filled star) */
-.favorite-btn.favorited {
-    color: #ffcc00; /* Filled star when favorited */
-}
 
 
 

@@ -795,7 +795,7 @@ window.renderDeals = function() {
         dealCard.innerHTML = `
             <div class="deal-card-header">
                 <h4>${deal.businessName}</h4>
-                <button class="favorite-btn" onclick="toggleFavorite('${deal.dealId}')">${favoriteIcon}</button>
+                <button class="favorite-btn" onclick="toggleFavorite('${deal.dealId}')" style="color: ${favoriteColor};">${favoriteIcon}</button>
             </div>
             <div class="deal-card-content">
                 <p>Status: <span class="status-label" style="background-color: ${getStatusColor(deal.status)};">${formattedStatus}</span></p>

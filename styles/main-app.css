@@ -629,21 +629,32 @@ button.btn-create:hover {
     text-align: center;
 }
 
-/* Buttons inside table rows */
-.deal-table td button {
-    padding: 8px 12px;
+/* Glass-Like "Edit" Button Styles */
+.table-actions .btn-edit {
     font-size: 14px;
-    background-color: #4caf50; /* Success green color */
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
+    background-color: rgba(255, 255, 255, 0.1) !important; /* Transparent, glass-like background (green tint) */
+    border: 1px solid rgba(255, 255, 255, 0.2) !important; /* Subtle glass border */
+    border-radius: 8px !important; /* Slightly rounded corners */
+    color: #f5f5f5 !important; /* Text color */
+    padding: 4px 8px !important; /* Compact padding */
+    cursor: pointer !important;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2) !important; /* Subtle shadow for depth */
 }
 
-.deal-table td button:hover {
-    background-color: #45a049; /* Slightly darker on hover */
+/* Glass-Like "Delete" Button Styles */
+.table-actions .btn-delete {
+    font-size: 14px;
+    background-color: rgba(255, 0, 0, 0.1) !important; /* Transparent, glass-like background (red tint) */
+    border: 1px solid rgba(255, 0, 0, 0.2) !important; /* Subtle glass border */
+    border-radius: 8px !important; /* Slightly rounded corners */
+    color: #f5f5f5 !important; /* Text color */
+    padding: 4px 8px !important; /* Compact padding */
+    cursor: pointer !important;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2) !important; /* Subtle shadow for depth */
 }
+
 
 /* Subtle rounded corners on table */
 .deal-table tr:first-child th:first-child {

@@ -422,7 +422,11 @@ window.renderDealTable = function() {
 
         // Asking Price column
         const askingPriceCell = document.createElement('td');
-        askingPriceCell.textContent = `$${parseInt(deal.askingPrice).toLocaleString()}`;
+        const askingPrice = deal.askingPrice 
+            ? parseFloat(deal.askingPrice.replace(/[^0-9.-]+/g, ''))  // Remove $ and commas
+            : 0;
+        const formattedAskingPrice = `$${askingPrice.toLocaleString()}`; // Format the price properly
+        askingPriceCell.textContent = formattedAskingPrice;
         row.appendChild(askingPriceCell);
 
         // Last Updated column
@@ -430,11 +434,11 @@ window.renderDealTable = function() {
         lastUpdatedCell.textContent = new Date(deal.lastUpdate).toLocaleDateString();
         row.appendChild(lastUpdatedCell);
 
-        // Actions column (edit/delete buttons)
+        // Actions column (edit/delete buttons with glass-like styles)
         const actionsCell = document.createElement('td');
         actionsCell.innerHTML = `
-            <button onclick="editDeal('${deal.dealId}')">Edit</button>
-            <button onclick="openConfirmationModal('${deal.dealId}')">Delete</button>
+            <button class="btn-edit" onclick="editDeal('${deal.dealId}')">Edit</button>
+            <button class="btn-delete" onclick="openConfirmationModal('${deal.dealId}')">Delete</button>
         `;
         row.appendChild(actionsCell);
 
@@ -444,6 +448,8 @@ window.renderDealTable = function() {
     // Enable drag-and-drop after rendering the table
     enableTableRowDragAndDrop();
 };
+
+
 
 
 // Function to enable drag-and-drop for table rows, excluding the star icon

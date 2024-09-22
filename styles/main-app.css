@@ -250,8 +250,8 @@ body {
 
 .dashboard-metrics {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px; /* Space between cards */
     margin: 20px 0;
 }
 
@@ -295,6 +295,7 @@ body {
     font-size: 14px;
     color: #fff;
 }
+
 
 
 /* Deal Management */

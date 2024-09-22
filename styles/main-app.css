@@ -405,14 +405,14 @@ button.btn-create:hover {
     transition: color 0.3s ease;
 }
 
-/* Star turns yellow on hover */
+/* Only highlight the star on hover */
 .favorite-btn:hover {
-    color: #ffcc00;
+    color: #ffcc00; /* Yellow star on hover */
 }
 
-/* Filled state for the favorite button */
-.favorite-btn.filled {
-    color: #ffcc00; /* Yellow when favorited */
+/* When the deal is favorited (filled star) */
+.favorite-btn.favorited {
+    color: #ffcc00; /* Filled star when favorited */
 }
 
 

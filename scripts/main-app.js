@@ -670,7 +670,6 @@ window.toggleFavorite = async function(dealId) {
 
 let draggedDealId = null;
 let draggedElement = null;
-let placeholderElement = null;
 
 window.enableDragAndDrop = function() {
     const dealCards = document.querySelectorAll('.deal-card');
@@ -678,54 +677,31 @@ window.enableDragAndDrop = function() {
     dealCards.forEach(card => {
         card.setAttribute('draggable', true);
 
-        // When dragging starts
         card.addEventListener('dragstart', function(e) {
             draggedDealId = e.target.getAttribute('data-deal-id');
             draggedElement = e.target;
-
-            // Set card style during drag
             e.target.style.opacity = '0.5';
-            e.target.style.transform = 'scale(0.95)';
-            e.target.classList.add('dragging');
-
-            // Create a placeholder
-            placeholderElement = document.createElement('div');
-            placeholderElement.classList.add('placeholder');
-            e.target.parentNode.insertBefore(placeholderElement, e.target.nextSibling);
+            e.target.classList.add('dragging'); // Add dragging class for visual effects
         });
 
-        // When dragging ends
         card.addEventListener('dragend', function(e) {
             e.target.style.opacity = '1';
-            e.target.style.transform = 'scale(1)';
-            e.target.classList.remove('dragging');
-
-            // Remove placeholder after drop
-            if (placeholderElement) {
-                placeholderElement.remove();
-            }
+            e.target.classList.remove('dragging'); // Remove the class when dragging ends
+            draggedElement = null;
         });
 
-        // Drag over to reorder
         card.addEventListener('dragover', function(e) {
             e.preventDefault(); // Allow drop
-            const targetCard = e.target.closest('.deal-card');
 
-            // Move the placeholder when dragging over
-            if (placeholderElement && targetCard && targetCard !== draggedElement) {
-                const bounding = targetCard.getBoundingClientRect();
-                const offset = e.clientY - bounding.top;
-                const halfHeight = bounding.height / 2;
-                
-                if (offset > halfHeight) {
-                    targetCard.parentNode.insertBefore(placeholderElement, targetCard.nextSibling);
-                } else {
-                    targetCard.parentNode.insertBefore(placeholderElement, targetCard);
-                }
+            const afterElement = getDragAfterElement(dealCards, e.clientY);
+            const dealGrid = document.getElementById('dealGrid');
+            if (afterElement == null) {
+                dealGrid.appendChild(draggedElement);
+            } else {
+                dealGrid.insertBefore(draggedElement, afterElement);
             }
         });
 
-        // On drop, reorder cards
         card.addEventListener('drop', function(e) {
             e.preventDefault();
             const targetDealId = e.target.closest('.deal-card').getAttribute('data-deal-id');
@@ -735,6 +711,21 @@ window.enableDragAndDrop = function() {
         });
     });
 };
+
+// Helper function to determine the correct position to insert the dragged card
+function getDragAfterElement(dealCards, y) {
+    const dealCardsArray = [...dealCards].filter(card => card !== draggedElement);
+    
+    return dealCardsArray.reduce((closest, child) => {
+        const box = child.getBoundingClientRect();
+        const offset = y - box.top - box.height / 2;
+        if (offset < 0 && offset > closest.offset) {
+            return { offset, element: child };
+        } else {
+            return closest;
+        }
+    }, { offset: Number.NEGATIVE_INFINITY }).element;
+}
 
 
 // Function to reorder deals
@@ -753,7 +744,7 @@ window.reorderDeals = function(draggedDealId, targetDealId) {
         // Save the reordered deals to Firebase
         saveDealOrderToFirebase();
     }
-};;
+};
 
 
 // Function to save reordered deals to Firebase

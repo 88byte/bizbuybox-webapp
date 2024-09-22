@@ -431,35 +431,33 @@ button.btn-create:hover {
 .deal-card {
     background: linear-gradient(135deg, #2e2e2e, #3a3a3a); /* Simple, soft gradient */
     color: #e0e0e0;
-    border-radius: 12px;
-    padding: 24px;
+    border-radius: 10px;
+    padding: 15px;
     position: relative;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Softer shadow for subtle depth */
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
-    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    cursor: grab;
     user-select: none;
 }
 
+/* Dragging effect for the card */
 .deal-card.dragging {
+    transform: rotate(3deg);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+/* Card while being dragged */
+.deal-card:active {
     cursor: grabbing;
-    z-index: 1000; /* Bring dragged element to the front */
 }
 
-.deal-card.dragging ~ .placeholder {
-    display: none; /* Hide placeholder when dragging over it */
+/* Placeholder effect when dragging over another card */
+.deal-card.dragover {
+    outline: 2px dashed #ffcc00;
+    transition: outline 0.2s ease;
 }
-
-.placeholder {
-    height: 80px; /* Match the height of deal cards */
-    background-color: rgba(0, 0, 0, 0.05); /* Light gray to indicate position */
-    border: 2px dashed #ccc;
-    border-radius: 8px;
-    margin: 10px 0;
-    transition: height 0.3s ease;
-}
-
-
 
 /* Deal Card Hover Effect */
 .deal-card:hover {

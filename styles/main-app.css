@@ -679,12 +679,13 @@ button.btn-create:hover {
 
 
 
-/* View Toggle Switch */
+/* Improved Switch Styling */
 .view-toggle-container {
     display: flex;
     align-items: center;
+    justify-content: flex-end; /* Align switch to the right */
+    padding: 10px 20px; /* Add padding to the container */
     margin-bottom: 20px;
-    justify-content: center; /* Center the toggle on the page */
 }
 
 .toggle-label {
@@ -740,6 +741,7 @@ input:checked + .slider {
 input:checked + .slider:before {
     transform: translateX(26px);
 }
+
 
 
 

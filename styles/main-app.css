@@ -397,9 +397,10 @@ button.btn-create:hover {
     color: #f5f5f5;
     font-size: 22px;
     cursor: pointer;
-    width: 40px;  
-    height: 40px;
-    display: flex;
+    padding: 0;  /* Remove padding */
+    width: auto;  /* Auto width to fit the star */
+    height: auto;  /* Auto height to fit the star */
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     transition: color 0.3s ease;
@@ -409,6 +410,7 @@ button.btn-create:hover {
 .favorite-btn:hover {
     color: #ffcc00; /* Bright yellow star on hover */
 }
+
 
 
 

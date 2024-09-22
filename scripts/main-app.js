@@ -643,16 +643,111 @@ window.fetchDeals = async function() {
 };
 
 // Function to toggle favorite status of a deal
-window.toggleFavorite = function(dealId) {
+window.toggleFavorite = async function(dealId) {
     const deal = deals.find(d => d.dealId === dealId);
     if (deal) {
-        deal.favorite = !deal.favorite; // Toggle favorite status
-        renderDeals(); // Re-render the deals to sort favorites first
+        deal.favorite = !deal.favorite;
+
+        // Save updated deal to Firebase
+        try {
+            const dealRef = doc(db, 'deals', dealId);
+            await updateDoc(dealRef, { favorite: deal.favorite });
+        } catch (error) {
+            console.error('Error saving favorite status:', error);
+        }
+
+        renderDeals(); // Re-render the deals to show favorites first
     }
 };
 
-// Global variable to keep track of dragged element
+
+
 let draggedDealId = null;
+
+window.enableDragAndDrop = function() {
+    const dealCards = document.querySelectorAll('.deal-card');
+
+    dealCards.forEach(card => {
+        card.setAttribute('draggable', true);
+
+        card.addEventListener('dragstart', function(e) {
+            draggedDealId = e.target.getAttribute('data-deal-id');
+            e.target.style.opacity = '0.5';
+        });
+
+        card.addEventListener('dragend', function(e) {
+            e.target.style.opacity = '1';
+        });
+
+        card.addEventListener('dragover', function(e) {
+            e.preventDefault(); // Allow drop
+        });
+
+        card.addEventListener('drop', function(e) {
+            e.preventDefault();
+            const targetDealId = e.target.closest('.deal-card').getAttribute('data-deal-id');
+            if (draggedDealId && targetDealId) {
+                reorderDeals(draggedDealId, targetDealId);
+            }
+        });
+    });
+};
+
+
+// Function to reorder deals
+window.reorderDeals = function(draggedDealId, targetDealId) {
+    const draggedIndex = deals.findIndex(deal => deal.dealId === draggedDealId);
+    const targetIndex = deals.findIndex(deal => deal.dealId === targetDealId);
+
+    if (draggedIndex !== -1 && targetIndex !== -1) {
+        const [draggedDeal] = deals.splice(draggedIndex, 1);
+        deals.splice(targetIndex, 0, draggedDeal);
+
+        // Re-render deals
+        renderDeals();
+
+        // Save reordered deals to Firebase
+        saveDealOrderToFirebase();
+    }
+};
+
+// Function to save reordered deals to Firebase
+window.saveDealOrderToFirebase = async function() {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    try {
+        const dealOrder = deals.map(deal => deal.dealId);
+        const userRef = doc(db, 'users', user.uid);
+        await setDoc(userRef, { dealOrder }, { merge: true });
+    } catch (error) {
+        console.error('Error saving deal order:', error);
+    }
+};
+
+// Function to fetch deal order from Firebase on login
+window.fetchDealOrderFromFirebase = async function() {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    try {
+        const userDoc = await getDoc(doc(db, 'users', user.uid));
+        const dealOrder = userDoc.data()?.dealOrder || [];
+
+        // Sort deals based on saved order
+        if (dealOrder.length) {
+            deals.sort((a, b) => dealOrder.indexOf(a.dealId) - dealOrder.indexOf(b.dealId));
+        }
+        renderDeals();
+    } catch (error) {
+        console.error('Error fetching deal order:', error);
+    }
+};
+
+// Call this function after login
+window.fetchDealOrderFromFirebase();
+
+
 
 // Function to render deals on the dashboard
 window.renderDeals = function() {
@@ -665,17 +760,10 @@ window.renderDeals = function() {
     sortedDeals.forEach(deal => {
         const dealCard = document.createElement('div');
         dealCard.className = 'deal-card';
-        dealCard.setAttribute('draggable', 'true'); // Make the card draggable
-        dealCard.setAttribute('data-deal-id', deal.dealId); // Store deal ID in the card
-        dealCard.addEventListener('dragstart', handleDragStart);
-        dealCard.addEventListener('dragover', handleDragOver);
-        dealCard.addEventListener('drop', handleDrop);
+        dealCard.setAttribute('data-deal-id', deal.dealId); // Add a unique ID for drag and drop
 
-        // Format the status to be more readable
-        const formattedStatus = formatStatus(deal.status);
-
-        // Add favorite icon (★) toggle
         const favoriteIcon = deal.favorite ? '★' : '☆';
+        const formattedStatus = formatStatus(deal.status);
 
         dealCard.innerHTML = `
             <div class="deal-card-header">
@@ -694,36 +782,12 @@ window.renderDeals = function() {
         `;
         dealGrid.appendChild(dealCard);
     });
+
+    enableDragAndDrop(); // Enable dragging after rendering the cards
 };
 
-// Handle drag start
-function handleDragStart(event) {
-    draggedDealId = event.target.getAttribute('data-deal-id');
-}
 
-// Allow dragover (necessary for drop to work)
-function handleDragOver(event) {
-    event.preventDefault();
-}
 
-// Handle drop to reorder cards
-function handleDrop(event) {
-    event.preventDefault();
-    const targetDealId = event.target.closest('.deal-card').getAttribute('data-deal-id');
-    
-    // Get index positions of dragged and target deals
-    const draggedIndex = deals.findIndex(deal => deal.dealId === draggedDealId);
-    const targetIndex = deals.findIndex(deal => deal.dealId === targetDealId);
-
-    // Swap the deals in the array
-    [deals[draggedIndex], deals[targetIndex]] = [deals[targetIndex], deals[draggedIndex]];
-
-    // Re-render the deals in the new order
-    renderDeals();
-
-    // Save the updated deal order to Firebase
-    saveDealOrderToFirebase();
-}
 
 // Function to format deal status to be more readable
 window.formatStatus = function(status) {

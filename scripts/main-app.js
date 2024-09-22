@@ -774,16 +774,21 @@ window.toggleFavorite = async function(dealId) {
     if (deal) {
         deal.favorite = !deal.favorite;
 
-        // Save updated deal to Firebase
+        // Update the favorite in Firebase or your backend
         try {
             const dealRef = doc(db, 'deals', dealId);
             await updateDoc(dealRef, { favorite: deal.favorite });
+
+            // After updating the backend, re-render the table or cards based on the current view
+            const preferredView = localStorage.getItem('preferredView') || 'cards';
+            if (preferredView === 'table') {
+                renderDealTable();
+            } else {
+                renderDeals();
+            }
         } catch (error) {
             console.error('Error saving favorite status:', error);
         }
-
-        renderDeals(); // Re-render the deals to show favorites first
-        renderDealTable();
     }
 };
 

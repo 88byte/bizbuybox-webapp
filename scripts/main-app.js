@@ -692,9 +692,9 @@ window.enableDragAndDrop = function() {
 
         card.addEventListener('dragover', function(e) {
             e.preventDefault(); // Allow drop
-
             const afterElement = getDragAfterElement(dealCards, e.clientY);
             const dealGrid = document.getElementById('dealGrid');
+            
             if (afterElement == null) {
                 dealGrid.appendChild(draggedElement);
             } else {
@@ -712,20 +712,22 @@ window.enableDragAndDrop = function() {
     });
 };
 
-// Helper function to determine the correct position to insert the dragged card
+// Helper function to determine where to insert dragged card based on mouse Y position
 function getDragAfterElement(dealCards, y) {
-    const dealCardsArray = [...dealCards].filter(card => card !== draggedElement);
+    const dealCardsArray = [...dealCards].filter(card => card !== draggedElement); // Exclude the dragged element
     
-    return dealCardsArray.reduce((closest, child) => {
-        const box = child.getBoundingClientRect();
+    return dealCardsArray.reduce((closest, card) => {
+        const box = card.getBoundingClientRect();
         const offset = y - box.top - box.height / 2;
+
         if (offset < 0 && offset > closest.offset) {
-            return { offset, element: child };
+            return { offset, element: card };
         } else {
             return closest;
         }
     }, { offset: Number.NEGATIVE_INFINITY }).element;
 }
+
 
 
 // Function to reorder deals

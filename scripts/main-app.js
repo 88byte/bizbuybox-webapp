@@ -482,6 +482,91 @@ window.enableTableRowDragAndDrop = function() {
 
 
 
+// Function to dynamically update dashboard metrics
+window.updateDashboardMetrics = function(deals) {
+    let newDeals = 0, discoveryDeals = 0, negotiationDeals = 0, underwritingDeals = 0, closedDeals = 0, archivedDeals = 0;
+
+    let statusCounts = {
+        'new-deal': 0,
+        'cim-review': 0,
+        'seller-meeting': 0,
+        'loi-submitted': 0,
+        'loi-accepted': 0,
+        'kyle-review': 0,
+        'due-diligence': 0,
+        'sba-loan': 0,
+        'deal-closed-won': 0,
+        'no-longer-interested': 0,
+        'nurture': 0
+    };
+
+    deals.forEach(deal => {
+        const status = deal.status;
+
+        if (status in statusCounts) {
+            statusCounts[status]++;
+        }
+
+        // Categorizing deals into specific sections
+        if (status === 'new-deal') {
+            newDeals++;
+        } else if (['cim-review', 'seller-meeting'].includes(status)) {
+            discoveryDeals++;
+        } else if (['loi-submitted', 'loi-accepted'].includes(status)) {
+            negotiationDeals++;
+        } else if (['kyle-review', 'due-diligence', 'sba-loan'].includes(status)) {
+            underwritingDeals++;
+        } else if (status === 'deal-closed-won') {
+            closedDeals++;
+        } else if (['nurture', 'no-longer-interested'].includes(status)) {
+            archivedDeals++;
+        }
+    });
+
+    // Update the counts for each section
+    document.getElementById('activeDealsCount').textContent = newDeals;
+    document.getElementById('discoveryCount').textContent = discoveryDeals;
+    document.getElementById('negotiatonsCount').textContent = negotiationDeals;
+    document.getElementById('underwritingCount').textContent = underwritingDeals;
+    document.getElementById('closedwonCount').textContent = closedDeals;
+    document.getElementById('archivedDealsCount').textContent = archivedDeals;
+
+    // Update the individual status details
+    document.getElementById('newDealCount').textContent = `New Deals: ${statusCounts['new-deal']}`;
+    document.getElementById('cimReviewCount').textContent = `CIM Review: ${statusCounts['cim-review']}`;
+    document.getElementById('sellerMeetingCount').textContent = `Seller Meeting: ${statusCounts['seller-meeting']}`;
+    document.getElementById('loiSubmittedCount').textContent = `LOI Submitted: ${statusCounts['loi-submitted']}`;
+    document.getElementById('loiAcceptedCount').textContent = `LOI Accepted: ${statusCounts['loi-accepted']}`;
+    document.getElementById('kyleReviewCount').textContent = `Kyle Review: ${statusCounts['kyle-review']}`;
+    document.getElementById('dueDiligenceCount').textContent = `Due Diligence: ${statusCounts['due-diligence']}`;
+    document.getElementById('sbaLoanCount').textContent = `SBA Loan: ${statusCounts['sba-loan']}`;
+    document.getElementById('dealClosedWonCount').textContent = `Closed Deals: ${statusCounts['deal-closed-won']}`;
+    document.getElementById('nurtureCount').textContent = `Nurture: ${statusCounts['nurture']}`;
+    document.getElementById('noLongerInterestedCount').textContent = `Not Interested: ${statusCounts['no-longer-interested']}`;
+};
+
+// Fetch deals from the backend and update metrics in real-time
+window.fetchAndUpdateDeals = function() {
+    // Assuming we fetch deals from an API or Firebase
+    window.fetchDealsFromBackend().then(deals => {
+        window.updateDashboardMetrics(deals);
+    });
+};
+
+// Set up real-time listener (e.g., with Firebase)
+window.setupRealTimeDealListener = function(callback) {
+    // Assuming Firebase, or modify this part for your API
+    const dealsCollection = collection(db, 'deals');
+    onSnapshot(dealsCollection, snapshot => {
+        const deals = snapshot.docs.map(doc => doc.data());
+        callback(deals);
+    });
+};
+
+// Initialize the real-time listener
+window.setupRealTimeDealListener(deals => {
+    window.updateDashboardMetrics(deals);
+});
 
 
 

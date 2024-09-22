@@ -82,16 +82,18 @@
                 <div class="deal-management-header">
 			        <h3>Manage Your Deals</h3>
 			        <div class="deal-actions">
-					    <input type="text" id="searchDeals" placeholder="Search Deals..." onkeyup="searchDeals()">
-					    <button class="btn-create" onclick="createDeal()">+ New Deal</button>
-					    
-					    <!-- Toggle Switch for view -->
-					    <label class="switch">
-					        <input type="checkbox" id="toggleViewSwitch" onclick="toggleView()">
-					        <span class="slider"></span>
-					    </label>
-					    <span id="viewModeLabel">Card View</span> <!-- View Mode Text -->
-					</div>
+			            <input type="text" id="searchDeals" placeholder="Search Deals..." onkeyup="searchDeals()">
+			            <button class="btn-create" onclick="createDeal()">+ New Deal</button>
+			            <!-- Toggle Switch for Card/Table View -->
+						<div class="view-toggle-container">
+						    <span class="toggle-label">Card View</span>
+						    <label class="switch">
+						        <input type="checkbox" id="viewToggleSwitch" onclick="toggleView()">
+						        <span class="slider round"></span>
+						    </label>
+						    <span class="toggle-label">Table View</span>
+						</div>
+			        </div>
 			    </div>
                 <div class="deal-filters">
 			        <button onclick="filterDeals('all')" class="filter-btn active">All</button>

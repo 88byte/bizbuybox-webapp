@@ -793,21 +793,22 @@ window.fetchDeals = async function() {
 window.toggleFavorite = async function(dealId) {
     const deal = deals.find(d => d.dealId === dealId);
     if (deal) {
+        // Toggle the favorite status
         deal.favorite = !deal.favorite;
 
         // Save updated deal to Firebase
         try {
             const dealRef = doc(db, 'deals', dealId);
             await updateDoc(dealRef, { favorite: deal.favorite });
+
+            // Re-render both card and table views to reflect the change
+            renderDeals();
+            renderDealTable();
         } catch (error) {
             console.error('Error saving favorite status:', error);
         }
-
-        renderDeals(); // Re-render the deals to show favorites first
-        renderDealTable();
     }
 };
-
 
 
 let draggedDealId = null;

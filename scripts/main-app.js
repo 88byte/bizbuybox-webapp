@@ -339,27 +339,30 @@ window.closeCardModal = function() {
 // Variable to track the current view (card or table)
 let isCardView = true;
 
-// Function to toggle between Card View and Table View
-window.toggleView = function() {
+// Function to switch between table and card view
+window.toggleView = function(viewType) {
     const dealGrid = document.getElementById('dealGrid');
     const dealTable = document.getElementById('dealTable');
-    const toggleSwitch = document.getElementById('viewToggleSwitch');
 
-    if (toggleSwitch.checked) {
-        // Switch to Table View
-        dealGrid.style.display = 'none'; // Hide the card grid
-        dealTable.style.display = 'block'; // Show the table
-        renderDealTable(); // Render deals in table format
+    if (viewType === 'table') {
+        dealGrid.style.display = 'none';  // Hide card view
+        dealTable.style.display = 'block'; // Show table view
+        renderDealTable();  // Render the deals in table format
     } else {
-        // Switch to Card View
-        dealGrid.style.display = 'grid'; // Show the card grid
-        dealTable.style.display = 'none'; // Hide the table
-        renderDeals(); // Render deals in card format
+        dealGrid.style.display = 'block';  // Show card view
+        dealTable.style.display = 'none';  // Hide table view
+        renderDeals();  // Render the deals in card format
     }
 
-    isCardView = !isCardView; // Toggle the state
+    // Save the user's view preference in localStorage
+    localStorage.setItem('preferredView', viewType);
 };
 
+// Function to load the preferred view from localStorage
+window.loadPreferredView = function() {
+    const preferredView = localStorage.getItem('preferredView') || 'cards';  // Default to 'cards'
+    toggleView(preferredView);  // Set the view based on the stored preference
+};
 
 
 
@@ -951,6 +954,7 @@ window.renderDeals = function() {
 
 // Initial render on page load
 window.onload = function() {
+	loadPreferredView();  // Load the preferred view on page load
     fetchDeals(); // Fetch deals from Firestore
     fetchDealOrderFromFirebase(); // Fetch deal order and render accordingly
 };

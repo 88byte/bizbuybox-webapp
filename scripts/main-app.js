@@ -1906,8 +1906,16 @@ window.listenToDealUpdates = function() {
 
         snapshot.forEach(doc => {
             const deal = doc.data();
-            console.log("Deal:", deal); // Log each deal for debugging
+            
+            // Check if the deal has a status
+            if (!deal.status) {
+                console.warn(`Deal with ID ${doc.id} is missing a status.`);
+                return; // Skip this deal if it has no status
+            }
 
+            console.log("Processing Deal with Status:", deal.status);
+
+            // Handle status-based counting
             switch (deal.status) {
                 case 'new-deal':
                     newDealCount++;
@@ -1933,34 +1941,30 @@ window.listenToDealUpdates = function() {
                     archivedCount++;
                     break;
                 default:
+                    console.warn(`Unhandled status: ${deal.status}`);
                     break;
             }
         });
 
+        // Log the counts for debugging
+        console.log("Counts:", {
+            newDealCount,
+            discoveryCount,
+            negotiationCount,
+            underwritingCount,
+            closedWonCount,
+            archivedCount
+        });
+
         // Update the UI with the counts
-        console.log("Updating UI...");
         document.getElementById('activeDealsCount').textContent = newDealCount;
         document.getElementById('discoveryCount').textContent = discoveryCount;
-        document.getElementById('negotiatonsCount').textContent = negotiationCount;
+        document.getElementById('negotiationsCount').textContent = negotiationCount;
         document.getElementById('underwritingCount').textContent = underwritingCount;
-        document.getElementById('closedwonCount').textContent = closedWonCount;
+        document.getElementById('closedWonCount').textContent = closedWonCount;
         document.getElementById('archivedDealsCount').textContent = archivedCount;
-
-        // Update the detailed status counts
-        document.getElementById('newDealCount').textContent = newDealCount;
-        document.getElementById('cimReviewCount').textContent = discoveryCount;
-        document.getElementById('sellerMeetingCount').textContent = discoveryCount;
-        document.getElementById('loiSubmittedCount').textContent = negotiationCount;
-        document.getElementById('loiAcceptedCount').textContent = negotiationCount;
-        document.getElementById('kyleReviewCount').textContent = underwritingCount;
-        document.getElementById('dueDiligenceCount').textContent = underwritingCount;
-        document.getElementById('sbaLoanCount').textContent = underwritingCount;
-        document.getElementById('dealClosedWonCount').textContent = closedWonCount;
-        document.getElementById('nurtureCount').textContent = archivedCount;
-        document.getElementById('noLongerInterestedCount').textContent = archivedCount;
     });
 };
-
 
 // Call this function after login to start listening for updates
 window.listenToDealUpdates();

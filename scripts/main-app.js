@@ -377,6 +377,7 @@ window.renderDealTable = function() {
         const favoriteIcon = deal.favorite ? '★' : '☆';
         const favoriteColor = deal.favorite ? '#ffcc00' : '#f5f5f5';  // Yellow if favorite, light if not
 
+        // The star icon is now interactive and doesn't interfere with row dragging
         favoriteCell.innerHTML = `<span class="favorite-icon" style="cursor: pointer; color: ${favoriteColor};" onclick="toggleFavorite('${deal.dealId}')">${favoriteIcon}</span>`;
         row.appendChild(favoriteCell);
 
@@ -415,15 +416,20 @@ window.renderDealTable = function() {
     enableTableRowDragAndDrop();
 };
 
-// Function to enable drag-and-drop for table rows
+
+// Function to enable drag-and-drop for table rows, excluding the star icon
 window.enableTableRowDragAndDrop = function() {
     const dealTableBody = document.getElementById('dealTableBody');
 
     new Sortable(dealTableBody, {
         animation: 150, // Smooth animation
-        handle: '.favorite-icon', // Can drag using the star icon or other specified handles
+        handle: 'tr', // The whole row is draggable, except the star icon
         ghostClass: 'sortable-ghost', // Class for the dragged item
         chosenClass: 'sortable-chosen', // Class when the item is selected
+
+        // Prevent dragging when interacting with the star icon (toggle)
+        filter: '.favorite-icon',
+        preventOnFilter: false, // Allows interaction with the star icon while keeping drag functionality
 
         onEnd: function(evt) {
             const oldIndex = evt.oldIndex;
@@ -433,11 +439,12 @@ window.enableTableRowDragAndDrop = function() {
             const movedDeal = deals.splice(oldIndex, 1)[0]; // Remove from old position
             deals.splice(newIndex, 0, movedDeal); // Insert into new position
 
-            // Save the reordered deals to Firebase (or whatever backend you're using)
+            // Save the reordered deals to Firebase (or backend)
             saveDealOrderToFirebase();
         }
     });
 };
+
 
 
 

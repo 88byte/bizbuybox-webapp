@@ -249,10 +249,11 @@ body {
 }
 
 .dashboard-metrics {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
-    margin: 20px 0;
+    display: flex;                /* Use Flexbox to lay out cards side by side */
+    flex-wrap: wrap;              /* Allow cards to wrap to the next line if necessary */
+    justify-content: space-between; /* Space cards evenly */
+    gap: 20px;                    /* Add space between cards */
+    margin: 20px 0;               /* Add margin for spacing */
 }
 
 .card {
@@ -264,6 +265,7 @@ body {
     text-align: center;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: calc(25% - 20px);      /* Responsive width for each card to fit 4 cards per row, minus the gap */
 }
 
 .card h3 {
@@ -295,6 +297,20 @@ body {
     font-size: 14px;
     color: #fff;
 }
+
+
+@media (max-width: 768px) {
+    .card {
+        width: calc(50% - 20px);  /* Two cards per row on tablets */
+    }
+}
+
+@media (max-width: 480px) {
+    .card {
+        width: 100%;              /* Single card per row on mobile devices */
+    }
+}
+
 
 
 /* Deal Management */

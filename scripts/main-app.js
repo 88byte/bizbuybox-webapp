@@ -90,8 +90,9 @@ window.displayUserProfile = function () {
 onAuthStateChanged(auth, (user) => {
     if (user) {
         // User is logged in, load the profile
-        loadUserProfile();
-        fetchDeals();
+        window.loadUserProfile();
+        window.fetchDeals();
+        window.listenToDealUpdates(); 
     } else {
         console.log('User is not logged in');
     }

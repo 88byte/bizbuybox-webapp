@@ -601,7 +601,7 @@ button.btn-create:hover {
     font-weight: bold;
     text-transform: uppercase;
     background-color: #3a3a3a;
-    color: #ffcc00; /* Accent color */
+    color: #97835a; /* Accent color */
     letter-spacing: 0.05em;
     border-bottom: 1px solid #444; /* Thin divider */
 }

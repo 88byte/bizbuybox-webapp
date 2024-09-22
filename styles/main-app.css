@@ -299,20 +299,6 @@ body {
 }
 
 
-@media (max-width: 768px) {
-    .card {
-        width: calc(50% - 20px);  /* Two cards per row on tablets */
-    }
-}
-
-@media (max-width: 480px) {
-    .card {
-        width: 100%;              /* Single card per row on mobile devices */
-    }
-}
-
-
-
 /* Deal Management */
 .deal-management {
     margin-top: 30px;

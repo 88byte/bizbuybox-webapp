@@ -543,6 +543,47 @@ button.btn-create:hover {
     font-size: 18px;
 }
 
+
+/* Style the table */
+.deal-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.deal-table th, .deal-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.deal-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+.deal-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.deal-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.deal-table td button {
+    margin-right: 8px;
+    padding: 4px 8px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.deal-table td button:hover {
+    background-color: #45a049;
+}
+
+
+
 /* Card Modal Overlay */
 .card-modal {
     display: none;

@@ -336,6 +336,70 @@ window.closeCardModal = function() {
 };
 
 
+// Variable to track the current view (card or table)
+let isCardView = true;
+
+// Function to toggle between Card View and Table View
+window.toggleView = function() {
+    const dealGrid = document.getElementById('dealGrid');
+    const dealTable = document.getElementById('dealTable');
+    const toggleBtn = document.getElementById('toggleViewBtn');
+
+    if (isCardView) {
+        // Switch to Table View
+        dealGrid.style.display = 'none'; // Hide the card grid
+        dealTable.style.display = 'block'; // Show the table
+        toggleBtn.textContent = 'Switch to Card View'; // Update button text
+        renderDealTable(); // Render deals in table format
+    } else {
+        // Switch to Card View
+        dealGrid.style.display = 'grid'; // Show the card grid
+        dealTable.style.display = 'none'; // Hide the table
+        toggleBtn.textContent = 'Switch to Table View'; // Update button text
+        renderDeals(); // Render deals in card format
+    }
+
+    isCardView = !isCardView; // Toggle the state
+};
+
+
+
+// Function to render deals in table format
+window.renderDealTable = function() {
+    const dealTableBody = document.getElementById('dealTableBody');
+    dealTableBody.innerHTML = ''; // Clear the table body
+
+    deals.forEach(deal => {
+        const row = document.createElement('tr');
+
+        const businessNameCell = document.createElement('td');
+        businessNameCell.textContent = deal.businessName;
+        row.appendChild(businessNameCell);
+
+        const statusCell = document.createElement('td');
+        statusCell.textContent = formatStatus(deal.status);
+        row.appendChild(statusCell);
+
+        const askingPriceCell = document.createElement('td');
+        askingPriceCell.textContent = `$${parseInt(deal.askingPrice).toLocaleString()}`;
+        row.appendChild(askingPriceCell);
+
+        const lastUpdatedCell = document.createElement('td');
+        lastUpdatedCell.textContent = new Date(deal.lastUpdate).toLocaleDateString();
+        row.appendChild(lastUpdatedCell);
+
+        const actionsCell = document.createElement('td');
+        actionsCell.innerHTML = `
+            <button onclick="editDeal('${deal.dealId}')">Edit</button>
+            <button onclick="openConfirmationModal('${deal.dealId}')">Delete</button>
+        `;
+        row.appendChild(actionsCell);
+
+        dealTableBody.appendChild(row); // Append the row to the table body
+    });
+};
+
+
 
 
 // Function to edit a deal (opens the modal pre-filled with the deal data)

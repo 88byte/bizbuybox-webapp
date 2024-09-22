@@ -2144,3 +2144,15 @@ input-item select {
 
 
 
+.multiple-display {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    background: rgba(255, 255, 255, 0.1); /* Transparent background */
+    padding: 5px 10px;
+    border-radius: 8px;
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}

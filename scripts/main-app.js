@@ -1632,9 +1632,20 @@ window.updateBuyBoxChecklist = function(deal) {
             }
         }
     }
+
     const revenueGrowthIcon = document.getElementById('checkRevenueGrowth');
     revenueGrowthIcon.classList.remove('success', 'warning', 'error');
     revenueGrowthIcon.classList.add(revenueGrowthStatus);
+
+    // 6. Calculate and display the multiple
+    const askingPrice = parseFloat(deal.askingPrice.replace(/[^\d.-]/g, '')) || 0; // Clean the asking price
+    const multiple = avgRevenue > 0 ? (askingPrice / avgRevenue).toFixed(1) : 0; // Calculate the multiple
+
+    // Display the multiple in the top right of the deal card
+    const multipleElement = document.getElementById(`dealMultiple_${deal.dealId}`);
+    if (multipleElement) {
+        multipleElement.textContent = `x${multiple}`; // Set the text to 'x' followed by the multiple
+    }
 };
 
 

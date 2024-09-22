@@ -139,6 +139,7 @@
             <!-- Deal Management Section -->
             <div class="deal-management">
                 <div class="deal-management-header">
+
 			        <h3>Manage Your Deals</h3>
 			        <div class="deal-actions">
 			            <input type="text" id="searchDeals" placeholder="Search Deals..." onkeyup="searchDeals()">
@@ -273,6 +274,10 @@
 
 	            <form id="dealForm" onsubmit="saveDeal(); return false;">
 	                <input type="hidden" id="dealId">
+
+	                <div class="multiple-display" id="dealMultiple_{{dealId}}">
+			            x0.0 <!-- This will be updated by the function -->
+			        </div>
 
 	                <!-- Business Name, Industry, Years in Business -->
 	                <div class="three-column wider">

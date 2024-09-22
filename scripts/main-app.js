@@ -1885,10 +1885,12 @@ window.runSensitivityAnalysis = function() {
 };
 
 
-// Function to listen to real-time updates of deals
 window.listenToDealUpdates = function() {
     const user = auth.currentUser;
-    if (!user) return;
+    if (!user) {
+        console.log("No user logged in, exiting listenToDealUpdates");
+        return;
+    }
 
     const dealsCollection = collection(db, 'deals');
     const q = query(dealsCollection, where("userId", "==", user.uid));
@@ -1902,9 +1904,10 @@ window.listenToDealUpdates = function() {
         let closedWonCount = 0;
         let archivedCount = 0;
 
-        // Loop through the changes
         snapshot.forEach(doc => {
             const deal = doc.data();
+            console.log("Deal:", deal); // Log each deal for debugging
+
             switch (deal.status) {
                 case 'new-deal':
                     newDealCount++;
@@ -1934,28 +1937,16 @@ window.listenToDealUpdates = function() {
             }
         });
 
-        // Update the UI with the counts
+        // Update the counts only, not the labels
         document.getElementById('activeDealsCount').textContent = newDealCount;
         document.getElementById('discoveryCount').textContent = discoveryCount;
-        document.getElementById('negotiatonsCount').textContent = negotiationCount;
+        document.getElementById('negotiationsCount').textContent = negotiationCount;
         document.getElementById('underwritingCount').textContent = underwritingCount;
-        document.getElementById('closedwonCount').textContent = closedWonCount;
+        document.getElementById('closedWonCount').textContent = closedWonCount;
         document.getElementById('archivedDealsCount').textContent = archivedCount;
-
-        // Update the detailed status counts
-        document.getElementById('newDealCount').textContent = newDealCount;
-        document.getElementById('cimReviewCount').textContent = discoveryCount;
-        document.getElementById('sellerMeetingCount').textContent = discoveryCount;
-        document.getElementById('loiSubmittedCount').textContent = negotiationCount;
-        document.getElementById('loiAcceptedCount').textContent = negotiationCount;
-        document.getElementById('kyleReviewCount').textContent = underwritingCount;
-        document.getElementById('dueDiligenceCount').textContent = underwritingCount;
-        document.getElementById('sbaLoanCount').textContent = underwritingCount;
-        document.getElementById('dealClosedWonCount').textContent = closedWonCount;
-        document.getElementById('nurtureCount').textContent = archivedCount;
-        document.getElementById('noLongerInterestedCount').textContent = archivedCount;
     });
 };
+
 
 // Call this function after login to start listening for updates
 window.listenToDealUpdates();

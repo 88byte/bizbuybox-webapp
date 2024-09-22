@@ -248,6 +248,27 @@ body {
     background-color: #555;
 }
 
+/* Deal Card Status Label */
+.status-label {
+    font-size: 13px;  /* Slightly larger for readability */
+    padding: 6px 12px;  /* Increased padding for balance */
+    border-radius: 12px;  /* Smooth rounded corners */
+    color: #ffffff;  /* Keep the text white for contrast */
+    text-transform: uppercase;
+    font-weight: 600;  /* Medium weight for a polished look */
+    margin-left: 10px;  /* Consistent spacing */
+    display: inline-block;
+    
+    /* Add a smooth gradient background */
+    background: linear-gradient(135deg, #007bff 0%, #00c6ff 100%);  /* Example gradient */
+
+    /* Soft shadow for depth */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.06);
+    
+    /* Smooth transition for hover effects */
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
 .dashboard-metrics {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -447,17 +468,7 @@ button.btn-create:hover {
 
 
 
-/* Deal Card Status Label */
-.status-label {
-    font-size: 12px;
-    padding: 4px 8px;
-    border-radius: 8px;
-    color: white;
-    text-transform: uppercase;
-    font-weight: bold;
-    margin-left: 8px;
-    display: inline-block;
-}
+
 
 /* Deal Card Styling with Subtle Minimalist Look */
 .deal-card {

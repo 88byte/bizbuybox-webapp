@@ -147,6 +147,7 @@ window.updateProfile = async function () {
 window.onload = function() {
     showDashboard();
     renderDeals();
+    window.updateStatusColor();
 };
 
 
@@ -1967,3 +1968,28 @@ window.listenToDealUpdates = function() {
 
 // Call this function after login to start listening for updates
 window.listenToDealUpdates();
+
+
+// Define the function to update dropdown color based on selection
+window.updateStatusColor = function () {
+const statusDropdown = document.getElementById('status');
+const statusValue = statusDropdown.value;
+
+// Define the colors for each status
+const statusColors = {
+'new-deal': '#3b82f6',
+'cim-review': '#6366f1',
+'seller-meeting': '#8b5cf6',
+'loi-submitted': '#22c55e',
+'loi-accepted': '#22c55e',
+'kyle-review': '#ec4899',
+'sba-loan': '#f97316',
+'due-diligence': '#10b981',
+'deal-closed-won': '#16a34a',
+'no-longer-interested': '#f43f5e',
+'nurture': '#eab308'
+};
+
+// Only update the background color for the field, not for the dropdown list
+statusDropdown.style.backgroundColor = statusColors[statusValue] || '#333';
+}

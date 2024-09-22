@@ -438,7 +438,7 @@ window.renderDealTable = function() {
         const actionsCell = document.createElement('td');
         actionsCell.innerHTML = `
             <button class="btn-edit" onclick="editDeal('${deal.dealId}')">Edit</button>
-            <button class="btn-delete" onclick="openConfirmationModal('${deal.dealId}')">Delete</button>
+            <button class="btn-remove" onclick="openConfirmationModal('${deal.dealId}')">Delete</button>
         `;
         row.appendChild(actionsCell);
 
@@ -987,7 +987,7 @@ window.renderDeals = function() {
         `;
         dealGrid.appendChild(dealCard);
     });
-    
+
     enableDragAndDrop(); // Enable dragging after rendering the cards
 };
 

@@ -635,12 +635,17 @@ window.fetchDeals = async function() {
         const dealsSnapshot = await getDocs(query(dealsCollection, where("userId", "==", user.uid)));
 
         // Add dealId from Firestore document metadata
-        deals = dealsSnapshot.docs.map(doc => ({ dealId: doc.id, ...doc.data() })); // Include dealId
-        renderDeals(); // Render deal cards on the dashboard
+        deals = dealsSnapshot.docs.map(doc => ({ dealId: doc.id, ...doc.data() }));
+
+        // Fetch the deal order and sort the deals
+        await fetchDealOrderFromFirebase(); // Ensure that the deal order is fetched and deals are sorted
+
+        renderDeals(); // Render deal cards on the dashboard after sorting
     } catch (error) {
         console.error('Error fetching deals:', error);
     }
 };
+
 
 // Function to toggle favorite status of a deal
 window.toggleFavorite = async function(dealId) {
@@ -732,7 +737,7 @@ window.saveDealOrderToFirebase = async function() {
         console.error('Error saving deal order:', error);
     }
 };
-
+ 
 
 
 // Function to fetch deal order from Firebase on login
@@ -748,12 +753,11 @@ window.fetchDealOrderFromFirebase = async function() {
         if (dealOrder.length) {
             deals.sort((a, b) => dealOrder.indexOf(a.dealId) - dealOrder.indexOf(b.dealId));
         }
-
-        renderDeals(); // Render the sorted deals
     } catch (error) {
         console.error('Error fetching deal order:', error);
     }
 };
+
 
 
 
@@ -767,14 +771,15 @@ window.renderDeals = function() {
     const dealGrid = document.getElementById('dealGrid');
     dealGrid.innerHTML = ''; // Clear the existing content
 
-    // Sort deals with favorites first and respect the custom order
+    // If you still want to prioritize favorites, apply sorting after custom order
     const sortedDeals = deals.sort((a, b) => {
         if (b.favorite === a.favorite) {
-            return 0; // Keep their relative order as in dealOrder
+            return 0; // Keep their relative order as per dealOrder
         }
         return b.favorite - a.favorite; // Prioritize favorites
     });
 
+    // Render the sorted deals
     sortedDeals.forEach(deal => {
         const dealCard = document.createElement('div');
         dealCard.className = 'deal-card';
@@ -806,6 +811,11 @@ window.renderDeals = function() {
 
 
 
+// Initial render on page load
+window.onload = function() {
+    fetchDeals(); // Fetch deals from Firestore
+    fetchDealOrderFromFirebase(); // Fetch deal order and render accordingly
+};
 
 
 // Function to format deal status to be more readable
@@ -845,11 +855,7 @@ window.getStatusColor = function(status) {
     return statusColors[status] || '#333';
 };
 
-// Initial render on page load
-window.onload = function() {
-    fetchDeals(); // Fetch deals from Firestore
-    fetchDealOrderFromFirebase(); // Fetch deal order and render accordingly
-};
+
 
 // Global object to store uploaded documents
 window.uploadedDocuments = [];

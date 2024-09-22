@@ -439,12 +439,13 @@ button.btn-create:hover {
     transition: transform 0.2s ease, opacity 0.2s ease;
     cursor: grab;
     user-select: none;
+    margin-bottom: 10px; /* Add margin to avoid overlap */
 }
 
 /* Dragging effect for the card */
 .deal-card.dragging {
-    transform: rotate(3deg);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transform: rotate(3deg) scale(1.05); /* Slightly larger and tilted */
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3); /* More pronounced shadow during drag */
     transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
 
@@ -455,13 +456,13 @@ button.btn-create:hover {
 
 /* Placeholder effect when dragging over another card */
 .deal-card.dragover {
-    outline: 2px dashed #ffcc00;
+    outline: 2px dashed #ffcc00; /* Dashed outline to indicate drop target */
     transition: outline 0.2s ease;
 }
 
 /* Deal Card Hover Effect */
 .deal-card:hover {
-    transform: translateY(-6px);
+    transform: translateY(-6px); /* Lift effect on hover */
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25); /* Softer lift effect */
 }
 
@@ -472,6 +473,7 @@ button.btn-create:hover {
     align-items: center;
     margin-bottom: 12px;
 }
+
 
 .deal-card-title {
     font-size: 18px;

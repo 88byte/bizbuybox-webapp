@@ -730,6 +730,7 @@ function getDragAfterElement(dealCards, y) {
 
 
 
+
 // Function to reorder deals
 window.reorderDeals = function(draggedDealId, targetDealId) {
     const draggedIndex = deals.findIndex(deal => deal.dealId === draggedDealId);

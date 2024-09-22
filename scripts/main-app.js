@@ -700,16 +700,18 @@ window.reorderDeals = function(draggedDealId, targetDealId) {
     const targetIndex = deals.findIndex(deal => deal.dealId === targetDealId);
 
     if (draggedIndex !== -1 && targetIndex !== -1) {
+        // Rearrange the deals array
         const [draggedDeal] = deals.splice(draggedIndex, 1);
         deals.splice(targetIndex, 0, draggedDeal);
 
         // Re-render deals
         renderDeals();
 
-        // Save reordered deals to Firebase
+        // Save the reordered deals to Firebase
         saveDealOrderToFirebase();
     }
 };
+
 
 // Function to save reordered deals to Firebase
 window.saveDealOrderToFirebase = async function() {
@@ -717,13 +719,18 @@ window.saveDealOrderToFirebase = async function() {
     if (!user) return;
 
     try {
+        // Create an array of dealId's in the current order
         const dealOrder = deals.map(deal => deal.dealId);
+
+        // Save this array to the user's document in Firestore
         const userRef = doc(db, 'users', user.uid);
-        await setDoc(userRef, { dealOrder }, { merge: true });
+        await setDoc(userRef, { dealOrder }, { merge: true }); // Merge this field into the existing document
+        console.log('Deal order saved successfully.');
     } catch (error) {
         console.error('Error saving deal order:', error);
     }
 };
+
 
 // Function to fetch deal order from Firebase on login
 window.fetchDealOrderFromFirebase = async function() {
@@ -734,15 +741,17 @@ window.fetchDealOrderFromFirebase = async function() {
         const userDoc = await getDoc(doc(db, 'users', user.uid));
         const dealOrder = userDoc.data()?.dealOrder || [];
 
-        // Sort deals based on saved order
+        // Sort deals based on saved order, if any
         if (dealOrder.length) {
             deals.sort((a, b) => dealOrder.indexOf(a.dealId) - dealOrder.indexOf(b.dealId));
         }
-        renderDeals();
+
+        renderDeals(); // Render the sorted deals
     } catch (error) {
         console.error('Error fetching deal order:', error);
     }
 };
+
 
 // Call this function after login
 window.fetchDealOrderFromFirebase();
@@ -754,8 +763,13 @@ window.renderDeals = function() {
     const dealGrid = document.getElementById('dealGrid');
     dealGrid.innerHTML = ''; // Clear the existing content
 
-    // Sort deals with favorites first
-    const sortedDeals = deals.sort((a, b) => b.favorite - a.favorite);
+    // Sort deals with favorites first and respect the custom order
+    const sortedDeals = deals.sort((a, b) => {
+        if (b.favorite === a.favorite) {
+            return 0; // Keep their relative order as in dealOrder
+        }
+        return b.favorite - a.favorite; // Prioritize favorites
+    });
 
     sortedDeals.forEach(deal => {
         const dealCard = document.createElement('div');
@@ -785,6 +799,7 @@ window.renderDeals = function() {
 
     enableDragAndDrop(); // Enable dragging after rendering the cards
 };
+
 
 
 
@@ -829,6 +844,8 @@ window.getStatusColor = function(status) {
 // Initial render on page load
 window.onload = function() {
     renderDeals();
+    fetchDeals(); // Fetch deals from Firestore
+    fetchDealOrderFromFirebase(); // Fetch deal order and render accordingly
 };
 
 // Global object to store uploaded documents

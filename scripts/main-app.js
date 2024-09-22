@@ -7,7 +7,6 @@ import {
     signInWithPopup, 
     GoogleAuthProvider, 
     signOut, 
-    updateDoc,
     updateProfile, 
     updateEmail, 
     updatePassword, 
@@ -20,6 +19,7 @@ import {
     setDoc, 
     getDoc, 
     deleteDoc, 
+    updateDoc,
     collection, // Import collection
     query,      // Import query
     where,      // Import where

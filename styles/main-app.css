@@ -412,7 +412,12 @@ button.btn-create:hover {
 }
 
 
-
+/* Favorite (Star) Column */
+.favorite-icon {
+    font-size: 18px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
 
 
 /* Deal Card Status Label */
@@ -475,6 +480,16 @@ button.btn-create:hover {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 12px;
+}
+
+/* Placeholder row during drag */
+.sortable-placeholder {
+    background-color: #ffcc00; /* Yellow to indicate the placeholder */
+    opacity: 0.3;
+}
+
+.chosenClass {
+    background-color: #ffcc00;
 }
 
 
@@ -558,23 +573,22 @@ button.btn-create:hover {
     font-size: 16px;
     background-color: #2e2e2e; /* Match dark theme background */
     color: #e0e0e0; /* Light text */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
     border-radius: 10px;
-    overflow: hidden; /* Ensures corners stay rounded */
-    margin-bottom: 20px; /* Adds space at the bottom */
+    overflow: hidden;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
-/* Table Header */
+/* Table Headers */
 .deal-table th {
     padding: 15px;
     text-align: left;
     font-weight: bold;
     text-transform: uppercase;
-    color: #ffcc00; /* Accent color for headers */
-    background-color: #3a3a3a; /* Slightly darker for contrast */
+    background-color: #3a3a3a;
+    color: #ffcc00; /* Accent color */
     letter-spacing: 0.05em;
-    border-bottom: 1px solid #444; /* Thin divider under header */
-    font-size: 14px;
+    border-bottom: 1px solid #444; /* Thin divider */
 }
 
 /* Table Body Rows */
@@ -583,6 +597,10 @@ button.btn-create:hover {
     background-color: #3a3a3a; /* Row background matching theme */
     border-bottom: 1px solid #444; /* Subtle dividers between rows */
     transition: background-color 0.3s ease; /* Smooth transitions on hover */
+}
+
+.deal-table tr:hover td {
+    background-color: #505050; /* Darker hover background */
 }
 
 /* Hover effect on rows */

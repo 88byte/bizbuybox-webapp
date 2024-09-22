@@ -415,6 +415,30 @@ window.renderDealTable = function() {
     enableTableRowDragAndDrop();
 };
 
+// Function to enable drag-and-drop for table rows
+window.enableTableRowDragAndDrop = function() {
+    const dealTableBody = document.getElementById('dealTableBody');
+
+    new Sortable(dealTableBody, {
+        animation: 150, // Smooth animation
+        handle: '.favorite-icon', // Can drag using the star icon or other specified handles
+        ghostClass: 'sortable-ghost', // Class for the dragged item
+        chosenClass: 'sortable-chosen', // Class when the item is selected
+
+        onEnd: function(evt) {
+            const oldIndex = evt.oldIndex;
+            const newIndex = evt.newIndex;
+
+            // Reorder the deals array based on new row positions
+            const movedDeal = deals.splice(oldIndex, 1)[0]; // Remove from old position
+            deals.splice(newIndex, 0, movedDeal); // Insert into new position
+
+            // Save the reordered deals to Firebase (or whatever backend you're using)
+            saveDealOrderToFirebase();
+        }
+    });
+};
+
 
 
 

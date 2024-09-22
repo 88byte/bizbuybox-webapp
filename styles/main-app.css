@@ -248,29 +248,6 @@ body {
     background-color: #555;
 }
 
-/* Deal Card Status Label */
-.status-metric {
-    font-size: 13px;  /* Slightly larger for readability */
-    padding: 6px 12px;  /* Balanced padding */
-    border-radius: 12px;  /* Smooth rounded corners */
-    color: #ffffff;  /* Keep the text white for contrast */
-    text-transform: uppercase;
-    font-weight: 600;  /* Medium weight for a polished look */
-    margin-left: 10px;  /* Consistent spacing */
-    display: inline-block;
-    
-    /* Glassmorphism background */
-    background: rgba(255, 255, 255, 0.1);  /* Transparent white background */
-    backdrop-filter: blur(10px);  /* Blur effect for the frosted glass look */
-    -webkit-backdrop-filter: blur(10px);  /* For Safari support */
-    border: 1px solid rgba(255, 255, 255, 0.2);  /* Subtle white border for glass effect */
-    
-    /* Soft shadow for depth */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15), 0 2px 6px rgba(0, 0, 0, 0.10);
-    
-    /* Smooth transition for hover effects */
-    transition: background 0.3s ease, box-shadow 0.3s ease;
-}
 
 /* Deal Card Status Label */
 .status-label {
@@ -284,11 +261,64 @@ body {
     display: inline-block;
 }
 
+
+
+/* Glassmorphic Status Labels */
+.status-metric {
+    font-size: 11px;
+    padding: 5px 10px;
+    border-radius: 8px;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-weight: 500;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
 .dashboard-metrics {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 20px; /* Space between cards */
-    margin: 20px 0;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 15px;
+    background: rgba(255, 255, 255, 0.1); /* Subtle background */
+    padding: 20px;
+    border-radius: 15px; /* Rounded corners for the entire section */
+    backdrop-filter: blur(12px); /* Glass effect for the whole section */
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1); /* Soft shadow for subtle elevation */
+    border: 1px solid rgba(255, 255, 255, 0.15); /* Border for glass effect */
+}
+
+/* Individual Metric Section */
+.metric-block {
+    text-align: center;
+    color: #fff;
+    padding: 15px 10px;
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.metric-block:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Metric Titles */
+.metric-block h3 {
+    font-size: 16px;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #e0e0e0;
+    text-transform: uppercase;
+}
+
+/* Metric Values */
+.metric-block p {
+    font-size: 28px;
+    margin: 0;
+    font-weight: bold;
+    color: #fff;
 }
 
 .card {
@@ -318,8 +348,13 @@ body {
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
 }
 
+/* Status Metrics */
 .status-details {
-    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 5px;
 }
 
 .status-count {

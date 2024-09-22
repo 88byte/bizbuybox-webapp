@@ -521,17 +521,20 @@ button.btn-create:hover {
 
 /* Deal Card Styling with Subtle Minimalist Look */
 .deal-card {
-    background: linear-gradient(135deg, #3a3a3a, #1c1c1c); /* Simple, soft gradient */
-    color: #e0e0e0;
-    border-radius: 10px;
-    padding: 15px;
+    background: rgba(255, 255, 255, 0.1); /* Glass-like transparency */
+    backdrop-filter: blur(12px); /* Blur for the frosted glass effect */
+    -webkit-backdrop-filter: blur(12px); /* Safari support */
+    border-radius: 15px; /* Softer, more rounded corners */
+    padding: 20px;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Softer shadow for subtle depth */
-    transition: transform 0.2s ease, opacity 0.2s ease;
+    color: #e0e0e0; /* Soft light text for readability */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Soft shadow for depth */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
     cursor: grab;
     user-select: none;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border for structure */
 }
 
 /* Deal Card Hover Effect */

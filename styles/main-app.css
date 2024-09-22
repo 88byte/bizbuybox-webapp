@@ -537,10 +537,44 @@ button.btn-create:hover {
     border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border for structure */
 }
 
+/* Soft animations for card entrance */
+@keyframes cardFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.deal-card {
+    animation: cardFadeIn 0.5s ease;
+}
+
+/* Header for the Deal Card */
+.deal-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+
+/* Title and Action Button Styling */
+.deal-card h4 {
+    font-size: 18px; /* Modern font size */
+    margin: 0;
+    color: #ffffff; /* Strong contrast for title */
+}
+
+
 /* Deal Card Hover Effect */
 .deal-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25); /* Softer lift effect */
+    transform: scale(1.05); /* Slight zoom for emphasis */
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
+    background: rgba(255, 255, 255, 0.15); /* Slight lightening of glass effect */
 }
 
 /* While dragging, this style is applied */
@@ -564,13 +598,7 @@ button.btn-create:hover {
 }
 
 
-/* Deal Card Header */
-.deal-card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
-}
+
 
 /* Placeholder row during drag */
 .sortable-placeholder {
@@ -602,9 +630,10 @@ button.btn-create:hover {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15); /* Subtle shadow for depth */
 }
 
-/* Deal Card Content */
 .deal-card-content {
-    margin-bottom: 16px;
+    font-size: 14px;
+    line-height: 1.6; /* Comfortable reading experience */
+    color: #b0b0b0;
 }
 
 .deal-card p {

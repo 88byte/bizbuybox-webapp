@@ -339,30 +339,27 @@ window.closeCardModal = function() {
 // Variable to track the current view (card or table)
 let isCardView = true;
 
-// Function to switch between table and card view
-window.toggleView = function(viewType) {
+// Function to toggle between Card View and Table View
+window.toggleView = function() {
     const dealGrid = document.getElementById('dealGrid');
     const dealTable = document.getElementById('dealTable');
+    const toggleSwitch = document.getElementById('viewToggleSwitch');
 
-    if (viewType === 'table') {
-        dealGrid.style.display = 'none';  // Hide card view
-        dealTable.style.display = 'block'; // Show table view
-        renderDealTable();  // Render the deals in table format
+    if (toggleSwitch.checked) {
+        // Switch to Table View
+        dealGrid.style.display = 'none'; // Hide the card grid
+        dealTable.style.display = 'block'; // Show the table
+        renderDealTable(); // Render deals in table format
     } else {
-        dealGrid.style.display = 'block';  // Show card view
-        dealTable.style.display = 'none';  // Hide table view
-        renderDeals();  // Render the deals in card format
+        // Switch to Card View
+        dealGrid.style.display = 'grid'; // Show the card grid
+        dealTable.style.display = 'none'; // Hide the table
+        renderDeals(); // Render deals in card format
     }
 
-    // Save the user's view preference in localStorage
-    localStorage.setItem('preferredView', viewType);
+    isCardView = !isCardView; // Toggle the state
 };
 
-// Function to load the preferred view from localStorage
-window.loadPreferredView = function() {
-    const preferredView = localStorage.getItem('preferredView') || 'cards';  // Default to 'cards'
-    toggleView(preferredView);  // Set the view based on the stored preference
-};
 
 
 
@@ -774,21 +771,16 @@ window.toggleFavorite = async function(dealId) {
     if (deal) {
         deal.favorite = !deal.favorite;
 
-        // Update the favorite in Firebase or your backend
+        // Save updated deal to Firebase
         try {
             const dealRef = doc(db, 'deals', dealId);
             await updateDoc(dealRef, { favorite: deal.favorite });
-
-            // After updating the backend, re-render the table or cards based on the current view
-            const preferredView = localStorage.getItem('preferredView') || 'cards';
-            if (preferredView === 'table') {
-                renderDealTable();
-            } else {
-                renderDeals();
-            }
         } catch (error) {
             console.error('Error saving favorite status:', error);
         }
+
+        renderDeals(); // Re-render the deals to show favorites first
+        renderDealTable();
     }
 };
 
@@ -959,7 +951,6 @@ window.renderDeals = function() {
 
 // Initial render on page load
 window.onload = function() {
-	loadPreferredView();  // Load the preferred view on page load
     fetchDeals(); // Fetch deals from Firestore
     fetchDealOrderFromFirebase(); // Fetch deal order and render accordingly
 };

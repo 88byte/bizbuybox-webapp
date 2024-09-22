@@ -84,6 +84,8 @@
 			        <div class="deal-actions">
 			            <input type="text" id="searchDeals" placeholder="Search Deals..." onkeyup="searchDeals()">
 			            <button class="btn-create" onclick="createDeal()">+ New Deal</button>
+				        <!-- Toggle Button -->
+			            <button id="toggleViewBtn" class="btn-toggle" onclick="toggleView()">Switch to Table View</button>
 			        </div>
 			    </div>
                 <div class="deal-filters">
@@ -93,10 +95,26 @@
 			        <button onclick="filterDeals('opportunity')" class="filter-btn">Opportunities</button>
 			    </div>
                 <div class="deal-grid" id="dealGrid">
-                    <!-- Dynamic Deal Cards will be loaded here -->
-                </div>
-            </div>
-        </div>
+			        <!-- Dynamic Deal Cards will be loaded here -->
+			    </div>
+			    <!-- Deal Table (for Table View, initially hidden) -->
+			    <div class="deal-table" id="dealTable" style="display: none;">
+			        <table>
+			            <thead>
+			                <tr>
+			                    <th>Business Name</th>
+			                    <th>Status</th>
+			                    <th>Asking Price</th>
+			                    <th>Last Updated</th>
+			                    <th>Actions</th>
+			                </tr>
+			            </thead>
+			            <tbody id="dealTableBody">
+			                <!-- Dynamic Table Rows will be loaded here -->
+			            </tbody>
+			        </table>
+			    </div>
+			</div>
         
         <!-- Additional Sections for Different Tools -->
         <div id="quick-calculator" class="content-section">

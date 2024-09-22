@@ -441,6 +441,24 @@ button.btn-create:hover {
     user-select: none;
 }
 
+.deal-card.dragging {
+    cursor: grabbing;
+    z-index: 1000; /* Bring dragged element to the front */
+}
+
+.deal-card.dragging ~ .placeholder {
+    display: none; /* Hide placeholder when dragging over it */
+}
+
+.placeholder {
+    height: 80px; /* Match the height of deal cards */
+    background-color: rgba(0, 0, 0, 0.05); /* Light gray to indicate position */
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    margin: 10px 0;
+    transition: height 0.3s ease;
+}
+
 
 
 /* Deal Card Hover Effect */

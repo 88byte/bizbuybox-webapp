@@ -652,7 +652,7 @@ window.fetchDeals = async function() {
 window.toggleFavorite = async function(dealId) {
     const deal = deals.find(d => d.dealId === dealId);
     if (deal) {
-        deal.favorite = !deal.favorite; // Toggle favorite status
+        deal.favorite = !deal.favorite;
 
         // Save updated deal to Firebase
         try {
@@ -662,10 +662,9 @@ window.toggleFavorite = async function(dealId) {
             console.error('Error saving favorite status:', error);
         }
 
-        renderDeals(); // Re-render the deals to show favorites first and update star color
+        renderDeals(); // Re-render the deals to show favorites first
     }
 };
-
 
 
 
@@ -789,14 +788,12 @@ window.renderDeals = function() {
 
         // Change star to yellow if favorite, else default
         const favoriteIcon = deal.favorite ? '★' : '☆';
-        const starColor = deal.favorite ? 'yellow' : 'black'; // Use yellow for favorite
-
         const formattedStatus = formatStatus(deal.status);
 
         dealCard.innerHTML = `
             <div class="deal-card-header">
                 <h4>${deal.businessName}</h4>
-                <button class="favorite-btn" onclick="toggleFavorite('${deal.dealId}')" style="color:${starColor}">${favoriteIcon}</button>
+                <button class="favorite-btn" onclick="toggleFavorite('${deal.dealId}')">${favoriteIcon}</button>
             </div>
             <div class="deal-card-content">
                 <p>Status: <span class="status-label" style="background-color: ${getStatusColor(deal.status)};">${formattedStatus}</span></p>
@@ -813,7 +810,6 @@ window.renderDeals = function() {
 
     enableDragAndDrop(); // Enable dragging after rendering the cards
 };
-
 
 
 

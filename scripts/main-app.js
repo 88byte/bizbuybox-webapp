@@ -722,6 +722,8 @@ window.saveDealOrderToFirebase = async function() {
         // Create an array of dealId's in the current order
         const dealOrder = deals.map(deal => deal.dealId);
 
+        console.log('Saving this deal order:', dealOrder); // Log the order
+
         // Save this array to the user's document in Firestore
         const userRef = doc(db, 'users', user.uid);
         await setDoc(userRef, { dealOrder }, { merge: true }); // Merge this field into the existing document
@@ -730,6 +732,7 @@ window.saveDealOrderToFirebase = async function() {
         console.error('Error saving deal order:', error);
     }
 };
+
 
 
 // Function to fetch deal order from Firebase on login
@@ -751,6 +754,7 @@ window.fetchDealOrderFromFirebase = async function() {
         console.error('Error fetching deal order:', error);
     }
 };
+
 
 
 // Call this function after login

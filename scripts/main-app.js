@@ -350,15 +350,39 @@ window.toggleView = function() {
         dealGrid.style.display = 'none'; // Hide the card grid
         dealTable.style.display = 'block'; // Show the table
         renderDealTable(); // Render deals in table format
+
+        // Save the user's preference to localStorage
+        localStorage.setItem('dealView', 'table');
     } else {
         // Switch to Card View
         dealGrid.style.display = 'grid'; // Show the card grid
         dealTable.style.display = 'none'; // Hide the table
         renderDeals(); // Render deals in card format
+
+        // Save the user's preference to localStorage
+        localStorage.setItem('dealView', 'card');
     }
 
     isCardView = !isCardView; // Toggle the state
 };
+
+// Function to load the saved view from localStorage
+function loadSavedView() {
+    const savedView = localStorage.getItem('dealView');
+    const toggleSwitch = document.getElementById('viewToggleSwitch');
+
+    if (savedView === 'table') {
+        toggleSwitch.checked = true;
+        dealGrid.style.display = 'none';
+        dealTable.style.display = 'block';
+        renderDealTable();
+    } else {
+        toggleSwitch.checked = false;
+        dealGrid.style.display = 'grid';
+        dealTable.style.display = 'none';
+        renderDeals();
+    }
+}
 
 
 
@@ -953,6 +977,7 @@ window.renderDeals = function() {
 window.onload = function() {
     fetchDeals(); // Fetch deals from Firestore
     fetchDealOrderFromFirebase(); // Fetch deal order and render accordingly
+    loadSavedView(); // Load the saved view (card or table)
 };
 
 

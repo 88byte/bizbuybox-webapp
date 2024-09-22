@@ -439,14 +439,28 @@ button.btn-create:hover {
     transition: transform 0.2s ease, opacity 0.2s ease;
     cursor: grab;
     user-select: none;
-    margin-bottom: 10px; /* Add margin to avoid overlap */
+    margin-bottom: 10px;
 }
 
-/* Dragging effect for the card */
-.deal-card.dragging {
-    transform: rotate(3deg) scale(1.05); /* Slightly larger and tilted */
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3); /* More pronounced shadow during drag */
-    transition: box-shadow 0.2s ease, transform 0.2s ease;
+/* Deal Card Hover Effect */
+.deal-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25); /* Softer lift effect */
+}
+
+/* While dragging, this style is applied */
+.sortable-chosen {
+    transform: rotate(2deg) scale(1.05);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+    cursor: grabbing;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* When the card is being dragged (a placeholder while dragging) */
+.sortable-ghost {
+    opacity: 0.4;
+    transform: scale(0.98);
+    transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 /* Card while being dragged */
@@ -454,17 +468,6 @@ button.btn-create:hover {
     cursor: grabbing;
 }
 
-/* Placeholder effect when dragging over another card */
-.deal-card.dragover {
-    outline: 2px dashed #ffcc00; /* Dashed outline to indicate drop target */
-    transition: outline 0.2s ease;
-}
-
-/* Deal Card Hover Effect */
-.deal-card:hover {
-    transform: translateY(-6px); /* Lift effect on hover */
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25); /* Softer lift effect */
-}
 
 /* Deal Card Header */
 .deal-card-header {

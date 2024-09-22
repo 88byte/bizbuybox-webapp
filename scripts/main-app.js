@@ -672,45 +672,30 @@ let draggedDealId = null;
 let draggedElement = null;
 
 window.enableDragAndDrop = function() {
-    const dealCards = document.querySelectorAll('.deal-card');
+    const dealGrid = document.getElementById('dealGrid');
 
-    dealCards.forEach(card => {
-        card.setAttribute('draggable', true);
+    // Initialize Sortable on the deal grid
+    new Sortable(dealGrid, {
+        animation: 200, // Smooth animation duration (in milliseconds)
+        ghostClass: 'sortable-ghost', // Class for the dragged item
+        chosenClass: 'sortable-chosen', // Class when an item is selected
+        dragClass: 'sortable-drag', // Class for the dragging item
 
-        card.addEventListener('dragstart', function(e) {
-            draggedDealId = e.target.getAttribute('data-deal-id');
-            draggedElement = e.target;
-            e.target.style.opacity = '0.5';
-            e.target.classList.add('dragging'); // Add dragging class for visual effects
-        });
+        // On end of drag event, update the order in Firebase
+        onEnd: function(evt) {
+            const oldIndex = evt.oldIndex;
+            const newIndex = evt.newIndex;
 
-        card.addEventListener('dragend', function(e) {
-            e.target.style.opacity = '1';
-            e.target.classList.remove('dragging'); // Remove the class when dragging ends
-            draggedElement = null;
-        });
+            // Update the order of deals based on the new arrangement
+            const movedDeal = deals.splice(oldIndex, 1)[0];
+            deals.splice(newIndex, 0, movedDeal);
 
-        card.addEventListener('dragover', function(e) {
-            e.preventDefault(); // Allow drop
-            const afterElement = getDragAfterElement(dealCards, e.clientY);
-            const dealGrid = document.getElementById('dealGrid');
-            
-            if (afterElement == null) {
-                dealGrid.appendChild(draggedElement);
-            } else {
-                dealGrid.insertBefore(draggedElement, afterElement);
-            }
-        });
-
-        card.addEventListener('drop', function(e) {
-            e.preventDefault();
-            const targetDealId = e.target.closest('.deal-card').getAttribute('data-deal-id');
-            if (draggedDealId && targetDealId) {
-                reorderDeals(draggedDealId, targetDealId);
-            }
-        });
+            // Save the new order to Firebase
+            saveDealOrderToFirebase();
+        }
     });
 };
+
 
 // Helper function to determine where to insert dragged card based on mouse Y position
 function getDragAfterElement(dealCards, y) {

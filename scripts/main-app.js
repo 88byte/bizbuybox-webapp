@@ -958,9 +958,9 @@ window.renderDeals = function() {
 
         const formattedStatus = formatStatus(deal.status);
 
-        // Handle asking price: Ensure it's a valid number or fallback to 'Unknown'
-        const askingPrice = parseFloat(deal.askingPrice);
-        const askingPriceFormatted = isNaN(askingPrice) ? 'Unknown' : `$${askingPrice.toLocaleString()}`;
+        // Ensure askingPrice is a valid number and format it
+        const askingPrice = deal.askingPrice ? parseFloat(deal.askingPrice) : 0;
+        const formattedAskingPrice = `$${askingPrice.toLocaleString()}`; // Format the price properly
 
         dealCard.innerHTML = `
             <div class="deal-card-header">
@@ -969,7 +969,7 @@ window.renderDeals = function() {
             </div>
             <div class="deal-card-content">
                 <p>Status: <span class="status-label" style="background-color: ${getStatusColor(deal.status)};">${formattedStatus}</span></p>
-                <p>Asking Price: ${askingPriceFormatted}</p>
+                <p>Asking Price: ${formattedAskingPrice}</p>
                 <p>Last Updated: ${new Date(deal.lastUpdate).toLocaleDateString()}</p>
                 <div class="deal-actions">
                     <button onclick="editDeal('${deal.dealId}')">Edit</button>
@@ -982,7 +982,6 @@ window.renderDeals = function() {
 
     enableDragAndDrop(); // Enable dragging after rendering the cards
 };
-
 
 
 

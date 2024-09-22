@@ -958,8 +958,10 @@ window.renderDeals = function() {
 
         const formattedStatus = formatStatus(deal.status);
 
-        // Ensure askingPrice is a valid number and format it
-        const askingPrice = deal.askingPrice ? parseFloat(deal.askingPrice) : 0;
+        // Clean the askingPrice by removing non-numeric characters
+        const askingPrice = deal.askingPrice 
+            ? parseFloat(deal.askingPrice.replace(/[^0-9.-]+/g, ''))  // Remove $ and commas
+            : 0;
         const formattedAskingPrice = `$${askingPrice.toLocaleString()}`; // Format the price properly
 
         dealCard.innerHTML = `
@@ -979,7 +981,7 @@ window.renderDeals = function() {
         `;
         dealGrid.appendChild(dealCard);
     });
-
+    
     enableDragAndDrop(); // Enable dragging after rendering the cards
 };
 

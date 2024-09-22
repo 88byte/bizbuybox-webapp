@@ -782,11 +782,18 @@ window.fetchDeals = async function() {
         // Fetch the deal order and sort the deals
         await fetchDealOrderFromFirebase(); // Ensure that the deal order is fetched and deals are sorted
 
-        renderDeals(); // Render deal cards on the dashboard after sorting
+        // Check the last view saved in localStorage and render the appropriate view
+        const savedView = localStorage.getItem('dealView');
+        if (savedView === 'table') {
+            renderDealTable(); // Render deals in table format
+        } else {
+            renderDeals(); // Render deals in card format
+        }
     } catch (error) {
         console.error('Error fetching deals:', error);
     }
 };
+
 
 
 // Function to toggle favorite status of a deal

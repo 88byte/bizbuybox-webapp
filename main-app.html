@@ -64,62 +64,56 @@
         <!-- Dynamic Content Sections -->
         <div id="dashboard" class="content-section active">
             <div class="dashboard-header">
-            <h2>Dashboard</h2>
-            <button class="btn-refresh" onclick="refreshDashboard()">
-                <i class="fas fa-sync-alt"></i> Refresh
-            </button>
-        </div>
+			    <h2>Dashboard</h2>
+			</div>
 
-        <!-- Dashboard Metrics (Status-Based) -->
-        <div class="dashboard-metrics">
-            <div class="card">
-                <h3>New Deals</h3>
-                <p id="new-deals-count">0</p>
-            </div>
-            <div class="card">
-                <h3>CIM Review</h3>
-                <p id="cim-review-count">0</p>
-            </div>
-            <div class="card">
-                <h3>Seller Meetings</h3>
-                <p id="seller-meeting-count">0</p>
-            </div>
-            <div class="card">
-                <h3>LOI Submitted</h3>
-                <p id="loi-submitted-count">0</p>
-            </div>
-            <div class="card">
-                <h3>LOI Accepted</h3>
-                <p id="loi-accepted-count">0</p>
-            </div>
-            <div class="card">
-                <h3>Kyle Review</h3>
-                <p id="kyle-review-count">0</p>
-            </div>
-            <div class="card">
-                <h3>SBA Loans</h3>
-                <p id="sba-loan-count">0</p>
-            </div>
-            <div class="card">
-                <h3>Due Diligence</h3>
-                <p id="due-diligence-count">0</p>
-            </div>
-            <div class="card">
-                <h3>Closed Deals (Won)</h3>
-                <p id="deal-closed-won-count">0</p>
-            </div>
-            <div class="card">
-                <h3>No Longer Interested</h3>
-                <p id="no-longer-interested-count">0</p>
-            </div>
-            <div class="card">
-                <h3>Nurture</h3>
-                <p id="nurture-count">0</p>
-            </div>
+			<!-- Status Overview Metrics -->
+			<div class="dashboard-metrics">
+			    <div class="card-group">
+			        <!-- Active Deals Section -->
+			        <div class="card">
+			            <h3>Active Deals</h3>
+			            <p id="activeDealsCount">0</p>
+			            <div class="status-details">
+			                <span class="status-count" id="newDealCount">New Deal</span>
+			                <span class="status-count" id="cimReviewCount">CIM Review</span>
+			                <span class="status-count" id="sellerMeetingCount">Seller Meeting</span>
+			            </div>
+			        </div>
+
+			        <!-- In Progress Deals Section -->
+			        <div class="card">
+			            <h3>In Progress</h3>
+			            <p id="inProgressCount">0</p>
+			            <div class="status-details">
+			                <span class="status-count" id="loiSubmittedCount">LOI Submitted</span>
+			                <span class="status-count" id="dueDiligenceCount">Due Diligence</span>
+			                <span class="status-count" id="sbaLoanCount">SBA Loan</span>
+			            </div>
+			        </div>
+
+			        <!-- Closed Deals Section -->
+			        <div class="card">
+			            <h3>Closed Deals</h3>
+			            <p id="closedDealsCount">0</p>
+			            <div class="status-details">
+			                <span class="status-count" id="dealClosedWonCount">Deal Closed (Won)</span>
+			            </div>
+			        </div>
+
+			        <!-- Archived/Nurture Deals Section -->
+			        <div class="card">
+			            <h3>Archived Deals</h3>
+			            <p id="archivedDealsCount">0</p>
+			            <div class="status-details">
+			                <span class="status-count" id="nurtureCount">Nurture</span>
+			                <span class="status-count" id="noLongerInterestedCount">No Longer Interested</span>
+			            </div>
+			        </div>
 
 
 
-            
+
             <!-- Deal Management Section -->
             <div class="deal-management">
                 <div class="deal-management-header">
@@ -206,6 +200,10 @@
             </div>
         </div>
     </main>
+
+
+
+    
     <!-- Profile Modal -->
     <div id="profileModal" class="profileModal">
 	    <div class="profileModal-content">

@@ -375,10 +375,15 @@ window.renderDealTable = function() {
         // Star (favorite) column
         const favoriteCell = document.createElement('td');
         const favoriteIcon = deal.favorite ? '★' : '☆';
-        const favoriteColor = deal.favorite ? '#ffcc00' : '#f5f5f5';  // Yellow if favorite, light if not
-
-        // The star icon is now interactive and doesn't interfere with row dragging
-        favoriteCell.innerHTML = `<span class="favorite-icon" style="cursor: pointer; color: ${favoriteColor};" onclick="toggleFavorite('${deal.dealId}')">${favoriteIcon}</span>`;
+        const favoriteClass = deal.favorite ? 'favorite' : ''; // Class to style the star as yellow when favorite
+        favoriteCell.innerHTML = `
+            <span 
+                class="favorite-icon ${favoriteClass}" 
+                onclick="toggleFavorite('${deal.dealId}')"
+            >
+                ${favoriteIcon}
+            </span>
+        `;
         row.appendChild(favoriteCell);
 
         // Business Name column
@@ -775,6 +780,7 @@ window.toggleFavorite = async function(dealId) {
         }
 
         renderDeals(); // Re-render the deals to show favorites first
+        renderDealTable();
     }
 };
 

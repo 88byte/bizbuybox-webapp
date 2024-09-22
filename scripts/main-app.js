@@ -363,30 +363,44 @@ window.toggleView = function() {
 
 
 
-// Function to render deals in table format
+// Function to render deals in table format with star toggle and drag-and-drop functionality
 window.renderDealTable = function() {
     const dealTableBody = document.getElementById('dealTableBody');
     dealTableBody.innerHTML = ''; // Clear the table body
 
     deals.forEach(deal => {
         const row = document.createElement('tr');
+        row.setAttribute('data-deal-id', deal.dealId); // Unique ID for each row for drag-and-drop
 
+        // Star (favorite) column
+        const favoriteCell = document.createElement('td');
+        const favoriteIcon = deal.favorite ? '★' : '☆';
+        const favoriteColor = deal.favorite ? '#ffcc00' : '#f5f5f5';  // Yellow if favorite, light if not
+
+        favoriteCell.innerHTML = `<span class="favorite-icon" style="cursor: pointer; color: ${favoriteColor};" onclick="toggleFavorite('${deal.dealId}')">${favoriteIcon}</span>`;
+        row.appendChild(favoriteCell);
+
+        // Business Name column
         const businessNameCell = document.createElement('td');
         businessNameCell.textContent = deal.businessName;
         row.appendChild(businessNameCell);
 
+        // Status column
         const statusCell = document.createElement('td');
         statusCell.textContent = formatStatus(deal.status);
         row.appendChild(statusCell);
 
+        // Asking Price column
         const askingPriceCell = document.createElement('td');
         askingPriceCell.textContent = `$${parseInt(deal.askingPrice).toLocaleString()}`;
         row.appendChild(askingPriceCell);
 
+        // Last Updated column
         const lastUpdatedCell = document.createElement('td');
         lastUpdatedCell.textContent = new Date(deal.lastUpdate).toLocaleDateString();
         row.appendChild(lastUpdatedCell);
 
+        // Actions column (edit/delete buttons)
         const actionsCell = document.createElement('td');
         actionsCell.innerHTML = `
             <button onclick="editDeal('${deal.dealId}')">Edit</button>
@@ -396,7 +410,11 @@ window.renderDealTable = function() {
 
         dealTableBody.appendChild(row); // Append the row to the table body
     });
+
+    // Enable drag-and-drop after rendering the table
+    enableTableRowDragAndDrop();
 };
+
 
 
 

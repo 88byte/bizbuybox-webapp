@@ -843,7 +843,6 @@ window.getStatusColor = function(status) {
 
 // Initial render on page load
 window.onload = function() {
-    renderDeals();
     fetchDeals(); // Fetch deals from Firestore
     fetchDealOrderFromFirebase(); // Fetch deal order and render accordingly
 };

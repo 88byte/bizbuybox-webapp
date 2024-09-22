@@ -398,8 +398,8 @@ button.btn-create:hover {
     font-size: 22px;
     cursor: pointer;
     padding: 0;  /* Remove padding */
-    width: auto;  /* Auto width to fit the star */
-    height: auto;  /* Auto height to fit the star */
+    width: 1px;  /* Auto width to fit the star */
+    height: 1px;  /* Auto height to fit the star */
     display: inline-flex;
     align-items: center;
     justify-content: center;

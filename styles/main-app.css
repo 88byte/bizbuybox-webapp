@@ -779,7 +779,7 @@ button.btn-create:hover {
 
 /* Checked state for switch */
 input:checked + .slider {
-    background-color: #ffcc00; /* Brand accent color when checked */
+    background-color: #97835a; /* Brand accent color when checked */
 }
 
 input:checked + .slider:before {

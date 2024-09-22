@@ -1937,13 +1937,27 @@ window.listenToDealUpdates = function() {
             }
         });
 
-        // Update the counts only, not the labels
+        // Update the UI with the counts
+        console.log("Updating UI...");
         document.getElementById('activeDealsCount').textContent = newDealCount;
         document.getElementById('discoveryCount').textContent = discoveryCount;
-        document.getElementById('negotiationsCount').textContent = negotiationCount;
+        document.getElementById('negotiatonsCount').textContent = negotiationCount;
         document.getElementById('underwritingCount').textContent = underwritingCount;
-        document.getElementById('closedWonCount').textContent = closedWonCount;
+        document.getElementById('closedwonCount').textContent = closedWonCount;
         document.getElementById('archivedDealsCount').textContent = archivedCount;
+
+        // Update the detailed status counts
+        document.getElementById('newDealCount').textContent = newDealCount;
+        document.getElementById('cimReviewCount').textContent = discoveryCount;
+        document.getElementById('sellerMeetingCount').textContent = discoveryCount;
+        document.getElementById('loiSubmittedCount').textContent = negotiationCount;
+        document.getElementById('loiAcceptedCount').textContent = negotiationCount;
+        document.getElementById('kyleReviewCount').textContent = underwritingCount;
+        document.getElementById('dueDiligenceCount').textContent = underwritingCount;
+        document.getElementById('sbaLoanCount').textContent = underwritingCount;
+        document.getElementById('dealClosedWonCount').textContent = closedWonCount;
+        document.getElementById('nurtureCount').textContent = archivedCount;
+        document.getElementById('noLongerInterestedCount').textContent = archivedCount;
     });
 };
 

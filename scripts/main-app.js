@@ -786,8 +786,10 @@ window.renderDeals = function() {
         dealCard.className = 'deal-card';
         dealCard.setAttribute('data-deal-id', deal.dealId); // Add a unique ID for drag and drop
 
-        // Change star to yellow if favorite, else default
+        // Change star to yellow if favorite, else default color
         const favoriteIcon = deal.favorite ? '★' : '☆';
+        const favoriteColor = deal.favorite ? '#ffcc00' : '#f5f5f5';  // Yellow if favorite, white if not
+
         const formattedStatus = formatStatus(deal.status);
 
         dealCard.innerHTML = `

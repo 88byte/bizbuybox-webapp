@@ -64,52 +64,23 @@
         <!-- Dynamic Content Sections -->
         <div id="dashboard" class="content-section active">
             <div class="dashboard-header">
-			    <h2>Dashboard</h2>
-			</div>
-
-			<!-- Status Overview Metrics -->
-			<div class="dashboard-metrics">
-			    <div class="card-group">
-			        <!-- Active Deals Section -->
-			        <div class="card">
-			            <h3>Active Deals</h3>
-			            <p id="activeDealsCount">0</p>
-			            <div class="status-details">
-			                <span class="status-count" id="newDealCount">New Deal</span>
-			                <span class="status-count" id="cimReviewCount">CIM Review</span>
-			                <span class="status-count" id="sellerMeetingCount">Seller Meeting</span>
-			            </div>
-			        </div>
-
-			        <!-- In Progress Deals Section -->
-			        <div class="card">
-			            <h3>In Progress</h3>
-			            <p id="inProgressCount">0</p>
-			            <div class="status-details">
-			                <span class="status-count" id="loiSubmittedCount">LOI Submitted</span>
-			                <span class="status-count" id="dueDiligenceCount">Due Diligence</span>
-			                <span class="status-count" id="sbaLoanCount">SBA Loan</span>
-			            </div>
-			        </div>
-
-			        <!-- Closed Deals Section -->
-			        <div class="card">
-			            <h3>Closed Deals</h3>
-			            <p id="closedDealsCount">0</p>
-			            <div class="status-details">
-			                <span class="status-count" id="dealClosedWonCount">Deal Closed (Won)</span>
-			            </div>
-			        </div>
-
-			        <!-- Archived/Nurture Deals Section -->
-			        <div class="card">
-			            <h3>Archived Deals</h3>
-			            <p id="archivedDealsCount">0</p>
-			            <div class="status-details">
-			                <span class="status-count" id="nurtureCount">Nurture</span>
-			                <span class="status-count" id="noLongerInterestedCount">No Longer Interested</span>
-			            </div>
-			        </div>
+                <h2>Dashboard</h2>
+                <button class="btn-refresh" onclick="refreshDashboard()"><i class="fas fa-sync-alt"></i> Refresh</button>
+            </div>
+            <div class="dashboard-metrics">
+                <div class="card">
+                    <h3>Active Deals</h3>
+                    <p>15</p>
+                </div>
+                <div class="card">
+                    <h3>New Opportunities</h3>
+                    <p>5</p>
+                </div>
+                <div class="card">
+                    <h3>Closed Deals</h3>
+                    <p>3</p>
+                </div>
+            </div>
 
 
 

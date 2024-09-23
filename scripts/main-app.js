@@ -431,7 +431,7 @@ window.renderDealTable = function() {
         askingPriceCell.textContent = formattedAskingPrice;
         row.appendChild(askingPriceCell);
 
-        
+
 
         // Last Updated column
         const lastUpdatedCell = document.createElement('td');
@@ -1641,7 +1641,6 @@ window.calculateMultiple = function() {
 
 
 // Function to update the Buy Box Checklist
-// Function to update the Buy Box Checklist
 window.updateBuyBoxChecklist = function(deal) {
 
     // 1. Check for 10+ years in business
@@ -1693,11 +1692,16 @@ window.updateBuyBoxChecklist = function(deal) {
         profitMarginIcon.classList.add('error');
     }
 
+
     // 5. Check if revenue is growing year over year (green if growing, orange within 5%, red if declining)
     let revenueGrowthCheck = true;
     let revenueGrowthStatus = 'success'; // Default to growing
 
     if (deal.revenueCashflowEntries && deal.revenueCashflowEntries.length > 1) {
+
+    	deal.revenueCashflowEntries.sort((a, b) => parseInt(a.year, 10) - parseInt(b.year, 10));
+
+    	
         for (let i = 1; i < deal.revenueCashflowEntries.length; i++) {
             const currentYearRevenue = parseFloat(deal.revenueCashflowEntries[i].revenue || 0);
             const previousYearRevenue = parseFloat(deal.revenueCashflowEntries[i - 1].revenue || 0);

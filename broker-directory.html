@@ -114,17 +114,25 @@
 
 	<script>
 	// Function to show toast notifications
-	window.showToast = function(message, isSuccess = true) {
-	    const toast = document.getElementById('toastNotification');
-	    toast.textContent = message;
-	    toast.style.backgroundColor = isSuccess ? '#28a745' : '#dc3545'; // Green for success, red for error
-	    toast.classList.remove('hidden');
+window.showToast = function(message, isSuccess = true, isPersistent = false) {
+    const toast = document.getElementById('toastNotification');
+    toast.textContent = message;
+    toast.style.backgroundColor = isSuccess ? '#28a745' : '#dc3545'; // Green for success, red for error
+    toast.classList.remove('hidden');
 
-	    // Hide the toast after 3 seconds
-	    setTimeout(() => {
-	        toast.classList.add('hidden');
-	    }, 3000);
-	};
+    if (!isPersistent) {
+        // Hide the toast after 3 seconds if it's not meant to be persistent
+        setTimeout(() => {
+            toast.classList.add('hidden');
+        }, 3000);
+    }
+};
+
+// Function to hide the toast manually (for persistent messages)
+window.hideToast = function() {
+    const toast = document.getElementById('toastNotification');
+    toast.classList.add('hidden');
+};
 	</script>
 
 	

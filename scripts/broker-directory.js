@@ -71,7 +71,8 @@ window.uploadCSV = function() {
     const file = fileInput.files[0];
 
     if (file) {
-        showToast('Uploading...', true); // Show loading toast notification
+        // Show persistent toast notification indicating that the upload is ongoing
+        showToast('Uploading... Please wait.', true, true); // Pass true to make it persistent
 
         Papa.parse(file, {
             header: true,
@@ -121,7 +122,8 @@ window.uploadCSV = function() {
 
                     // If it's the last broker, show success toast notification with total counts
                     if (index === brokers.length - 1) {
-                        showToast(`Upload Complete! Uploaded: ${uploadCount} / ${totalBrokers} brokers. Errors: ${errorCount}`, true);
+                        // Update the toast to show success message
+                        showToast(`Upload Complete! Uploaded: ${uploadCount} / ${totalBrokers} brokers. Errors: ${errorCount}`, true, false);
                     }
                 });
             },
@@ -134,6 +136,7 @@ window.uploadCSV = function() {
         showToast('Please select a CSV file.', false); // Show error toast notification
     }
 };
+
 
 
 

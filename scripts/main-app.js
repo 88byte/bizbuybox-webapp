@@ -1341,15 +1341,19 @@ window.addRevenueCashflowRow = function() {
     newRevenueInput.addEventListener('input', function() {
         window.updateProfitMargin(this);   // Update profit margin when revenue changes
         window.calculateMetrics();         // Dynamically calculate metrics when values change
+         window.calculateEarnings();         // Recalculate earnings dynamically
     });
 
     newCashflowInput.addEventListener('input', function() {
         window.updateProfitMargin(this);   // Update profit margin when cashflow changes
         window.calculateMetrics();         // Dynamically calculate metrics when values change
+        window.calculateEarnings();         // Recalculate earnings dynamically
     });
 
     // Ensure real-time profit margin calculation
     window.updateProfitMargin(newRevenueInput);
+    window.calculateEarnings();         // Recalculate earnings dynamically
+    window.calculateMetrics();         // Dynamically calculate metrics when values change
 };
 
 // Function to remove a row and reindex the remaining rows
@@ -1360,6 +1364,7 @@ window.removeRevenueCashflowRow = function(button) {
     // After removing the row, recalculate everything
     window.reindexRows();           // Reindex the rows
     window.calculateMetrics();      // Recalculate metrics after removing a row
+    window.calculateEarnings();
 };
 
 // Function to calculate the metrics (Avg Cashflow, Cashflow Less Debt Service, Cashflow Less Debt & Investor Pay)
@@ -1446,7 +1451,7 @@ window.updateProfitMargin = function(inputElement) {
 };
 
 
-// Function to re-index the Revenue and Cashflow rows
+// Re-index the Revenue and Cashflow rows
 window.reindexRows = function() {
     const rows = document.querySelectorAll('.revenue-cashflow-row');
     rows.forEach((row, index) => {
@@ -1468,24 +1473,23 @@ window.reindexRows = function() {
         cashflowInput.id = `cashflow${rowNumber}`;
         profitMarginElement.id = `profitMargin${rowNumber}`;
 
-        // Remove any existing event listeners to avoid duplicates
-        revenueInput.removeEventListener('input', updateProfitMargin);
-        cashflowInput.removeEventListener('input', updateProfitMargin);
-
-        // Attach event listeners to update profit margin and Buy Box dynamically
+        // Attach event listeners to update profit margin and recalculate earnings
         revenueInput.addEventListener('input', () => {
             window.updateProfitMargin(revenueInput);
-            window.triggerBuyBoxUpdate(); // Dynamically update the Buy Box when values change
-            window.calculateMetrics(); 
-        });
+            window.calculateMetrics();
+            window.triggerBuyBoxUpdate(); 
+            window.calculateEarnings(); 
+            });
 
         cashflowInput.addEventListener('input', () => {
-            window.updateProfitMargin(cashflowInput);
-            window.triggerBuyBoxUpdate(); // Dynamically update the Buy Box when values change
+
+        	window.updateProfitMargin(cashflowInput);
             window.calculateMetrics();
-        });
+            window.triggerBuyBoxUpdate(); 
+            window.calculateEarnings(); 
+             });
     });
-}
+};
 
 
 
@@ -1818,12 +1822,13 @@ window.calculateAnnualDebtService = function(amount, interestRate, termYears) {
 };
 
 // Function to calculate earnings section
-window.calculateEarnings = function(totalDebtService) {
+window.calculateEarnings = function(totalDebtService = 0) {
     let totalCashflow = 0;
+    let totalRevenue = 0;
     let totalProfitMargin = 0;
     let profitMarginCount = 0;
 
-    // Calculate total cashflow and profit margins from the form
+    // Get all the cashflow and revenue inputs
     const cashflows = document.querySelectorAll('input[name="cashflow[]"]');
     const revenues = document.querySelectorAll('input[name="revenue[]"]');
     
@@ -1831,8 +1836,11 @@ window.calculateEarnings = function(totalDebtService) {
         const cashflow = parseFloat(input.value.replace(/[^\d.-]/g, '')) || 0;
         const revenue = parseFloat(revenues[index].value.replace(/[^\d.-]/g, '')) || 0;
 
+        // Sum up the total cashflow and revenue
         totalCashflow += cashflow;
+        totalRevenue += revenue;
 
+        // Calculate profit margin for each row if revenue is valid
         if (revenue > 0) {
             const profitMargin = (cashflow / revenue) * 100;
             totalProfitMargin += profitMargin;
@@ -1840,17 +1848,18 @@ window.calculateEarnings = function(totalDebtService) {
         }
     });
 
-    const avgCashflow = totalCashflow / cashflows.length;
+    // Average cashflow and profit margin calculations
+    const avgCashflow = cashflows.length > 0 ? totalCashflow / cashflows.length : 0;
     const avgProfitMargin = profitMarginCount > 0 ? totalProfitMargin / profitMarginCount : 0;
 
     // Calculate cashflow after debt service
     const cashflowAfterDebt = avgCashflow - totalDebtService;
 
-    // Placeholder for cashflow after debt and investor pay (add more logic here later if needed)
-    const investorPay = 0; // Add investor pay logic if needed
+    // Placeholder for investor pay (modify this as necessary)
+    const investorPay = 0; // Logic for investor pay if applicable
     const cashflowAfterDebtAndInvestor = cashflowAfterDebt - investorPay;
 
-    // Update the display for each value
+    // Update the display for each value in real time
     document.getElementById('avgProfitMarginDisplay').textContent = avgProfitMargin.toFixed(2) + '%';
     document.getElementById('avgCashflowDisplay').textContent = avgCashflow.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
     document.getElementById('cashflowAfterDebt').textContent = cashflowAfterDebt.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
@@ -1894,6 +1903,7 @@ window.setupRealTimeUpdates = function() {
             window.updateProfitMargin(input);
             window.triggerBuyBoxUpdate();  // Trigger recalculations on change
             window.calculateMetrics();
+            window.calculateEarnings();
         });
     });
 };

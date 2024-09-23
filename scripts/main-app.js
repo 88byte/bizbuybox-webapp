@@ -1760,9 +1760,9 @@ window.calculateDebtService = function() {
     document.getElementById('loanBreakdown').innerHTML = loanBreakdown;
     document.getElementById('totalDebtService').textContent = totalDebtService.toLocaleString('en-US');
 
-    window.calculateEarnings(totalDebtService);  // Recalculate earnings immediately after debt service updates
+    // Trigger the earnings calculation with the updated totalDebtService
+    window.calculateEarnings(totalDebtService);  
 };
-
 
 // Function to calculate annual debt service
 window.calculateAnnualDebtService = function(amount, interestRate, termYears) {
@@ -1772,7 +1772,6 @@ window.calculateAnnualDebtService = function(amount, interestRate, termYears) {
     const monthlyPayment = (amount * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -numPayments));
     return monthlyPayment * 12; // Annual payment
 };
-
 
 // Function to calculate earnings section
 window.calculateEarnings = function(totalDebtService) {
@@ -1818,6 +1817,8 @@ window.calculateEarnings = function(totalDebtService) {
 
 
 
+
+// Real-time update triggers for dynamic updates
 // Real-time update triggers for dynamic updates
 window.setupRealTimeUpdates = function() {
     // Helper function to safely add event listeners
@@ -1836,6 +1837,8 @@ window.setupRealTimeUpdates = function() {
 
     // Attach dynamic updates to loanAmount2 only if it exists
     addListenerIfExists('#loanAmount2', 'input', window.calculateDebtService);
+    addListenerIfExists('#interestRate2', 'input', window.calculateDebtService);
+    addListenerIfExists('#loanTerm2', 'input', window.calculateDebtService);
 
     // Update other dynamic updates for BuyBoxChecklist
     addListenerIfExists('#askingPrice', 'input', window.updateAskingPrice);
@@ -1843,30 +1846,12 @@ window.setupRealTimeUpdates = function() {
     addListenerIfExists('#downPayment', 'input', window.updateAskingPrice);
 
     // Add listeners for revenue and cashflow changes
-    document.querySelectorAll('input[name="revenue[]"]').forEach(input => {
-        input.addEventListener('input', () => {
-            window.calculateEarnings(0);  // Pass 0 if totalDebtService is not needed here
-        });
-    });
-
-    document.querySelectorAll('input[name="cashflow[]"]').forEach(input => {
-        input.addEventListener('input', () => {
-            window.calculateEarnings(0);  // Pass 0 if totalDebtService is not needed here
-        });
-    });
-
-    // Add listeners for revenue and cashflow changes for BuyBoxChecklist
     document.querySelectorAll('input[name="revenue[]"], input[name="cashflow[]"]').forEach(input => {
-        input.addEventListener('input', () => {
-            window.calculateEarnings(0);  // Update earnings after cashflow or revenue changes
-        });
+        input.addEventListener('input', window.calculateDebtService);  // Trigger recalculations on change
     });
 
     // For dynamically added revenue/cashflow rows, listen for changes in the section
     addListenerIfExists('#revenueCashflowSection', 'input', triggerBuyBoxUpdate);
-    addListenerIfExists('#askingPrice', 'input', window.updateAskingPrice);
-    addListenerIfExists('#realEstatePrice', 'input', window.updateAskingPrice);
-    addListenerIfExists('#downPayment', 'input', window.updateAskingPrice);
 };
 
 

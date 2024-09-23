@@ -1562,6 +1562,8 @@ window.getDealDataFromForm = function() {
 
 // Function to update the Buy Box Checklist
 window.updateBuyBoxChecklist = function(deal) {
+
+	
     // 1. Check for 10+ years in business
     const yearsInBusiness = parseInt(deal.yearsInBusiness, 10);
     const yearsInBusinessCheck = yearsInBusiness >= 10;
@@ -1642,9 +1644,9 @@ window.updateBuyBoxChecklist = function(deal) {
     const multiple = avgRevenue > 0 ? (askingPrice / avgRevenue).toFixed(1) : 0; // Calculate the multiple
 
     // Display the multiple in the top right of the deal card
-    const multipleElement = document.getElementById(`dealMultiple_${deal.dealId}`);
+     const multipleElement = document.getElementById('dealMultiple');
     if (multipleElement) {
-        multipleElement.textContent = `x${multiple}`; // Set the text to 'x' followed by the multiple
+        multipleElement.textContent = `x${multiple}`;// Set the text to 'x' followed by the multiple
     }
 };
 

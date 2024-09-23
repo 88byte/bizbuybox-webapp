@@ -985,7 +985,7 @@ window.renderDeals = function() {
                 <p>Last Updated: ${new Date(deal.lastUpdate).toLocaleDateString()}</p>
 
                 <div class="deal-actions-container">
-                    <button class="favorite-btn" onclick="toggleFavorite('${deal.dealId}')" style="color: ${favoriteClass};">${favoriteIcon}</button>
+                    <button class="favorite-icon" onclick="toggleFavorite('${deal.dealId}')" style="color: ${favoriteClass};">${favoriteIcon}</button>
                     <div class="deal-actions">
                         <button onclick="editDeal('${deal.dealId}')">Edit</button>
                         <button onclick="openConfirmationModal('${deal.dealId}')">Delete</button>
@@ -995,7 +995,6 @@ window.renderDeals = function() {
         `;
         dealGrid.appendChild(dealCard);
         calculateAndDisplayMultiple(deal);
-
 
 
     });

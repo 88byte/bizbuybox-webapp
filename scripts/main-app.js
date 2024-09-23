@@ -992,6 +992,8 @@ window.renderDeals = function() {
             </div>
         `;
         dealGrid.appendChild(dealCard);
+
+        calculateAndDisplayMultiple(deal);
     });
 
     enableDragAndDrop(); // Enable dragging after rendering the cards

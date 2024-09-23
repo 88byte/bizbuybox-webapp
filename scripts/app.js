@@ -31,6 +31,9 @@ window.handleLogout = function () {
     signOut(auth)
         .then(() => {
             console.log('User logged out');
+            localStorage.removeItem('username');
+            localStorage.removeItem('profilePicUrl');
+            alert('You have been logged out!');
             // Redirect to the landing page
             window.location.href = 'index.html';
         })

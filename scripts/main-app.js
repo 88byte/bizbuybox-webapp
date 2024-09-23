@@ -99,10 +99,12 @@ onAuthStateChanged(auth, (user) => {
 });
 
 // Function to load profile data from localStorage
+// Function to load profile data from localStorage and use it across pages
 window.loadProfileFromCache = function() {
     const cachedUsername = localStorage.getItem('username');
     const cachedProfilePic = localStorage.getItem('profilePicUrl');
 
+    // If cached data exists, use it to update the UI immediately
     if (cachedUsername) {
         document.getElementById('profileUsername').textContent = cachedUsername;
     }
@@ -112,11 +114,16 @@ window.loadProfileFromCache = function() {
     }
 };
 
+// Call the function to load cached profile data on page load
+window.onload = loadProfileFromCache;
+
+
 // Call the function to load the cached data when the page loads
 window.onload = loadProfileFromCache;
 
 
 // Function to update user profile
+// Function to update user profile and cache it in localStorage
 window.updateProfile = async function () {
     const username = document.getElementById('username').value;
     const email = document.getElementById('email').value;
@@ -125,7 +132,6 @@ window.updateProfile = async function () {
 
     try {
         const user = auth.currentUser;
-
         let profilePicUrl = user.photoURL; 
 
         if (profilePicFile) {
@@ -134,9 +140,10 @@ window.updateProfile = async function () {
             profilePicUrl = await getDownloadURL(profilePicRef);
             await updateProfile(user, { photoURL: profilePicUrl });
 
-            // Cache the new profile picture in localStorage
+            // Cache the new profile picture URL in localStorage
             localStorage.setItem('profilePicUrl', profilePicUrl);
 
+            // Immediately update the profile picture in the UI
             document.querySelector('.profile-img').src = profilePicUrl;
         }
 
@@ -146,6 +153,7 @@ window.updateProfile = async function () {
             // Cache the new username in localStorage
             localStorage.setItem('username', username);
 
+            // Immediately update the username in the UI
             document.getElementById('profileUsername').textContent = username;
         }
 
@@ -157,6 +165,7 @@ window.updateProfile = async function () {
             await updatePassword(user, password);
         }
 
+        // Update Firestore with the new profile data
         await setDoc(doc(db, "users", user.uid), {
             username: username,
             email: email,
@@ -170,6 +179,7 @@ window.updateProfile = async function () {
         alert('Error updating profile: ' + error.message);
     }
 };
+
 
 
 // Function to load the user profile when page loads

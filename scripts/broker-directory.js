@@ -45,23 +45,9 @@ const firebaseConfig = {
     measurementId: "G-CWHPBN196R"
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
 
-// Initialize Firebase services
-window.auth = getAuth(app); 
-window.app = getFirestore(app); 
-window.storage = getStorage(app); 
-const provider = new GoogleAuthProvider();
-
-
-// Function to handle logout
-function handleLogout() {
-    // Perform logout logic, e.g., clearing user session
-    alert('You have been logged out!');
-    window.location.href = 'login.html';  // Redirect to the login page
-}
-
+// Initialize Firestore
+const db = getFirestore();
 
 // Function to upload CSV to Firestore
 window.uploadCSV = function() {
@@ -76,7 +62,7 @@ window.uploadCSV = function() {
 
                 brokers.forEach(async (broker) => {
                     try {
-                        await addDoc(collection(app, 'brokers'), {
+                        await addDoc(collection(db, 'brokers'), {
                             company: broker.Company,
                             name: broker.Name,
                             email: broker.Email,
@@ -105,7 +91,7 @@ window.renderBrokers = async function() {
     const brokerContainer = document.getElementById('brokerList');
     brokerContainer.innerHTML = ''; // Clear existing list
 
-    const querySnapshot = await getDocs(collection(app, 'brokers'));
+    const querySnapshot = await getDocs(collection(db, 'brokers'));
 
     querySnapshot.forEach((doc) => {
         const broker = doc.data();

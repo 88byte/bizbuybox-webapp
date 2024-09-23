@@ -161,7 +161,7 @@ window.renderBrokersOnMap = async function(map) {
 
     querySnapshot.forEach((doc) => {
         const broker = doc.data();
-        const marker = new google.maps.Marker({
+        const marker = new google.maps.marker.AdvancedMarkerElement({
             position: { lat: broker.latitude, lng: broker.longitude },
             map: map,
             title: broker.name

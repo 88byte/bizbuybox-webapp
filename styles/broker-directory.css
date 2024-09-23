@@ -1,31 +1,31 @@
 /* Style the Broker CSV Upload Section */
 .broker-upload-section {
-    position: fixed; /* Ensure it's fixed to the viewport */
+    position: fixed; /* Fixed position relative to the viewport */
     top: 20px; /* Distance from the top of the page */
-    right: 20px; /* Distance from the right of the page */
+    right: 20px; /* Distance from the right side of the viewport */
     padding: 20px;
     background-color: #f7f7f7;
     border: 1px solid #ddd;
     border-radius: 8px;
-    max-width: 500px;
+    max-width: 300px;
     text-align: center;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-    z-index: 2000; /* Ensure it's on top of the content */
+    z-index: 2000; /* Ensures the section is above other elements */
 }
 
 .broker-upload-section h2 {
     margin-bottom: 20px;
-    font-size: 24px;
+    font-size: 18px;
     color: #333;
 }
 
 .broker-upload-section input[type="file"] {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
     width: 100%;
-    max-width: 400px;
+    max-width: 280px;
 }
 
 .broker-upload-section button {

@@ -45,7 +45,7 @@ body {
     flex-direction: column;
     align-items: center; /* Centers the items horizontally */
     text-align: center;  /* Ensures text is centered */
-    margin-top: 10px;    /* Adjust this value as necessary */
+    margin-top: -50px;    /* Move the container higher by 50px */
 }
 
 .profile-img {

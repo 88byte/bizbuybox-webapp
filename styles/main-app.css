@@ -486,11 +486,11 @@ button.btn-create:hover {
     transition: color 0.3s ease-in-out, transform 0.2s ease; 
     bottom: 25px; /* Moved down by 5px */
     right: 30px; /* Move to the right by 5px */
-    position: absolute; /* Added for manual positioning */
+    position: absolute; /* For manual positioning */
     border-radius: 50%; /* Create a perfect circle */
     background-color: transparent; /* Transparent background initially */
-    width: 30px;  /* Fixed width to ensure a circular shape */
-    height: 30px; /* Fixed height for the circle */
+    width: 0px;  /* Fixed width for the circle */
+    height: 0px; /* Fixed height for the circle */
 }
 
 /* Only the star reacts on hover, not the container */
@@ -508,11 +508,7 @@ button.btn-create:hover {
     cursor: pointer;
     color: #f5f5f5; /* Default color */
     transition: color 0.3s ease-in-out, transform 0.2s ease; /* Added transform transition */
-    position: absolute; /* For manual positioning */
-    border-radius: 50%; /* Create a perfect circle */
-    background-color: transparent; /* Transparent background initially */
-    width: 40px;  /* Fixed width for the circle */
-    height: 40px; /* Fixed height for the circle */
+
 }
 
 /* Star Icon when marked as favorite (yellow) */
@@ -524,7 +520,6 @@ button.btn-create:hover {
 .favorite-icon:hover {
     color: #ffcc00; /* Change to yellow on hover */
     transform: scale(1.2); /* Slight scale up on hover */
-    background-color: rgba(255, 255, 255, 0.2);
 }
 
 

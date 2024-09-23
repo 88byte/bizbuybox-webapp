@@ -964,7 +964,7 @@ window.renderDeals = function() {
 
         // Change star to yellow if favorite, else default color
         const favoriteIcon = deal.favorite ? '★' : '☆';
-        const favoriteClass = deal.favorite ? 'favorite' : ''; // Class to style the star as yellow when favorite  // Yellow if favorite, white if not
+        const favoriteColor = deal.favorite ? '#ffcc00' : '#f5f5f5';  // Yellow if favorite, white if not
 
         const formattedStatus = formatStatus(deal.status);
 
@@ -985,7 +985,7 @@ window.renderDeals = function() {
                 <p>Last Updated: ${new Date(deal.lastUpdate).toLocaleDateString()}</p>
 
                 <div class="deal-actions-container">
-                    <button class="favorite-icon" onclick="toggleFavorite('${deal.dealId}')" style="color: ${favoriteClass};">${favoriteIcon}</button>
+                    <button class="favorite-btn" onclick="toggleFavorite('${deal.dealId}')" style="color: ${favoriteColor};">${favoriteIcon}</button>
                     <div class="deal-actions">
                         <button onclick="editDeal('${deal.dealId}')">Edit</button>
                         <button onclick="openConfirmationModal('${deal.dealId}')">Delete</button>
@@ -995,6 +995,7 @@ window.renderDeals = function() {
         `;
         dealGrid.appendChild(dealCard);
         calculateAndDisplayMultiple(deal);
+
 
 
     });

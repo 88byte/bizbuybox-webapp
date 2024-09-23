@@ -70,22 +70,16 @@ window.uploadCSV = function() {
     const fileInput = document.getElementById('csvFileInput');
     const file = fileInput.files[0];
 
-    // Clear any previous messages
-    const uploadMessage = document.getElementById('uploadMessage');
-    uploadMessage.textContent = '';
-    uploadMessage.classList.remove('error', 'success');
-
     if (file) {
-        // Show loading message
-        showUploadMessage('Uploading...', 'loading');
+        showToast('Uploading...', true); // Show loading toast notification
 
         Papa.parse(file, {
             header: true,
             complete: function(results) {
                 const brokers = results.data;
-                
+
                 if (brokers.length === 0) {
-                    showUploadMessage('The CSV file is empty or invalid.', 'error');
+                    showToast('The CSV file is empty or invalid.', false);
                     return;
                 }
 
@@ -108,36 +102,22 @@ window.uploadCSV = function() {
                         console.error(`Error uploading broker: ${broker.Name}`, error);
                     }
 
-                    // If it's the last broker, show success message
+                    // If it's the last broker, show success toast notification
                     if (index === brokers.length - 1) {
-                        showUploadMessage(`${uploadCount} brokers successfully uploaded!`, 'success');
+                        showToast(`${uploadCount} brokers successfully uploaded!`, true);
                     }
                 });
             },
             error: function(error) {
-                showUploadMessage('Error parsing CSV file.', 'error');
+                showToast('Error parsing CSV file.', false); // Show error toast notification
                 console.error('CSV parsing error:', error);
             }
         });
     } else {
-        showUploadMessage('Please select a CSV file.', 'error');
+        showToast('Please select a CSV file.', false); // Show error toast notification
     }
 };
 
-// Function to show upload messages (loading, success, error)
-function showUploadMessage(message, type) {
-    const uploadMessage = document.getElementById('uploadMessage');
-    uploadMessage.textContent = message;
-    uploadMessage.classList.remove('loading', 'error', 'success');
-    
-    if (type === 'loading') {
-        uploadMessage.classList.add('loading');
-    } else if (type === 'success') {
-        uploadMessage.classList.add('success');
-    } else if (type === 'error') {
-        uploadMessage.classList.add('error');
-    }
-}
 
 
 // Function to render brokers on the page

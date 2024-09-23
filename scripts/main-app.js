@@ -1334,24 +1334,36 @@ window.addRevenueCashflowRow = function() {
 
     document.getElementById('revenueCashflowSection').appendChild(newRow);
 
-    // Attach event listeners to the newly added revenue and cashflow inputs
+    // Attach event listeners to the newly added revenue and cashflow inputs for real-time updates
     const newRevenueInput = document.getElementById(`revenue${revenueCashflowCount}`);
     const newCashflowInput = document.getElementById(`cashflow${revenueCashflowCount}`);
 
-    newRevenueInput.addEventListener('input', triggerBuyBoxUpdate);
-    newCashflowInput.addEventListener('input', triggerBuyBoxUpdate);
+    newRevenueInput.addEventListener('input', function() {
+        window.updateProfitMargin(this);   // Update profit margin when revenue changes
+        window.triggerBuyBoxUpdate();      // Trigger Buy Box updates
+    });
+
+    newCashflowInput.addEventListener('input', function() {
+        window.updateProfitMargin(this);   // Update profit margin when cashflow changes
+        window.triggerBuyBoxUpdate();      // Trigger Buy Box updates
+    });
 
     // Ensure real-time profit margin calculation
     window.updateProfitMargin(newRevenueInput);
 };
 
+
 // Function to remove a row and reindex the remaining rows
 window.removeRevenueCashflowRow = function(button) {
     const rowToRemove = button.closest('.revenue-cashflow-row');
     rowToRemove.remove();
-    window.reindexRows(); // Re-index rows after removing one
-    window.triggerBuyBoxUpdate(); // Recalculate Buy Box Checklist after removing a row
+
+    // After removing the row, recalculate everything
+    window.reindexRows();           // Reindex the rows (if you need to reassign IDs or recalculate row order)
+    window.triggerBuyBoxUpdate();   // Recalculate the Buy Box Checklist and other relevant values
 };
+
+
 
 
 // Function to format numbers as currency without decimals

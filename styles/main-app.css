@@ -480,13 +480,13 @@ button.btn-create:hover {
     font-size: 22px;
     cursor: pointer;
     padding: 0;  /* Remove padding */
-    width: 10px;  /* Auto width to fit the star */
-    height: 10px;  /* Auto height to fit the star */
+    width: 20px;  /* Auto width to fit the star */
+    height: 20px;  /* Auto height to fit the star */
     display: inline-flex;
     align-items: center;
     justify-content: center;
     transition: color 0.3s ease-in-out, transform 0.2s ease; 
-    bottom: 37px; /* Moved down by 5px */
+    bottom: 35px; /* Moved down by 5px */
     right: 30px; /* Move to the right by 5px */
     position: absolute; /* Added for manual positioning */
 }

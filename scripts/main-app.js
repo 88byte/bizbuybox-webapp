@@ -977,12 +977,13 @@ window.renderDeals = function() {
         dealCard.innerHTML = `
             <div class="deal-card-header">
                 <h4>${deal.businessName}</h4>
-                <button class="favorite-btn" onclick="toggleFavorite('${deal.dealId}')" style="color: ${favoriteColor};">${favoriteIcon}</button>
+                <div class="multiple-display" id="dealMultiple">x0.0</div>
             </div>
             <div class="deal-card-content">
                 <p>Status: <span class="status-label" style="background-color: ${getStatusColor(deal.status)};">${formattedStatus}</span></p>
                 <p>Asking Price: ${formattedAskingPrice}</p>
                 <p>Last Updated: ${new Date(deal.lastUpdate).toLocaleDateString()}</p>
+                <button class="favorite-btn" onclick="toggleFavorite('${deal.dealId}')" style="color: ${favoriteColor};">${favoriteIcon}</button>
                 <div class="deal-actions">
                     <button onclick="editDeal('${deal.dealId}')">Edit</button>
                     <button onclick="openConfirmationModal('${deal.dealId}')">Delete</button>
@@ -1701,7 +1702,7 @@ window.updateBuyBoxChecklist = function(deal) {
 
     	deal.revenueCashflowEntries.sort((a, b) => parseInt(a.year, 10) - parseInt(b.year, 10));
 
-    	
+
         for (let i = 1; i < deal.revenueCashflowEntries.length; i++) {
             const currentYearRevenue = parseFloat(deal.revenueCashflowEntries[i].revenue || 0);
             const previousYearRevenue = parseFloat(deal.revenueCashflowEntries[i - 1].revenue || 0);

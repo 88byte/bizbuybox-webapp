@@ -977,6 +977,7 @@ window.renderDeals = function() {
         dealCard.innerHTML = `
             <div class="deal-card-header">
                 <h4>${deal.businessName}</h4>
+                <div class="multiple-displaycard" id="dealMultiple_${deal.dealId}">x0.0</div>
             </div>
             <div class="deal-card-content">
                 <p>Status: <span class="status-label" style="background-color: ${getStatusColor(deal.status)};">${formattedStatus}</span></p>
@@ -986,8 +987,8 @@ window.renderDeals = function() {
                 <div class="deal-actions">
                     <button onclick="editDeal('${deal.dealId}')">Edit</button>
                     <button onclick="openConfirmationModal('${deal.dealId}')">Delete</button>
-                    <button class="favorite-btn" onclick="toggleFavorite('${deal.dealId}')" style="color: ${favoriteColor};">${favoriteIcon}</button>
                 </div>
+                <button class="favorite-btn" onclick="toggleFavorite('${deal.dealId}')" style="color: ${favoriteColor};">${favoriteIcon}</button>
             </div>
         `;
         dealGrid.appendChild(dealCard);

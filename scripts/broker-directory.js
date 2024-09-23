@@ -100,7 +100,7 @@ window.fetchBrokerData = function (map) {
           const lat = parseFloat(latitude);
           const lng = parseFloat(longitude);
 
-           // Create a new AdvancedMarkerElement for each broker
+          // Create a new AdvancedMarkerElement for each broker
           const markerElement = new google.maps.marker.AdvancedMarkerElement({
             position: { lat: lat, lng: lng },
             map: map,

@@ -431,6 +431,12 @@ window.renderDealTable = function() {
         askingPriceCell.textContent = formattedAskingPrice;
         row.appendChild(askingPriceCell);
 
+        // Multiple column - Calculate the multiple using the existing calculateMultiple function
+        const multipleCell = document.createElement('td');
+        const multiple = calculateDealMultiple(deal); // Call a helper to calculate the multiple
+        multipleCell.textContent = `x${multiple}`;
+        row.appendChild(multipleCell);
+
         // Last Updated column
         const lastUpdatedCell = document.createElement('td');
         lastUpdatedCell.textContent = new Date(deal.lastUpdate).toLocaleDateString();

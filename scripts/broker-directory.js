@@ -86,23 +86,29 @@ window.uploadCSV = function() {
                 // Process brokers and upload to Firestore
                 let uploadCount = 0;
                 brokers.forEach(async (broker, index) => {
-                    // Normalize phone numbers (remove parentheses, spaces, and dashes)
-                    let normalizedPhone = broker.Phone ? broker.Phone.replace(/[\s()-]/g, '') : 'N/A';
+                    // Normalize phone numbers (remove parentheses, spaces, and dashes), check if empty
+                    let normalizedPhone = broker['Phone Number'] && broker['Phone Number'].trim() !== '' 
+                        ? broker['Phone Number'].replace(/[\s()-]/g, '') 
+                        : 'N/A';
                     
-                    // Check if longitude and latitude are valid numbers
-                    const latitude = !isNaN(parseFloat(broker.Latitude)) ? parseFloat(broker.Latitude) : 0;
-                    const longitude = !isNaN(parseFloat(broker.Longitude)) ? parseFloat(broker.Longitude) : 0;
+                    // Check if longitude and latitude are valid numbers and not missing
+                    const latitude = broker.Latitude && !isNaN(parseFloat(broker.Latitude)) 
+                        ? parseFloat(broker.Latitude) 
+                        : null; // Use null instead of 0 to indicate missing latitude
+                    const longitude = broker.Longitude && !isNaN(parseFloat(broker.Longitude)) 
+                        ? parseFloat(broker.Longitude) 
+                        : null; // Use null instead of 0 to indicate missing longitude
 
                     try {
                         await addDoc(collection(db, 'brokers'), {
-                            company: broker.Company || 'N/A',
+                            company: broker['Company Name'] || 'N/A',
                             name: broker.Name || 'N/A',
                             email: broker.Email || 'N/A',
                             phone: normalizedPhone,
                             city: broker.City || 'N/A',
                             state: broker.State || 'N/A',
-                            latitude: latitude,
-                            longitude: longitude,
+                            latitude: latitude,  // Allow null if latitude is missing
+                            longitude: longitude, // Allow null if longitude is missing
                         });
                         uploadCount++;
                     } catch (error) {
@@ -124,6 +130,7 @@ window.uploadCSV = function() {
         showToast('Please select a CSV file.', false); // Show error toast notification
     }
 };
+
 
 
 

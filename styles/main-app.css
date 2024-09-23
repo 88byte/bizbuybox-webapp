@@ -1460,7 +1460,7 @@ input-item select {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 15px;
+    margin-top: 25px;
 }
 
 /* Base Style for Edit and Delete Buttons */

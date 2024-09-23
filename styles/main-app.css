@@ -487,7 +487,7 @@ button.btn-create:hover {
     justify-content: center;
     transition: color 0.3s ease-in-out, transform 0.2s ease; 
     margin-top: 5px; /* Moved down by 5px */
-    margin-right: 5px; /* Move to the right by 5px */
+    margin-right: 25px; /* Move to the right by 5px */
 }
 
 /* Only the star reacts on hover, not the container */

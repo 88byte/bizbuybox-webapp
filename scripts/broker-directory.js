@@ -92,23 +92,30 @@ window.fetchBrokerData = function (map) {
     .then((data) => {
       const brokers = data.values.slice(1); // Skip the header row
       brokers.forEach((broker) => {
-        const [company, name, email, phone, city, state, latitude, longitude] = broker;
+        // Use columns correctly (A = Latitude, B = Longitude, C-H = Other details)
+        const [latitude, longitude, name, phone, email, company, state, city] = broker;
 
-        // Create a marker for each broker
-        const marker = new google.maps.Marker({
-          position: { lat: parseFloat(latitude), lng: parseFloat(longitude) },
-          map: map,
-          title: name,
-        });
+        // Ensure latitude and longitude are valid numbers
+        if (!isNaN(parseFloat(latitude)) && !isNaN(parseFloat(longitude))) {
+          const lat = parseFloat(latitude);
+          const lng = parseFloat(longitude);
 
-        // Info window content
-        const infoWindow = new google.maps.InfoWindow({
-          content: `<h3>${company}</h3><p>${name}<br>${email}<br>${phone}</p>`,
-        });
+          // Create a marker for each broker
+          const marker = new google.maps.Marker({
+            position: { lat: lat, lng: lng },
+            map: map,
+            title: name,
+          });
 
-        marker.addListener('click', () => {
-          infoWindow.open(map, marker);
-        });
+          // Info window content
+          const infoWindow = new google.maps.InfoWindow({
+            content: `<h3>${company}</h3><p>${name}<br>${email}<br>${phone}<br>${city}, ${state}</p>`,
+          });
+
+          marker.addListener('click', () => {
+            infoWindow.open(map, marker);
+          });
+        }
       });
     })
     .catch((error) => {
@@ -129,8 +136,10 @@ window.renderBrokers = function (brokers, page = 1) {
   const endIndex = startIndex + brokersPerPage;
 
   brokers.slice(startIndex, endIndex).forEach((broker) => {
+    // Adjust column order (C-H = Name, Phone, Email, Company, State, City)
+    const [latitude, longitude, name, phone, email, company, state, city] = broker;
+
     const row = document.createElement('tr');
-    const [company, name, email, phone, city, state] = broker;
     row.innerHTML = `
       <td>${company}</td>
       <td>${name}</td>
@@ -166,8 +175,8 @@ function renderPagination(totalBrokers, currentPage) {
 window.searchBrokers = function () {
   const searchQuery = document.getElementById('searchBrokerInput').value.toLowerCase();
   const filteredBrokers = allBrokers.filter(
-    (broker) => broker[0].toLowerCase().includes(searchQuery) || broker[1].toLowerCase().includes(searchQuery)
-  );
+    (broker) => broker[3].toLowerCase().includes(searchQuery) || broker[2].toLowerCase().includes(searchQuery)
+  ); // Adjusting search to match company and name
   renderBrokers(filteredBrokers, 1);
 };
 
@@ -183,3 +192,4 @@ window.fetchBrokers = function () {
 
 // Initialize map and fetch brokers when the document is ready
 document.addEventListener('DOMContentLoaded', fetchBrokers);
+

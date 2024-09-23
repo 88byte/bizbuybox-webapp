@@ -35,7 +35,7 @@ import {
 
 // Your Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyAEeQ_qZOgR23KKh64_PrL73wv2kek3qtc",
+    apiKey: "AIzaSyALOLixHMInPOXN0x1PIzoUQkIn81Iq96g",
     authDomain: "bizbuybox-webapp-d4772.firebaseapp.com",
     projectId: "bizbuybox-webapp-d4772",
     storageBucket: "bizbuybox-webapp-d4772.appspot.com",

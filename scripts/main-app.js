@@ -1742,8 +1742,6 @@ window.calculateDebtService = function() {
         totalDebtService += annualDebtService1;
         loanBreakdown += `<p>${loanType} Loan Payment: $${annualDebtService1.toLocaleString('en-US')}</p>`;
     } else if (loanType === 'SBA + Seller Finance') {
-        // For SBA + Seller Finance, we handle two separate loans
-
         // SBA Loan Calculation
         const sbaLoanAmount = parseFloat(document.getElementById('loanAmount1').value.replace(/[^\d.-]/g, '')) || 0;
         const sbaDebtService = window.calculateAnnualDebtService(sbaLoanAmount, interestRate1, loanTerm1);
@@ -1761,8 +1759,10 @@ window.calculateDebtService = function() {
 
     document.getElementById('loanBreakdown').innerHTML = loanBreakdown;
     document.getElementById('totalDebtService').textContent = totalDebtService.toLocaleString('en-US');
-    window.calculateEarnings(totalDebtService);  // Recalculate earnings
+
+    window.calculateEarnings(totalDebtService);  // Recalculate earnings immediately after debt service updates
 };
+
 
 // Function to calculate annual debt service
 window.calculateAnnualDebtService = function(amount, interestRate, termYears) {
@@ -1783,6 +1783,7 @@ window.calculateEarnings = function(totalDebtService) {
     // Calculate total cashflow and profit margins from the form
     const cashflows = document.querySelectorAll('input[name="cashflow[]"]');
     const revenues = document.querySelectorAll('input[name="revenue[]"]');
+    
     cashflows.forEach((input, index) => {
         const cashflow = parseFloat(input.value.replace(/[^\d.-]/g, '')) || 0;
         const revenue = parseFloat(revenues[index].value.replace(/[^\d.-]/g, '')) || 0;
@@ -1802,17 +1803,21 @@ window.calculateEarnings = function(totalDebtService) {
     // Calculate cashflow after debt service
     const cashflowAfterDebt = avgCashflow - totalDebtService;
 
-    // Placeholder for cashflow after debt and investor pay (will update this logic later)
-    const cashflowAfterDebtAndInvestor = cashflowAfterDebt; // Assuming no investor pay yet
+    // Placeholder for cashflow after debt and investor pay (add more logic here later if needed)
+    const investorPay = 0; // Add investor pay logic if needed
+    const cashflowAfterDebtAndInvestor = cashflowAfterDebt - investorPay;
 
-    // Update the display
+    // Update the display for each value
     document.getElementById('avgProfitMarginDisplay').textContent = avgProfitMargin.toFixed(2) + '%';
-    document.getElementById('avgCashflowDisplay').textContent = avgCashflow.toLocaleString('en-US');
-    document.getElementById('cashflowAfterDebt').textContent = cashflowAfterDebt.toLocaleString('en-US');
-    document.getElementById('cashflowAfterDebtAndInvestor').textContent = cashflowAfterDebtAndInvestor.toLocaleString('en-US');
+    document.getElementById('avgCashflowDisplay').textContent = avgCashflow.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+    document.getElementById('cashflowAfterDebt').textContent = cashflowAfterDebt.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+    document.getElementById('cashflowAfterDebtAndInvestor').textContent = cashflowAfterDebtAndInvestor.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
 };
 
-// Real-time update triggers for dynamic updates
+
+
+
+
 // Real-time update triggers for dynamic updates
 window.setupRealTimeUpdates = function() {
     // Helper function to safely add event listeners
@@ -1852,11 +1857,16 @@ window.setupRealTimeUpdates = function() {
 
     // Add listeners for revenue and cashflow changes for BuyBoxChecklist
     document.querySelectorAll('input[name="revenue[]"], input[name="cashflow[]"]').forEach(input => {
-        input.addEventListener('input', triggerBuyBoxUpdate);
+        input.addEventListener('input', () => {
+            window.calculateEarnings(0);  // Update earnings after cashflow or revenue changes
+        });
     });
 
     // For dynamically added revenue/cashflow rows, listen for changes in the section
     addListenerIfExists('#revenueCashflowSection', 'input', triggerBuyBoxUpdate);
+    addListenerIfExists('#askingPrice', 'input', window.updateAskingPrice);
+    addListenerIfExists('#realEstatePrice', 'input', window.updateAskingPrice);
+    addListenerIfExists('#downPayment', 'input', window.updateAskingPrice);
 };
 
 

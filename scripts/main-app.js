@@ -984,11 +984,13 @@ window.renderDeals = function() {
                 <p>Asking Price: ${formattedAskingPrice}</p>
                 <p>Last Updated: ${new Date(deal.lastUpdate).toLocaleDateString()}</p>
 
-                <div class="deal-actions">
-                    <button onclick="editDeal('${deal.dealId}')">Edit</button>
-                    <button onclick="openConfirmationModal('${deal.dealId}')">Delete</button>
+                <div class="deal-actions-container">
+                    <button class="favorite-btn" onclick="toggleFavorite('${deal.dealId}')" style="color: ${favoriteColor};">${favoriteIcon}</button>
+                    <div class="deal-actions">
+                        <button onclick="editDeal('${deal.dealId}')">Edit</button>
+                        <button onclick="openConfirmationModal('${deal.dealId}')">Delete</button>
+                    </div>
                 </div>
-                <button class="favorite-btn" onclick="toggleFavorite('${deal.dealId}')" style="color: ${favoriteColor};">${favoriteIcon}</button>
             </div>
         `;
         dealGrid.appendChild(dealCard);

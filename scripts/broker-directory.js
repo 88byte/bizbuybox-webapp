@@ -139,6 +139,37 @@ window.uploadCSV = function() {
 
 
 
+// Function to initialize Google Map
+window.initMap = function() {
+    const map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 5,
+        center: { lat: 39.8283, lng: -98.5795 }, // Center of the US
+    });
+
+    renderBrokersOnMap(map);
+};
+
+// Function to render brokers on the map
+window.renderBrokersOnMap = async function(map) {
+    const querySnapshot = await getDocs(collection(db, 'brokers'));
+
+    querySnapshot.forEach((doc) => {
+        const broker = doc.data();
+        const marker = new google.maps.Marker({
+            position: { lat: broker.latitude, lng: broker.longitude },
+            map: map,
+            title: broker.name
+        });
+
+        const infoWindow = new google.maps.InfoWindow({
+            content: `<h3>${broker.company}</h3><p>${broker.name}<br>${broker.email}<br>${broker.phone}</p>`
+        });
+
+        marker.addListener('click', () => {
+            infoWindow.open(map, marker);
+        });
+    });
+};
 
 
 

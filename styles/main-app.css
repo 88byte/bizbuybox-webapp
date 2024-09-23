@@ -489,14 +489,15 @@ button.btn-create:hover {
     position: absolute; /* Added for manual positioning */
     border-radius: 50%; /* Create a perfect circle */
     background-color: transparent; /* Transparent background initially */
-    width: 20px;  /* Fixed width to ensure a circular shape */
-    height: 20px; /* Fixed height for the circle */
+    width: 30px;  /* Fixed width to ensure a circular shape */
+    height: 30px; /* Fixed height for the circle */
 }
 
 /* Only the star reacts on hover, not the container */
 .favorite-btn:hover {
     color: #ffcc00; /* Bright yellow star on hover */
     transform: scale(1.2); /* Slight scale up on hover */
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 

@@ -1366,6 +1366,7 @@ window.removeRevenueCashflowRow = function(button) {
 
 
 
+
 // Function to format numbers as currency without decimals
 window.formatCurrency = function(value) {
     // Check if the value is already a number, if not, convert it to a string
@@ -1416,6 +1417,7 @@ window.updateProfitMargin = function(inputElement) {
 };
 
 
+// Function to re-index the Revenue and Cashflow rows
 window.reindexRows = function() {
     const rows = document.querySelectorAll('.revenue-cashflow-row');
     rows.forEach((row, index) => {
@@ -1437,21 +1439,21 @@ window.reindexRows = function() {
         cashflowInput.id = `cashflow${rowNumber}`;
         profitMarginElement.id = `profitMargin${rowNumber}`;
 
-        // Remove any previous event listeners (use a named function for reference)
-        revenueInput.removeEventListener('input', handleInputChange);
-        cashflowInput.removeEventListener('input', handleInputChange);
+        // Remove any existing event listeners to avoid duplicates
+        revenueInput.removeEventListener('input', updateProfitMargin);
+        cashflowInput.removeEventListener('input', updateProfitMargin);
 
-        // Attach new event listeners for input changes
-        revenueInput.addEventListener('input', handleInputChange);
-        cashflowInput.addEventListener('input', handleInputChange);
+        // Attach event listeners to update profit margin and Buy Box dynamically
+        revenueInput.addEventListener('input', () => {
+            window.updateProfitMargin(revenueInput);
+            window.triggerBuyBoxUpdate(); // Dynamically update the Buy Box when values change
+        });
+
+        cashflowInput.addEventListener('input', () => {
+            window.updateProfitMargin(cashflowInput);
+            window.triggerBuyBoxUpdate(); // Dynamically update the Buy Box when values change
+        });
     });
-}
-
-// Named function to handle input changes for revenue and cashflow inputs
-function handleInputChange(event) {
-    const inputElement = event.target;
-    window.updateProfitMargin(inputElement);  // Update the profit margin
-    window.triggerBuyBoxUpdate();  // Trigger Buy Box update after input change
 }
 
 
@@ -1830,7 +1832,6 @@ window.calculateEarnings = function(totalDebtService) {
 
 
 // Real-time update triggers for dynamic updates
-// Real-time update triggers for dynamic updates
 window.setupRealTimeUpdates = function() {
     // Helper function to safely add event listeners
     const addListenerIfExists = (selector, event, callback) => {
@@ -1856,14 +1857,15 @@ window.setupRealTimeUpdates = function() {
     addListenerIfExists('#realEstatePrice', 'input', window.updateAskingPrice);
     addListenerIfExists('#downPayment', 'input', window.updateAskingPrice);
 
-    // Add listeners for revenue and cashflow changes
+    // Add listeners for the initial revenue and cashflow rows
     document.querySelectorAll('input[name="revenue[]"], input[name="cashflow[]"]').forEach(input => {
-        input.addEventListener('input', window.calculateDebtService);  // Trigger recalculations on change
+        input.addEventListener('input', () => {
+            window.updateProfitMargin(input);
+            window.triggerBuyBoxUpdate();  // Trigger recalculations on change
+        });
     });
-
-    // For dynamically added revenue/cashflow rows, listen for changes in the section
-    addListenerIfExists('#revenueCashflowSection', 'input', triggerBuyBoxUpdate);
 };
+
 
 
 

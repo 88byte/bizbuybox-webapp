@@ -1416,7 +1416,6 @@ window.updateProfitMargin = function(inputElement) {
 };
 
 
-// Function to re-index the Revenue and Cashflow rows
 window.reindexRows = function() {
     const rows = document.querySelectorAll('.revenue-cashflow-row');
     rows.forEach((row, index) => {
@@ -1438,21 +1437,21 @@ window.reindexRows = function() {
         cashflowInput.id = `cashflow${rowNumber}`;
         profitMarginElement.id = `profitMargin${rowNumber}`;
 
-        // Remove any existing event listeners to avoid duplicates
-        revenueInput.removeEventListener('input', updateProfitMargin);
-        cashflowInput.removeEventListener('input', updateProfitMargin);
+        // Remove any previous event listeners (use a named function for reference)
+        revenueInput.removeEventListener('input', handleInputChange);
+        cashflowInput.removeEventListener('input', handleInputChange);
 
-        // Attach event listeners to update profit margin and Buy Box dynamically
-        revenueInput.addEventListener('input', () => {
-            window.updateProfitMargin(revenueInput);
-            window.triggerBuyBoxUpdate(); // Dynamically update the Buy Box when values change
-        });
-
-        cashflowInput.addEventListener('input', () => {
-            window.updateProfitMargin(cashflowInput);
-            window.triggerBuyBoxUpdate(); // Dynamically update the Buy Box when values change
-        });
+        // Attach new event listeners for input changes
+        revenueInput.addEventListener('input', handleInputChange);
+        cashflowInput.addEventListener('input', handleInputChange);
     });
+}
+
+// Named function to handle input changes for revenue and cashflow inputs
+function handleInputChange(event) {
+    const inputElement = event.target;
+    window.updateProfitMargin(inputElement);  // Update the profit margin
+    window.triggerBuyBoxUpdate();  // Trigger Buy Box update after input change
 }
 
 

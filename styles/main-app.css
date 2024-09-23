@@ -486,7 +486,8 @@ button.btn-create:hover {
     align-items: center;
     justify-content: center;
     transition: color 0.3s ease-in-out, transform 0.2s ease; 
-    margin-top: -10px;
+    margin-top: -15px;
+    maring-left: 5px;
 }
 
 /* Only the star reacts on hover, not the container */

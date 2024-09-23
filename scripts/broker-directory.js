@@ -70,37 +70,75 @@ window.uploadCSV = function() {
     const fileInput = document.getElementById('csvFileInput');
     const file = fileInput.files[0];
 
+    // Clear any previous messages
+    const uploadMessage = document.getElementById('uploadMessage');
+    uploadMessage.textContent = '';
+    uploadMessage.classList.remove('error', 'success');
+
     if (file) {
+        // Show loading message
+        showUploadMessage('Uploading...', 'loading');
+
         Papa.parse(file, {
             header: true,
             complete: function(results) {
                 const brokers = results.data;
+                
+                if (brokers.length === 0) {
+                    showUploadMessage('The CSV file is empty or invalid.', 'error');
+                    return;
+                }
 
-                brokers.forEach(async (broker) => {
+                // Process brokers and upload to Firestore
+                let uploadCount = 0;
+                brokers.forEach(async (broker, index) => {
                     try {
                         await addDoc(collection(db, 'brokers'), {
-                            company: broker.Company,
-                            name: broker.Name,
-                            email: broker.Email,
-                            phone: broker.Phone,
-                            city: broker.City,
-                            state: broker.State,
-                            latitude: parseFloat(broker.Latitude),
-                            longitude: parseFloat(broker.Longitude),
+                            company: broker.Company || 'N/A',
+                            name: broker.Name || 'N/A',
+                            email: broker.Email || 'N/A',
+                            phone: broker.Phone || 'N/A',
+                            city: broker.City || 'N/A',
+                            state: broker.State || 'N/A',
+                            latitude: parseFloat(broker.Latitude) || 0,
+                            longitude: parseFloat(broker.Longitude) || 0,
                         });
-                        console.log(`Uploaded: ${broker.Name}`);
+                        uploadCount++;
                     } catch (error) {
                         console.error(`Error uploading broker: ${broker.Name}`, error);
                     }
-                });
 
-                alert('CSV data uploaded to Firestore!');
+                    // If it's the last broker, show success message
+                    if (index === brokers.length - 1) {
+                        showUploadMessage(`${uploadCount} brokers successfully uploaded!`, 'success');
+                    }
+                });
+            },
+            error: function(error) {
+                showUploadMessage('Error parsing CSV file.', 'error');
+                console.error('CSV parsing error:', error);
             }
         });
     } else {
-        alert('Please select a CSV file');
+        showUploadMessage('Please select a CSV file.', 'error');
     }
 };
+
+// Function to show upload messages (loading, success, error)
+function showUploadMessage(message, type) {
+    const uploadMessage = document.getElementById('uploadMessage');
+    uploadMessage.textContent = message;
+    uploadMessage.classList.remove('loading', 'error', 'success');
+    
+    if (type === 'loading') {
+        uploadMessage.classList.add('loading');
+    } else if (type === 'success') {
+        uploadMessage.classList.add('success');
+    } else if (type === 'error') {
+        uploadMessage.classList.add('error');
+    }
+}
+
 
 // Function to render brokers on the page
 window.renderBrokers = async function() {

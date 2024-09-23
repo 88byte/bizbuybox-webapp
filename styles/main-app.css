@@ -2146,8 +2146,8 @@ input-item select {
 
 .multiple-display {
     position: absolute;
-    top: 10px;
-    right: 150px;
+    top: 30px;
+    right: 90px;
     font-size: 16px;
     font-weight: bold;
     background: rgba(255, 255, 255, 0.1); /* Transparent background */

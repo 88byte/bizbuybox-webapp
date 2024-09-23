@@ -52,7 +52,10 @@ body {
     cursor: pointer;
     border: 2px solid #97835a;
     transition: transform 0.3s ease;
+    object-fit: cover; /* Ensures the image covers the container without distorting */
+    display: block; /* Ensure it behaves predictably as a block element */
 }
+
 
 .profile-img:hover {
     transform: scale(1.1);

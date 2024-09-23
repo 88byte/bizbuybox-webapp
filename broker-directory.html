@@ -178,22 +178,22 @@
 <main class="main-content">
     <!-- Section for uploading CSV -->
     <div class="broker-upload-section">
-    <h2>Upload Broker CSV</h2>
-    <div class="upload-container">
-        <label for="csvFileInput" class="upload-label">
-            <i class="fas fa-upload"></i> Choose File
-        </label>
-        <input type="file" id="csvFileInput" accept=".csv" class="hidden-input">
+        <h2>Upload Broker CSV</h2>
+        <div class="upload-container">
+            <label for="csvFileInput" class="upload-label">
+                <i class="fas fa-upload"></i> Choose CSV File
+            </label>
+            <input type="file" id="csvFileInput" accept=".csv" class="hidden-input">
+        </div>
+        <button class="upload-btn" onclick="uploadCSV()">Upload CSV</button>
     </div>
-    <button class="upload-btn" onclick="uploadCSV()">Upload CSV</button>
-</div>
-
 
     <!-- Dynamic Broker List -->
     <div id="brokerList" class="broker-list">
         <!-- Brokers will be rendered here -->
     </div>
 </main>
+
 
 
 

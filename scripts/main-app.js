@@ -1638,6 +1638,16 @@ window.calculateMultiple = function() {
     }
 };
 
+function calculateDealMultiple(deal) {
+    let totalRevenue = 0;
+    if (deal.revenueCashflowEntries && deal.revenueCashflowEntries.length > 0) {
+        totalRevenue = deal.revenueCashflowEntries.reduce((sum, entry) => sum + entry.revenue, 0);
+    }
+    const avgRevenue = totalRevenue / (deal.revenueCashflowEntries.length || 1); // Avoid division by zero
+    const multiple = avgRevenue > 0 ? (deal.askingPrice / avgRevenue).toFixed(1) : '0.0'; // Calculate the multiple
+    return multiple;
+}
+
 
 // Function to update the Buy Box Checklist
 // Function to update the Buy Box Checklist

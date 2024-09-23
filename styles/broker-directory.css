@@ -1,59 +1,44 @@
-/* General Reset for better consistency across browsers */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f0f2f5;
-    color: #333;
-}
-
-
-
 /* Broker Upload Section */
 .broker-upload-section {
     background-color: #fff;
-    padding: 30px;
-    border-radius: 10px;
+    padding: 30px 40px;
+    border-radius: 12px;
     border: 1px solid #e0e0e0;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-    max-width: 350px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
     text-align: center;
-    margin: 0 auto; /* Center it on the page */
+    margin: 0 auto;
 }
 
 .broker-upload-section h2 {
-    font-size: 20px;
+    font-size: 24px;
     margin-bottom: 20px;
     color: #333;
     font-weight: 600;
 }
 
+/* Upload Container with Label */
 .upload-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    position: relative;
 }
 
 .upload-label {
     background-color: #007bff;
     color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
+    padding: 12px 18px;
+    border-radius: 8px;
     cursor: pointer;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     font-size: 16px;
     transition: background-color 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
 }
 
 .upload-label i {
-    margin-right: 8px;
+    margin-right: 10px;
     font-size: 18px;
 }
 
@@ -62,65 +47,37 @@ body {
 }
 
 .hidden-input {
-    display: none; /* Hide the default file input */
+    display: none;
 }
 
-/* Modern Upload Button */
+/* Upload Button */
 .upload-btn {
-    padding: 12px 20px;
+    padding: 12px 18px;
     background-color: #28a745;
-    color: #fff;
+    color: white;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     cursor: pointer;
     font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
     width: 100%;
-    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.2);
 }
 
 .upload-btn:hover {
     background-color: #218838;
-}
-
-
-.broker-upload-section input[type="file"] {
-    display: block;
-    margin: 15px 0;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    width: 100%;
-    font-size: 14px;
-    background-color: #f9f9f9;
-    cursor: pointer;
-}
-
-.broker-upload-section button {
-    display: block;
-    width: 100%;
-    padding: 12px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.broker-upload-section button:hover {
-    background-color: #0056b3;
+    transform: translateY(-2px);
 }
 
 /* Broker List */
 .broker-list {
-    flex-grow: 1;
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     justify-content: flex-start;
 }
 
+/* Broker Card Styling */
 .broker-card {
     background-color: #fff;
     padding: 20px;
@@ -137,6 +94,7 @@ body {
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
 }
 
+/* Broker Card Text */
 .broker-card h2 {
     font-size: 18px;
     margin-bottom: 10px;

@@ -1626,6 +1626,21 @@ window.getDealDataFromForm = function() {
 };
 
 
+// Function to calculate and display the multiple in real-time
+function calculateAndDisplayMultiple(deal) {
+    let totalRevenue = 0;
+    if (deal.revenueCashflowEntries && deal.revenueCashflowEntries.length > 0) {
+        totalRevenue = deal.revenueCashflowEntries.reduce((sum, entry) => sum + parseFloat(entry.revenue || 0), 0);
+    }
+    const avgRevenue = totalRevenue / (deal.revenueCashflowEntries.length || 1); // Avoid division by zero
+    const multiple = avgRevenue > 0 ? (parseFloat(deal.askingPrice.replace(/[^\d.-]/g, '')) / avgRevenue).toFixed(1) : '0.0';
+
+    // Update the multiple display for this deal
+    const multipleElement = document.getElementById(`dealMultiple_${deal.dealId}`);
+    if (multipleElement) {
+        multipleElement.textContent = `x${multiple}`;
+    }
+}
 
 
 // Function to update the Buy Box Checklist

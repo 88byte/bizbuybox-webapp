@@ -993,7 +993,7 @@ window.renderDeals = function() {
         `;
         dealGrid.appendChild(dealCard);
 
-        window.calculateMultiple(deal);
+        
     });
 
     enableDragAndDrop(); // Enable dragging after rendering the cards

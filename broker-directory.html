@@ -198,7 +198,7 @@ window.hideToast = function() {
 
         <!-- Broker Table Section with Search -->
         <div class="broker-search-pagination sleek-shadow">
-            <input type="text" id="searchBrokerInput" class="search-input" placeholder="Search Brokers..." oninput="searchAndRenderBrokers()">
+            <input type="text" id="searchBrokerInput" class="search-input" placeholder="Search Brokers..." oninput="searchBrokers()">
         </div>
 
         <div class="broker-table-container sleek-shadow">
@@ -220,10 +220,8 @@ window.hideToast = function() {
         </div>
 
         <!-- Pagination Controls -->
-        <div class="pagination-controls">
-            <button id="prevPageBtn" class="pagination-btn" onclick="changePage(-1)">Previous</button>
-            <span id="pageInfo"></span>
-            <button id="nextPageBtn" class="pagination-btn" onclick="changePage(1)">Next</button>
+        <div id="pagination" class="pagination-controls">
+            <!-- Pagination buttons will be rendered dynamically -->
         </div>
     </main>
 

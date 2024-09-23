@@ -149,6 +149,23 @@ window.onload = function() {
     renderDeals();
 };
 
+// Function to set active link based on current page URL
+function setActiveSidebarLink() {
+    const currentPage = window.location.pathname.split('/').pop();
+    const links = document.querySelectorAll('.sidebar-nav a');
+
+    links.forEach(link => {
+        if (link.getAttribute('href') === currentPage) {
+            link.classList.add('active');
+        } else {
+            link.classList.remove('active');
+        }
+    });
+}
+
+// Call this function when the DOM is fully loaded
+document.addEventListener('DOMContentLoaded', setActiveSidebarLink);
+
 
 // Function to show the Dashboard
 window.showDashboard = function() {

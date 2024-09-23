@@ -1,6 +1,6 @@
 /* Style the Broker CSV Upload Section */
 .broker-upload-section {
-    margin: 20px auto;
+    margin: 40px auto;
     padding: 20px;
     background-color: #f7f7f7;
     border: 1px solid #ddd;
@@ -37,4 +37,28 @@
 
 .broker-upload-section button:hover {
     background-color: #218838;
+}
+
+/* Style for broker list container */
+.broker-list {
+    margin: 30px auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.broker-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 15px;
+    width: 250px;
+    text-align: center;
+    background-color: #fff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.broker-card h2 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
 }

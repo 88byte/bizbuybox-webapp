@@ -185,24 +185,24 @@ window.hideToast = function() {
 	}
 	</style>
 
-<main class="main-content">
+ <main class="main-content">
         <!-- Section Header -->
         <div class="section-header">
             <h1>Broker Directory</h1>
         </div>
 
         <!-- Map Container -->
-        <div class="map-container">
-            <div id="map" style="height: 500px; width: 100%;"></div>
+        <div class="map-container sleek-shadow">
+            <div id="map" class="modern-map"></div>
         </div>
 
         <!-- Broker Table Section with Search -->
-        <div class="broker-search-pagination">
-            <input type="text" id="searchBrokerInput" placeholder="Search Brokers..." oninput="searchAndRenderBrokers()">
+        <div class="broker-search-pagination sleek-shadow">
+            <input type="text" id="searchBrokerInput" class="search-input" placeholder="Search Brokers..." oninput="searchAndRenderBrokers()">
         </div>
 
-        <div class="broker-table-container">
-            <table id="brokerTable">
+        <div class="broker-table-container sleek-shadow">
+            <table id="brokerTable" class="sleek-table">
                 <thead>
                     <tr>
                         <th>Company</th>
@@ -221,12 +221,11 @@ window.hideToast = function() {
 
         <!-- Pagination Controls -->
         <div class="pagination-controls">
-            <button id="prevPageBtn" onclick="changePage(-1)">Previous</button>
+            <button id="prevPageBtn" class="pagination-btn" onclick="changePage(-1)">Previous</button>
             <span id="pageInfo"></span>
-            <button id="nextPageBtn" onclick="changePage(1)">Next</button>
+            <button id="nextPageBtn" class="pagination-btn" onclick="changePage(1)">Next</button>
         </div>
     </main>
-
 
 
 

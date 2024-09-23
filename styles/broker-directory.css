@@ -69,9 +69,38 @@
 }
 
 
+
+
+
+
+
+
 /* Map Container */
 .map-container {
+    height: 500px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+
+/* Section Header */
+.section-header h1 {
+    font-size: 2em;
+    color: #f5f5f5;
+    text-align: center;
     margin-bottom: 20px;
+}
+
+.modern-map {
+    height: 100%;
+    width: 100%;
+}
+
+/* Sleek Shadow for Elements */
+.sleek-shadow {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
 }
 
 /* Table Styling */
@@ -99,7 +128,7 @@
 .pagination-controls {
     display: flex;
     justify-content: space-between;
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 #prevPageBtn, #nextPageBtn {
@@ -111,6 +140,89 @@
     cursor: pointer;
 }
 
+.pagination-btn {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.pagination-btn:hover {
+    background-color: #0056b3;
+}
+
+/* InfoWindow Custom Styling */
+.gm-style-iw {
+    background-color: #2a2a2a !important;
+    color: #fff !important;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+    padding: 15px;
+}
+
+.gm-style-iw h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #f5f5f5;
+}
+
+.gm-style-iw p {
+    font-size: 14px;
+    color: #d3d3d3;
+    margin-top: 10px;
+}
+
 #pageInfo {
     align-self: center;
+}
+
+/* Broker Search and Pagination */
+.broker-search-pagination {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.search-input {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    background-color: #2a2a2a;
+    color: #fff;
+    font-size: 16px;
+}
+
+.search-input::placeholder {
+    color: #aaa;
+}
+
+/* Broker Table */
+.sleek-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #2a2a2a;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.sleek-table th, .sleek-table td {
+    padding: 15px;
+    text-align: left;
+    color: #f5f5f5;
+    border-bottom: 1px solid #444;
+}
+
+.sleek-table th {
+    background-color: #3a3a3a;
+    font-weight: bold;
+}
+
+.sleek-table tr:nth-child(even) {
+    background-color: #333;
 }

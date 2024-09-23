@@ -147,13 +147,65 @@ const brokersPerPage = 20;
 window.initMap = function() {
     const map = new google.maps.Map(document.getElementById('map'), {
         zoom: 5,
-        center: { lat: 39.8283, lng: -98.5795 } // Center of the US
+        center: { lat: 39.8283, lng: -98.5795 }, // Center of the US
+        styles: [
+            {
+                "elementType": "geometry",
+                "stylers": [
+                    { "color": "#212121" }
+                ]
+            },
+            {
+                "elementType": "labels.icon",
+                "stylers": [
+                    { "visibility": "off" }
+                ]
+            },
+            {
+                "elementType": "labels.text.fill",
+                "stylers": [
+                    { "color": "#757575" }
+                ]
+            },
+            {
+                "elementType": "labels.text.stroke",
+                "stylers": [
+                    { "color": "#212121" }
+                ]
+            },
+            {
+                "featureType": "administrative",
+                "elementType": "geometry",
+                "stylers": [
+                    { "color": "#757575" }
+                ]
+            },
+            {
+                "featureType": "landscape",
+                "elementType": "geometry",
+                "stylers": [
+                    { "color": "#2a2a2a" }
+                ]
+            },
+            {
+                "featureType": "road",
+                "elementType": "geometry",
+                "stylers": [
+                    { "color": "#383838" }
+                ]
+            },
+            {
+                "featureType": "road",
+                "elementType": "geometry.stroke",
+                "stylers": [
+                    { "color": "#2b2b2b" }
+                ]
+            }
+        ]
     });
 
     renderBrokersOnMap(map);
 };
-
-
 
 // Function to render brokers on the map
 window.renderBrokersOnMap = async function(map) {
@@ -161,14 +213,19 @@ window.renderBrokersOnMap = async function(map) {
 
     querySnapshot.forEach((doc) => {
         const broker = doc.data();
-        const marker = new google.maps.marker.AdvancedMarkerElement({
+        const marker = new google.maps.Marker({
             position: { lat: broker.latitude, lng: broker.longitude },
             map: map,
             title: broker.name
         });
 
         const infoWindow = new google.maps.InfoWindow({
-            content: `<h3>${broker.company}</h3><p>${broker.name}<br>${broker.email}<br>${broker.phone}</p>`
+            content: `
+                <div class="gm-style-iw">
+                    <h3>${broker.company}</h3>
+                    <p>${broker.name}<br>${broker.email}<br>${broker.phone}</p>
+                </div>
+            `
         });
 
         marker.addListener('click', () => {
@@ -176,6 +233,7 @@ window.renderBrokersOnMap = async function(map) {
         });
     });
 };
+
 
 
 // Fetch all brokers from Firestore and store them

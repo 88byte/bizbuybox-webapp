@@ -47,7 +47,25 @@ const firebaseConfig = {
 
 
 // Initialize Firestore
-const db = getFirestore();
+const db = getFirestore(app);
+window.auth = getAuth(app); 
+
+window.auth = getAuth(app); 
+window.storage = getStorage(app); 
+
+
+
+auth.onAuthStateChanged(user => {
+    if (user) {
+        console.log("User is authenticated:", user.uid);
+        // Allow Firestore operations since the user is authenticated
+    } else {
+        console.error("User is not authenticated");
+        // Redirect to login page or show error
+        window.location.href = 'login.html'; 
+    }
+});
+
 
 // Function to upload CSV to Firestore
 window.uploadCSV = function() {

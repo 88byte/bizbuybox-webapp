@@ -69,67 +69,48 @@
 }
 
 
-/* Container for Broker Directory */
-.broker-directory-header {
-    text-align: center;
+/* Map Container */
+.map-container {
     margin-bottom: 20px;
 }
 
-#mapContainer {
-    border: 2px solid #ddd;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    overflow: hidden;
+/* Table Styling */
+.broker-table-container {
+    margin-top: 20px;
+    width: 100%;
 }
 
-/* Search and Pagination Styles */
-.broker-search-pagination {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-}
-
-.broker-search-pagination input {
-    padding: 8px;
-    width: 200px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-}
-
-/* Broker Table Styles */
-.broker-table {
+#brokerTable {
     width: 100%;
     border-collapse: collapse;
 }
 
-.broker-table th, .broker-table td {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
+#brokerTable th, #brokerTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
 }
 
-.broker-table th {
-    background-color: #f5f5f5;
+#brokerTable th {
+    background-color: #f2f2f2;
+    text-align: left;
 }
 
 /* Pagination Controls */
 .pagination-controls {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
+    justify-content: space-between;
+    margin-top: 10px;
 }
 
-.pagination-btn {
-    padding: 8px 16px;
-    margin: 0 10px;
-    border: none;
+#prevPageBtn, #nextPageBtn {
+    padding: 10px;
     background-color: #007bff;
     color: white;
-    border-radius: 4px;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
 }
 
-.pagination-btn:hover {
-    background-color: #0056b3;
+#pageInfo {
+    align-self: center;
 }

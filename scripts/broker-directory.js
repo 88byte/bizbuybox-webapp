@@ -138,107 +138,112 @@ window.uploadCSV = function() {
 };
 
 
-let brokers = []; // Array to store brokers
+
+let brokers = []; // Array to store broker data
 let currentPage = 1;
-const itemsPerPage = 20;
+const brokersPerPage = 20;
 
 // Function to initialize Google Map
 window.initMap = function() {
     const map = new google.maps.Map(document.getElementById('map'), {
         zoom: 5,
-        center: { lat: 37.0902, lng: -95.7129 }, // Center of the USA
+        center: { lat: 39.8283, lng: -98.5795 } // Center of the US
     });
 
+    renderBrokersOnMap(map);
+};
 
-    brokers.forEach(broker => {
+
+
+// Function to render brokers on the map
+window.renderBrokersOnMap = async function(map) {
+    const querySnapshot = await getDocs(collection(db, 'brokers'));
+
+    querySnapshot.forEach((doc) => {
+        const broker = doc.data();
         const marker = new google.maps.Marker({
-            position: { lat: parseFloat(broker.latitude), lng: parseFloat(broker.longitude) },
+            position: { lat: broker.latitude, lng: broker.longitude },
             map: map,
-            title: broker.company
+            title: broker.name
         });
 
         const infoWindow = new google.maps.InfoWindow({
-            content: `
-                <div>
-                    <h3>${broker.company}</h3>
-                    <p><strong>City:</strong> ${broker.city}</p>
-                    <p><strong>State:</strong> ${broker.state}</p>
-                    <p><strong>Name:</strong> ${broker.name}</p>
-                    <p><strong>Email:</strong> ${broker.email}</p>
-                    <p><strong>Phone:</strong> ${broker.phone}</p>
-                </div>
-            `
+            content: `<h3>${broker.company}</h3><p>${broker.name}<br>${broker.email}<br>${broker.phone}</p>`
         });
 
-        marker.addListener('mouseover', function() {
+        marker.addListener('click', () => {
             infoWindow.open(map, marker);
         });
-
-        marker.addListener('mouseout', function() {
-            infoWindow.close();
-        });
     });
-}
-
-// Load Google Map Script
-window.onload = function() {
-    const script = document.createElement('script');
-    script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap`;
-    script.async = true;
-    script.defer = true;
-    document.head.appendChild(script);
 };
 
-// Pagination functions
-function renderBrokers() {
+
+// Fetch all brokers from Firestore and store them
+async function fetchBrokers() {
+    const querySnapshot = await getDocs(collection(db, 'brokers'));
+    brokers = querySnapshot.docs.map(doc => doc.data());
+    renderBrokers();
+}
+
+// Function to search and filter brokers
+window.searchAndRenderBrokers = function() {
+    const searchTerm = document.getElementById('searchBrokerInput').value.toLowerCase();
+    const filteredBrokers = brokers.filter(broker => 
+        broker.company.toLowerCase().includes(searchTerm) ||
+        broker.name.toLowerCase().includes(searchTerm) ||
+        broker.city.toLowerCase().includes(searchTerm) ||
+        broker.state.toLowerCase().includes(searchTerm)
+    );
+    renderBrokerTable(filteredBrokers);
+};
+
+
+// Function to render broker table with pagination
+window.renderBrokers = function() {
+    renderBrokerTable(brokers);
+};
+
+function renderBrokerTable(brokerList) {
     const brokerTableBody = document.getElementById('brokerTableBody');
-    brokerTableBody.innerHTML = ''; // Clear previous content
+    const startIndex = (currentPage - 1) * brokersPerPage;
+    const endIndex = startIndex + brokersPerPage;
 
-    const start = (currentPage - 1) * itemsPerPage;
-    const end = start + itemsPerPage;
-    const paginatedBrokers = brokers.slice(start, end);
+    const currentBrokers = brokerList.slice(startIndex, endIndex);
+    brokerTableBody.innerHTML = ''; // Clear table body
 
-    paginatedBrokers.forEach(broker => {
+    currentBrokers.forEach(broker => {
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>${broker.company}</td>
-            <td>${broker.city}</td>
-            <td>${broker.state}</td>
             <td>${broker.name}</td>
             <td>${broker.email}</td>
             <td>${broker.phone}</td>
+            <td>${broker.city}</td>
+            <td>${broker.state}</td>
         `;
         brokerTableBody.appendChild(row);
     });
 
-    document.getElementById('paginationInfo').textContent = `Page ${currentPage}`;
+    updatePagination(brokerList.length);
 }
 
-function nextPage() {
-    if (currentPage * itemsPerPage < brokers.length) {
-        currentPage++;
-        renderBrokers();
-    }
+// Function to update pagination information
+function updatePagination(totalBrokers) {
+    const totalPages = Math.ceil(totalBrokers / brokersPerPage);
+    document.getElementById('pageInfo').textContent = `Page ${currentPage} of ${totalPages}`;
+
+    // Disable/Enable buttons based on the current page
+    document.getElementById('prevPageBtn').disabled = currentPage === 1;
+    document.getElementById('nextPageBtn').disabled = currentPage === totalPages;
 }
 
-function prevPage() {
-    if (currentPage > 1) {
-        currentPage--;
-        renderBrokers();
-    }
-}
+// Function to change pages
+window.changePage = function(direction) {
+    currentPage += direction;
+    searchAndRenderBrokers(); // Re-render based on the current search/filter
+};
 
-
-// Filter brokers based on search
-function filterBrokers() {
-    const searchInput = document.getElementById('brokerSearch').value.toLowerCase();
-    const filteredBrokers = brokers.filter(broker =>
-        broker.company.toLowerCase().includes(searchInput) ||
-        broker.city.toLowerCase().includes(searchInput) ||
-        broker.state.toLowerCase().includes(searchInput) ||
-        broker.name.toLowerCase().includes(searchInput)
-    );
-    brokers = filteredBrokers;
-    currentPage = 1;
-    renderBrokers();
-}
+// Fetch brokers on page load
+document.addEventListener('DOMContentLoaded', () => {
+    fetchBrokers();
+});

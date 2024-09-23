@@ -186,59 +186,46 @@ window.hideToast = function() {
 	</style>
 
 <main class="main-content">
-    <!-- Section Header -->
-    <div class="broker-directory-header">
-        <h1>Broker Directory</h1>
-    </div>
-
-    <!-- Section for uploading CSV -->
-    <div class="broker-upload-section">
-        <div class="upload-container">
-            <label class="upload-label" for="csvFileInput">
-                <i class="fas fa-upload"></i> Choose CSV
-            </label>
-            <input type="file" id="csvFileInput" accept=".csv" class="hidden-input">
+        <!-- Section Header -->
+        <div class="section-header">
+            <h1>Broker Directory</h1>
         </div>
-        <button class="upload-btn" onclick="uploadCSV()">Upload</button>
-    </div>
 
-    <!-- Map Container -->
-    <div id="mapContainer">
-        <div id="map" style="height: 500px; width: 100%;"></div>
-    </div>
+        <!-- Map Container -->
+        <div class="map-container">
+            <div id="map" style="height: 500px; width: 100%;"></div>
+        </div>
 
-    <!-- Search and Pagination Controls -->
-    <div class="broker-search-pagination">
-        <input type="text" id="brokerSearch" placeholder="Search brokers..." oninput="filterBrokers()">
-    </div>
+        <!-- Broker Table Section with Search -->
+        <div class="broker-search-pagination">
+            <input type="text" id="searchBrokerInput" placeholder="Search Brokers..." oninput="searchAndRenderBrokers()">
+        </div>
 
-    <!-- Broker Table -->
-    <div class="broker-table-container">
-        <table id="brokerTable" class="broker-table">
-            <thead>
-                <tr>
-                    <th>Company</th>
-                    <th>City</th>
-                    <th>State</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                </tr>
-            </thead>
-            <tbody id="brokerTableBody">
-                <!-- Broker rows will be inserted here -->
-            </tbody>
-        </table>
-    </div>
+        <div class="broker-table-container">
+            <table id="brokerTable">
+                <thead>
+                    <tr>
+                        <th>Company</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>City</th>
+                        <th>State</th>
+                    </tr>
+                </thead>
+                <tbody id="brokerTableBody">
+                    <!-- Broker rows will be dynamically added here -->
+                </tbody>
+            </table>
+        </div>
 
-    <!-- Pagination Controls -->
-    <div id="paginationControls" class="pagination-controls">
-        <button onclick="prevPage()" class="pagination-btn">Previous</button>
-        <span id="paginationInfo">Page 1</span>
-        <button onclick="nextPage()" class="pagination-btn">Next</button>
-    </div>
-</main>
-
+        <!-- Pagination Controls -->
+        <div class="pagination-controls">
+            <button id="prevPageBtn" onclick="changePage(-1)">Previous</button>
+            <span id="pageInfo"></span>
+            <button id="nextPageBtn" onclick="changePage(1)">Next</button>
+        </div>
+    </main>
 
 
 

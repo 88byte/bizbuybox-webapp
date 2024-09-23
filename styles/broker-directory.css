@@ -16,12 +16,13 @@ body {
 /* Broker Upload Section */
 .broker-upload-section {
     background-color: #fff;
-    padding: 20px;
+    padding: 30px;
     border-radius: 10px;
-    border: 1px solid #ddd;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    max-width: 320px;
-    flex-shrink: 0;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    max-width: 350px;
+    text-align: center;
+    margin: 0 auto; /* Center it on the page */
 }
 
 .broker-upload-section h2 {
@@ -29,8 +30,58 @@ body {
     margin-bottom: 20px;
     color: #333;
     font-weight: 600;
-    letter-spacing: 0.5px;
 }
+
+.upload-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.upload-label {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.upload-label i {
+    margin-right: 8px;
+    font-size: 18px;
+}
+
+.upload-label:hover {
+    background-color: #0056b3;
+}
+
+.hidden-input {
+    display: none; /* Hide the default file input */
+}
+
+/* Modern Upload Button */
+.upload-btn {
+    padding: 12px 20px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.upload-btn:hover {
+    background-color: #218838;
+}
+
 
 .broker-upload-section input[type="file"] {
     display: block;
@@ -58,7 +109,7 @@ body {
 }
 
 .broker-upload-section button:hover {
-    background-color: #red;
+    background-color: #0056b3;
 }
 
 /* Broker List */

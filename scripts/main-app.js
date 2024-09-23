@@ -993,7 +993,7 @@ window.renderDeals = function() {
         `;
         dealGrid.appendChild(dealCard);
 
-        
+
     });
 
     enableDragAndDrop(); // Enable dragging after rendering the cards
@@ -1626,22 +1626,14 @@ window.getDealDataFromForm = function() {
 
 // Function to calculate and display the multiple in real-time
 window.calculateMultiple = function() {
-    const dealData = window.getDealDataFromForm(); // Get current form data
+    const askingPrice = parseFloat(String(deal.askingPrice || '0').replace(/[^\d.-]/g, '')) || 0; // Ensure askingPrice is a string and clean it
+    const multiple = avgRevenue > 0 ? (askingPrice / avgRevenue).toFixed(1) : 0; // Calculate the multiple
 
-    let totalRevenue = 0;
-    if (dealData.revenueCashflowEntries.length > 0) {
-        totalRevenue = dealData.revenueCashflowEntries.reduce((sum, entry) => sum + entry.revenue, 0);
-    }
-    const avgRevenue = totalRevenue / (dealData.revenueCashflowEntries.length || 1); // Avoid division by zero
-
-    const multiple = avgRevenue > 0 ? (dealData.askingPrice / avgRevenue).toFixed(1) : '0.0'; // Calculate the multiple
-
-    // Display the multiple in the UI
+    // Display the multiple in the top right of the deal card
     const multipleElement = document.getElementById('dealMultiple');
     if (multipleElement) {
         multipleElement.textContent = `x${multiple}`; // Set the text to 'x' followed by the multiple
-    }
-};
+    };
 
 
 // Function to update the Buy Box Checklist

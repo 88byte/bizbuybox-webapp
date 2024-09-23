@@ -77,31 +77,30 @@ window.uploadCSV = function() {
             header: true,
             complete: function(results) {
                 const brokers = results.data;
+                const totalBrokers = brokers.length; // Get total number of brokers
+                let uploadCount = 0; // Count how many were successfully uploaded
+                let errorCount = 0; // Count any brokers that failed to upload
 
-                if (brokers.length === 0) {
+                if (totalBrokers === 0) {
                     showToast('The CSV file is empty or invalid.', false);
                     return;
                 }
 
                 // Process brokers and upload to Firestore
-                let uploadCount = 0;
                 brokers.forEach(async (broker, index) => {
                     // Normalize phone numbers (remove parentheses, spaces, and dashes), check if empty
                     let normalizedPhone = broker['Phone Number'] && broker['Phone Number'].trim() !== '' 
                         ? broker['Phone Number'].replace(/[\s()-]/g, '') 
                         : 'N/A';
-
-                    // Ensure proper parsing of latitude and longitude (handle negative signs and missing values)
+                    
+                    // Check if longitude and latitude are valid numbers
                     const latitude = broker.Latitude && !isNaN(parseFloat(broker.Latitude)) 
                         ? parseFloat(broker.Latitude) 
-                        : null; // Use null for missing or invalid latitude
+                        : null; // Use null instead of 0 to indicate missing latitude
 
                     const longitude = broker.Longitude && !isNaN(parseFloat(broker.Longitude)) 
                         ? parseFloat(broker.Longitude) 
-                        : null; // Use null for missing or invalid longitude
-
-                    // Log for debugging purposes
-                    console.log(`Uploading broker: ${broker.Name}, Latitude: ${latitude}, Longitude: ${longitude}`);
+                        : null; // Use null instead of 0 to indicate missing longitude
 
                     try {
                         await addDoc(collection(db, 'brokers'), {
@@ -111,17 +110,18 @@ window.uploadCSV = function() {
                             phone: normalizedPhone,
                             city: broker.City || 'N/A',
                             state: broker.State || 'N/A',
-                            latitude: latitude,  // Allow null if latitude is missing
-                            longitude: longitude, // Allow null if longitude is missing
+                            latitude: latitude,
+                            longitude: longitude,
                         });
                         uploadCount++;
                     } catch (error) {
                         console.error(`Error uploading broker: ${broker.Name}`, error);
+                        errorCount++; // Increment error count if upload fails
                     }
 
-                    // If it's the last broker, show success toast notification
+                    // If it's the last broker, show success toast notification with total counts
                     if (index === brokers.length - 1) {
-                        showToast(`${uploadCount} brokers successfully uploaded!`, true);
+                        showToast(`Upload Complete! Uploaded: ${uploadCount} / ${totalBrokers} brokers. Errors: ${errorCount}`, true);
                     }
                 });
             },
@@ -134,6 +134,7 @@ window.uploadCSV = function() {
         showToast('Please select a CSV file.', false); // Show error toast notification
     }
 };
+
 
 
 

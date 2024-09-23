@@ -90,14 +90,18 @@ window.uploadCSV = function() {
                     let normalizedPhone = broker['Phone Number'] && broker['Phone Number'].trim() !== '' 
                         ? broker['Phone Number'].replace(/[\s()-]/g, '') 
                         : 'N/A';
-                    
-                    // Check if longitude and latitude are valid numbers and not missing
+
+                    // Ensure proper parsing of latitude and longitude (handle negative signs and missing values)
                     const latitude = broker.Latitude && !isNaN(parseFloat(broker.Latitude)) 
                         ? parseFloat(broker.Latitude) 
-                        : null; // Use null instead of 0 to indicate missing latitude
+                        : null; // Use null for missing or invalid latitude
+
                     const longitude = broker.Longitude && !isNaN(parseFloat(broker.Longitude)) 
                         ? parseFloat(broker.Longitude) 
-                        : null; // Use null instead of 0 to indicate missing longitude
+                        : null; // Use null for missing or invalid longitude
+
+                    // Log for debugging purposes
+                    console.log(`Uploading broker: ${broker.Name}, Latitude: ${latitude}, Longitude: ${longitude}`);
 
                     try {
                         await addDoc(collection(db, 'brokers'), {

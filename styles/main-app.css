@@ -489,8 +489,8 @@ button.btn-create:hover {
     position: absolute; /* Added for manual positioning */
     border-radius: 50%; /* Create a perfect circle */
     background-color: transparent; /* Transparent background initially */
-    width: 40px;  /* Fixed width to ensure a circular shape */
-    height: 40px; /* Fixed height for the circle */
+    width: 20px;  /* Fixed width to ensure a circular shape */
+    height: 20px; /* Fixed height for the circle */
 }
 
 /* Only the star reacts on hover, not the container */

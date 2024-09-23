@@ -40,3 +40,11 @@ function searchBrokers() {
 document.addEventListener('DOMContentLoaded', () => {
     renderBrokers(brokers); // Render all brokers initially
 });
+
+
+// Function to handle logout
+function handleLogout() {
+    // Perform logout logic, e.g., clearing user session
+    alert('You have been logged out!');
+    window.location.href = 'login.html';  // Redirect to the login page
+}

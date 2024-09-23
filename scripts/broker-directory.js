@@ -86,16 +86,23 @@ window.uploadCSV = function() {
                 // Process brokers and upload to Firestore
                 let uploadCount = 0;
                 brokers.forEach(async (broker, index) => {
+                    // Normalize phone numbers (remove parentheses, spaces, and dashes)
+                    let normalizedPhone = broker.Phone ? broker.Phone.replace(/[\s()-]/g, '') : 'N/A';
+                    
+                    // Check if longitude and latitude are valid numbers
+                    const latitude = !isNaN(parseFloat(broker.Latitude)) ? parseFloat(broker.Latitude) : 0;
+                    const longitude = !isNaN(parseFloat(broker.Longitude)) ? parseFloat(broker.Longitude) : 0;
+
                     try {
                         await addDoc(collection(db, 'brokers'), {
                             company: broker.Company || 'N/A',
                             name: broker.Name || 'N/A',
                             email: broker.Email || 'N/A',
-                            phone: broker.Phone || 'N/A',
+                            phone: normalizedPhone,
                             city: broker.City || 'N/A',
                             state: broker.State || 'N/A',
-                            latitude: parseFloat(broker.Latitude) || 0,
-                            longitude: parseFloat(broker.Longitude) || 0,
+                            latitude: latitude,
+                            longitude: longitude,
                         });
                         uploadCount++;
                     } catch (error) {

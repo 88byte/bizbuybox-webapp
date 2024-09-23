@@ -977,7 +977,7 @@ window.renderDeals = function() {
         dealCard.innerHTML = `
             <div class="deal-card-header">
                 <h4>${deal.businessName}</h4>
-                <div class="multiple-displaycard" id="dealMultiple">x0.0</div>
+                <div class="multiple-displaycard">x${multiple}</div>
             </div>
             <div class="deal-card-content">
                 <p>Status: <span class="status-label" style="background-color: ${getStatusColor(deal.status)};">${formattedStatus}</span></p>

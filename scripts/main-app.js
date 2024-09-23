@@ -1522,22 +1522,26 @@ window.closeDocModal = function() {
 window.addRealTimeChecklistUpdates = function() {
     const revenueInputs = document.querySelectorAll('input[name="revenue[]"]');
     const cashflowInputs = document.querySelectorAll('input[name="cashflow[]"]');
+    const askingPriceInput = document.getElementById('askingPrice');
     const yearsInBusinessInput = document.getElementById('yearsInBusiness');
     const fullTimeEmployeesInput = document.getElementById('fullTimeEmployees');
 
-    // Update when revenue, cashflow, years in business, or full-time employees change
+    // Update when revenue, cashflow, asking price, or employees change
     revenueInputs.forEach(input => input.addEventListener('input', triggerBuyBoxUpdate));
     cashflowInputs.forEach(input => input.addEventListener('input', triggerBuyBoxUpdate));
+    askingPriceInput.addEventListener('input', triggerBuyBoxUpdate);
     yearsInBusinessInput.addEventListener('input', triggerBuyBoxUpdate);
     fullTimeEmployeesInput.addEventListener('input', triggerBuyBoxUpdate);
 
     // Attach listeners for newly added rows dynamically
     document.getElementById('revenueCashflowSection').addEventListener('input', triggerBuyBoxUpdate);
 };
+
 // Function to get deal data from the form (for real-time updates)
 window.getDealDataFromForm = function() {
     const yearsInBusiness = document.getElementById('yearsInBusiness').value;
     const fullTimeEmployees = document.getElementById('fullTimeEmployees').value;
+    const askingPrice = document.getElementById('askingPrice').value || 0;
     const revenueCashflowEntries = [];
 
     const revenueInputs = document.querySelectorAll('input[name="revenue[]"]');
@@ -1555,15 +1559,36 @@ window.getDealDataFromForm = function() {
     return {
         yearsInBusiness,
         fullTimeEmployees,
+        askingPrice: parseFloat(askingPrice.replace(/[^\d.-]/g, '')) || 0,
         revenueCashflowEntries
     };
+};
+
+
+// Function to calculate and display the multiple in real-time
+window.calculateMultiple = function() {
+    const dealData = window.getDealDataFromForm(); // Get current form data
+
+    let totalRevenue = 0;
+    if (dealData.revenueCashflowEntries.length > 0) {
+        totalRevenue = dealData.revenueCashflowEntries.reduce((sum, entry) => sum + entry.revenue, 0);
+    }
+    const avgRevenue = totalRevenue / (dealData.revenueCashflowEntries.length || 1); // Avoid division by zero
+
+    const multiple = avgRevenue > 0 ? (dealData.askingPrice / avgRevenue).toFixed(1) : '0.0'; // Calculate the multiple
+
+    // Display the multiple in the UI
+    const multipleElement = document.getElementById('dealMultiple');
+    if (multipleElement) {
+        multipleElement.textContent = `x${multiple}`; // Set the text to 'x' followed by the multiple
+    }
 };
 
 
 // Function to update the Buy Box Checklist
 window.updateBuyBoxChecklist = function(deal) {
 
-	
+
     // 1. Check for 10+ years in business
     const yearsInBusiness = parseInt(deal.yearsInBusiness, 10);
     const yearsInBusinessCheck = yearsInBusiness >= 10;
@@ -1787,24 +1812,31 @@ window.calculateEarnings = function(totalDebtService) {
 };
 
 // Real-time update triggers for dynamic updates
+// Real-time update triggers for dynamic updates
 window.setupRealTimeUpdates = function() {
-    // Update debt service calculations dynamically based on loan amount, interest rate, and term
-    document.getElementById('loanAmount1').addEventListener('input', window.calculateDebtService);
-    document.getElementById('interestRate1').addEventListener('input', window.calculateDebtService);
-    document.getElementById('loanTerm1').addEventListener('input', window.calculateDebtService);
-    document.getElementById('loanType').addEventListener('change', window.calculateDebtService);
+    // Helper function to safely add event listeners
+    const addListenerIfExists = (selector, event, callback) => {
+        const element = document.querySelector(selector);
+        if (element) {
+            element.addEventListener(event, callback);
+        }
+    };
 
-    // Attach dynamic updates to loanAmount2 when it exists
-    if (document.getElementById('loanAmount2')) {
-        document.getElementById('loanAmount2').addEventListener('input', window.calculateDebtService);
-    }
+    // Update debt service calculations dynamically based on loan amount, interest rate, and term
+    addListenerIfExists('#loanAmount1', 'input', window.calculateDebtService);
+    addListenerIfExists('#interestRate1', 'input', window.calculateDebtService);
+    addListenerIfExists('#loanTerm1', 'input', window.calculateDebtService);
+    addListenerIfExists('#loanType', 'change', window.calculateDebtService);
+
+    // Attach dynamic updates to loanAmount2 only if it exists
+    addListenerIfExists('#loanAmount2', 'input', window.calculateDebtService);
 
     // Update other dynamic updates for BuyBoxChecklist
-    document.getElementById('askingPrice').addEventListener('input', window.updateAskingPrice);
-    document.getElementById('realEstatePrice').addEventListener('input', window.updateAskingPrice);
-    document.getElementById('downPayment').addEventListener('input', window.updateAskingPrice);
+    addListenerIfExists('#askingPrice', 'input', window.updateAskingPrice);
+    addListenerIfExists('#realEstatePrice', 'input', window.updateAskingPrice);
+    addListenerIfExists('#downPayment', 'input', window.updateAskingPrice);
 
-    // Add listeners for revenue and cashflow changes (attach listeners for recalculating earnings)
+    // Add listeners for revenue and cashflow changes
     document.querySelectorAll('input[name="revenue[]"]').forEach(input => {
         input.addEventListener('input', () => {
             window.calculateEarnings(0);  // Pass 0 if totalDebtService is not needed here
@@ -1818,12 +1850,14 @@ window.setupRealTimeUpdates = function() {
     });
 
     // Add listeners for revenue and cashflow changes for BuyBoxChecklist
-    document.querySelectorAll('input[name="cashflow[]"]').forEach(input => {
+    document.querySelectorAll('input[name="revenue[]"], input[name="cashflow[]"]').forEach(input => {
         input.addEventListener('input', triggerBuyBoxUpdate);
     });
 
-    document.getElementById('revenueCashflowSection').addEventListener('input', triggerBuyBoxUpdate);
+    // For dynamically added revenue/cashflow rows, listen for changes in the section
+    addListenerIfExists('#revenueCashflowSection', 'input', triggerBuyBoxUpdate);
 };
+
 
 
 // Ensure event listeners are added when the modal is opened

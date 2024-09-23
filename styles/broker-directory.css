@@ -1,40 +1,40 @@
-/* Basic Styling */
-body {
-    font-family: Arial, sans-serif;
-}
-
-.broker-directory-container {
+/* Style the Broker CSV Upload Section */
+.broker-upload-section {
+    margin: 20px auto;
     padding: 20px;
+    background-color: #f7f7f7;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    max-width: 500px;
+    text-align: center;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-h1 {
-    text-align: center;
+.broker-upload-section h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
     color: #333;
 }
 
-.search-filter {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
+.broker-upload-section input[type="file"] {
     margin-bottom: 20px;
-}
-
-.broker-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-}
-
-.broker-card {
+    padding: 8px;
     border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 15px;
-    width: 250px;
-    text-align: center;
+    border-radius: 4px;
+    width: 100%;
+    max-width: 400px;
 }
 
-.broker-card h2 {
-    font-size: 1.2em;
-    margin-bottom: 10px;
+.broker-upload-section button {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.broker-upload-section button:hover {
+    background-color: #218838;
 }

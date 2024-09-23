@@ -100,20 +100,26 @@ window.fetchBrokerData = function (map) {
           const lat = parseFloat(latitude);
           const lng = parseFloat(longitude);
 
-          // Create a marker for each broker
-          const marker = new google.maps.Marker({
+           // Create a new AdvancedMarkerElement for each broker
+          const markerElement = new google.maps.marker.AdvancedMarkerElement({
             position: { lat: lat, lng: lng },
             map: map,
-            title: name,
+            title: name, // Tooltip title for the marker
+            content: document.createElement('div'), // Empty content for now, but customizable
           });
+
+          // Customize marker content if needed
+          const content = markerElement.content;
+          content.innerHTML = `<div style="background-color: white; padding: 5px; border-radius: 3px;"><strong>${name}</strong></div>`;
 
           // Info window content
           const infoWindow = new google.maps.InfoWindow({
             content: `<h3>${company}</h3><p>${name}<br>${email}<br>${phone}<br>${city}, ${state}</p>`,
           });
 
-          marker.addListener('click', () => {
-            infoWindow.open(map, marker);
+          // Add click event to show infoWindow
+          markerElement.addEventListener('gmp-click', () => {
+            infoWindow.open(map, markerElement);
           });
         }
       });

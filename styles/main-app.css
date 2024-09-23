@@ -486,6 +486,7 @@ button.btn-create:hover {
     align-items: center;
     justify-content: center;
     transition: color 0.3s ease-in-out, transform 0.2s ease; 
+    margin-top: -10px;
 }
 
 /* Only the star reacts on hover, not the container */
@@ -1451,7 +1452,14 @@ input-item select {
     display: flex;
     justify-content: flex-end;
     gap: 12px; /* Space between buttons */
-    margin-top: 16px; /* Add spacing above the buttons */
+    margin-top: 0px; /* Add spacing above the buttons */
+}
+
+.deal-actions-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
 }
 
 /* Base Style for Edit and Delete Buttons */

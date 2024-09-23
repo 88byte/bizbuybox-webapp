@@ -1,73 +1,74 @@
 /* Broker Upload Section */
+/* Broker Upload Section - Small, Top Right Corner */
 .broker-upload-section {
-    background-color: #2a2a2a; /* Darker background */
-    padding: 30px 40px;
-    border-radius: 12px;
-    border: 1px solid #444; /* Darker border */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); /* Subtle shadow for depth */
-    max-width: 400px;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 20px; /* Smaller padding */
+    max-width: 180px; /* Smaller width */
     text-align: center;
-    margin: 0 auto;
+    z-index: 2000;
 }
 
+/* Heading - Shrink size */
 .broker-upload-section h2 {
-    font-size: 22px;
-    margin-bottom: 20px;
-    color: #f0f0f0; /* Light text for better contrast */
+    font-size: 16px; /* Smaller font */
+    margin-bottom: 10px;
+    color: #f0f0f0;
     font-weight: 600;
 }
 
-/* Upload Container with Label */
+/* Compact Upload Container */
 .upload-container {
-    margin-bottom: 20px;
-    position: relative;
+    margin-bottom: 10px;
 }
 
 .upload-label {
-    background-color: #3a3a3a; /* Darker background */
-    color: #ddd; /* Light gray text */
-    padding: 12px 18px;
-    border-radius: 8px;
+    background-color: #3a3a3a;
+    color: #ddd;
+    padding: 8px 12px; /* Smaller padding */
+    border-radius: 6px;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-size: 16px;
+    font-size: 14px; /* Smaller text */
     transition: background-color 0.3s ease;
-    box-shadow: 0 4px 8px rgba(58, 58, 58, 0.2); /* Softer shadow */
+    box-shadow: 0 4px 8px rgba(58, 58, 58, 0.2);
 }
 
 .upload-label i {
-    margin-right: 10px;
-    font-size: 18px;
+    margin-right: 5px; /* Smaller space between icon and text */
+    font-size: 14px;
 }
 
 .upload-label:hover {
-    background-color: #505050; /* Slight hover effect */
+    background-color: #505050;
 }
 
 .hidden-input {
     display: none;
 }
 
-/* Upload Button */
+/* Compact Upload Button */
 .upload-btn {
-    padding: 12px 18px;
-    background-color: #5a5a5a; /* Muted dark color */
+    padding: 8px 12px; /* Smaller padding */
+    background-color: #28a745;
     color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: 6px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 14px;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    width: 100%;
-    box-shadow: 0 4px 8px rgba(90, 90, 90, 0.3); /* Subtle shadow */
+    width: 100%; /* Full width for button */
+    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.2);
 }
 
 .upload-btn:hover {
-    background-color: #6a6a6a; /* Slight hover effect */
+    background-color: #218838;
     transform: translateY(-2px);
 }
+
 
 /* Broker List */
 .broker-list {

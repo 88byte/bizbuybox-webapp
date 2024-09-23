@@ -486,8 +486,8 @@ button.btn-create:hover {
     align-items: center;
     justify-content: center;
     transition: color 0.3s ease-in-out, transform 0.2s ease; 
-    bottom: 35px; /* Moved down by 5px */
-    margin-left: 150px; /* Move to the right by 5px */
+    bottom: 40px; /* Moved down by 5px */
+    right: 20px; /* Move to the right by 5px */
     position: absolute; /* Added for manual positioning */
 }
 

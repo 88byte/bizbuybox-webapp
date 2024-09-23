@@ -431,11 +431,7 @@ window.renderDealTable = function() {
         askingPriceCell.textContent = formattedAskingPrice;
         row.appendChild(askingPriceCell);
 
-        // Multiple column - Calculate the multiple using the existing calculateMultiple function
-        const multipleCell = document.createElement('td');
-        const multiple = calculateDealMultiple(deal); // Call a helper to calculate the multiple
-        multipleCell.textContent = `x${multiple}`;
-        row.appendChild(multipleCell);
+        
 
         // Last Updated column
         const lastUpdatedCell = document.createElement('td');
@@ -1377,7 +1373,7 @@ window.removeRevenueCashflowRow = function(button) {
 window.calculateMetrics = function() {
     let totalCashflow = 0;
     let cashflowCount = 0;
-    
+
     // Gather all cashflow inputs
     const cashflows = document.querySelectorAll('input[name="cashflow[]"]');
     
@@ -1389,11 +1385,16 @@ window.calculateMetrics = function() {
 
     const avgCashflow = cashflowCount > 0 ? totalCashflow / cashflowCount : 0;
 
-    // Get total debt service (calculated elsewhere)
-    const totalDebtService = parseFloat(document.getElementById('totalDebtService').textContent.replace(/[^\d.-]/g, '')) || 0;
+    // Get loan details for amortization (loan amount, interest rate, term length)
+    const loanAmount = parseFloat(document.getElementById('loanAmount1').value.replace(/[^\d.-]/g, '')) || 0;
+    const interestRate = parseFloat(document.getElementById('interestRate1').value) || 0;
+    const loanTerm = parseInt(document.getElementById('loanTerm1').value, 10) || 0;
+
+    // Calculate annual debt service using loan amortization formula
+    const annualDebtService = window.calculateAnnualDebtService(loanAmount, interestRate, loanTerm);
 
     // Calculate cashflow after debt service
-    const cashflowAfterDebtService = avgCashflow - totalDebtService;
+    const cashflowAfterDebtService = avgCashflow - annualDebtService;
 
     // Placeholder for investor pay (adjust this based on your logic)
     const investorPay = 0; // Assume no investor pay logic currently
@@ -1638,16 +1639,6 @@ window.calculateMultiple = function() {
     }
 };
 
-function calculateDealMultiple(deal) {
-    let totalRevenue = 0;
-    if (deal.revenueCashflowEntries && deal.revenueCashflowEntries.length > 0) {
-        totalRevenue = deal.revenueCashflowEntries.reduce((sum, entry) => sum + entry.revenue, 0);
-    }
-    const avgRevenue = totalRevenue / (deal.revenueCashflowEntries.length || 1); // Avoid division by zero
-    const multiple = avgRevenue > 0 ? (deal.askingPrice / avgRevenue).toFixed(1) : '0.0'; // Calculate the multiple
-    return multiple;
-}
-
 
 // Function to update the Buy Box Checklist
 // Function to update the Buy Box Checklist
@@ -1829,14 +1820,18 @@ window.calculateDebtService = function() {
 };
 
 // Function to calculate annual debt service
-window.calculateAnnualDebtService = function(amount, interestRate, termYears) {
-    if (interestRate <= 0 || termYears <= 0 || amount <= 0) return 0;
-    const monthlyRate = interestRate / 100 / 12;
-    const numPayments = termYears * 12;
-    const monthlyPayment = (amount * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -numPayments));
-    return monthlyPayment * 12; // Annual payment
-};
+window.calculateAnnualDebtService = function(loanAmount, interestRate, termYears) {
+    if (interestRate <= 0 || termYears <= 0 || loanAmount <= 0) return 0;
 
+    const monthlyRate = interestRate / 100 / 12;  // Convert annual rate to monthly
+    const numPayments = termYears * 12;  // Total number of monthly payments
+
+    // Amortization formula to calculate monthly payment
+    const monthlyPayment = (loanAmount * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -numPayments));
+
+    // Return annual debt service (monthly payment * 12)
+    return monthlyPayment * 12;
+};
 // Function to calculate earnings section
 window.calculateEarnings = function(totalDebtService = 0) {
     let totalCashflow = 0;

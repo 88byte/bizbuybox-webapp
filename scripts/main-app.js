@@ -98,6 +98,24 @@ onAuthStateChanged(auth, (user) => {
     }
 });
 
+// Function to load profile data from localStorage
+window.loadProfileFromCache = function() {
+    const cachedUsername = localStorage.getItem('username');
+    const cachedProfilePic = localStorage.getItem('profilePicUrl');
+
+    if (cachedUsername) {
+        document.getElementById('profileUsername').textContent = cachedUsername;
+    }
+
+    if (cachedProfilePic) {
+        document.querySelector('.profile-img').src = cachedProfilePic;
+    }
+};
+
+// Call the function to load the cached data when the page loads
+window.onload = loadProfileFromCache;
+
+
 // Function to update user profile
 window.updateProfile = async function () {
     const username = document.getElementById('username').value;
@@ -115,16 +133,26 @@ window.updateProfile = async function () {
             await uploadBytes(profilePicRef, profilePicFile);
             profilePicUrl = await getDownloadURL(profilePicRef);
             await updateProfile(user, { photoURL: profilePicUrl });
+
+            // Cache the new profile picture in localStorage
+            localStorage.setItem('profilePicUrl', profilePicUrl);
+
             document.querySelector('.profile-img').src = profilePicUrl;
         }
 
         if (username) {
             await updateProfile(user, { displayName: username });
+
+            // Cache the new username in localStorage
+            localStorage.setItem('username', username);
+
             document.getElementById('profileUsername').textContent = username;
         }
+
         if (email) {
             await updateEmail(user, email);
         }
+
         if (password) {
             await updatePassword(user, password);
         }
@@ -142,6 +170,7 @@ window.updateProfile = async function () {
         alert('Error updating profile: ' + error.message);
     }
 };
+
 
 // Function to load the user profile when page loads
 window.onload = function() {

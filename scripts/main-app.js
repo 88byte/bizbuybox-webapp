@@ -884,7 +884,11 @@ window.saveDeal = async function() {
 
         // Step 3: Update documents with their labels
         const labeledDocuments = window.uploadedDocuments.map((file, index) => {
-            const label = document.querySelector(`#documentList input[data-index="${index}"]`).value || file.name; // Fetch the updated label or use the file name
+            const labelInput = document.querySelector(`#documentList input[data-index="${index}"]`);
+            
+            // Check if the label input exists, if not use the file name as the label
+            const label = labelInput ? labelInput.value || file.name : file.name;
+
             return { name: file.name, url: uploadedDocumentURLs[index].url, label }; // Include the label in the document
         });
 
@@ -900,7 +904,7 @@ window.saveDeal = async function() {
         console.error('Error saving deal:', error);
         showToast('Error saving deal: ' + error.message, false);
     }
-};
+
 
 
 // Function to fetch and display deals

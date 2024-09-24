@@ -1526,7 +1526,6 @@ window.calculateEarningsAndMetrics = function() {
 
     // Calculate annual debt service using loan amortization formula
     const annualDebtService = window.calculateAnnualDebtService(loanAmount, interestRate, loanTerm);
-    const monthlyDebtService = annualDebtService / 12;
 
     // Get all the cashflow and revenue inputs
     const cashflows = document.querySelectorAll('input[name="cashflow[]"]');
@@ -1553,7 +1552,7 @@ window.calculateEarningsAndMetrics = function() {
     const avgProfitMargin = profitMarginCount > 0 ? totalProfitMargin / profitMarginCount : 0;
 
     // Calculate cashflow after debt service
-    const cashflowAfterDebt = avgCashflow - monthlyDebtService;
+    const cashflowAfterDebt = avgCashflow - annualDebtService;
 
     // Placeholder for investor pay (modify this as necessary)
     const investorPay = 0; // Logic for investor pay if applicable

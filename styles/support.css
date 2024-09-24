@@ -71,7 +71,7 @@
 }
 
 .resources-list a {
-    color: #97835a;
+    color: blue;
     text-decoration: none;
     font-size: 16px;
 }
@@ -87,7 +87,8 @@
 
 .faq-item h3 {
     font-size: 18px;
-    color: #97835a;
+    color: white;
+    font-weight: bold;
     margin-bottom: 8px;
 }
 

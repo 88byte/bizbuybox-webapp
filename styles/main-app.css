@@ -1276,16 +1276,18 @@ button:hover {
 
 /* UPLOAD DOC BUTTON */
 .card-modal-content .btn-doc {
-    font-size: 14px;
+    font-size: 70%;
     background-color: rgba(100, 149, 237, 0.1); !important; /* Transparent, glass-like background */
     border: 1px solid rgba(100, 149, 237, 0.2) !important; /* Subtle glass border */
-    border-radius: 8px !important; /* Slightly rounded corners */
+    border-radius: 6px !important; /* Slightly rounded corners */
     color: #f5f5f5 !important;
     padding: 4px 8px !important; /* Compact padding */
     cursor: pointer !important;
     transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s !important;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2) !important; /* Subtle shadow for depth */
+    width: 130px;
 }
+
 
 /* Glass-Like "+" and "-" Button Styles */
 .card-modal-content .btn-remove {
@@ -1648,22 +1650,7 @@ input-item select {
     width: 130px; /* Adjust width for alignment consistency */
 }
 
-.contact-info-button[data-tooltip]:hover::after {
-    content: attr(data-tooltip); /* Tooltip content from the button's data-tooltip attribute */
-    position: absolute;
-    right: 105%; /* Position the tooltip to the left of the button */
-    top: 50%;
-    transform: translateY(-50%); /* Center the tooltip vertically */
-    background-color: #333;
-    color: #fff;
-    padding: 8px;
-    border-radius: 6px;
-    white-space: pre-line;
-    z-index: 10;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-    width: 220px;
-    display: block;
-}
+
 
 /* Hide tooltip if there's no data-tooltip content */
 .contact-info-button:hover::after {

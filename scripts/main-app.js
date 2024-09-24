@@ -1166,15 +1166,25 @@ window.uploadDocument = function() {
     for (let i = 0; i < files.length; i++) {
         const file = files[i];
         const fileElement = document.createElement('div');
-        fileElement.textContent = `${file.name}`;
+        fileElement.classList.add('document-item');
+
+        // Create clickable file name (as a link)
+        const fileLink = document.createElement('a');
+        const fileURL = URL.createObjectURL(file);
+        fileLink.href = fileURL;
+        fileLink.target = '_blank'; // Open in a new tab
+        fileLink.textContent = file.name;
+        fileLink.classList.add('document-link');
+
+        // Add the file name link to the element
+        fileElement.appendChild(fileLink);
 
         // Add view button next to the file name
         const viewButton = document.createElement('button');
         viewButton.textContent = 'View';
         viewButton.classList.add('view-document');
         viewButton.onclick = function() {
-            // Create a URL for the file and open it in a new tab
-            const fileURL = URL.createObjectURL(file);
+            // Open the file in a new tab
             window.open(fileURL, '_blank');
         };
         fileElement.appendChild(viewButton);
@@ -1189,6 +1199,7 @@ window.uploadDocument = function() {
         };
         fileElement.appendChild(deleteButton);
 
+        // Add the file element to the document list
         documentList.appendChild(fileElement);
         window.uploadedDocuments.push(file); // Add to global list of uploaded documents
     }
@@ -1196,6 +1207,7 @@ window.uploadDocument = function() {
     // Clear the file input after uploading
     fileInput.value = '';
 };
+
 
 // Function to format loan amount inputs in real-time
 window.setupLoanAmountFormatting = function() {

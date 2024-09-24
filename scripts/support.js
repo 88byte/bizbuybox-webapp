@@ -353,8 +353,8 @@ window.displaySelectedFileName = function() {
 
     if (fileInput.files.length > 0) {
         const selectedFileName = fileInput.files[0].name;
-        fileNameDisplay.textContent = `Selected file: ${selectedFileName}`;
+        fileNameDisplay.textContent = `File Name: ${selectedFileName}`;
     } else {
-        fileNameDisplay.textContent = ''; // Clear the display if no file is selected
+        fileNameDisplay.textContent = 'File Name'; // Clear the display if no file is selected
     }
 };

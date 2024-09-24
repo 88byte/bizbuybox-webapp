@@ -208,18 +208,19 @@
 	        </label>
 	        <input type="file" id="dealCsvInput" accept=".csv" style="display: none;" onchange="displaySelectedFileName()">
 	    </div>
-	    
-	    <!-- Styled File Name Display -->
-	    <p id="selectedFileName" class="selected-file-name"></p>
 
-	    <!-- Upload Button (placed beneath the file name) -->
+	    <!-- Styled File Name Display with Placeholder -->
+	    <p id="selectedFileName" class="selected-file-name">File Name</p>
+
+	    <!-- Upload Button -->
 	    <button class="upload-btn" onclick="window.uploadDeals()">Upload Deals</button>
-	    
+
 	    <p class="upload-instruction">* CSV format only</p>
 	</section>
 
 	<!-- Divider -->
 	<div class="divider"></div>
+
 
 
 

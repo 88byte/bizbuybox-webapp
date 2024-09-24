@@ -1893,12 +1893,33 @@ input-item select {
     transition: opacity 0.2s;
 }
 
+.document-item {
+    background: none; /* No background */
+    border: none; /* No border */
+    padding: 5px 0; /* Optional: Add padding if needed */
+}
+
+.document-link {
+    color: #fff; /* Make sure the text color is visible */
+    text-decoration: underline; /* Optional: Add underline to indicate it's a link */
+}
+
 .button-wrapper {
-    display: inline-block;
-    margin-right: 10px;
-    gap: 15px;
-    background-color: none; 
-    border: none; 
+    display: inline-flex;
+    gap: 15px; /* Space between buttons */
+}
+
+.view-document, .delete-document {
+    background: rgba(0, 0, 0, 0); /* Transparent background */
+    border: 1px solid #ccc; /* Optional: Add border to make buttons visible */
+    color: #fff; /* Text color */
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.view-document:hover, .delete-document:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Lighten on hover */
 }
 
 

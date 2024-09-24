@@ -195,34 +195,15 @@ window.hideToast = function() {
     </div>
 
     <!-- Support Overview Section -->
-    <section class="support-overview">
-        <h2>How can we assist you?</h2>
-        <p>If you have any questions or need help using our platform, please feel free to browse our support sections below or contact us directly.</p>
-    </section>
-
-    <!-- Contact Information Section -->
-    <section class="contact-info sleek-shadow">
-        <h2>Contact Support</h2>
-        <div class="contact-details">
-            <div class="support-method">
-                <h3>Email Support</h3>
-                <p>For general inquiries, reach us at <a href="mailto:support@yourdomain.com">support@yourdomain.com</a></p>
-            </div>
-            <div class="support-method">
-                <h3>Phone Support</h3>
-                <p>Call us at: <strong>1-800-555-1234</strong></p>
-            </div>
-            <div class="support-method">
-                <h3>Live Chat</h3>
-                <p>Click <a href="#" class="chat-link">here</a> to start a live chat session with one of our agents.</p>
-            </div>
-        </div>
+    <section class="support-overview sleek-shadow">
+        <h2>Need Assistance?</h2>
+        <p>We're here to help! Browse through our resources or upload a whitelist if you're managing email access. For further assistance, check out our FAQs below.</p>
     </section>
 
     <!-- Whitelist Upload Section -->
     <section class="whitelist-upload sleek-shadow">
         <h2>Upload Whitelist Emails</h2>
-        <p>If you're managing a bulk email whitelist for your organization, upload your CSV file below:</p>
+        <p>Managing access for your organization? Upload a CSV file with the emails you want to whitelist below:</p>
         <div class="upload-container">
             <label class="upload-label" for="csvFileInput">
                 <i class="fas fa-upload"></i> Choose CSV
@@ -230,7 +211,19 @@ window.hideToast = function() {
             <input type="file" id="csvFileInput" accept=".csv" class="hidden-input">
         </div>
         <button class="upload-btn" onclick="uploadWhitelist()">Upload Emails</button>
-        <p class="upload-instruction">* Accepted formats: .csv only</p>
+        <p class="upload-instruction">* CSV format only</p>
+    </section>
+
+    <!-- Additional Resources Section -->
+    <section class="resources sleek-shadow">
+        <h2>Resources & Guides</h2>
+        <p>Access our documentation and tutorials to learn how to make the most out of the platform.</p>
+        <ul class="resources-list">
+            <li><a href="#">Getting Started Guide</a></li>
+            <li><a href="#">How to Use Bulk Upload</a></li>
+            <li><a href="#">Best Practices for Managing Accounts</a></li>
+            <li><a href="#">Advanced Features Overview</a></li>
+        </ul>
     </section>
 
     <!-- FAQ Section -->
@@ -238,14 +231,19 @@ window.hideToast = function() {
         <h2>Frequently Asked Questions</h2>
         <div class="faq-item">
             <h3>How do I reset my password?</h3>
-            <p>To reset your password, click the "Forgot Password" link on the login page and follow the instructions.</p>
+            <p>You can reset your password by clicking "Forgot Password" on the login page and following the instructions.</p>
         </div>
         <div class="faq-item">
-            <h3>What file formats are supported for bulk uploads?</h3>
-            <p>We currently support .csv files for bulk email uploads. If you need help formatting your file, check out our <a href="#">CSV formatting guide</a>.</p>
+            <h3>How do I upload a bulk list of emails?</h3>
+            <p>Simply use the form above to upload a .csv file containing the emails you wish to whitelist. The file should be formatted correctly for processing.</p>
+        </div>
+        <div class="faq-item">
+            <h3>What file formats are supported?</h3>
+            <p>Currently, only .csv files are supported for bulk email uploads. If you need help formatting your file, refer to our <a href="#">CSV formatting guide</a>.</p>
         </div>
     </section>
 </main>
+
 
 
 

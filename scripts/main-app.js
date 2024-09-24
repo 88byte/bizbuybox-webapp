@@ -382,8 +382,6 @@ window.createDeal = function() {
     document.getElementById('buyerSalary').value = ''; // Clear buyer salary
     document.getElementById('loanType').value = 'SBA'; // Reset loan type to SBA
 
-    // Clear the Business Acquisition Section (if it's dynamic)
-    document.getElementById('businessAcquisitionSection').innerHTML = ''; // Adjust if needed based on your layout
 
     // Reset any loan-specific inputs
     window.removeSecondLoanRow(); // Remove second loan row if it was added in a previous deal

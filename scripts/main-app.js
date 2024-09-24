@@ -1514,42 +1514,7 @@ window.removeRevenueCashflowRow = function(button) {
     window.calculateMonthlyEstimate();
 };
 
-// Function to calculate the metrics (Avg Cashflow, Cashflow Less Debt Service, Cashflow Less Debt & Investor Pay)
-window.calculateMetrics = function() {
-    let totalCashflow = 0;
-    let cashflowCount = 0;
 
-    // Gather all cashflow inputs
-    const cashflows = document.querySelectorAll('input[name="cashflow[]"]');
-    
-    cashflows.forEach(input => {
-        const cashflow = parseFloat(input.value.replace(/[^\d.-]/g, '')) || 0;
-        totalCashflow += cashflow;
-        cashflowCount++;
-    });
-
-    const avgCashflow = cashflowCount > 0 ? totalCashflow / cashflowCount : 0;
-
-    // Get loan details for amortization (loan amount, interest rate, term length)
-    const loanAmount = parseFloat(document.getElementById('loanAmount1').value.replace(/[^\d.-]/g, '')) || 0;
-    const interestRate = parseFloat(document.getElementById('interestRate1').value) || 0;
-    const loanTerm = parseInt(document.getElementById('loanTerm1').value, 10) || 0;
-
-    // Calculate annual debt service using loan amortization formula
-    const annualDebtService = window.calculateAnnualDebtService(loanAmount, interestRate, loanTerm);
-
-    // Calculate cashflow after debt service
-    const cashflowAfterDebtService = avgCashflow - annualDebtService;
-
-    // Placeholder for investor pay (adjust this based on your logic)
-    const investorPay = 0; // Assume no investor pay logic currently
-    const cashflowAfterDebtAndInvestor = cashflowAfterDebtService - investorPay;
-
-    // Update the display for each metric
-    document.getElementById('avgCashflowDisplay').textContent = avgCashflow.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-    document.getElementById('cashflowAfterDebt').textContent = cashflowAfterDebtService.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-    document.getElementById('cashflowAfterDebtAndInvestor').textContent = cashflowAfterDebtAndInvestor.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-};
 
 
 

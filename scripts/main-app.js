@@ -367,6 +367,7 @@ window.createDeal = function() {
     // Reset specific fields like buyer salary, loan type, and business acquisition section
     document.getElementById('buyerSalary').value = ''; // Clear buyer salary
     document.getElementById('loanType').value = 'SBA'; // Reset loan type to SBA
+    document.getElementById('askingPrice').value = '0'; // Clear buyer salary
 
 
     // Reset broker contact fields
@@ -390,6 +391,7 @@ window.createDeal = function() {
     revenueCashflowCount = 0; // Reset revenue/cashflow count
 
     // Force recalculations in case cached data is used
+    window.updateProfitMargin(this);   // Update profit margin when revenue changes
     window.calculateEarningsAndMetrics();        // Recalculate earnings dynamically
     window.calculateMonthlyEstimate();
 

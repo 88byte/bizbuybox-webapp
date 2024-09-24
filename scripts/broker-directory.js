@@ -75,21 +75,15 @@ const sheetName = 'Sheet1';
 // Google Sheets API endpoint
 const sheetURL = `https://sheets.googleapis.com/v4/spreadsheets/${googleSheetId}/values/${sheetName}?key=${apiKey}`;
 
-// Google Maps API requires a valid Map ID for AdvancedMarkerElement
-const mapId = 'YOUR_MAP_ID_HERE'; // Replace with your actual Map ID
-
 // Map initialization function
 window.initMap = function () {
   const map = new google.maps.Map(document.getElementById('map'), {
     zoom: 5,
     center: { lat: 39.8283, lng: -98.5795 }, // Center of the US
-    mapId: mapId // Use the valid Map ID here
   });
 
   fetchBrokerData(map);
 };
-
-
 
 // Fetch broker data from Google Sheets and render markers on the map
 window.fetchBrokerData = function (map) {
@@ -106,17 +100,12 @@ window.fetchBrokerData = function (map) {
           const lat = parseFloat(latitude);
           const lng = parseFloat(longitude);
 
-          // Create a new AdvancedMarkerElement for each broker
-          const markerElement = new google.maps.marker.AdvancedMarkerElement({
+          // Create a new google.maps.Marker for each broker
+          const marker = new google.maps.Marker({
             position: { lat: lat, lng: lng },
             map: map,
             title: name, // Tooltip title for the marker
-            content: document.createElement('div'), // Empty content for now, but customizable
           });
-
-          // Customize marker content if needed
-          const content = markerElement.content;
-          content.innerHTML = `<div style="background-color: white; padding: 5px; border-radius: 3px;"><strong>${name}</strong></div>`;
 
           // Info window content
           const infoWindow = new google.maps.InfoWindow({
@@ -124,8 +113,8 @@ window.fetchBrokerData = function (map) {
           });
 
           // Add click event to show infoWindow
-          markerElement.addEventListener('gmp-click', () => {
-            infoWindow.open(map, markerElement);
+          marker.addListener('click', () => {
+            infoWindow.open(map, marker);
           });
         }
       });
@@ -148,10 +137,8 @@ window.renderBrokers = function (brokers, page = 1) {
   const endIndex = startIndex + brokersPerPage;
 
   brokers.slice(startIndex, endIndex).forEach((broker) => {
-    // Adjust column order (C-H = Name, Phone, Email, Company, State, City)
-    const [latitude, longitude, name, phone, email, company, state, city] = broker;
-
     const row = document.createElement('tr');
+    const [company, name, email, phone, city, state] = broker;
     row.innerHTML = `
       <td>${company}</td>
       <td>${name}</td>
@@ -187,8 +174,8 @@ function renderPagination(totalBrokers, currentPage) {
 window.searchBrokers = function () {
   const searchQuery = document.getElementById('searchBrokerInput').value.toLowerCase();
   const filteredBrokers = allBrokers.filter(
-    (broker) => broker[3].toLowerCase().includes(searchQuery) || broker[2].toLowerCase().includes(searchQuery)
-  ); // Adjusting search to match company and name
+    (broker) => broker[0].toLowerCase().includes(searchQuery) || broker[1].toLowerCase().includes(searchQuery)
+  );
   renderBrokers(filteredBrokers, 1);
 };
 
@@ -204,6 +191,3 @@ window.fetchBrokers = function () {
 
 // Initialize map and fetch brokers when the document is ready
 document.addEventListener('DOMContentLoaded', fetchBrokers);
-
-
-

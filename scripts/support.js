@@ -273,6 +273,7 @@ window.addRevenueCashflowRow = function (revenue = '', cashflow = '') {
 };
 
 // Function to upload and parse deals from the older tool (modified to map data to form fields)
+// Function to upload deals from a CSV and create deal documents in Firestore
 window.uploadDeals = function () {
     const fileInput = document.getElementById('dealCsvInput');
     const file = fileInput.files[0];
@@ -285,15 +286,23 @@ window.uploadDeals = function () {
             header: true, // Ensure first row is treated as header
             complete: function (results) {
                 const deals = results.data; // Array of deal objects
+                const user = auth.currentUser; // Get the currently authenticated user
+
+                if (!user) {
+                    window.showToast('User not authenticated.', false);
+                    return;
+                }
 
                 // Process each deal and create deal cards
                 deals.forEach(async (deal) => {
-                    // Save to Firestore
                     try {
+                        // Ensure we add the userId of the currently authenticated user
+                        deal.userId = user.uid;
+
                         const docRef = await addDoc(collection(db, 'deals'), deal);
                         console.log('Deal added with ID: ', docRef.id);
 
-                        // Auto-fill form fields with the deal data
+                        // Optionally, map fields to form
                         window.mapCsvFieldsToForm(deal);
 
                     } catch (error) {
@@ -315,6 +324,7 @@ window.uploadDeals = function () {
         window.showToast('Please select a CSV file.', false); // Show error toast
     }
 };
+
 
 
 // Function to dynamically create deal cards in the UI

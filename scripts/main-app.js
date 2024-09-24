@@ -1722,6 +1722,8 @@ window.saveBrokerContact = function() {
     const phone = document.getElementById('brokerPhone').value;
     const email = document.getElementById('brokerEmail').value;
 
+    console.log('Broker Name:', name, 'Company:', company, 'Phone:', phone, 'Email:', email); // Debugging
+
     const brokerButton = document.querySelector('button[onclick="window.openBrokerContactModal()"]');
 
     if (name && company && phone && email) {
@@ -1732,13 +1734,15 @@ window.saveBrokerContact = function() {
         brokerButton.removeAttribute('data-tooltip');
     }
     closeBrokerContactModal();
-}
+};
 
 // Save Seller Contact Information
 window.saveSellerContact = function() {
     const name = document.getElementById('sellerName').value;
     const phone = document.getElementById('sellerPhone').value;
     const email = document.getElementById('sellerEmail').value;
+
+    console.log('Seller Name:', name, 'Phone:', phone, 'Email:', email); // Debugging
 
     const sellerButton = document.querySelector('button[onclick="window.openSellerContactModal()"]');
 
@@ -1750,7 +1754,8 @@ window.saveSellerContact = function() {
         sellerButton.removeAttribute('data-tooltip');
     }
     closeSellerContactModal();
-}
+};
+
 
 
 // Function to open the document modal

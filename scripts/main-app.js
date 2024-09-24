@@ -2263,4 +2263,4 @@ window.setupRealTimeUpdates();
 window.updateAskingPrice();
 window.calculateDebtService();
 window.calculateMonthlyEstimate();
-window.updateBuyBoxChecklist(deal); 
+window.updateBuyBoxChecklist(); 

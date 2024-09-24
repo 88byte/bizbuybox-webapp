@@ -27,64 +27,31 @@ body {
     transition: all 0.3s ease;
 }
 
-/* Monthly Estimate Section */
-.monthly-estimate-section {
-    padding: 20px;
-    max-width: 700px;
-    margin: 0 auto;
+/* Estimate Items */
+.estimate-item {
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-/* General Style for Headers */
-.monthly-estimate-section h4 {
-    font-size: 18px;
-    font-weight: 600;
-    color: #97835a;
-    margin-bottom: 12px;
+.estimate-item p {
+    font-size: 1.1rem;
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
 }
 
-/* Highlight important numbers */
-.monthly-estimate-section p.highlight {
-    font-size: 22px;
-    font-weight: bold;
-    color: #ffffff;
-    background-color: #404040;
-    padding: 10px 14px;
-    border-radius: 8px;
-    margin-bottom: 10px;
-    text-align: center;
+.estimate-item p strong {
+    font-weight: 400; /* Normal weight for the label */
 }
 
-/* Text and number styling inside sections */
-.monthly-estimate-section p {
-    font-size: 14px;
-    font-weight: 400;
-    color: #b0bec5;
-    margin: 6px 0;
-}
-
-/* Keep numbers white */
-.monthly-estimate-section p span {
+/* Make values bold */
+.estimate-value {
     font-weight: 600;
     color: #ffffff;
-}
-
-/* Responsive styling */
-@media (max-width: 768px) {
-    .monthly-estimate-section {
-        padding: 15px;
-    }
-
-    .monthly-estimate-section h4 {
-        font-size: 16px;
-    }
-
-    .monthly-estimate-section p {
-        font-size: 13px;
-    }
-
-    .monthly-estimate-section p.highlight {
-        font-size: 20px;
-    }
+    font-size: 1.2rem;
 }
 
 /* Tooltip styling over the label */
@@ -2218,12 +2185,6 @@ input-item select {
 /* Modernized loan and earnings section */
 .loan-section,
 .earnings-section {
-.revenue-section,
-.seller-debt-section,
-.working-capital-section,
-.salary-section,
-.net-income-section,
-.net-annual-section {
     background-color: #2e2e2e;
     border-radius: 10px;
     padding: 16px;
@@ -2239,13 +2200,7 @@ input-item select {
 }
 
 .loan-section p,
-.earnings-section p,
-.revenue-section p span,
-.seller-debt-section p span,
-.working-capital-section p span,
-.salary-section p span,
-.net-income-section p span,
-.net-annual-section p span {
+.earnings-section p {
     font-size: 15px;
     margin: 6px 0;
     color: #d4d4d4;

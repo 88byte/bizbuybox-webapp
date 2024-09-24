@@ -175,3 +175,151 @@ window.hideToast = function () {
 };
 
 
+// Function to upload deals CSV to Firestore and create deal cards
+window.uploadDeals = function () {
+    const fileInput = document.getElementById('dealCsvInput');
+    const file = fileInput.files[0];
+
+    if (file) {
+        window.showToast('Uploading deals... Please wait.', true, true); // Persistent toast for ongoing upload
+
+        Papa.parse(file, {
+            header: true, // Ensures the first row is treated as header
+            complete: function (results) {
+                const deals = results.data;
+                const totalDeals = deals.length;
+                let uploadCount = 0;
+                let failureCount = 0;
+
+                // Iterate through each deal row from the CSV
+                deals.forEach(async (row, index) => {
+                    const mappedDeal = window.mapCsvToDealForm(row); // Map CSV data to webapp format
+
+                    if (mappedDeal.businessName) { // Only proceed if business name exists
+                        try {
+                            // Save the mapped deal to Firestore
+                            const docRef = await addDoc(collection(db, 'deals'), mappedDeal);
+                            uploadCount++;
+
+                            // Dynamically create deal card on the web page
+                            window.createDealCard(mappedDeal, docRef.id); // Pass ID to use later for editing, if needed
+                        } catch (error) {
+                            console.error(`Error uploading deal: ${mappedDeal.businessName}`, error);
+                            failureCount++;
+                        }
+                    } else {
+                        failureCount++;
+                        console.error('Invalid or empty row. Business name is required.');
+                    }
+
+                    // After all rows are processed, show final upload result
+                    if (index === totalDeals - 1) {
+                        window.hideToast(); // Hide persistent toast
+                        window.showToast(`Upload complete. Success: ${uploadCount}, Failures: ${failureCount}`, true, false); // Final notification
+                    }
+                });
+            },
+            error: function (error) {
+                window.hideToast(); // Hide toast on error
+                window.showToast('Error parsing CSV file.', false); // Show error toast
+                console.error('Error parsing CSV file:', error);
+            }
+        });
+    } else {
+        window.showToast('Please select a CSV file.', false); // Show error toast if no file selected
+    }
+};
+
+// Function to dynamically create deal cards on the page
+window.createDealCard = function(deal, dealId) {
+    const dealCardsContainer = document.getElementById('dealCardsContainer');
+
+    // Create a new div for the deal card
+    const dealCard = document.createElement('div');
+    dealCard.classList.add('deal-card');
+    dealCard.setAttribute('data-deal-id', dealId); // Save the deal ID in case we need it later
+
+    // Fill the card with deal details
+    dealCard.innerHTML = `
+        <h3>${deal.businessName}</h3>
+        <p><strong>Status:</strong> ${deal.status}</p>
+        <p><strong>Asking Price:</strong> ${deal.askingPrice}</p>
+        <p><strong>Years in Business:</strong> ${deal.yearsInBusiness}</p>
+        <p><strong>Full-time Employees:</strong> ${deal.fullTimeEmployees}</p>
+        <p><strong>Part-time Employees:</strong> ${deal.partTimeEmployees}</p>
+        <p><strong>Contractors:</strong> ${deal.contractors}</p>
+        <p><strong>Business Address:</strong> ${deal.businessAddress}</p>
+        <p><strong>Revenue and Cashflow:</strong></p>
+        <ul>
+            ${deal.revenueCashflowEntries.map(entry => `
+                <li>Year: ${entry.year} | Revenue: ${entry.revenue} | Cashflow: ${entry.cashflow}</li>
+            `).join('')}
+        </ul>
+        <p><strong>Notes:</strong> ${deal.notes}</p>
+    `;
+
+    // Append the card to the deal cards container
+    dealCardsContainer.appendChild(dealCard);
+};
+
+// Utility function to parse numbers safely
+window.parseNumber = function(value) {
+    const number = parseFloat(value);
+    return isNaN(number) ? 0 : number;
+};
+
+// Function to format price strings correctly
+window.formatPrice = function(price) {
+    return price ? `$${parseFloat(price).toLocaleString()}` : null;
+};
+
+// Function to map CSV data to the webapp deal form
+window.mapCsvToDealForm = function(deal) {
+    const statusMapping = {
+        'New Deal': 'new-deal',
+        'Review CIM': 'CIM Review',
+        'Seller Meeting': 'Seller Meeting',
+        'Kyle Review': 'Kyle Review',
+        'LOI Submitted': 'LOI Submitted',
+        'LOI Accepted': 'LOI Accepted',
+        'LOI Rejected': 'Nurture',
+        'Due Diligence': 'Due Diligence',
+        'SBA Process': 'SBA Loan',
+        'Business Won': 'Deal Closed (Won)',
+        'Not Interested': 'No Longer Interested',
+        'Nurture': 'Nurture'
+    };
+
+    const revenueCashflowEntries = [
+        { revenue: window.parseNumber(deal['revenue1']), cashflow: window.parseNumber(deal['cashflow1']), year: 'Year' },
+        { revenue: window.parseNumber(deal['revenue2']), cashflow: window.parseNumber(deal['cashflow2']), year: 'Year' },
+        { revenue: window.parseNumber(deal['revenue3']), cashflow: window.parseNumber(deal['cashflow3']), year: 'Year' },
+        { revenue: window.parseNumber(deal['revenue4']), cashflow: window.parseNumber(deal['cashflow4']), year: 'Year' }
+    ];
+
+    return {
+        businessName: deal['businessName'] || '',
+        status: statusMapping[deal['status']] || 'new-deal',
+        yearsInBusiness: deal['yearsInBusiness'] || '',
+        fullTimeEmployees: deal['fullTimeEmployees'] || '',
+        partTimeEmployees: deal['partTimeEmployees'] || '',
+        contractors: deal['contractors'] || '',
+        businessAddress: deal['businessAddress'] || '',
+        licenses: deal['licenses'] || '',
+        notes: deal['notes'] || '',
+        askingPrice: window.formatPrice(deal['askingPrice']),
+        realEstatePrice: window.formatPrice(deal['realEstatePrice']),
+        ffe: window.formatPrice(deal['ffe']),
+        buyerSalary: window.formatPrice(deal['salary']),
+        downPayment: window.formatPrice(deal['userDownPayment']),
+        loanAmount2: window.formatPrice(deal['sellerFinanceAmount']),
+        loanTerm: deal['loanTerm'] || '',
+        loanTerm2: deal['sellerLoanTerm'] || '',
+        interestRate: deal['interestRate'] || '',
+        interestRate2: deal['sellerInterestRate'] || '',
+        loanType: deal['loanType'] || 'SBA + Seller Finance',
+        revenueCashflowEntries: revenueCashflowEntries,
+        lastUpdate: new Date().toISOString(), // Date of import
+        industry: 'retail' // Default industry
+    };
+};

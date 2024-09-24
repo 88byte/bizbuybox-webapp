@@ -687,6 +687,10 @@ window.editDeal = function(dealId) {
                 const docElement = document.createElement('div');
                 docElement.classList.add('document-item');
 
+                // Create a wrapper for buttons
+                const buttonWrapper = document.createElement('div');
+                buttonWrapper.classList.add('button-wrapper');
+
                 // View button for the document
                 const viewButton = document.createElement('button');
                 viewButton.textContent = 'View';
@@ -694,14 +698,7 @@ window.editDeal = function(dealId) {
                 viewButton.onclick = function() {
                     window.open(doc.url, '_blank');  // Open document in a new tab
                 };
-                docElement.appendChild(viewButton);
-
-                // View link for the document
-                const docLink = document.createElement('a');
-                docLink.href = doc.url;  // Firebase Storage URL
-                docLink.target = '_blank';  // Open in new tab
-                docLink.textContent = doc.name;  // Display the document name
-                docElement.appendChild(docLink);
+                buttonWrapper.appendChild(viewButton);  // Add view button to the button wrapper
 
                 // Delete button
                 const deleteButton = document.createElement('button');
@@ -710,9 +707,18 @@ window.editDeal = function(dealId) {
                 deleteButton.onclick = function() {
                     deleteDocument(deal.dealId, doc.name, index); // Pass name and index to deleteDocument
                 };
-                docElement.appendChild(deleteButton);
+                buttonWrapper.appendChild(deleteButton);  // Add delete button to the button wrapper
 
-                documentList.appendChild(docElement);
+                docElement.appendChild(buttonWrapper);  // Append the button wrapper to the document element
+
+                // View link for the document
+                const docLink = document.createElement('a');
+                docLink.href = doc.url;  // Firebase Storage URL
+                docLink.target = '_blank';  // Open in new tab
+                docLink.textContent = doc.name;  // Display the document name
+                docElement.appendChild(docLink);  // Add link after buttons
+
+                documentList.appendChild(docElement);  // Add the document element to the list
             });
         }
 

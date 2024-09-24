@@ -678,7 +678,7 @@ window.editDeal = function(dealId) {
 
 
 
-        // Populate documents with editable labels
+        // Populate documents
         const documentList = document.getElementById('documentList');
         documentList.innerHTML = ''; // Clear current documents
 
@@ -686,16 +686,6 @@ window.editDeal = function(dealId) {
             deal.documents.forEach((doc, index) => {
                 const docElement = document.createElement('div');
                 docElement.classList.add('document-item');
-
-                // Editable label input for the document
-                const labelInput = document.createElement('input');
-                labelInput.type = 'text';
-                labelInput.value = doc.label || doc.name;  // Show the label if available, otherwise the name
-                labelInput.setAttribute('data-index', index); // Add data-index to track the document label
-                labelInput.onchange = function() {
-                    deal.documents[index].label = labelInput.value;  // Update the label in the documents array
-                };
-                docElement.appendChild(labelInput);
 
                 // View button for the document
                 const viewButton = document.createElement('button');
@@ -706,6 +696,12 @@ window.editDeal = function(dealId) {
                 };
                 docElement.appendChild(viewButton);
 
+                // View link for the document
+                const docLink = document.createElement('a');
+                docLink.href = doc.url;  // Firebase Storage URL
+                docLink.target = '_blank';  // Open in new tab
+                docLink.textContent = doc.name;  // Display the document name
+                docElement.appendChild(docLink);
 
                 // Delete button
                 const deleteButton = document.createElement('button');
@@ -763,10 +759,8 @@ async function deleteDocument(dealId, docName, index) {
         if (dealDoc.exists()) {
             const dealData = dealDoc.data();
             
-            // Ensure that dealData.documents is an array and remove the document at the specified index
-            if (Array.isArray(dealData.documents)) {
-                dealData.documents.splice(index, 1);  // Remove the document at the specified index
-            }
+            // Remove the deleted document from the documents array
+            dealData.documents.splice(index, 1);  // Remove the document at the specified index
 
             // Update Firestore with the new documents array
             await setDoc(dealRef, { documents: dealData.documents }, { merge: true });
@@ -781,8 +775,6 @@ async function deleteDocument(dealId, docName, index) {
 
 
 
-
-// Function to upload documents to Firebase Storage and return the file URLs
 // Function to upload documents to Firebase Storage and return the file URLs
 async function uploadDocuments(dealId) {
     const storageRef = ref(storage, `deals/${dealId}/documents/`);
@@ -795,10 +787,8 @@ async function uploadDocuments(dealId) {
         uploadedURLs.push({ name: file.name, url: fileURL });
     }
 
-    return uploadedURLs;  // Return the URLs for documents
+    return uploadedURLs;
 }
-
-
 
 
 // Function to save a new or edited deal
@@ -882,17 +872,8 @@ window.saveDeal = async function() {
         // Step 2: Upload the documents after the deal is saved
         const uploadedDocumentURLs = await uploadDocuments(dealId);
 
-        // Step 3: Update documents with their labels
-        const labeledDocuments = window.uploadedDocuments.map((file, index) => {
-            const labelInput = document.querySelector(`#documentList input[data-index="${index}"]`);
-            // Check if the label input exists, if not use the file name as the label
-            const label = labelInput ? labelInput.value || file.name : file.name;
-
-            return { name: file.name, url: uploadedDocumentURLs[index]?.url || '', label }; // Include the label in the document
-        });
-
-        // Step 4: Merge the document URLs and labels into the deal document in Firestore
-        await setDoc(doc(dealsCollection, dealId), { documents: labeledDocuments }, { merge: true });
+        // Step 3: Merge the document URLs into the deal document in Firestore
+        await setDoc(doc(dealsCollection, dealId), { documents: uploadedDocumentURLs }, { merge: true });
 
         // Refresh the deals array by calling fetchDeals() to make sure we have the latest data
         await fetchDeals();  // Fetch the updated list of deals from Firestore
@@ -904,7 +885,6 @@ window.saveDeal = async function() {
         showToast('Error saving deal: ' + error.message, false);
     }
 };
-
 
 
 // Function to fetch and display deals
@@ -1197,28 +1177,15 @@ window.uploadDocument = function() {
         const fileElement = document.createElement('div');
         fileElement.classList.add('document-item');
 
-        // Create a label input for the file
-        const labelInput = document.createElement('input');
-        labelInput.type = 'text';
-        labelInput.value = file.name;  // Default label is the file name
-        labelInput.setAttribute('data-index', i); // Use 'i' as the index
-        fileElement.appendChild(labelInput);
-
-        // Create clickable file link (default to file name or custom label when added)
+        // Create clickable file name (as a link)
         const fileLink = document.createElement('a');
         const fileURL = URL.createObjectURL(file);
         fileLink.href = fileURL;
         fileLink.target = '_blank'; // Open in a new tab
-        fileLink.textContent = labelInput.value; // Default to file name for now
+        fileLink.textContent = file.name;
         fileLink.classList.add('document-link');
 
-        // Update file link text whenever the label input changes
-        labelInput.addEventListener('input', () => {
-            fileLink.textContent = labelInput.value; // Update to user-provided label
-        });
-
-        // Add the label input and the file link to the element
-        fileElement.appendChild(labelInput);
+        // Add the file name link to the element
         fileElement.appendChild(fileLink);
 
         // Add view button next to the file name
@@ -1243,13 +1210,12 @@ window.uploadDocument = function() {
 
         // Add the file element to the document list
         documentList.appendChild(fileElement);
-        window.uploadedDocuments.push({ file, label: labelInput.value }); // Add to global list with custom label
+        window.uploadedDocuments.push(file); // Add to global list of uploaded documents
     }
 
     // Clear the file input after uploading
     fileInput.value = '';
 };
-
 
 
 // Function to format loan amount inputs in real-time

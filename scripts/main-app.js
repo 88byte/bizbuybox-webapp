@@ -842,8 +842,47 @@ window.fetchDeals = async function() {
         const dealsCollection = collection(db, 'deals');
         const dealsSnapshot = await getDocs(query(dealsCollection, where("userId", "==", user.uid)));
 
-        // Add dealId from Firestore document metadata
-        deals = dealsSnapshot.docs.map(doc => ({ dealId: doc.id, ...doc.data() }));
+        // Add dealId from Firestore document metadata, validate and sanitize data
+        deals = dealsSnapshot.docs.map(doc => {
+            const dealData = doc.data();
+
+            // Ensure key fields are present, and provide defaults for missing fields
+            return {
+                dealId: doc.id,
+                businessName: dealData.businessName || 'Untitled Business',
+                status: dealData.status || 'Unknown',
+                yearsInBusiness: dealData.yearsInBusiness || 0,
+                fullTimeEmployees: dealData.fullTimeEmployees || 0,
+                partTimeEmployees: dealData.partTimeEmployees || 0,
+                contractors: dealData.contractors || 0,
+                businessAddress: dealData.businessAddress || 'Not provided',
+                licenses: dealData.licenses || '',
+                notes: dealData.notes || '',
+                askingPrice: dealData.askingPrice || 0,
+                realEstatePrice: dealData.realEstatePrice || 0,
+                ffe: dealData.ffe || 0,
+                revenue1: dealData.revenue1 || 0,
+                revenue2: dealData.revenue2 || 0,
+                revenue3: dealData.revenue3 || 0,
+                revenue4: dealData.revenue4 || 0,
+                cashflow1: dealData.cashflow1 || 0,
+                cashflow2: dealData.cashflow2 || 0,
+                cashflow3: dealData.cashflow3 || 0,
+                cashflow4: dealData.cashflow4 || 0,
+                loanType: dealData.loanType || 'Unknown',
+                interestRate: dealData.interestRate || 0,
+                loanTerm: dealData.loanTerm || 0,
+                salary: dealData.salary || 0,
+                sellerFinanceAmount: dealData.sellerFinanceAmount || 0,
+                sellerLoanTerm: dealData.sellerLoanTerm || 0,
+                sellerInterestRate: dealData.sellerInterestRate || 0,
+                kyleDownPayment: dealData.kyleDownPayment || 0,
+                kyleOwnership: dealData.kyleOwnership || 0,
+                userDownPayment: dealData.userDownPayment || 0,
+                createdAt: dealData.createdAt || new Date().toISOString(),
+                userId: dealData.userId || user.uid, // Default to the logged-in user
+            };
+        });
 
         // Fetch the deal order and sort the deals
         await fetchDealOrderFromFirebase(); // Ensure that the deal order is fetched and deals are sorted

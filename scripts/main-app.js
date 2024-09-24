@@ -392,6 +392,15 @@ window.createDeal = function() {
     openCardModal();
 };
 
+// Function to clear the Buy Box Checklist (you may need to implement it similarly)
+window.clearBuyBoxChecklist = function() {
+    document.querySelectorAll('.buybox-icon').forEach(icon => {
+        icon.classList.remove('success', 'error', 'warning'); // Clear any success/error/warning status
+    });
+};
+
+
+
 // Function to close the card modal
 window.closeCardModal = function() {
     document.getElementById('cardModal').style.display = 'none';

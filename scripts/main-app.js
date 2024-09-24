@@ -885,11 +885,10 @@ window.saveDeal = async function() {
         // Step 3: Update documents with their labels
         const labeledDocuments = window.uploadedDocuments.map((file, index) => {
             const labelInput = document.querySelector(`#documentList input[data-index="${index}"]`);
-            
             // Check if the label input exists, if not use the file name as the label
             const label = labelInput ? labelInput.value || file.name : file.name;
 
-            return { name: file.name, url: uploadedDocumentURLs[index].url, label }; // Include the label in the document
+            return { name: file.name, url: uploadedDocumentURLs[index]?.url || '', label }; // Include the label in the document
         });
 
         // Step 4: Merge the document URLs and labels into the deal document in Firestore

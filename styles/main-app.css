@@ -2132,7 +2132,7 @@ input-item select {
 .tab-content {
     display: none;
     padding: 24px;
-    background: rgba(0, 0, 0, 0.8); 
+    background-color: #2e2e2e;
     border-radius: 0 0 12px 12px; /* Rounded bottom corners for content */
     color: #ffffff;
     margin-top: -2px;

@@ -2309,3 +2309,4 @@ window.updateAskingPrice();
 window.calculateDebtService();
 window.calculateMonthlyEstimate();
 window.updateBuyBoxChecklist(); 
+window.calculateMetrics();

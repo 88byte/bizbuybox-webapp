@@ -179,18 +179,18 @@
     <div class="divider"></div>
 
     <!-- Whitelist Upload Section -->
-    <section class="whitelist-upload">
+    <section class="whitelist-upload" style="display: none;">
         <h2>Upload Whitelist Emails</h2>
-        <p>Managing access for your organization? Upload a CSV file with the emails you want to whitelist below:</p>
-        <div class="upload-container">
-            <label class="upload-label" for="csvFileInput">
-                <i class="fas fa-upload"></i> Choose CSV
-            </label>
-            <input type="file" id="csvFileInput" accept=".csv" style="display: none;">
-        </div>
-        <button class="upload-btn" onclick="uploadWhitelist()">Upload Emails</button>
-        <p class="upload-instruction">* CSV format only</p>
-    </section>
+	    <p>Managing access for your organization? Upload a CSV file with the emails you want to whitelist below:</p>
+	    <div class="upload-container">
+	        <label class="upload-label" for="csvFileInput">
+	            <i class="fas fa-upload"></i> Choose CSV
+	        </label>
+	        <input type="file" id="csvFileInput" accept=".csv" style="display: none;">
+	    </div>
+	    <button class="upload-btn" onclick="window.uploadWhitelist()">Upload Emails</button>
+	    <p class="upload-instruction">* CSV format only</p>
+	</section>
 
     <!-- Divider -->
     <div class="divider"></div>

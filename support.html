@@ -137,59 +137,6 @@ window.hideToast = function () {
     toast.classList.add('hidden');
 };
 
-// Function to handle whitelist upload
-window.uploadWhitelist = function () {
-    const fileInput = document.getElementById('csvFileInput');
-    const file = fileInput.files[0];
-
-    if (file) {
-        // Show persistent toast notification during upload
-        window.showToast('Uploading... Please wait.', true, true);
-
-        Papa.parse(file, {
-            header: true,
-            complete: function (results) {
-                const emails = results.data;
-                const totalEmails = emails.length;
-                let successCount = 0;
-                let failureCount = 0;
-
-                if (totalEmails === 0) {
-                    window.showToast('The CSV file is empty or invalid.', false);
-                    return;
-                }
-
-                // Process emails and save them to Firestore
-                emails.forEach(async (emailData, index) => {
-                    const email = emailData['Email'];
-                    try {
-                        await addDoc(collection(db, 'whitelist'), {
-                            email: email,
-                            role: 'user', // Assign basic user role
-                        });
-                        successCount++;
-                    } catch (error) {
-                        console.error(`Error adding email: ${email}`, error);
-                        failureCount++;
-                    }
-
-                    // When all emails are processed
-                    if (index === totalEmails - 1) {
-                        window.hideToast();
-                        window.showToast(`Upload Complete! Success: ${successCount}, Failures: ${failureCount}`, true, false);
-                    }
-                });
-            },
-            error: function (error) {
-                window.hideToast();
-                window.showToast('Error processing CSV file.', false);
-                console.error('CSV processing error:', error);
-            }
-        });
-    } else {
-        window.showToast('Please select a CSV file.', false);
-    }
-};
 
 
 	</script>

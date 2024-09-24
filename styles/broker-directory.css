@@ -114,31 +114,37 @@
 .broker-table-container {
     margin-top: 20px;
     width: 100%;
+    background-color: #1e1e1e; /* Dark background for table container */
+    border-radius: 10px;
+    padding: 20px;
 }
 
 #brokerTable {
     width: 100%;
     border-collapse: collapse;
+    border-radius: 10px;
+    background-color: #292929; /* Darker background for table */
 }
 
 #brokerTable th, #brokerTable td {
-    border: 1px solid #ddd;
-    padding: 8px;
+    padding: 15px;
+    text-align: left;
+    color: #f5f5f5;
+    border-bottom: 1px solid #333;
 }
 
 #brokerTable th {
-    background-color: #f2f2f2;
-    text-align: left;
+    background-color: #3a3a3a;
+    font-weight: bold;
+    color: #f5f5f5;
 }
 
+#brokerTable tr:nth-child(even) {
+    background-color: #242424;
+}
 
-#prevPageBtn, #nextPageBtn {
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+#brokerTable tr:hover {
+    background-color: #333333;
 }
 
 /* Pagination Controls */
@@ -165,6 +171,42 @@
 
 .pagination-btn:hover {
     background-color: #0056b3;
+}
+
+/* Pagination Cleanup */
+.pagination-controls .pagination-btn {
+    min-width: 40px;
+    text-align: center;
+}
+
+#prevPageBtn, #nextPageBtn {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#prevPageBtn:hover, #nextPageBtn:hover {
+    background-color: #0056b3;
+}
+
+/* Search Input */
+.search-input {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    background-color: #2a2a2a;
+    color: #fff;
+    font-size: 16px;
+}
+
+.search-input::placeholder {
+    color: #aaa;
 }
 
 /* InfoWindow Custom Styling */
@@ -195,57 +237,4 @@
 
 .gm-style-iw a:hover {
     text-decoration: underline;
-}
-
-#pageInfo {
-    align-self: center;
-}
-
-/* Broker Search and Pagination */
-.broker-search-pagination {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-    position: relative;
-}
-
-.search-input {
-    width: 100%;
-    max-width: 400px;
-    padding: 10px;
-    border: none;
-    border-radius: 20px;
-    background-color: #2a2a2a;
-    color: #fff;
-    font-size: 16px;
-}
-
-.search-input::placeholder {
-    color: #aaa;
-}
-
-/* Table Styling */
-.sleek-table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: #1e1e1e;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
-
-.sleek-table th, .sleek-table td {
-    padding: 15px;
-    text-align: left;
-    color: #f0f0f0;
-    border-bottom: 1px solid #333;
-}
-
-.sleek-table th {
-    background-color: #292929;
-    font-weight: bold;
-}
-
-.sleek-table tr:nth-child(even) {
-    background-color: #242424;
 }

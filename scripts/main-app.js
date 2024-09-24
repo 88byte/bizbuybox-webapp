@@ -1717,6 +1717,8 @@ window.closeSellerContactModal = function() {
 
 // Save Broker Contact Information
 window.saveBrokerContact = function() {
+    console.log('Broker Name:', name);  // Check if name is being captured
+
     const name = document.getElementById('brokerName').value;
     const company = document.getElementById('brokerCompany').value;
     const phone = document.getElementById('brokerPhone').value;
@@ -1736,6 +1738,7 @@ window.saveBrokerContact = function() {
 
 // Save Seller Contact Information
 window.saveSellerContact = function() {
+    console.log('Seller Name:', name);
     const name = document.getElementById('sellerName').value;
     const phone = document.getElementById('sellerPhone').value;
     const email = document.getElementById('sellerEmail').value;

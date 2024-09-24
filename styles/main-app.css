@@ -1663,23 +1663,25 @@ input-item select {
     width: 130px;
 }
 
+
+
 /* Tooltip styling */
 .contact-info-button[data-tooltip]::after {
     content: attr(data-tooltip);
-    display: none; /* Hidden by default */
     position: absolute;
-    white-space: pre-wrap; /* Allow multiline tooltips */
+    bottom: 100%; /* Position it above the button */
+    left: 50%;
+    transform: translateX(-50%);
     background-color: rgba(0, 0, 0, 0.8);
     color: #fff;
     padding: 8px;
-    border-radius: 6px;
+    border-radius: 4px;
+    white-space: pre-wrap; /* Preserve new lines in the tooltip text */
     font-size: 12px;
-    width: max-content;
-    max-width: 220px; /* Adjust max-width for larger tooltips */
-    bottom: 130%; /* Tooltip above the button */
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 999;
+    display: none; /* Hidden by default */
+    z-index: 10;
+    width: 200px; /* Adjust width to your preference */
+    text-align: left;
 }
 
 /* Show the tooltip when hovering */

@@ -3,85 +3,20 @@
     position: fixed;
     top: 20px;
     right: 20px;
-    padding: 15px 20px; /* Smaller padding */
-    max-width: 180px; /* Smaller width */
+    padding: 15px 20px;
+    max-width: 180px;
     text-align: center;
     z-index: 2000;
 }
 
-/* Heading - Shrink size */
-.broker-upload-section h2 {
-    font-size: 16px; /* Smaller font */
-    margin-bottom: 10px;
-    color: #f0f0f0;
-    font-weight: 600;
-}
-
-/* Compact Upload Container */
-.upload-container {
-    margin-bottom: 10px;
-}
-
-.upload-label {
-    background-color: #3a3a3a;
-    color: #ddd;
-    padding: 8px 12px; /* Smaller padding */
-    border-radius: 6px;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px; /* Smaller text */
-    transition: background-color 0.3s ease;
-    box-shadow: 0 4px 8px rgba(58, 58, 58, 0.2);
-}
-
-.upload-label i {
-    margin-right: 5px; /* Smaller space between icon and text */
-    font-size: 14px;
-}
-
-.upload-label:hover {
-    background-color: #505050;
-}
-
-.hidden-input {
-    display: none;
-}
-
-/* Compact Upload Button */
-.upload-btn {
-    padding: 8px 12px; /* Smaller padding */
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    width: 100%; /* Full width for button */
-    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.2);
-}
-
-.upload-btn:hover {
-    background-color: #218838;
-    transform: translateY(-2px);
-}
-
-
-
-
-
-
-
-
 /* Map Container */
 .map-container {
-    height: 500px;
+    height: 300px; /* Reduced height for the map */
+    width: 80%; /* Adjust width of the map to be more narrow */
     border-radius: 10px;
     overflow: hidden;
-    margin-bottom: 30px;
-    background-color: #333; /* Dark background */
+    margin: 20px auto; /* Centering the map */
+    background-color: #333;
 }
 
 #map {
@@ -89,45 +24,33 @@
     width: 100%;
 }
 
-
-
 /* Section Header */
 .section-header h1 {
-    font-size: 2em;
+    font-size: 1.8em; /* Slightly smaller font size */
     color: #f5f5f5;
     text-align: center;
     margin-bottom: 20px;
 }
 
-.modern-map {
-    height: 100%;
-    width: 100%;
-}
-
-/* Sleek Shadow for Elements */
-.sleek-shadow {
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
-}
-
-/* Table Styling */
+/* Table Container */
 .broker-table-container {
     margin-top: 20px;
-    width: 100%;
-    background-color: #1e1e1e; /* Dark background for table container */
+    width: 80%; /* Reduced width for the table */
+    background-color: #1e1e1e;
     border-radius: 10px;
-    padding: 20px;
+    padding: 15px; /* Slightly reduced padding */
+    margin: 20px auto; /* Centering the table */
 }
 
 #brokerTable {
     width: 100%;
     border-collapse: collapse;
     border-radius: 10px;
-    background-color: #292929; /* Darker background for table */
+    background-color: #292929;
 }
 
 #brokerTable th, #brokerTable td {
-    padding: 15px;
+    padding: 12px; /* Reduced padding for a compact look */
     text-align: left;
     color: #f5f5f5;
     border-bottom: 1px solid #333;
@@ -136,7 +59,6 @@
 #brokerTable th {
     background-color: #3a3a3a;
     font-weight: bold;
-    color: #f5f5f5;
 }
 
 #brokerTable tr:nth-child(even) {
@@ -144,18 +66,18 @@
 }
 
 #brokerTable tr:hover {
-    background-color: #333333;
+    background-color: #333;
 }
 
 /* Pagination Controls */
 .pagination-controls {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 15px;
 }
 
 .pagination-btn {
-    padding: 10px 15px;
+    padding: 8px 12px; /* Reduced padding */
     background-color: #007bff;
     color: white;
     border: none;
@@ -173,14 +95,13 @@
     background-color: #0056b3;
 }
 
-/* Pagination Cleanup */
 .pagination-controls .pagination-btn {
     min-width: 40px;
     text-align: center;
 }
 
 #prevPageBtn, #nextPageBtn {
-    padding: 10px;
+    padding: 8px 12px;
     background-color: #007bff;
     color: white;
     border: none;
@@ -197,12 +118,13 @@
 .search-input {
     width: 100%;
     max-width: 400px;
-    padding: 10px;
+    padding: 8px; /* Slightly reduced padding */
     border: none;
     border-radius: 20px;
     background-color: #2a2a2a;
     color: #fff;
     font-size: 16px;
+    margin: 20px auto; /* Center the search bar */
 }
 
 .search-input::placeholder {

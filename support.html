@@ -195,9 +195,20 @@ window.hideToast = function() {
     </div>
 
     <!-- Support Overview Section -->
-    <section class="support-overview sleek-shadow">
-        <h2>Need Assistance?</h2>
-        <p>We're here to help! Browse through our resources or upload a whitelist if you're managing email access. For further assistance, check out our FAQs below.</p>
+    <section class="support-overview">
+        <h2>How can we assist you?</h2>
+        <p>If you have any questions or need help using our platform, please feel free to browse our support sections below or contact us directly.</p>
+    </section>
+
+    <!-- Contact Information Section -->
+    <section class="contact-info sleek-shadow">
+        <h2>Contact Support</h2>
+        <div class="contact-details">
+            <div class="support-method">
+                <h3>Email Support</h3>
+                <p>For general inquiries, reach us at <a href="mailto:flaviod022@gmail.com">flaviod022@gmail.com</a></p>
+            </div>
+        </div>
     </section>
 
     <!-- Whitelist Upload Section -->
@@ -208,7 +219,7 @@ window.hideToast = function() {
             <label class="upload-label" for="csvFileInput">
                 <i class="fas fa-upload"></i> Choose CSV
             </label>
-            <input type="file" id="csvFileInput" accept=".csv" class="hidden-input">
+            <input type="file" id="csvFileInput" accept=".csv" style="display: none;"> <!-- Updated input style -->
         </div>
         <button class="upload-btn" onclick="uploadWhitelist()">Upload Emails</button>
         <p class="upload-instruction">* CSV format only</p>
@@ -243,7 +254,6 @@ window.hideToast = function() {
         </div>
     </section>
 </main>
-
 
 
 

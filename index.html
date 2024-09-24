@@ -39,7 +39,8 @@
     <script src="scripts/app.js" type="module"></script>
     <script src="scripts/main-app.js" type="module"></script>
     <script src="scripts/broker-directory.js" type="module"></script>
-    <script src="scripts/support.js" type="module"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyALOLixHMInPOXN0x1PIzoUQkIn81Iq96g&callback=initMap&libraries=marker" async defer></script>
 
 
 
@@ -53,6 +54,8 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
+    <!-- Local CSS File -->
+    <link rel="stylesheet" href="styles/common.css">
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 
@@ -64,6 +67,9 @@
 
     <!-- CesiumJS JS -->
     <script src="https://cesium.com/downloads/cesiumjs/releases/latest/Build/Cesium/Cesium.js" defer></script>
+
+    <!-- Local JavaScript File with type="module" -->
+    <script src="scripts/app.js" type="module"></script>
 
 
 

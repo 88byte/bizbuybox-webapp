@@ -75,15 +75,21 @@ const sheetName = 'Sheet1';
 // Google Sheets API endpoint
 const sheetURL = `https://sheets.googleapis.com/v4/spreadsheets/${googleSheetId}/values/${sheetName}?key=${apiKey}`;
 
+// Google Maps API requires a valid Map ID for AdvancedMarkerElement
+const mapId = 'YOUR_MAP_ID_HERE'; // Replace with your actual Map ID
+
 // Map initialization function
 window.initMap = function () {
   const map = new google.maps.Map(document.getElementById('map'), {
     zoom: 5,
     center: { lat: 39.8283, lng: -98.5795 }, // Center of the US
+    mapId: mapId // Use the valid Map ID here
   });
 
   fetchBrokerData(map);
 };
+
+
 
 // Fetch broker data from Google Sheets and render markers on the map
 window.fetchBrokerData = function (map) {

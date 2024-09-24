@@ -722,6 +722,7 @@ window.editDeal = function(dealId) {
             window.calculateDebtService(); // Calculate debt service
             window.calculateMonthlyEstimate();
             window.calculateMetrics();
+            window.calculateEarnings();
         }, 0); // A slight delay ensures that the form elements are rendered
 
         // Open the modal using the new method
@@ -1983,7 +1984,50 @@ window.calculateAnnualDebtService = function(loanAmount, interestRate, termYears
     return monthlyPayment * 12;
 };
 
+// Function to calculate earnings section
+window.calculateEarnings = function(totalDebtService = 0) {
+    let totalCashflow = 0;
+    let totalRevenue = 0;
+    let totalProfitMargin = 0;
+    let profitMarginCount = 0;
 
+    // Get all the cashflow and revenue inputs
+    const cashflows = document.querySelectorAll('input[name="cashflow[]"]');
+    const revenues = document.querySelectorAll('input[name="revenue[]"]');
+    
+    cashflows.forEach((input, index) => {
+        const cashflow = parseFloat(input.value.replace(/[^\d.-]/g, '')) || 0;
+        const revenue = parseFloat(revenues[index].value.replace(/[^\d.-]/g, '')) || 0;
+
+        // Sum up the total cashflow and revenue
+        totalCashflow += cashflow;
+        totalRevenue += revenue;
+
+        // Calculate profit margin for each row if revenue is valid
+        if (revenue > 0) {
+            const profitMargin = (cashflow / revenue) * 100;
+            totalProfitMargin += profitMargin;
+            profitMarginCount++;
+        }
+    });
+
+    // Average cashflow and profit margin calculations
+    const avgCashflow = cashflows.length > 0 ? totalCashflow / cashflows.length : 0;
+    const avgProfitMargin = profitMarginCount > 0 ? totalProfitMargin / profitMarginCount : 0;
+
+    // Calculate cashflow after debt service
+    const cashflowAfterDebt = avgCashflow - totalDebtService;
+
+    // Placeholder for investor pay (modify this as necessary)
+    const investorPay = 0; // Logic for investor pay if applicable
+    const cashflowAfterDebtAndInvestor = cashflowAfterDebt - investorPay;
+
+    // Update the display for each value in real time
+    document.getElementById('avgProfitMarginDisplay').textContent = avgProfitMargin.toFixed(2) + '%';
+    document.getElementById('avgCashflowDisplay').textContent = avgCashflow.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+    document.getElementById('cashflowAfterDebt').textContent = cashflowAfterDebt.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+    document.getElementById('cashflowAfterDebtAndInvestor').textContent = cashflowAfterDebtAndInvestor.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+};
 
 
 
@@ -2267,3 +2311,4 @@ window.calculateDebtService();
 window.calculateMonthlyEstimate();
 window.updateBuyBoxChecklist(); 
 window.calculateMetrics();
+window.calculateEarnings();

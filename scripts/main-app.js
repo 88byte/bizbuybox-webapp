@@ -1200,8 +1200,9 @@ window.uploadDocument = function() {
         // Create a label input for the file
         const labelInput = document.createElement('input');
         labelInput.type = 'text';
-        labelInput.placeholder = 'Enter file label (e.g., Business Plan)';
-        labelInput.classList.add('file-label-input');
+        labelInput.value = doc.label || doc.name;  // Show the label if available, otherwise the name
+        labelInput.setAttribute('data-index', index); // Add data-index to track the document label
+        docElement.appendChild(labelInput);
 
         // Set default label as the file name (optional)
         labelInput.value = file.name;

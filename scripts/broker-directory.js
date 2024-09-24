@@ -53,6 +53,16 @@ window.storage = getStorage();
 
 
 
+auth.onAuthStateChanged(user => {
+    if (user) {
+        console.log("User is authenticated:", user.uid);
+        // Allow Firestore operations since the user is authenticated
+    } else {
+        console.error("User is not authenticated");
+        // Redirect to the homepage instead of login page
+        window.location.href = '/index.html';  // Assuming index.html is your homepage
+    }
+});
 
 
 

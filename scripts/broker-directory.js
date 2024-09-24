@@ -136,69 +136,97 @@ window.fetchBrokerData = function (map) {
 };
 
 
-// Pagination and broker rendering
+// Pagination settings
 const brokersPerPage = 20;
 let currentPage = 1;
 let allBrokers = [];
 
+// Render brokers into the table
 window.renderBrokers = function (brokers, page = 1) {
-  const tableBody = document.getElementById('brokerTableBody');
-  tableBody.innerHTML = ''; // Clear previous rows
+    const tableBody = document.getElementById('brokerTableBody');
+    tableBody.innerHTML = ''; // Clear previous rows
 
-  const startIndex = (page - 1) * brokersPerPage;
-  const endIndex = startIndex + brokersPerPage;
+    const startIndex = (page - 1) * brokersPerPage;
+    const endIndex = startIndex + brokersPerPage;
 
-  brokers.slice(startIndex, endIndex).forEach((broker) => {
-    const row = document.createElement('tr');
-    const [company, name, email, phone, city, state] = broker;
-    row.innerHTML = `
-      <td>${company}</td>
-      <td>${name}</td>
-      <td>${email}</td>
-      <td>${phone}</td>
-      <td>${city}</td>
-      <td>${state}</td>
-    `;
-    tableBody.appendChild(row);
-  });
+    brokers.slice(startIndex, endIndex).forEach((broker) => {
+        const row = document.createElement('tr');
+        const [latitude, longitude, name, phone, email, company, state, city] = broker; // Exclude lat/long
+        row.innerHTML = `
+            <td>${company}</td>
+            <td>${name}</td>
+            <td>${email}</td>
+            <td>${phone}</td>
+            <td>${city}</td>
+            <td>${state}</td>
+        `;
+        tableBody.appendChild(row);
+    });
 
-  renderPagination(brokers.length, page);
+    renderPagination(brokers.length, page);
 };
 
 // Render pagination controls
 function renderPagination(totalBrokers, currentPage) {
-  const paginationDiv = document.getElementById('pagination');
-  paginationDiv.innerHTML = ''; // Clear previous pagination
+    const paginationDiv = document.getElementById('pagination');
+    paginationDiv.innerHTML = ''; // Clear previous pagination
 
-  const totalPages = Math.ceil(totalBrokers / brokersPerPage);
-  for (let i = 1; i <= totalPages; i++) {
-    const button = document.createElement('button');
-    button.textContent = i;
-    button.className = i === currentPage ? 'active' : '';
-    button.addEventListener('click', () => {
-      renderBrokers(allBrokers, i);
-    });
-    paginationDiv.appendChild(button);
-  }
+    const totalPages = Math.ceil(totalBrokers / brokersPerPage);
+    const visiblePages = 5; // Limit visible page numbers
+    const startPage = Math.max(1, currentPage - Math.floor(visiblePages / 2));
+    const endPage = Math.min(totalPages, startPage + visiblePages - 1);
+
+    if (currentPage > 1) {
+        const prevButton = document.createElement('button');
+        prevButton.textContent = 'Previous';
+        prevButton.className = 'pagination-btn';
+        prevButton.addEventListener('click', () => {
+            renderBrokers(allBrokers, currentPage - 1);
+        });
+        paginationDiv.appendChild(prevButton);
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+        const button = document.createElement('button');
+        button.textContent = i;
+        button.className = i === currentPage ? 'active pagination-btn' : 'pagination-btn';
+        button.addEventListener('click', () => {
+            renderBrokers(allBrokers, i);
+        });
+        paginationDiv.appendChild(button);
+    }
+
+    if (currentPage < totalPages) {
+        const nextButton = document.createElement('button');
+        nextButton.textContent = 'Next';
+        nextButton.className = 'pagination-btn';
+        nextButton.addEventListener('click', () => {
+            renderBrokers(allBrokers, currentPage + 1);
+        });
+        paginationDiv.appendChild(nextButton);
+    }
 }
+
 
 // Search brokers
 window.searchBrokers = function () {
-  const searchQuery = document.getElementById('searchBrokerInput').value.toLowerCase();
-  const filteredBrokers = allBrokers.filter(
-    (broker) => broker[0].toLowerCase().includes(searchQuery) || broker[1].toLowerCase().includes(searchQuery)
-  );
-  renderBrokers(filteredBrokers, 1);
+    const searchQuery = document.getElementById('searchBrokerInput').value.toLowerCase();
+    const filteredBrokers = allBrokers.filter(
+        (broker) => broker[5].toLowerCase().includes(searchQuery) || broker[2].toLowerCase().includes(searchQuery)
+    );
+    renderBrokers(filteredBrokers, 1);
 };
+
+
 
 // Fetch broker data and render table on page load
 window.fetchBrokers = function () {
-  fetch(sheetURL)
-    .then((response) => response.json())
-    .then((data) => {
-      allBrokers = data.values.slice(1); // Exclude header row
-      renderBrokers(allBrokers, 1); // Render the first page
-    });
+    fetch(sheetURL)
+        .then((response) => response.json())
+        .then((data) => {
+            allBrokers = data.values.slice(1); // Exclude header row
+            renderBrokers(allBrokers, 1); // Render the first page
+        });
 };
 
 // Initialize map and fetch brokers when the document is ready

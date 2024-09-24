@@ -141,20 +141,26 @@
     cursor: pointer;
 }
 
+/* Pagination Controls */
 .pagination-controls {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     margin-top: 20px;
 }
 
 .pagination-btn {
-    padding: 10px 20px;
+    padding: 10px 15px;
     background-color: #007bff;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin: 0 5px;
     transition: background-color 0.3s;
+}
+
+.pagination-btn.active {
+    background-color: #0056b3;
 }
 
 .pagination-btn:hover {
@@ -218,27 +224,28 @@
     color: #aaa;
 }
 
-/* Broker Table */
+/* Table Styling */
 .sleek-table {
     width: 100%;
     border-collapse: collapse;
-    background-color: #2a2a2a;
+    background-color: #1e1e1e;
     border-radius: 10px;
     overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .sleek-table th, .sleek-table td {
     padding: 15px;
     text-align: left;
-    color: #f5f5f5;
-    border-bottom: 1px solid #444;
+    color: #f0f0f0;
+    border-bottom: 1px solid #333;
 }
 
 .sleek-table th {
-    background-color: #3a3a3a;
+    background-color: #292929;
     font-weight: bold;
 }
 
 .sleek-table tr:nth-child(even) {
-    background-color: #333;
+    background-color: #242424;
 }

@@ -1793,31 +1793,35 @@ window.updateBuyBoxChecklist = function(deal) {
     }
 
 
-    // 5. Check if revenue is growing year over year (green if growing, orange within 5%, red if declining)
+    // 5. Check if revenue is growing year over year based on the year input
     let revenueGrowthCheck = true;
     let revenueGrowthStatus = 'success'; // Default to growing
 
     if (deal.revenueCashflowEntries && deal.revenueCashflowEntries.length > 1) {
-
-    	deal.revenueCashflowEntries.sort((a, b) => parseInt(a.year, 10) - parseInt(b.year, 10));
-
+        // Ensure entries are sorted by the 'year' field to check year-over-year growth
+        deal.revenueCashflowEntries.sort((a, b) => parseInt(a.year, 10) - parseInt(b.year, 10));
 
         for (let i = 1; i < deal.revenueCashflowEntries.length; i++) {
             const currentYearRevenue = parseFloat(deal.revenueCashflowEntries[i].revenue || 0);
             const previousYearRevenue = parseFloat(deal.revenueCashflowEntries[i - 1].revenue || 0);
 
+            // Calculate the percentage difference in revenue
             const revenueDifference = ((currentYearRevenue - previousYearRevenue) / previousYearRevenue) * 100;
 
             if (revenueDifference > 0) {
-                revenueGrowthStatus = 'success';
+                revenueGrowthStatus = 'success'; // Revenue grew
             } else if (Math.abs(revenueDifference) <= 5) {
-                revenueGrowthStatus = 'warning';
+                revenueGrowthStatus = 'warning'; // Revenue is stable within 5%
             } else {
-                revenueGrowthStatus = 'error';
+                revenueGrowthStatus = 'error'; // Revenue declined
                 break;
             }
         }
     }
+
+    const revenueGrowthIcon = document.getElementById('checkRevenueGrowth');
+    revenueGrowthIcon.classList.remove('success', 'warning', 'error');
+    revenueGrowthIcon.classList.add(revenueGrowthStatus);
 
     const revenueGrowthIcon = document.getElementById('checkRevenueGrowth');
     revenueGrowthIcon.classList.remove('success', 'warning', 'error');

@@ -188,24 +188,65 @@ window.hideToast = function() {
 	}
 	</style>
 
- <main class="main-content">
-        <!-- Section Header -->
-        <div class="dashboard-header">
-            <h1>Support</h1>
-        </div>
+<main class="main-content">
+    <!-- Section Header -->
+    <div class="dashboard-header">
+        <h1>Support</h1>
+    </div>
 
-        <!-- Whitelist Upload Section -->
-        <div class="whitelist-upload-section">
-            <h2>Upload Whitelist Emails</h2>
-            <div class="upload-container">
-                <label class="upload-label" for="csvFileInput">
-                    <i class="fas fa-upload"></i> Choose CSV
-                </label>
-                <input type="file" id="csvFileInput" accept=".csv" class="hidden-input">
+    <!-- Support Overview Section -->
+    <section class="support-overview">
+        <h2>How can we assist you?</h2>
+        <p>If you have any questions or need help using our platform, please feel free to browse our support sections below or contact us directly.</p>
+    </section>
+
+    <!-- Contact Information Section -->
+    <section class="contact-info sleek-shadow">
+        <h2>Contact Support</h2>
+        <div class="contact-details">
+            <div class="support-method">
+                <h3>Email Support</h3>
+                <p>For general inquiries, reach us at <a href="mailto:support@yourdomain.com">support@yourdomain.com</a></p>
             </div>
-            <button class="upload-btn" onclick="uploadWhitelist()">Upload Emails</button>
+            <div class="support-method">
+                <h3>Phone Support</h3>
+                <p>Call us at: <strong>1-800-555-1234</strong></p>
+            </div>
+            <div class="support-method">
+                <h3>Live Chat</h3>
+                <p>Click <a href="#" class="chat-link">here</a> to start a live chat session with one of our agents.</p>
+            </div>
         </div>
-    </main>
+    </section>
+
+    <!-- Whitelist Upload Section -->
+    <section class="whitelist-upload sleek-shadow">
+        <h2>Upload Whitelist Emails</h2>
+        <p>If you're managing a bulk email whitelist for your organization, upload your CSV file below:</p>
+        <div class="upload-container">
+            <label class="upload-label" for="csvFileInput">
+                <i class="fas fa-upload"></i> Choose CSV
+            </label>
+            <input type="file" id="csvFileInput" accept=".csv" class="hidden-input">
+        </div>
+        <button class="upload-btn" onclick="uploadWhitelist()">Upload Emails</button>
+        <p class="upload-instruction">* Accepted formats: .csv only</p>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section sleek-shadow">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-item">
+            <h3>How do I reset my password?</h3>
+            <p>To reset your password, click the "Forgot Password" link on the login page and follow the instructions.</p>
+        </div>
+        <div class="faq-item">
+            <h3>What file formats are supported for bulk uploads?</h3>
+            <p>We currently support .csv files for bulk email uploads. If you need help formatting your file, check out our <a href="#">CSV formatting guide</a>.</p>
+        </div>
+    </section>
+</main>
+
 
 
 

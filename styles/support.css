@@ -8,77 +8,130 @@
     text-align: center;
 }
 
-/* Form Container */
-.form-container {
+//* Support Overview */
+.support-overview {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.support-overview h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.support-overview p {
+    font-size: 16px;
+    color: #bbbbbb;
+}
+
+/* Contact Info Section */
+.contact-info {
     background-color: #292929;
     border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
-    max-width: 600px;
-    margin: 0 auto;
+    padding: 30px;
+    margin-bottom: 40px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
 }
 
-/* Form Heading */
-.form-container h2 {
-    font-size: 22px;
+.contact-info h2 {
+    font-size: 24px;
+    color: #ffffff;
     margin-bottom: 20px;
-    color: #f5f5f5;
-    text-align: center;
 }
 
-/* Form Labels */
-.form-container label {
-    display: block;
+.contact-details {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.support-method {
+    flex: 1;
+    min-width: 200px;
+    margin: 10px 20px;
+}
+
+.support-method h3 {
+    font-size: 18px;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.support-method p {
+    font-size: 16px;
+    color: #f5f5f5;
+}
+
+.support-method a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.support-method a:hover {
+    text-decoration: underline;
+}
+
+/* Whitelist Upload Section */
+.whitelist-upload {
+    background-color: #333333;
+    border-radius: 10px;
+    padding: 30px;
+    margin-bottom: 40px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.whitelist-upload h2 {
+    font-size: 24px;
+    color: #ffffff;
+    margin-bottom: 15px;
+}
+
+.whitelist-upload p {
+    font-size: 16px;
+    color: #dddddd;
+}
+
+.upload-instruction {
     font-size: 14px;
-    color: #ccc;
+    color: #aaaaaa;
+    margin-top: 10px;
+}
+
+/* FAQ Section */
+.faq-section {
+    background-color: #292929;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.faq-section h2 {
+    font-size: 24px;
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+.faq-item {
+    margin-bottom: 20px;
+}
+
+.faq-item h3 {
+    font-size: 18px;
+    color: #007bff;
     margin-bottom: 8px;
 }
 
-/* Input Fields */
-.form-container input[type="text"],
-.form-container input[type="email"],
-.form-container input[type="file"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #444;
-    border-radius: 5px;
-    background-color: #333;
-    color: #fff;
+.faq-item p {
     font-size: 16px;
-    margin-bottom: 15px;
-    box-sizing: border-box;
+    color: #dddddd;
 }
 
-/* Buttons */
-.form-container button {
-    background-color: #007bff;
-    border: none;
-    border-radius: 5px;
-    color: #fff;
-    padding: 12px 20px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-}
-
-.form-container button:hover {
-    background-color: #0056b3;
-}
-
-/* Success/Failure Message */
-.upload-message {
-    font-size: 16px;
-    margin-top: 15px;
-    text-align: center;
-}
-
-
-/* Upload Section - File Input */
-.upload-section {
+/* Upload Section */
+.upload-container {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .upload-label {
@@ -88,14 +141,8 @@
     border-radius: 5px;
     cursor: pointer;
     margin-bottom: 10px;
-    display: inline-block;
 }
 
-.hidden-input {
-    display: none;
-}
-
-/* Upload Button */
 .upload-btn {
     background-color: #28a745;
     padding: 10px 20px;
@@ -107,4 +154,10 @@
 
 .upload-btn:hover {
     background-color: #218838;
+}
+
+/* Shadow for Sections */
+.sleek-shadow {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
 }

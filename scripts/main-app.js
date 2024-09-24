@@ -1592,7 +1592,7 @@ window.reindexRows = function() {
             window.calculateMetrics();
             window.triggerBuyBoxUpdate(); 
             window.calculateEarnings(); 
-            window.calculateMonthlyEstimate();:
+            window.calculateMonthlyEstimate();
              });
     });
 };

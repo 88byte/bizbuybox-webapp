@@ -1437,21 +1437,21 @@ window.addRevenueCashflowRow = function() {
         window.updateProfitMargin(this);   // Update profit margin when revenue changes
         window.calculateMetrics();         // Dynamically calculate metrics when values change
          window.calculateEarnings();         // Recalculate earnings dynamically
-         window.calculateMonthlyEstimate():
+         window.calculateMonthlyEstimate();
     });
 
     newCashflowInput.addEventListener('input', function() {
         window.updateProfitMargin(this);   // Update profit margin when cashflow changes
         window.calculateMetrics();         // Dynamically calculate metrics when values change
         window.calculateEarnings();         // Recalculate earnings dynamically
-        window.calculateMonthlyEstimate():
+        window.calculateMonthlyEstimate();
     });
 
     // Ensure real-time profit margin calculation
     window.updateProfitMargin(newRevenueInput);
     window.calculateEarnings();         // Recalculate earnings dynamically
     window.calculateMetrics();         // Dynamically calculate metrics when values change
-    window.calculateMonthlyEstimate():
+    window.calculateMonthlyEstimate();
 };
 
 // Function to remove a row and reindex the remaining rows
@@ -1463,7 +1463,7 @@ window.removeRevenueCashflowRow = function(button) {
     window.reindexRows();           // Reindex the rows
     window.calculateMetrics();      // Recalculate metrics after removing a row
     window.calculateEarnings();
-    window.calculateMonthlyEstimate():
+    window.calculateMonthlyEstimate();
 };
 
 // Function to calculate the metrics (Avg Cashflow, Cashflow Less Debt Service, Cashflow Less Debt & Investor Pay)
@@ -1583,7 +1583,7 @@ window.reindexRows = function() {
             window.calculateMetrics();
             window.triggerBuyBoxUpdate(); 
             window.calculateEarnings(); 
-            window.calculateMonthlyEstimate():
+            window.calculateMonthlyEstimate();
             });
 
         cashflowInput.addEventListener('input', () => {
@@ -1592,7 +1592,7 @@ window.reindexRows = function() {
             window.calculateMetrics();
             window.triggerBuyBoxUpdate(); 
             window.calculateEarnings(); 
-            window.calculateMonthlyEstimate():
+            window.calculateMonthlyEstimate();:
              });
     });
 };
@@ -2016,7 +2016,7 @@ window.setupRealTimeUpdates = function() {
             window.triggerBuyBoxUpdate();  // Trigger recalculations on change
             window.calculateMetrics();
             window.calculateEarnings();
-            window.calculateMonthlyEstimate():
+            window.calculateMonthlyEstimate();
         });
     });
 };

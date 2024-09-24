@@ -2206,13 +2206,20 @@ window.calculateMonthlyEstimate = function() {
     const annualLoanDebtService = window.calculateAnnualDebtService(loanAmount, interestRate, loanTerm);
     const monthlyLoanDebtService = annualLoanDebtService / 12;
 
-    // Step 3: Calculate Seller Finance Debt Service (if applicable)
-    const sellerFinanceAmount = parseFloat(document.getElementById('loanAmount2').value.replace(/[^\d.-]/g, '')) || 0;
-    const sellerInterestRate = parseFloat(document.getElementById('interestRate2').value) || 0;
-    const sellerLoanTerm = parseInt(document.getElementById('loanTerm2').value, 10) || 0;
 
-    const annualSellerDebtService = window.calculateAnnualDebtService(sellerFinanceAmount, sellerInterestRate, sellerLoanTerm);
-    const monthlySellerDebtService = annualSellerDebtService / 12;
+    // Step 3: Calculate Seller Finance Debt Service (if applicable)
+    let monthlySellerDebtService = 0; // Initialize as 0 if not applicable
+    const sellerFinanceAmountElement = document.getElementById('loanAmount2'); // Check if the element exists
+
+    if (sellerFinanceAmountElement) {
+        // Only perform calculations if the element exists
+        const sellerFinanceAmount = parseFloat(sellerFinanceAmountElement.value.replace(/[^\d.-]/g, '')) || 0;
+        const sellerInterestRate = parseFloat(document.getElementById('interestRate2').value) || 0;
+        const sellerLoanTerm = parseInt(document.getElementById('loanTerm2').value, 10) || 0;
+
+        const annualSellerDebtService = window.calculateAnnualDebtService(sellerFinanceAmount, sellerInterestRate, sellerLoanTerm);
+        monthlySellerDebtService = annualSellerDebtService / 12;
+    }
 
     // Step 4: Calculate Working Capital Estimate (Average Revenue - Cashflow)
     let totalCashflow = 0;

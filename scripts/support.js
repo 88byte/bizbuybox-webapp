@@ -52,22 +52,25 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 
-
-
 // Function to check if the user is a superadmin and show/hide the upload section
 async function checkIfSuperAdmin() {
+    console.log('Checking if the user is superadmin...');
     // Listen for the authentication state to be ready
     onAuthStateChanged(auth, async (user) => {
         if (user) {
+            console.log('User authenticated:', user.uid); // Debug: Check if the user is authenticated
             try {
                 const userDoc = await getDoc(doc(db, 'users', user.uid));
 
                 if (userDoc.exists()) {
                     const userData = userDoc.data();
+                    console.log('User role fetched:', userData.role); // Debug: Check the fetched role
                     if (userData.role === 'superadmin') {
+                        console.log('User is superadmin. Showing the whitelist upload section.'); // Debug
                         // Show the whitelist upload section if the user is superadmin
                         document.querySelector('.whitelist-upload').style.display = 'block';
                     } else {
+                        console.log('User is not superadmin. Hiding the whitelist upload section.'); // Debug
                         // Hide the whitelist upload section if the user is not superadmin
                         document.querySelector('.whitelist-upload').style.display = 'none';
                     }
@@ -89,6 +92,8 @@ async function checkIfSuperAdmin() {
 document.addEventListener('DOMContentLoaded', function () {
     checkIfSuperAdmin();
 });
+
+
 
 // Function to upload whitelist CSV to Firestore
 window.uploadWhitelist = function() {

@@ -1726,7 +1726,7 @@ window.saveBrokerContact = function() {
 
     if (name && company && phone && email) {
         // Set the tooltip content only if contact info is filled
-        brokerButton.setAttribute('data-tooltip', `Company: ${company}\nPhone: ${phone}\nEmail: ${email}`);
+        brokerButton.setAttribute('data-tooltip', `Company: ${company}\nName: ${name}\nPhone: ${phone}\nEmail: ${email}`);
     } else {
         // Remove tooltip if no contact info is provided
         brokerButton.removeAttribute('data-tooltip');
@@ -1744,7 +1744,7 @@ window.saveSellerContact = function() {
 
     if (name && phone && email) {
         // Set the tooltip content only if contact info is filled
-        sellerButton.setAttribute('data-tooltip', `Phone: ${phone}\nEmail: ${email}`);
+        sellerButton.setAttribute('data-tooltip', `Name: ${name}\nPhone: ${phone}\nEmail: ${email}`);
     } else {
         // Remove tooltip if no contact info is provided
         sellerButton.removeAttribute('data-tooltip');

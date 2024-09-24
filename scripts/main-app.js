@@ -1741,7 +1741,7 @@ window.addRealTimeChecklistUpdates = function() {
 window.getDealDataFromForm = function() {
     const yearsInBusiness = document.getElementById('yearsInBusiness').value;
     const fullTimeEmployees = document.getElementById('fullTimeEmployees').value;
-    const askingPrice = document.getElementById('askingPrice').value || 0;
+    const askingPrice = document.getElementById('askingPrice').value || '0';
     const revenueCashflowEntries = [];
 
     const revenueInputs = document.querySelectorAll('input[name="revenue[]"]');

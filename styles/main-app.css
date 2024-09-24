@@ -65,7 +65,7 @@ body {
 .tooltip-label .tooltiptext {
     visibility: hidden;
     width: 220px;
-    background-color: #97835a; /* Tooltip background */
+    background-color: #1c1c1c; /* Tooltip background */
     color: white;
     text-align: center;
     padding: 8px;

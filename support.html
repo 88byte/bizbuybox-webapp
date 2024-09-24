@@ -196,6 +196,35 @@
     <!-- Divider -->
     <div class="divider"></div>
 
+
+    <!-- Support: Upload Deals Section -->
+	<section class="deal-upload">
+	    <h2>Upload Deals from Older Tool</h2>
+	    <p>Upload a CSV file exported from the old tool to auto-create deal cards.</p>
+
+	    <!-- File Input -->
+	    <div class="upload-container">
+	        <label class="upload-label" for="dealCsvInput">
+	            <i class="fas fa-upload"></i> Choose CSV
+	        </label>
+	        <input type="file" id="dealCsvInput" accept=".csv" style="display: none;">
+	    </div>
+
+	    <!-- Upload Button -->
+	    <button class="upload-btn" onclick="window.uploadDeals()">Upload Deals</button>
+	    <p class="upload-instruction">* CSV format only</p>
+
+	    <!-- Deal Cards Section -->
+	    <div id="dealCardsContainer" class="deal-cards"></div>
+	</section>
+
+<!-- Divider -->
+    <div class="divider"></div>
+
+
+
+
+
     <!-- Additional Resources Section -->
     <section class="resources">
         <h2>Resources & Guides</h2>

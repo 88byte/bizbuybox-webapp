@@ -173,3 +173,105 @@ window.hideToast = function () {
     const toast = document.getElementById('toastNotification');
     toast.classList.add('hidden');
 };
+
+
+// Function to upload and parse deals from the older tool
+window.uploadDeals = function () {
+    const fileInput = document.getElementById('dealCsvInput');
+    const file = fileInput.files[0];
+
+    if (file) {
+        window.showToast('Uploading... Please wait.', true, true); // Persistent toast for ongoing upload
+
+        // Parse CSV using PapaParse
+        Papa.parse(file, {
+            header: true, // Ensure first row is treated as header
+            complete: function (results) {
+                const deals = results.data; // Array of deal objects
+
+                // Process each deal and create deal cards
+                deals.forEach(async (deal) => {
+                    const dealData = {
+                        businessName: deal['businessName'],
+                        status: deal['status'],
+                        yearsInBusiness: deal['yearsInBusiness'],
+                        fullTimeEmployees: deal['fullTimeEmployees'],
+                        partTimeEmployees: deal['partTimeEmployees'],
+                        contractors: deal['contractors'],
+                        businessAddress: deal['businessAddress'],
+                        licenses: deal['licenses'],
+                        notes: deal['notes'],
+                        askingPrice: deal['askingPrice'],
+                        realEstatePrice: deal['realEstatePrice'],
+                        ffe: deal['ffe'],
+                        revenue1: deal['revenue1'],
+                        revenue2: deal['revenue2'],
+                        revenue3: deal['revenue3'],
+                        revenue4: deal['revenue4'],
+                        cashflow1: deal['cashflow1'],
+                        cashflow2: deal['cashflow2'],
+                        cashflow3: deal['cashflow3'],
+                        cashflow4: deal['cashflow4'],
+                        loanType: deal['loanType'],
+                        interestRate: deal['interestRate'],
+                        loanTerm: deal['loanTerm'],
+                        salary: deal['salary'],
+                        sellerFinanceAmount: deal['sellerFinanceAmount'],
+                        sellerLoanTerm: deal['sellerLoanTerm'],
+                        sellerInterestRate: deal['sellerInterestRate'],
+                        kyleDownPayment: deal['kyleDownPayment'],
+                        kyleOwnership: deal['kyleOwnership'],
+                        userDownPayment: deal['userDownPayment'],
+                        createdAt: new Date().toISOString(),
+                        userId: auth.currentUser.uid // Assuming the logged-in user creates these deals
+                    };
+
+                    try {
+                        // Save the deal to Firestore (deals collection)
+                        const docRef = await addDoc(collection(db, 'deals'), dealData);
+
+                        console.log('Deal added with ID: ', docRef.id);
+
+                        // Generate the deal card in the UI
+                        createDealCard(dealData);
+
+                    } catch (error) {
+                        console.error('Error adding deal:', error);
+                    }
+                });
+
+                // Hide the toast when complete
+                window.hideToast();
+                window.showToast('Deals uploaded successfully!', true, false);
+            },
+            error: function (error) {
+                window.hideToast(); // Hide toast on error
+                window.showToast('Error parsing CSV file.', false);
+                console.error('Error parsing CSV file:', error);
+            }
+        });
+    } else {
+        window.showToast('Please select a CSV file.', false); // Show error toast
+    }
+};
+
+// Function to dynamically create deal cards in the UI
+function createDealCard(deal) {
+    const dealCardsContainer = document.getElementById('dealCardsContainer');
+
+    const card = document.createElement('div');
+    card.classList.add('deal-card');
+
+    card.innerHTML = `
+        <h3>${deal.businessName}</h3>
+        <p><strong>Status:</strong> ${deal.status}</p>
+        <p><strong>Years in Business:</strong> ${deal.yearsInBusiness}</p>
+        <p><strong>Asking Price:</strong> ${deal.askingPrice}</p>
+        <p><strong>Revenue:</strong> ${deal.revenue1}, ${deal.revenue2}, ${deal.revenue3}</p>
+        <p><strong>Cash Flow:</strong> ${deal.cashflow1}, ${deal.cashflow2}, ${deal.cashflow3}</p>
+        <p><strong>Loan Type:</strong> ${deal.loanType}</p>
+    `;
+
+    // Append card to container
+    dealCardsContainer.appendChild(card);
+}

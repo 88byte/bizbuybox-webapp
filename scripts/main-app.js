@@ -678,7 +678,6 @@ window.editDeal = function(dealId) {
         setTimeout(() => {
             window.updateAskingPrice(); // Calculate asking price
             window.calculateDebtService(); // Calculate debt service
-            window.calculateMonthlyEstimate()
         }, 0); // A slight delay ensures that the form elements are rendered
 
         // Open the modal using the new method
@@ -1208,7 +1207,6 @@ window.handleLoanTypeChange = function() {
     // Apply currency formatting and debt service calculation for both loan amounts
     window.setupLoanAmountFormatting();
     window.calculateDebtService();
-    window.calculateMonthlyEstimate()
 };
 
 
@@ -2023,7 +2021,6 @@ window.addRealTimeChecklistUpdates();
 window.setupRealTimeUpdates();
 window.updateAskingPrice();
 window.calculateDebtService();
-window.calculateMonthlyEstimate()
 
 
 

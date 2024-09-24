@@ -56,35 +56,39 @@ const auth = getAuth(app);
 
 // Function to check if the user is a superadmin and show/hide the upload section
 async function checkIfSuperAdmin() {
-    const user = auth.currentUser;
+    // Listen for the authentication state to be ready
+    onAuthStateChanged(auth, async (user) => {
+        if (user) {
+            try {
+                const userDoc = await getDoc(doc(db, 'users', user.uid));
 
-    if (user) {
-        try {
-            const userDoc = await getDoc(doc(db, 'users', user.uid));
-            
-            if (userDoc.exists()) {
-                const userData = userDoc.data();
-                if (userData.role === 'superadmin') {
-                    // Show the whitelist upload section if the user is superadmin
-                    document.querySelector('.whitelist-upload').style.display = 'block';
+                if (userDoc.exists()) {
+                    const userData = userDoc.data();
+                    if (userData.role === 'superadmin') {
+                        // Show the whitelist upload section if the user is superadmin
+                        document.querySelector('.whitelist-upload').style.display = 'block';
+                    } else {
+                        // Hide the whitelist upload section if the user is not superadmin
+                        document.querySelector('.whitelist-upload').style.display = 'none';
+                    }
                 } else {
-                    // Hide the whitelist upload section if the user is not superadmin
-                    document.querySelector('.whitelist-upload').style.display = 'none';
+                    console.error('User document does not exist.');
                 }
+            } catch (error) {
+                console.error('Error fetching user role:', error);
             }
-        } catch (error) {
-            console.error('Error fetching user role:', error);
+        } else {
+            console.error('No authenticated user.');
+            // Hide the whitelist upload section if no authenticated user
+            document.querySelector('.whitelist-upload').style.display = 'none';
         }
-    } else {
-        console.error('No authenticated user.');
-    }
+    });
 }
 
 // Call this function after the page loads
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     checkIfSuperAdmin();
 });
-
 
 // Function to upload whitelist CSV to Firestore
 window.uploadWhitelist = function() {

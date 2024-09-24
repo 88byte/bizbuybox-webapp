@@ -60,7 +60,7 @@ auth.onAuthStateChanged(user => {
     } else {
         console.error("User is not authenticated");
         // Redirect to login page or show error
-        window.location.href = 'login.html'; 
+        window.location.href = 'index.html'; 
     }
 });
 

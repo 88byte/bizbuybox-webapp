@@ -229,5 +229,19 @@ window.fetchBrokers = function () {
         });
 };
 
-// Initialize map and fetch brokers when the document is ready
-document.addEventListener('DOMContentLoaded', fetchBrokers);
+document.addEventListener('DOMContentLoaded', function () {
+    fetchBrokers();
+    if (typeof initMap === 'function') {
+        initMap(); // Ensure map is initialized when the page loads
+    }
+});
+
+function navigateToBrokerDirectory() {
+    window.location.href = 'broker-directory.html'; // For full reload
+    // OR if using single-page app navigation
+    fetchBrokers();
+    if (typeof initMap === 'function') {
+        initMap();
+    }
+}
+

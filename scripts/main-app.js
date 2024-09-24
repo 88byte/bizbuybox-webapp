@@ -353,11 +353,42 @@ let deals = []; // Example array to hold deals
 
 // Function to open the deal creation modal
 window.createDeal = function() {
-    document.getElementById('dealForm').reset(); // Reset the form fields
-    document.getElementById('dealId').value = ''; // Clear dealId for a new deal
-    document.getElementById('modalTitle').textContent = 'Create a New Deal'; // Set modal title
-    
-    // Open the modal using the new animation method
+    // Reset the entire form
+    document.getElementById('dealForm').reset(); // Reset form inputs
+
+    // Reset hidden inputs, like dealId
+    document.getElementById('dealId').value = ''; 
+
+    // Clear out dynamic sections like revenue/cashflow, broker contact, etc.
+    document.getElementById('revenueCashflowSection').innerHTML = ''; // Clear out all revenue/cashflow rows
+
+    // Reset modal title for new deal
+    document.getElementById('modalTitle').textContent = 'Create a New Deal';
+
+    // Reset any other dynamic sections or data (like broker contact, seller contact, etc.)
+    document.getElementById('brokerCompany').value = '';
+    document.getElementById('brokerName').value = '';
+    document.getElementById('brokerPhone').value = '';
+    document.getElementById('brokerEmail').value = '';
+
+    document.getElementById('sellerName').value = '';
+    document.getElementById('sellerPhone').value = '';
+    document.getElementById('sellerEmail').value = '';
+
+    // Reset document section
+    document.getElementById('documentList').innerHTML = ''; // Clear any previously added documents
+
+    // Reset any loan-specific inputs
+    window.removeSecondLoanRow(); // Remove second loan row if it was added in a previous deal
+
+    // Reset any global arrays or objects storing form-related data
+    window.uploadedDocuments = []; // Clear the uploaded documents array
+    revenueCashflowCount = 0; // Reset revenue/cashflow count
+
+    // Clear checklist or any buy box data
+    window.clearBuyBoxChecklist();
+
+    // Open the modal using the animation method
     openCardModal();
 };
 

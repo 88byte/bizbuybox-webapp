@@ -1437,18 +1437,21 @@ window.addRevenueCashflowRow = function() {
         window.updateProfitMargin(this);   // Update profit margin when revenue changes
         window.calculateMetrics();         // Dynamically calculate metrics when values change
          window.calculateEarnings();         // Recalculate earnings dynamically
+         window.calculateMonthlyEstimate():
     });
 
     newCashflowInput.addEventListener('input', function() {
         window.updateProfitMargin(this);   // Update profit margin when cashflow changes
         window.calculateMetrics();         // Dynamically calculate metrics when values change
         window.calculateEarnings();         // Recalculate earnings dynamically
+        window.calculateMonthlyEstimate():
     });
 
     // Ensure real-time profit margin calculation
     window.updateProfitMargin(newRevenueInput);
     window.calculateEarnings();         // Recalculate earnings dynamically
     window.calculateMetrics();         // Dynamically calculate metrics when values change
+    window.calculateMonthlyEstimate():
 };
 
 // Function to remove a row and reindex the remaining rows
@@ -1460,6 +1463,7 @@ window.removeRevenueCashflowRow = function(button) {
     window.reindexRows();           // Reindex the rows
     window.calculateMetrics();      // Recalculate metrics after removing a row
     window.calculateEarnings();
+    window.calculateMonthlyEstimate():
 };
 
 // Function to calculate the metrics (Avg Cashflow, Cashflow Less Debt Service, Cashflow Less Debt & Investor Pay)
@@ -1579,6 +1583,7 @@ window.reindexRows = function() {
             window.calculateMetrics();
             window.triggerBuyBoxUpdate(); 
             window.calculateEarnings(); 
+            window.calculateMonthlyEstimate():
             });
 
         cashflowInput.addEventListener('input', () => {
@@ -1587,6 +1592,7 @@ window.reindexRows = function() {
             window.calculateMetrics();
             window.triggerBuyBoxUpdate(); 
             window.calculateEarnings(); 
+            window.calculateMonthlyEstimate():
              });
     });
 };
@@ -1926,6 +1932,7 @@ window.calculateAnnualDebtService = function(loanAmount, interestRate, termYears
     // Return annual debt service (monthly payment * 12)
     return monthlyPayment * 12;
 };
+
 // Function to calculate earnings section
 window.calculateEarnings = function(totalDebtService = 0) {
     let totalCashflow = 0;
@@ -2009,6 +2016,7 @@ window.setupRealTimeUpdates = function() {
             window.triggerBuyBoxUpdate();  // Trigger recalculations on change
             window.calculateMetrics();
             window.calculateEarnings();
+            window.calculateMonthlyEstimate():
         });
     });
 };
@@ -2179,6 +2187,7 @@ window.calculateMonthlyEstimate = function() {
     let totalRevenue = 0;
     let revenueCount = 0;
 
+    // Gather all revenue inputs and sum them
     const revenues = document.querySelectorAll('input[name="revenue[]"]');
     revenues.forEach(input => {
         const revenue = parseFloat(input.value.replace(/[^\d.-]/g, '')) || 0;
@@ -2186,8 +2195,8 @@ window.calculateMonthlyEstimate = function() {
         revenueCount++;
     });
 
-    const avgRevenue = revenueCount > 0 ? totalRevenue / revenueCount : 0;
-    const monthlyRevenue = avgRevenue / 12;  // Convert annual to monthly
+    const avgRevenue = revenueCount > 0 ? totalRevenue / revenueCount : 0;  // Average annual revenue
+    const monthlyRevenue = avgRevenue / 12;  // Convert to monthly revenue
 
     // Step 2: Calculate Loan Debt Service (annual, then monthly)
     const loanAmount = parseFloat(document.getElementById('loanAmount1').value.replace(/[^\d.-]/g, '')) || 0;
@@ -2207,13 +2216,16 @@ window.calculateMonthlyEstimate = function() {
 
     // Step 4: Calculate Working Capital Estimate (Average Revenue - Cashflow)
     let totalCashflow = 0;
+    let cashflowCount = 0;
+
     const cashflows = document.querySelectorAll('input[name="cashflow[]"]');
     cashflows.forEach(input => {
         const cashflow = parseFloat(input.value.replace(/[^\d.-]/g, '')) || 0;
         totalCashflow += cashflow;
+        cashflowCount++;
     });
 
-    const avgCashflow = revenueCount > 0 ? totalCashflow / revenueCount : 0;
+    const avgCashflow = cashflowCount > 0 ? totalCashflow / cashflowCount : 0;
     const workingCapitalEst = avgRevenue - avgCashflow;
 
     // Step 5: Buyer Salary
@@ -2223,7 +2235,7 @@ window.calculateMonthlyEstimate = function() {
     // Step 6: Calculate Net Monthly Income
     const netMonthlyIncome = monthlyRevenue - monthlyLoanDebtService - monthlySellerDebtService - workingCapitalEst - monthlyBuyerSalary;
 
-    // Step 7: Update the UI with results
+    // Step 7: Update the UI with the results
     document.getElementById('grossRevenue').innerText = monthlyRevenue.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
     document.getElementById('loanDebt').innerText = monthlyLoanDebtService.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
     document.getElementById('sellerDebt').innerText = monthlySellerDebtService.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
@@ -2231,7 +2243,9 @@ window.calculateMonthlyEstimate = function() {
     document.getElementById('takeHomeSalary').innerText = monthlyBuyerSalary.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
     document.getElementById('netMonthlyIncome').innerText = netMonthlyIncome.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
 
-    // Step 8: Net Annual Estimate
+    // Step 8: Calculate Net Annual Estimate and update UI
     const netAnnualIncome = netMonthlyIncome * 12;
     document.getElementById('netAnnualEst').innerText = netAnnualIncome.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
 };
+
+

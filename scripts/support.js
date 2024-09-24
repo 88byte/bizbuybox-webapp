@@ -52,7 +52,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Function to upload whitelist CSV to Firestore
+// support.js
 window.uploadWhitelist = function() {
     const fileInput = document.getElementById('csvFileInput');
     const file = fileInput.files[0];
@@ -69,8 +69,8 @@ window.uploadWhitelist = function() {
                 let failureCount = 0;
 
                 emails.forEach(async (row, index) => {
-                    const email = row['email'];
-                    const role = row['role'] || 'user'; // Default role
+                    const email = row['email']; // Ensure the column name matches your CSV header
+                    const role = row['role'] || 'user'; // Default to 'user' if role isn't provided
 
                     try {
                         await setDoc(doc(db, 'whitelistedEmails', email), {
@@ -85,7 +85,7 @@ window.uploadWhitelist = function() {
 
                     if (index === totalEmails - 1) {
                         window.hideToast(); // Hide persistent toast
-                        window.showToast(`Upload complete. Success: ${uploadCount}, Failures: ${failureCount}`, true, false);
+                        window.showToast(`Upload complete. Success: ${uploadCount}, Failures: ${failureCount}`, true, false); // Final notification
                     }
                 });
             },
@@ -99,6 +99,7 @@ window.uploadWhitelist = function() {
         window.showToast('Please select a CSV file.', false); // Show error toast
     }
 };
+
 
 
 

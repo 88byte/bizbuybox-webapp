@@ -540,20 +540,18 @@ button.btn-create:hover {
 
 /* Deal Card Styling with Subtle Minimalist Look */
 .deal-card {
-    background: rgba(255, 255, 255, 0.1); /* Glass-like transparency */
-    backdrop-filter: blur(12px); /* Blur for the frosted glass effect */
-    -webkit-backdrop-filter: blur(12px); /* Safari support */
+    background: linear-gradient(145deg, #1a1a1a, #292929); /* Matte black gradient */
     border-radius: 15px; /* Softer, more rounded corners */
     padding: 20px;
     position: relative;
     overflow: hidden;
-    color: #e0e0e0; /* Soft light text for readability */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Soft shadow for depth */
+    color: #f0f0f0; /* Light text for contrast */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); /* Soft shadow for depth */
     transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
     cursor: grab;
     user-select: none;
     margin-bottom: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border for structure */
+    border: 1px solid rgba(255, 255, 255, 0.05); /* Subtle border */
 }
 
 /* Soft animations for card entrance */
@@ -580,20 +578,19 @@ button.btn-create:hover {
     margin-bottom: 10px;
 }
 
-
 /* Title and Action Button Styling */
 .deal-card h4 {
     font-size: 18px; /* Modern font size */
     margin: 0;
     color: #ffffff; /* Strong contrast for title */
+    font-weight: 600; /* Bold for title */
 }
-
 
 /* Deal Card Hover Effect */
 .deal-card:hover {
     transform: scale(1.05); /* Slight zoom for emphasis */
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
-    background: rgba(255, 255, 255, 0.15); /* Slight lightening of glass effect */
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6); /* Stronger shadow on hover */
+    background: linear-gradient(145deg, #1f1f1f, #333333); /* Lightening the gradient on hover */
 }
 
 /* While dragging, this style is applied */

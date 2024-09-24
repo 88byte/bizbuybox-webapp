@@ -71,13 +71,14 @@
 }
 
 .resources-list a {
-    color: #FF5733;
+    color: #6495ED;
     text-decoration: none;
     font-size: 16px;
 }
 
 .resources-list a:hover {
     text-decoration: underline;
+    color: #6495ED;
 }
 
 /* FAQ Section */

@@ -1722,15 +1722,13 @@ window.saveBrokerContact = function() {
     const phone = document.getElementById('brokerPhone').value;
     const email = document.getElementById('brokerEmail').value;
 
-    console.log('Broker Name:', name, 'Company:', company, 'Phone:', phone, 'Email:', email); // Debugging
-
     const brokerButton = document.querySelector('button[onclick="window.openBrokerContactModal()"]');
 
     if (name && company && phone && email) {
-        // Set the tooltip content only if contact info is filled
-        brokerButton.setAttribute('data-tooltip', `Company: ${company}\nName: ${name}\nPhone: ${phone}\nEmail: ${email}`);
+        const tooltipContent = `Company: ${company}\nName: ${name}\nPhone: ${phone}\nEmail: ${email}`;
+        brokerButton.setAttribute('data-tooltip', tooltipContent);
+        console.log('Broker Tooltip Set:', tooltipContent);  // Debugging
     } else {
-        // Remove tooltip if no contact info is provided
         brokerButton.removeAttribute('data-tooltip');
     }
     closeBrokerContactModal();
@@ -1742,19 +1740,18 @@ window.saveSellerContact = function() {
     const phone = document.getElementById('sellerPhone').value;
     const email = document.getElementById('sellerEmail').value;
 
-    console.log('Seller Name:', name, 'Phone:', phone, 'Email:', email); // Debugging
-
     const sellerButton = document.querySelector('button[onclick="window.openSellerContactModal()"]');
 
     if (name && phone && email) {
-        // Set the tooltip content only if contact info is filled
-        sellerButton.setAttribute('data-tooltip', `Name: ${name}\nPhone: ${phone}\nEmail: ${email}`);
+        const tooltipContent = `Name: ${name}\nPhone: ${phone}\nEmail: ${email}`;
+        sellerButton.setAttribute('data-tooltip', tooltipContent);
+        console.log('Seller Tooltip Set:', tooltipContent);  // Debugging
     } else {
-        // Remove tooltip if no contact info is provided
         sellerButton.removeAttribute('data-tooltip');
     }
     closeSellerContactModal();
 };
+
 
 
 

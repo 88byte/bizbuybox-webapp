@@ -50,6 +50,8 @@ const firebaseConfig = {
 // Initialize Firebase app
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const auth = getAuth(app);
+
 
 
 // Function to check if the user is a superadmin and show/hide the upload section

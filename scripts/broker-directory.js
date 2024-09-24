@@ -107,9 +107,20 @@ window.fetchBrokerData = function (map) {
             title: name, // Tooltip title for the marker
           });
 
-          // Info window content
+          // Info window content with custom HTML and inline styling for dark theme
+          const infoWindowContent = `
+            <div style="max-width: 250px; background-color: white; padding: 10px; border-radius: 8px;">
+              <h3 style="color: #333; font-size: 18px;">${company}</h3>
+              <p style="color: #555; font-size: 14px;">
+                <strong>${name}</strong><br>
+                <a href="mailto:${email}" style="color: #007bff; text-decoration: none;">${email}</a><br>
+                ${phone}<br>
+                ${city}, ${state}
+              </p>
+            </div>`;
+
           const infoWindow = new google.maps.InfoWindow({
-            content: `<h3>${company}</h3><p>${name}<br>${email}<br>${phone}<br>${city}, ${state}</p>`,
+            content: infoWindowContent,
           });
 
           // Add click event to show infoWindow
@@ -123,6 +134,7 @@ window.fetchBrokerData = function (map) {
       console.error('Error fetching broker data:', error);
     });
 };
+
 
 // Pagination and broker rendering
 const brokersPerPage = 20;

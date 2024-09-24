@@ -2207,7 +2207,7 @@ window.calculateMonthlyEstimate = function() {
     const monthlyLoanDebtService = annualLoanDebtService / 12;
 
     // Step 3: Calculate Seller Finance Debt Service (if applicable)
-    const sellerFinanceAmount = parseFloat(document.getElementById('sellerFinanceAmount').value.replace(/[^\d.-]/g, '')) || 0;
+    const sellerFinanceAmount = parseFloat(document.getElementById('loanAmount2').value.replace(/[^\d.-]/g, '')) || 0;
     const sellerInterestRate = parseFloat(document.getElementById('interestRate2').value) || 0;
     const sellerLoanTerm = parseInt(document.getElementById('loanTerm2').value, 10) || 0;
 

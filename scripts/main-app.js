@@ -2232,7 +2232,7 @@ window.calculateMonthlyEstimate = function() {
     });
 
     const avgCashflow = cashflowCount > 0 ? totalCashflow / cashflowCount : 0;
-    const workingCapitalEst = avgRevenue - avgCashflow;
+    const workingCapitalEst = (avgRevenue - avgCashflow) / 12;
 
     // Step 5: Buyer Salary
     const buyerSalary = parseFloat(document.getElementById('buyerSalary').value.replace(/[^\d.-]/g, '')) || 0;

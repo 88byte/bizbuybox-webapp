@@ -691,8 +691,9 @@ window.editDeal = function(dealId) {
                 const labelInput = document.createElement('input');
                 labelInput.type = 'text';
                 labelInput.value = doc.label || doc.name;  // Show the label if available, otherwise the name
+                labelInput.setAttribute('data-index', index); // Add data-index to track the document label
                 labelInput.onchange = function() {
-                    deal.documents[index].label = labelInput.value;  // Save the updated label
+                    deal.documents[index].label = labelInput.value;  // Update the label in the documents array
                 };
                 docElement.appendChild(labelInput);
 
@@ -782,19 +783,21 @@ async function deleteDocument(dealId, docName, index) {
 
 
 // Function to upload documents to Firebase Storage and return the file URLs
+// Function to upload documents to Firebase Storage and return the file URLs
 async function uploadDocuments(dealId) {
     const storageRef = ref(storage, `deals/${dealId}/documents/`);
     const uploadedURLs = [];
 
-    for (const { file, label } of window.uploadedDocuments) {
+    for (const file of window.uploadedDocuments) {
         const fileRef = ref(storageRef, file.name);
         await uploadBytes(fileRef, file);
         const fileURL = await getDownloadURL(fileRef);
-        uploadedURLs.push({ name: label || file.name, url: fileURL }); // Use label or fallback to file name
+        uploadedURLs.push({ name: file.name, url: fileURL });
     }
 
-    return uploadedURLs;
+    return uploadedURLs;  // Return the URLs for documents
 }
+
 
 
 
@@ -879,8 +882,14 @@ window.saveDeal = async function() {
         // Step 2: Upload the documents after the deal is saved
         const uploadedDocumentURLs = await uploadDocuments(dealId);
 
-        // Step 3: Merge the document URLs into the deal document in Firestore
-        await setDoc(doc(dealsCollection, dealId), { documents: uploadedDocumentURLs }, { merge: true });
+        // Step 3: Update documents with their labels
+        const labeledDocuments = window.uploadedDocuments.map((file, index) => {
+            const label = document.querySelector(`#documentList input[data-index="${index}"]`).value || file.name; // Fetch the updated label or use the file name
+            return { name: file.name, url: uploadedDocumentURLs[index].url, label }; // Include the label in the document
+        });
+
+        // Step 4: Merge the document URLs and labels into the deal document in Firestore
+        await setDoc(doc(dealsCollection, dealId), { documents: labeledDocuments }, { merge: true });
 
         // Refresh the deals array by calling fetchDeals() to make sure we have the latest data
         await fetchDeals();  // Fetch the updated list of deals from Firestore

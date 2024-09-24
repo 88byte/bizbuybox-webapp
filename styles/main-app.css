@@ -1894,12 +1894,14 @@ input-item select {
 }
 
 .button-wrapper {
-    display: inline-block;
-    margin-right: 10px;
-    gap: 15px;
-    background-color: none; 
-    border: none; 
+    display: inline-flex;
+    gap: 15px; /* Space between View and Delete buttons */
+    background-color: transparent; /* Ensure no background */
+    border: none; /* Remove any borders */
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margin */
 }
+
 
 
 /* Hover effect for the delete button tooltip */

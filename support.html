@@ -195,20 +195,9 @@ window.hideToast = function() {
     </div>
 
     <!-- Support Overview Section -->
-    <section class="support-overview">
+    <section class="support-overview sleek-shadow">
         <h2>How can we assist you?</h2>
         <p>If you have any questions or need help using our platform, please feel free to browse our support sections below or contact us directly.</p>
-    </section>
-
-    <!-- Contact Information Section -->
-    <section class="contact-info sleek-shadow">
-        <h2 class="support-header">Contact Support</h2>
-        <div class="contact-details">
-            <div class="support-method">
-                <h3>Email Support</h3>
-                <p>For general inquiries, reach us at <a href="mailto:flaviod022@gmail.com">flaviod022@gmail.com</a></p>
-            </div>
-        </div>
     </section>
 
     <!-- Whitelist Upload Section -->
@@ -219,7 +208,7 @@ window.hideToast = function() {
             <label class="upload-label" for="csvFileInput">
                 <i class="fas fa-upload"></i> Choose CSV
             </label>
-            <input type="file" id="csvFileInput" accept=".csv" style="display: none;"> <!-- Updated input style -->
+            <input type="file" id="csvFileInput" accept=".csv" style="display: none;">
         </div>
         <button class="upload-btn" onclick="uploadWhitelist()">Upload Emails</button>
         <p class="upload-instruction">* CSV format only</p>
@@ -253,7 +242,22 @@ window.hideToast = function() {
             <p>Currently, only .csv files are supported for bulk email uploads. If you need help formatting your file, refer to our <a href="#">CSV formatting guide</a>.</p>
         </div>
     </section>
+
+    <!-- Contact Support Section (Moved to Bottom) -->
+    <section class="contact-info sleek-shadow">
+        <h2 class="support-header">Contact Support</h2>
+        <div class="contact-details">
+            <div class="support-method">
+                <h3>Email Support</h3>
+                <p>For general inquiries, reach us at <a href="mailto:flaviod022@gmail.com">flaviod022@gmail.com</a></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Toast Notification HTML -->
+    <div id="toastNotification" class="toast hidden"></div>
 </main>
+
 
 
 

@@ -197,7 +197,7 @@
 	<div class="divider"></div>
 
 	<!-- Support: Upload Deals Section -->
-	<section class="deal-upload">
+	<section class="deal-upload sleek-shadow">
 	    <h2>Upload Deals from Older Tool</h2>
 	    <p>Upload a CSV file exported from the old tool to auto-create deal cards.</p>
 
@@ -208,16 +208,18 @@
 	        </label>
 	        <input type="file" id="dealCsvInput" accept=".csv" style="display: none;" onchange="displaySelectedFileName()">
 	    </div>
-	    <p id="selectedFileName" style="font-size: 14px; color: #aaa;"></p>
+	    
+	    <!-- Styled File Name Display -->
+	    <p id="selectedFileName" class="selected-file-name"></p>
 
 	    <!-- Upload Button -->
 	    <button class="upload-btn" onclick="window.uploadDeals()">Upload Deals</button>
 	    <p class="upload-instruction">* CSV format only</p>
-
 	</section>
 
 	<!-- Divider -->
 	<div class="divider"></div>
+
 
 
 

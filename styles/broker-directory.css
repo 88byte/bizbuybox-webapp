@@ -11,11 +11,12 @@
 
 /* Map Container */
 .map-container {
-    height: 300px; /* Reduced height for the map */
-    width: 80%; /* Adjust width of the map to be more narrow */
+    height: 600px; /* Increased height for vertical width */
+    width: 80%; /* Keep the same horizontal width */
     border-radius: 10px;
     overflow: hidden;
-    margin: 20px auto; /* Centering the map */
+    margin-bottom: 30px;
+    margin: 0 auto; /* Center the map horizontally */
     background-color: #333;
 }
 
@@ -26,10 +27,16 @@
 
 /* Section Header */
 .section-header h1 {
-    font-size: 1.8em; /* Slightly smaller font size */
+    font-size: 1.8em;
     color: #f5f5f5;
     text-align: center;
     margin-bottom: 20px;
+}
+
+/* Sleek Shadow for Elements */
+.sleek-shadow {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
 }
 
 /* Table Container */
@@ -38,8 +45,8 @@
     width: 80%; /* Reduced width for the table */
     background-color: #1e1e1e;
     border-radius: 10px;
-    padding: 15px; /* Slightly reduced padding */
-    margin: 20px auto; /* Centering the table */
+    padding: 15px;
+    margin: 20px auto;
 }
 
 #brokerTable {
@@ -50,7 +57,7 @@
 }
 
 #brokerTable th, #brokerTable td {
-    padding: 12px; /* Reduced padding for a compact look */
+    padding: 12px;
     text-align: left;
     color: #f5f5f5;
     border-bottom: 1px solid #333;
@@ -59,6 +66,7 @@
 #brokerTable th {
     background-color: #3a3a3a;
     font-weight: bold;
+    color: #f5f5f5;
 }
 
 #brokerTable tr:nth-child(even) {
@@ -66,18 +74,18 @@
 }
 
 #brokerTable tr:hover {
-    background-color: #333;
+    background-color: #333333;
 }
 
 /* Pagination Controls */
 .pagination-controls {
     display: flex;
     justify-content: center;
-    margin-top: 15px;
+    margin-top: 20px;
 }
 
 .pagination-btn {
-    padding: 8px 12px; /* Reduced padding */
+    padding: 10px 15px;
     background-color: #007bff;
     color: white;
     border: none;
@@ -95,36 +103,25 @@
     background-color: #0056b3;
 }
 
-.pagination-controls .pagination-btn {
-    min-width: 40px;
-    text-align: center;
+/* Search Filter - Centered Horizontally and Vertically */
+.broker-search-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Centers the search input vertically */
+    margin: 30px 0; /* Adds vertical margin */
+    height: 100px; /* Adds height to center the content vertically */
 }
 
-#prevPageBtn, #nextPageBtn {
-    padding: 8px 12px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-#prevPageBtn:hover, #nextPageBtn:hover {
-    background-color: #0056b3;
-}
-
-/* Search Input */
 .search-input {
     width: 100%;
     max-width: 400px;
-    padding: 8px; /* Slightly reduced padding */
+    padding: 10px;
     border: none;
     border-radius: 20px;
     background-color: #2a2a2a;
     color: #fff;
     font-size: 16px;
-    margin: 20px auto; /* Center the search bar */
+    text-align: center; /* Center the text inside the search input */
 }
 
 .search-input::placeholder {

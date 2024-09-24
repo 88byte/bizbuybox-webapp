@@ -1385,14 +1385,17 @@ window.addCurrencyFormattingListeners = function() {
 // Call this function when the modal opens to apply formatting listeners
 document.addEventListener('DOMContentLoaded', function() {
     addCurrencyFormattingListeners();
-    // Add event listeners to form fields to trigger the calculation
+    // Ensure form fields are populated, then trigger the first calculation
+    window.populateFormFields(); // If you have a function to populate form values, call it here
+
+    // Add event listeners to trigger calculation on input change
     document.getElementById('avgRevenue').addEventListener('input', window.calculateMonthlyEstimate);
     document.getElementById('totalDebtService').addEventListener('input', window.calculateMonthlyEstimate);
     document.getElementById('sellerFinanceAmount').addEventListener('input', window.calculateMonthlyEstimate);
     document.getElementById('avgCashflowDisplay').addEventListener('input', window.calculateMonthlyEstimate);
     document.getElementById('buyerSalary').addEventListener('input', window.calculateMonthlyEstimate);
-    
-    // Calculate estimates when the page loads
+
+    // Perform initial calculation once all fields are loaded/populated
     window.calculateMonthlyEstimate();
 });
 

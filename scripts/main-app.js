@@ -750,8 +750,10 @@ async function deleteDocument(dealId, docName, index) {
         if (dealDoc.exists()) {
             const dealData = dealDoc.data();
             
-            // Remove the deleted document from the documents array
-            dealData.documents.splice(index, 1);  // Remove the document at the specified index
+            // Ensure that dealData.documents is an array and remove the document at the specified index
+            if (Array.isArray(dealData.documents)) {
+                dealData.documents.splice(index, 1);  // Remove the document at the specified index
+            }
 
             // Update Firestore with the new documents array
             await setDoc(dealRef, { documents: dealData.documents }, { merge: true });
@@ -766,20 +768,22 @@ async function deleteDocument(dealId, docName, index) {
 
 
 
+
 // Function to upload documents to Firebase Storage and return the file URLs
 async function uploadDocuments(dealId) {
     const storageRef = ref(storage, `deals/${dealId}/documents/`);
     const uploadedURLs = [];
 
-    for (const file of window.uploadedDocuments) {
+    for (const { file, label } of window.uploadedDocuments) {
         const fileRef = ref(storageRef, file.name);
         await uploadBytes(fileRef, file);
         const fileURL = await getDownloadURL(fileRef);
-        uploadedURLs.push({ name: file.name, url: fileURL });
+        uploadedURLs.push({ name: label || file.name, url: fileURL }); // Use label or fallback to file name
     }
 
     return uploadedURLs;
 }
+
 
 
 // Function to save a new or edited deal

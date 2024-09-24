@@ -633,7 +633,7 @@ window.editDeal = function(dealId) {
         // Populate broker contact info
         if (deal.brokerContact) {
             const brokerBtn = document.querySelector('button[onclick="window.openBrokerContactModal()"]');
-            brokerBtn.setAttribute('data-tooltip', `Company: ${deal.brokerContact.company}\nPhone: ${deal.brokerContact.phone}\nEmail: ${deal.brokerContact.email}`);
+            brokerBtn.setAttribute('data-tooltip', `Company: ${deal.brokerContact.company}\nName: ${deal.brokerContact.name}\nPhone: ${deal.brokerContact.phone}\nEmail: ${deal.brokerContact.email}`);
             // Optionally open modal if needed
             document.getElementById('brokerCompany').value = deal.brokerContact.company;
             document.getElementById('brokerName').value = deal.brokerContact.name;
@@ -644,7 +644,7 @@ window.editDeal = function(dealId) {
         // Populate seller contact info
         if (deal.sellerContact) {
             const sellerBtn = document.querySelector('button[onclick="window.openSellerContactModal()"]');
-            sellerBtn.setAttribute('data-tooltip', `Phone: ${deal.sellerContact.phone}\nEmail: ${deal.sellerContact.email}`);
+            sellerBtn.setAttribute('data-tooltip', `Name: ${deal.sellerContact.name}\nPhone: ${deal.sellerContact.phone}\nEmail: ${deal.sellerContact.email}`);
             // Optionally open modal if needed
             document.getElementById('sellerName').value = deal.sellerContact.name;
             document.getElementById('sellerPhone').value = deal.sellerContact.phone;
@@ -1717,8 +1717,6 @@ window.closeSellerContactModal = function() {
 
 // Save Broker Contact Information
 window.saveBrokerContact = function() {
-    console.log('Broker Name:', name);  // Check if name is being captured
-
     const name = document.getElementById('brokerName').value;
     const company = document.getElementById('brokerCompany').value;
     const phone = document.getElementById('brokerPhone').value;
@@ -1738,7 +1736,6 @@ window.saveBrokerContact = function() {
 
 // Save Seller Contact Information
 window.saveSellerContact = function() {
-    console.log('Seller Name:', name);
     const name = document.getElementById('sellerName').value;
     const phone = document.getElementById('sellerPhone').value;
     const email = document.getElementById('sellerEmail').value;

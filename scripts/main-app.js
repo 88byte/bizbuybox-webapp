@@ -378,6 +378,13 @@ window.createDeal = function() {
     // Reset document section
     document.getElementById('documentList').innerHTML = ''; // Clear any previously added documents
 
+    // Reset specific fields like buyer salary, loan type, and business acquisition section
+    document.getElementById('buyerSalary').value = ''; // Clear buyer salary
+    document.getElementById('loanType').value = 'SBA'; // Reset loan type to SBA
+
+    // Clear the Business Acquisition Section (if it's dynamic)
+    document.getElementById('businessAcquisitionSection').innerHTML = ''; // Adjust if needed based on your layout
+
     // Reset any loan-specific inputs
     window.removeSecondLoanRow(); // Remove second loan row if it was added in a previous deal
 
@@ -398,6 +405,7 @@ window.clearBuyBoxChecklist = function() {
         icon.classList.remove('success', 'error', 'warning'); // Clear any success/error/warning status
     });
 };
+
 
 
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Support</title>
+    <title>Resources</title>
 
     <!-- Shared and Page-Specific CSS -->
     <link rel="stylesheet" href="styles/broker-directory.css">
@@ -15,6 +15,9 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
      <!-- Shared JavaScript -->
+    <script src="scripts/quick-calculator.js" type="module"></script>
+    <script src="scripts/resources.js" type="module"></script>
+    <script src="scripts/loi-generator.js" type="module"></script>
     <script src="scripts/support.js" type="module"></script>
     <script src="scripts/app.js" type="module"></script>
     <script src="scripts/main-app.js" type="module"></script>
@@ -166,79 +169,17 @@
 <main class="main-content">
     <!-- Section Header -->
     <div class="dashboard-header">
-        <h2>Support</h2>
+        <h2>Resources</h2>
     </div>
 
     <!-- Support Overview Section -->
     <section class="support-overview">
-        <h2>How can we assist you?</h2>
-        <p>If you have any questions or need help using our platform, please browse our support sections below or contact us directly.</p>
+        <h2>Coming soon...</h2>
     </section>
 
     <!-- Divider -->
     <div class="divider"></div>
 
-    <!-- Whitelist Upload Section (Initially Hidden) -->
-	<section class="whitelist-upload" style="display: none;">
-	    <h2>Upload Whitelist Emails</h2>
-	    <p>Managing access for your organization? Upload a CSV file with the emails you want to whitelist below:</p>
-	    <div class="upload-container">
-	        <label class="upload-label" for="csvFileInput">
-	            <i class="fas fa-upload"></i> Choose CSV
-	        </label>
-	        <input type="file" id="csvFileInput" accept=".csv" style="display: none;">
-	    </div>
-	    <button class="upload-btn" onclick="window.uploadWhitelist()">Upload Emails</button>
-	    <p class="upload-instruction">* CSV format only</p>
-	</section>
-
-
-    <!-- Divider -->
-    <div class="divider"></div>
-
-    <!-- Additional Resources Section -->
-    <section class="resources">
-        <h2>Resources & Guides</h2>
-        <p>Access our documentation and tutorials to learn how to make the most out of the platform.</p>
-        <ul class="resources-list">
-            <li><a href="#">Getting Started Guide</a></li>
-            <li><a href="#">How to Use Bulk Upload</a></li>
-            <li><a href="#">Best Practices for Managing Accounts</a></li>
-            <li><a href="#">Advanced Features Overview</a></li>
-        </ul>
-    </section>
-
-    <!-- Divider -->
-    <div class="divider"></div>
-
-    <!-- FAQ Section -->
-    <section class="faq-section">
-        <h2>Frequently Asked Questions</h2>
-        <div class="faq-item">
-            <h3>How do I reset my password?</h3>
-            <p>You can reset your password by clicking "Forgot Password" on the login page and following the instructions.</p>
-        </div>
-        <div class="faq-item">
-            <h3>How do I upload a bulk list of emails?</h3>
-            <p>Use the form above to upload a .csv file containing the emails you wish to whitelist. The file should be formatted correctly for processing.</p>
-        </div>
-        <div class="faq-item">
-            <h3>What file formats are supported?</h3>
-            <p>Currently, only .csv files are supported for bulk email uploads. If you need help formatting your file, refer to our <a href="#">CSV formatting guide</a>.</p>
-        </div>
-    </section>
-
-    <!-- Divider -->
-    <div class="divider"></div>
-
-    <!-- Contact Support Section -->
-    <section class="contact-info">
-        <h2>Contact Support</h2>
-        <p>For general inquiries, reach us at <a href="mailto:flaviod022@gmail.com">flaviod022@gmail.com</a></p>
-    </section>
-
-    <!-- Toast Notification -->
-    <div id="toastNotification" class="toast hidden"></div>
 </main>
 
 

@@ -261,25 +261,45 @@ function handleStart() {
 // Function to handle Google Login using Popup
 window.handleGoogleLogin = function () {
     signInWithPopup(auth, provider)
-        .then((result) => {
+        .then(async (result) => {
             const user = result.user;
             console.log('User signed in with Google:', user);
 
-            // Check if the user's document exists in Firestore
-            const userRef = doc(db, "users", user.uid);
-            setDoc(userRef, {
-                username: user.displayName || 'Google User',
-                email: user.email,
-                createdAt: new Date().toISOString()
-            }, { merge: true }) // Merging to ensure existing data isn't overwritten
-            .then(() => {
+            try {
+                // Step 1: Check if the user's email is whitelisted
+                const emailDoc = await getDoc(doc(db, 'whitelistedEmails', user.email));
+
+                if (!emailDoc.exists()) {
+                    // If email is not found in the whitelist, deny access
+                    alert('Your email is not whitelisted. Please contact support.');
+                    // Optionally sign out the user
+                    signOut(auth);
+                    return;
+                }
+
+                // Step 2: Get the user's role from the whitelist (default to "user" if not specified)
+                const userRole = emailDoc.data().role || 'user';
+
+                // Step 3: Proceed with saving the user's data in Firestore
+                const userRef = doc(db, "users", user.uid);
+                await setDoc(userRef, {
+                    username: user.displayName || 'Google User',
+                    email: user.email,
+                    role: userRole,   // Save the role from the whitelist
+                    createdAt: new Date().toISOString()
+                }, { merge: true }); // Merging to ensure existing data isn't overwritten
+
                 console.log('User data successfully written to Firestore');
                 alert('Sign-in successful! Welcome, ' + user.email);
+
+                // Close the login modal and redirect to the main app page
                 closeLoginModal();
                 window.location.href = 'main-app.html'; // Redirect to the main app page
-            }).catch((error) => {
-                console.error('Error writing user data to Firestore:', error);
-            });
+
+            } catch (error) {
+                console.error('Error handling Google login or fetching whitelist:', error);
+                alert('There was an error during login. Please try again.');
+            }
         })
         .catch((error) => {
             console.error('Error during Google login:', error);
@@ -289,22 +309,43 @@ window.handleGoogleLogin = function () {
 
 
 
+
 // Function to handle Email/Password Login
 function handleLogin() {
     const email = document.getElementById('loginUsername').value;
     const password = document.getElementById('loginPassword').value;
 
+    // Debug: Make sure email and password values are being captured
+    console.log('Attempting to log in with:', email, password);
+
+    // Attempt to log in the user with Firebase Auth
     signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-            console.log('User logged in:', userCredential.user);
+            const user = userCredential.user;
+            console.log('User logged in:', user);
+
+            // Close the login modal
             closeLoginModal();
-            window.location.href = 'main-app.html'; // Redirect to the main app page
+
+            // Redirect the user to the main-app page
+            window.location.href = 'main-app.html';
         })
         .catch((error) => {
             console.error('Error during login:', error);
-            alert('Login failed: ' + error.message);
+
+            // Handle error cases and display to the user
+            if (error.code === 'auth/wrong-password') {
+                alert('Incorrect password. Please try again.');
+            } else if (error.code === 'auth/user-not-found') {
+                alert('No user found with this email. Please sign up first.');
+            } else if (error.code === 'auth/invalid-email') {
+                alert('The email address is not valid.');
+            } else {
+                alert('Login failed: ' + error.message);
+            }
         });
 }
+
 
 
 

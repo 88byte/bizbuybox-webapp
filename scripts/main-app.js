@@ -2066,6 +2066,9 @@ window.setupRealTimeUpdates = function() {
             window.calculateMonthlyEstimate();
         });
     });
+
+    // Add listener for buyer salary to dynamically update the take-home salary
+    addListenerIfExists('#buyerSalary', 'input', window.calculateMonthlyEstimate);
 };
 
 

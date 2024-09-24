@@ -19,38 +19,6 @@
     color: #bbbbbb;
 }
 
-.contact-details {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-}
-
-.support-method {
-    flex: 1;
-    min-width: 200px;
-    margin: 10px 20px;
-}
-
-.support-method h3 {
-    font-size: 18px;
-    color: #007bff;
-    margin-bottom: 10px;
-}
-
-.support-method p {
-    font-size: 16px;
-    color: #f5f5f5;
-}
-
-.support-method a {
-    color: #007bff;
-    text-decoration: none;
-}
-
-.support-method a:hover {
-    text-decoration: underline;
-}
-
 /* Whitelist Upload Section */
 .whitelist-upload {
     background-color: #333333;
@@ -73,12 +41,12 @@
 
 .upload-container {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start; /* Aligns the CSV button to the left */
     margin-bottom: 15px;
 }
 
 .upload-label {
-    background-color: #97835a;
+    background-color: #97835a; /* Your primary color */
     color: white;
     padding: 10px 20px;
     border-radius: 5px;
@@ -103,6 +71,11 @@
     font-size: 14px;
     color: #aaaaaa;
     margin-top: 10px;
+}
+
+/* Email Support Header */
+.support-header {
+    color: #97835a; /* Primary color */
 }
 
 /* Resources Section */

@@ -180,6 +180,14 @@ window.uploadDeals = function () {
     const fileInput = document.getElementById('dealCsvInput');
     const file = fileInput.files[0];
 
+    // Get the current authenticated user
+    const user = auth.currentUser;
+
+    if (!user) {
+        window.showToast('You need to be logged in to upload deals.', false); // Show error if no user is logged in
+        return;
+    }
+
     if (file) {
         window.showToast('Uploading deals... Please wait.', true, true); // Persistent toast for ongoing upload
 
@@ -193,7 +201,10 @@ window.uploadDeals = function () {
 
                 // Iterate through each deal row from the CSV
                 deals.forEach(async (row, index) => {
-                    const mappedDeal = window.mapCsvToDealForm(row); // Map CSV data to webapp format
+                    const mappedDeal = window.mapCsvToDealForm(row);
+
+                    // Add the authenticated user's ID to the deal data
+                    mappedDeal.userId = user.uid;
 
                     if (mappedDeal.businessName) { // Only proceed if business name exists
                         try {
@@ -229,6 +240,7 @@ window.uploadDeals = function () {
         window.showToast('Please select a CSV file.', false); // Show error toast if no file selected
     }
 };
+
 
 // Function to dynamically create deal cards on the page
 window.createDealCard = function(deal, dealId) {

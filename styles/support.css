@@ -1,17 +1,12 @@
 
-
-/* Section Header */
-.section-header h1 {
-    font-size: 28px;
-    color: #ffffff;
-    margin-bottom: 30px;
-    text-align: center;
-}
-
-//* Support Overview */
+/* Support Overview */
 .support-overview {
     text-align: center;
+    padding: 30px;
+    background-color: #292929;
+    border-radius: 10px;
     margin-bottom: 40px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
 }
 
 .support-overview h2 {
@@ -22,53 +17,6 @@
 .support-overview p {
     font-size: 16px;
     color: #bbbbbb;
-}
-
-/* Contact Info Section */
-.contact-info {
-    background-color: #292929;
-    border-radius: 10px;
-    padding: 30px;
-    margin-bottom: 40px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-}
-
-.contact-info h2 {
-    font-size: 24px;
-    color: #ffffff;
-    margin-bottom: 20px;
-}
-
-.contact-details {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-}
-
-.support-method {
-    flex: 1;
-    min-width: 200px;
-    margin: 10px 20px;
-}
-
-.support-method h3 {
-    font-size: 18px;
-    color: #007bff;
-    margin-bottom: 10px;
-}
-
-.support-method p {
-    font-size: 16px;
-    color: #f5f5f5;
-}
-
-.support-method a {
-    color: #007bff;
-    text-decoration: none;
-}
-
-.support-method a:hover {
-    text-decoration: underline;
 }
 
 /* Whitelist Upload Section */
@@ -91,15 +39,83 @@
     color: #dddddd;
 }
 
+.upload-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.upload-label {
+    background-color: #97835a;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.upload-btn {
+    background-color: #28a745;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.upload-btn:hover {
+    background-color: #218838;
+}
+
 .upload-instruction {
     font-size: 14px;
     color: #aaaaaa;
     margin-top: 10px;
 }
 
+/* Resources Section */
+.resources {
+    background-color: #292929;
+    border-radius: 10px;
+    padding: 30px;
+    margin-bottom: 40px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.resources h2 {
+    font-size: 24px;
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+.resources p {
+    font-size: 16px;
+    color: #dddddd;
+    margin-bottom: 15px;
+}
+
+.resources-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.resources-list li {
+    margin-bottom: 10px;
+}
+
+.resources-list a {
+    color: #97835a;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.resources-list a:hover {
+    text-decoration: underline;
+}
+
 /* FAQ Section */
 .faq-section {
-    background-color: #292929;
+    background-color: #333333;
     border-radius: 10px;
     padding: 30px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
@@ -117,47 +133,11 @@
 
 .faq-item h3 {
     font-size: 18px;
-    color: #007bff;
+    color: #97835a;
     margin-bottom: 8px;
 }
 
 .faq-item p {
     font-size: 16px;
     color: #dddddd;
-}
-
-/* Upload Section */
-.upload-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-.upload-label {
-    background-color: #007bff;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-bottom: 10px;
-}
-
-.upload-btn {
-    background-color: #28a745;
-    padding: 10px 20px;
-    border-radius: 5px;
-    color: white;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-.upload-btn:hover {
-    background-color: #218838;
-}
-
-/* Shadow for Sections */
-.sleek-shadow {
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
 }

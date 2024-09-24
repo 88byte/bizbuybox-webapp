@@ -1208,6 +1208,7 @@ window.handleLoanTypeChange = function() {
     // Apply currency formatting and debt service calculation for both loan amounts
     window.setupLoanAmountFormatting();
     window.calculateDebtService();
+    window.calculateMonthlyEstimate();
 };
 
 

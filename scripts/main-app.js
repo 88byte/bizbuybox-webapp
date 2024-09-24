@@ -2029,6 +2029,7 @@ window.addRealTimeChecklistUpdates();
 window.setupRealTimeUpdates();
 window.updateAskingPrice();
 window.calculateDebtService();
+window.calculateMonthlyEstimate();
 
 
 
@@ -2187,48 +2188,38 @@ window.calculateMonthlyEstimate = function() {
     let totalRevenue = 0;
     let revenueCount = 0;
 
-    // Ensure revenues exist before attempting to sum them
+    // Gather all revenue inputs and sum them
     const revenues = document.querySelectorAll('input[name="revenue[]"]');
-    if (revenues.length > 0) {
-        revenues.forEach(input => {
-            const revenue = parseFloat(input.value.replace(/[^\d.-]/g, '')) || 0;
-            totalRevenue += revenue;
-            revenueCount++;
-        });
-    }
+    revenues.forEach(input => {
+        const revenue = parseFloat(input.value.replace(/[^\d.-]/g, '')) || 0;
+        totalRevenue += revenue;
+        revenueCount++;
+    });
 
     const avgRevenue = revenueCount > 0 ? totalRevenue / revenueCount : 0;  // Average annual revenue
     const monthlyRevenue = avgRevenue / 12;  // Convert to monthly revenue
 
     // Step 2: Calculate Loan Debt Service (annual, then monthly)
-    const loanAmountElement = document.getElementById('loanAmount1');
-    const interestRateElement = document.getElementById('interestRate1');
-    const loanTermElement = document.getElementById('loanTerm1');
+    const loanAmount = parseFloat(document.getElementById('loanAmount1').value.replace(/[^\d.-]/g, '')) || 0;
+    const interestRate = parseFloat(document.getElementById('interestRate1').value) || 0;
+    const loanTerm = parseInt(document.getElementById('loanTerm1').value, 10) || 0;
 
-    if (loanAmountElement && interestRateElement && loanTermElement) {
-        const loanAmount = parseFloat(loanAmountElement.value.replace(/[^\d.-]/g, '')) || 0;
-        const interestRate = parseFloat(interestRateElement.value) || 0;
-        const loanTerm = parseInt(loanTermElement.value, 10) || 0;
+    const annualLoanDebtService = window.calculateAnnualDebtService(loanAmount, interestRate, loanTerm);
+    const monthlyLoanDebtService = annualLoanDebtService / 12;
 
-        const annualLoanDebtService = window.calculateAnnualDebtService(loanAmount, interestRate, loanTerm);
-        const monthlyLoanDebtService = annualLoanDebtService / 12;
-
-        document.getElementById('loanDebt').innerText = monthlyLoanDebtService.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-    }
 
     // Step 3: Calculate Seller Finance Debt Service (if applicable)
     let monthlySellerDebtService = 0; // Initialize as 0 if not applicable
     const sellerFinanceAmountElement = document.getElementById('loanAmount2'); // Check if the element exists
 
     if (sellerFinanceAmountElement) {
+        // Only perform calculations if the element exists
         const sellerFinanceAmount = parseFloat(sellerFinanceAmountElement.value.replace(/[^\d.-]/g, '')) || 0;
         const sellerInterestRate = parseFloat(document.getElementById('interestRate2').value) || 0;
         const sellerLoanTerm = parseInt(document.getElementById('loanTerm2').value, 10) || 0;
 
         const annualSellerDebtService = window.calculateAnnualDebtService(sellerFinanceAmount, sellerInterestRate, sellerLoanTerm);
         monthlySellerDebtService = annualSellerDebtService / 12;
-
-        document.getElementById('sellerDebt').innerText = monthlySellerDebtService.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
     }
 
     // Step 4: Calculate Working Capital Estimate (Average Revenue - Cashflow)
@@ -2236,13 +2227,11 @@ window.calculateMonthlyEstimate = function() {
     let cashflowCount = 0;
 
     const cashflows = document.querySelectorAll('input[name="cashflow[]"]');
-    if (cashflows.length > 0) {
-        cashflows.forEach(input => {
-            const cashflow = parseFloat(input.value.replace(/[^\d.-]/g, '')) || 0;
-            totalCashflow += cashflow;
-            cashflowCount++;
-        });
-    }
+    cashflows.forEach(input => {
+        const cashflow = parseFloat(input.value.replace(/[^\d.-]/g, '')) || 0;
+        totalCashflow += cashflow;
+        cashflowCount++;
+    });
 
     const avgCashflow = cashflowCount > 0 ? totalCashflow / cashflowCount : 0;
     const workingCapitalEst = avgRevenue - avgCashflow;
@@ -2256,6 +2245,8 @@ window.calculateMonthlyEstimate = function() {
 
     // Step 7: Update the UI with the results
     document.getElementById('grossRevenue').innerText = monthlyRevenue.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+    document.getElementById('loanDebt').innerText = monthlyLoanDebtService.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+    document.getElementById('sellerDebt').innerText = monthlySellerDebtService.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
     document.getElementById('workingCapitalEst').innerText = workingCapitalEst.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
     document.getElementById('takeHomeSalary').innerText = monthlyBuyerSalary.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
     document.getElementById('netMonthlyIncome').innerText = netMonthlyIncome.toLocaleString('en-US', { style: 'currency', currency: 'USD' });

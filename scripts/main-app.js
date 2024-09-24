@@ -30,7 +30,8 @@ import {
     getStorage, 
     ref, 
     uploadBytes, 
-    getDownloadURL 
+    getDownloadURL,
+    deleteObject  
 } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-storage.js";
 
 // Your Firebase configuration

@@ -1249,6 +1249,26 @@ window.removeSecondLoanRow = function() {
     }
 };
 
+// Function to switch between tabs
+window.openTab = function(evt, tabName) {
+    // Hide all tabs
+    const tabContent = document.getElementsByClassName("tab-content");
+    for (let i = 0; i < tabContent.length; i++) {
+        tabContent[i].style.display = "none"; // Hide each tab
+    }
+
+    // Remove the active class from all tab buttons
+    const tabLinks = document.getElementsByClassName("tab-link");
+    for (let i = 0; i < tabLinks.length; i++) {
+        tabLinks[i].className = tabLinks[i].className.replace(" active", ""); // Remove active class
+    }
+
+    // Show the current tab
+    document.getElementById(tabName).style.display = "block"; // Show the specific tab
+
+    // Add an "active" class to the clicked button
+    evt.currentTarget.className += " active";
+}
 
 
 

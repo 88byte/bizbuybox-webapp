@@ -2174,39 +2174,64 @@ window.listenToDealUpdates();
 
 
 // MONTHLY ESTIMATE TAB
-// Function to calculate and update monthly estimates
 window.calculateMonthlyEstimate = function() {
-    // Example values from your form fields
-    const avgRevenue = parseFloat(document.getElementById('avgRevenue').value) || 0; // Placeholder, replace with actual form value
-    const totalDebtService = parseFloat(document.getElementById('totalDebtService').innerText.replace(/\$/g, '')) || 0; // Annual debt service
-    const sellerFinanceDebt = parseFloat(document.getElementById('sellerFinanceAmount').value) || 0; // Seller debt from form
-    const avgCashflow = parseFloat(document.getElementById('avgCashflowDisplay').innerText.replace(/\$/g, '')) || 0; // Avg Cashflow
-    const buyerSalary = parseFloat(document.getElementById('buyerSalary').value.replace(/\$/g, '')) || 0; // Buyer salary
+    // Step 1: Calculate Average Revenue from all revenue entries
+    let totalRevenue = 0;
+    let revenueCount = 0;
 
-    // Monthly calculations
-    const monthlyRevenue = avgRevenue / 12;
-    const monthlyLoanDebt = totalDebtService / 12;
-    const monthlySellerDebt = sellerFinanceDebt / 12;
+    const revenues = document.querySelectorAll('input[name="revenue[]"]');
+    revenues.forEach(input => {
+        const revenue = parseFloat(input.value.replace(/[^\d.-]/g, '')) || 0;
+        totalRevenue += revenue;
+        revenueCount++;
+    });
+
+    const avgRevenue = revenueCount > 0 ? totalRevenue / revenueCount : 0;
+    const monthlyRevenue = avgRevenue / 12;  // Convert annual to monthly
+
+    // Step 2: Calculate Loan Debt Service (annual, then monthly)
+    const loanAmount = parseFloat(document.getElementById('loanAmount1').value.replace(/[^\d.-]/g, '')) || 0;
+    const interestRate = parseFloat(document.getElementById('interestRate1').value) || 0;
+    const loanTerm = parseInt(document.getElementById('loanTerm1').value, 10) || 0;
+
+    const annualLoanDebtService = window.calculateAnnualDebtService(loanAmount, interestRate, loanTerm);
+    const monthlyLoanDebtService = annualLoanDebtService / 12;
+
+    // Step 3: Calculate Seller Finance Debt Service (if applicable)
+    const sellerFinanceAmount = parseFloat(document.getElementById('sellerFinanceAmount').value.replace(/[^\d.-]/g, '')) || 0;
+    const sellerInterestRate = parseFloat(document.getElementById('interestRate2').value) || 0;
+    const sellerLoanTerm = parseInt(document.getElementById('loanTerm2').value, 10) || 0;
+
+    const annualSellerDebtService = window.calculateAnnualDebtService(sellerFinanceAmount, sellerInterestRate, sellerLoanTerm);
+    const monthlySellerDebtService = annualSellerDebtService / 12;
+
+    // Step 4: Calculate Working Capital Estimate (Average Revenue - Cashflow)
+    let totalCashflow = 0;
+    const cashflows = document.querySelectorAll('input[name="cashflow[]"]');
+    cashflows.forEach(input => {
+        const cashflow = parseFloat(input.value.replace(/[^\d.-]/g, '')) || 0;
+        totalCashflow += cashflow;
+    });
+
+    const avgCashflow = revenueCount > 0 ? totalCashflow / revenueCount : 0;
     const workingCapitalEst = avgRevenue - avgCashflow;
-    const monthlyTakeHomeSalary = buyerSalary / 12;
 
-    // Net monthly calculation
-    const netMonthlyIncome = monthlyRevenue - monthlyLoanDebt - monthlySellerDebt - workingCapitalEst - monthlyTakeHomeSalary;
+    // Step 5: Buyer Salary
+    const buyerSalary = parseFloat(document.getElementById('buyerSalary').value.replace(/[^\d.-]/g, '')) || 0;
+    const monthlyBuyerSalary = buyerSalary / 12;
 
-    // Update UI
-    document.getElementById('grossRevenue').innerText = monthlyRevenue.toFixed(2);
-    document.getElementById('loanDebt').innerText = monthlyLoanDebt.toFixed(2);
-    document.getElementById('sellerDebt').innerText = monthlySellerDebt.toFixed(2);
-    document.getElementById('workingCapitalEst').innerText = workingCapitalEst.toFixed(2);
-    document.getElementById('takeHomeSalary').innerText = monthlyTakeHomeSalary.toFixed(2);
-    document.getElementById('netMonthlyIncome').innerText = netMonthlyIncome.toFixed(2);
-    
-    // Net annual estimate
+    // Step 6: Calculate Net Monthly Income
+    const netMonthlyIncome = monthlyRevenue - monthlyLoanDebtService - monthlySellerDebtService - workingCapitalEst - monthlyBuyerSalary;
+
+    // Step 7: Update the UI with results
+    document.getElementById('grossRevenue').innerText = monthlyRevenue.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+    document.getElementById('loanDebt').innerText = monthlyLoanDebtService.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+    document.getElementById('sellerDebt').innerText = monthlySellerDebtService.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+    document.getElementById('workingCapitalEst').innerText = workingCapitalEst.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+    document.getElementById('takeHomeSalary').innerText = monthlyBuyerSalary.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+    document.getElementById('netMonthlyIncome').innerText = netMonthlyIncome.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+
+    // Step 8: Net Annual Estimate
     const netAnnualIncome = netMonthlyIncome * 12;
-    document.getElementById('netAnnualEst').innerText = netAnnualIncome.toFixed(2);
-}
-
-// Attach event listener to DOMContentLoaded to calculate on page load
-document.addEventListener('DOMContentLoaded', function () {
-    window.calculateMonthlyEstimate(); // Calculate on page load or after any form changes
-});
+    document.getElementById('netAnnualEst').innerText = netAnnualIncome.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+};

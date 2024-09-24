@@ -175,11 +175,11 @@ window.hideToast = function () {
 };
 
 
-// Function to map CSV fields to form fields
-function mapCsvFieldsToForm(deal) {
+// Make the mapping function globally accessible
+window.mapCsvFieldsToForm = function (deal) {
     // Mapping CSV data to form fields
     document.getElementById('businessName').value = deal.businessName || '';
-    document.getElementById('status').value = mapStatusToDropdown(deal.status) || 'new-deal'; // Map CSV status to dropdown value
+    document.getElementById('status').value = window.mapStatusToDropdown(deal.status) || 'new-deal'; // Map CSV status to dropdown value
     document.getElementById('yearsInBusiness').value = deal.yearsInBusiness || '';
     document.getElementById('fullTimeEmployees').value = deal.fullTimeEmployees || '';
     document.getElementById('partTimeEmployees').value = deal.partTimeEmployees || '';
@@ -192,7 +192,7 @@ function mapCsvFieldsToForm(deal) {
     document.getElementById('notes').value = deal.notes || '';
 
     // Financial details (Revenue & Cashflow)
-    mapRevenueCashflowFields(deal);
+    window.mapRevenueCashflowFields(deal);
 
     // Funding details
     document.getElementById('loanType').value = deal.loanType || 'SBA';
@@ -202,11 +202,11 @@ function mapCsvFieldsToForm(deal) {
     document.getElementById('buyerSalary').value = deal.salary || '';
 
     // Ensure status color is updated based on the mapped status
-    updateStatusColor();
-}
+    window.updateStatusColor();
+};
 
 // Helper function to map status from CSV to dropdown value
-function mapStatusToDropdown(status) {
+window.mapStatusToDropdown = function (status) {
     const statusMap = {
         'New Deal': 'new-deal',
         'CIM Review': 'cim-review',
@@ -221,10 +221,10 @@ function mapStatusToDropdown(status) {
         'Nurture': 'nurture',
     };
     return statusMap[status] || 'new-deal'; // Default to 'new-deal' if status not recognized
-}
+};
 
 // Map revenue and cashflow fields dynamically based on CSV data
-function mapRevenueCashflowFields(deal) {
+window.mapRevenueCashflowFields = function (deal) {
     // Assuming revenue/cashflow columns are named revenue1, revenue2, etc. in CSV
     const revenueFields = [deal.revenue1, deal.revenue2, deal.revenue3, deal.revenue4];
     const cashflowFields = [deal.cashflow1, deal.cashflow2, deal.cashflow3, deal.cashflow4];
@@ -237,13 +237,13 @@ function mapRevenueCashflowFields(deal) {
     revenueFields.forEach((revenue, index) => {
         const cashflow = cashflowFields[index] || '';
         if (revenue || cashflow) {
-            addRevenueCashflowRow(revenue, cashflow);
+            window.addRevenueCashflowRow(revenue, cashflow);
         }
     });
-}
+};
 
 // Function to add rows for Revenue & Cashflow with prefilled data
-function addRevenueCashflowRow(revenue = '', cashflow = '') {
+window.addRevenueCashflowRow = function (revenue = '', cashflow = '') {
     const section = document.getElementById('revenueCashflowSection');
     const entry = document.createElement('div');
     entry.classList.add('revenue-cashflow-entry');
@@ -251,16 +251,16 @@ function addRevenueCashflowRow(revenue = '', cashflow = '') {
     entry.innerHTML = `
         <div class="revenue-cashflow-row">
             <div class="input-item button-container">
-                <button type="button" class="btn-remove" onclick="removeRevenueCashflowRow(this)">−</button>
+                <button type="button" class="btn-remove" onclick="window.removeRevenueCashflowRow(this)">−</button>
             </div>
             <div class="input-item year-text">
                 <div contenteditable="true" class="editable-year">Year</div>
             </div>
             <div class="input-item small-input revenue-column">
-                <input type="text" name="revenue[]" placeholder="$0" value="${revenue}" oninput="updateProfitMargin(this)">
+                <input type="text" name="revenue[]" placeholder="$0" value="${revenue}" oninput="window.updateProfitMargin(this)">
             </div>
             <div class="input-item small-input cashflow-column">
-                <input type="text" name="cashflow[]" placeholder="$0" value="${cashflow}" oninput="updateProfitMargin(this)">
+                <input type="text" name="cashflow[]" placeholder="$0" value="${cashflow}" oninput="window.updateProfitMargin(this)">
             </div>
             <div class="input-item profit-column">
                 <span>0%</span>
@@ -270,7 +270,7 @@ function addRevenueCashflowRow(revenue = '', cashflow = '') {
 
     // Append the new entry to the section
     section.appendChild(entry);
-}
+};
 
 // Function to upload and parse deals from the older tool (modified to map data to form fields)
 window.uploadDeals = function () {
@@ -294,7 +294,7 @@ window.uploadDeals = function () {
                         console.log('Deal added with ID: ', docRef.id);
 
                         // Auto-fill form fields with the deal data
-                        mapCsvFieldsToForm(deal);
+                        window.mapCsvFieldsToForm(deal);
 
                     } catch (error) {
                         console.error('Error adding deal:', error);

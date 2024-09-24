@@ -181,7 +181,7 @@ document.getElementById('loginForm').addEventListener('submit', function (e) {
 });
 
 // Function to handle the sign-up form submission
-document.getElementById('signUpForm').addEventListener('submit', function (e) {
+document.getElementById('signUpForm').addEventListener('submit', async function (e) {
     e.preventDefault(); // Prevent the default form submission behavior
 
     // Get form values
@@ -198,39 +198,52 @@ document.getElementById('signUpForm').addEventListener('submit', function (e) {
         return;
     }
 
-    // Firebase function to create a user with email and password
-    createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            const user = userCredential.user;
-            console.log('User signed up successfully:', user);
+    try {
+        // Step 1: Check if the email is in the whitelist
+        const emailDoc = await getDoc(doc(db, 'whitelistedEmails', email));
+        
+        if (!emailDoc.exists()) {
+            // If email is not found in the whitelist, deny registration
+            alert('Your email is not whitelisted. Please contact support.');
+            return;
+        }
 
-            // Save user data to Firestore
-            return setDoc(doc(db, "users", user.uid), {
-                username: username,
-                email: email,
-                createdAt: new Date().toISOString()
-            });
-        })
-        .then(() => {
-            console.log('User data successfully written to Firestore');
-            alert('Sign-up successful! Welcome, ' + email);
-            closeLoginModal();
-        })
-        .catch((error) => {
-            console.error('Error during sign-up:', error);
+        // Step 2: Proceed with creating the user account if email is whitelisted
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        console.log('User signed up successfully:', user);
 
-            // Specific error handling
-            if (error.code === 'auth/email-already-in-use') {
-                alert('This email is already in use. Please use a different email.');
-            } else if (error.code === 'auth/invalid-email') {
-                alert('The email address is invalid.');
-            } else if (error.code === 'auth/weak-password') {
-                alert('The password is too weak. Please choose a stronger password.');
-            } else {
-                alert('Error during sign-up: ' + error.message);
-            }
+        // Step 3: Get role from the whitelist (default to "user" if no role specified)
+        const userRole = emailDoc.data().role || 'user';
+
+        // Step 4: Save user data and role to Firestore
+        await setDoc(doc(db, "users", user.uid), {
+            username: username,
+            email: email,
+            role: userRole,   // Save the role from the whitelist
+            createdAt: new Date().toISOString()
         });
+
+        console.log('User data successfully written to Firestore');
+        alert('Sign-up successful! Welcome, ' + username);
+        closeLoginModal();
+
+    } catch (error) {
+        console.error('Error during sign-up:', error);
+
+        // Specific error handling
+        if (error.code === 'auth/email-already-in-use') {
+            alert('This email is already in use. Please use a different email.');
+        } else if (error.code === 'auth/invalid-email') {
+            alert('The email address is invalid.');
+        } else if (error.code === 'auth/weak-password') {
+            alert('The password is too weak. Please choose a stronger password.');
+        } else {
+            alert('Error during sign-up: ' + error.message);
+        }
+    }
 });
+
 
 
 
@@ -241,25 +254,6 @@ function handleStart() {
     document.querySelector('.features-section').scrollIntoView({ behavior: 'smooth' });
 }
 
-
-
-// JavaScript to create and animate particles
-function createParticles() {
-    const particleContainer = document.getElementById('particle-container');
-    for (let i = 0; i < 300; i++) { // Number of particles
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        particle.style.top = Math.random() * 100 + '%';
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.animationDuration = 8 + Math.random() * 12 + 's'; // Random duration between 8s and 20s
-        particleContainer.appendChild(particle);
-    }
-}
-
-document.addEventListener('DOMContentLoaded', function () {
-    createParticles();
-    initializeGapiClient();
-});
 
 
 // Function to handle Google Login using Popup
@@ -312,6 +306,22 @@ function handleLogin() {
 
 
 
+// JavaScript to create and animate particles
+function createParticles() {
+    const particleContainer = document.getElementById('particle-container');
+    for (let i = 0; i < 300; i++) { // Number of particles
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.top = Math.random() * 100 + '%';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDuration = 8 + Math.random() * 12 + 's'; // Random duration between 8s and 20s
+        particleContainer.appendChild(particle);
+    }
+}
 
+document.addEventListener('DOMContentLoaded', function () {
+    createParticles();
+    initializeGapiClient();
+});
 
 

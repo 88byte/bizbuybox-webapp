@@ -47,7 +47,48 @@ const firebaseConfig = {
 };
 
 
-// Initialize Firestore
-const db = getFirestore();
-window.auth = getAuth(); 
-window.storage = getStorage(); 
+
+// Initialize Firebase app
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// Function to upload whitelist CSV to Firestore
+window.uploadWhitelist = function() {
+    const fileInput = document.getElementById('csvFileInput');
+    const file = fileInput.files[0];
+
+    if (file) {
+        Papa.parse(file, {
+            header: true,
+            complete: function(results) {
+                const emails = results.data;
+                const totalEmails = emails.length;
+                let uploadCount = 0;
+
+                emails.forEach(async (row, index) => {
+                    const email = row['email']; // Replace with your CSV column name
+                    const role = row['role'] || 'user'; // Default to 'user' if role isn't provided
+
+                    try {
+                        await setDoc(doc(db, 'whitelistedEmails', email), {
+                            email: email,
+                            role: role
+                        });
+                        uploadCount++;
+                    } catch (error) {
+                        console.error(`Error uploading email: ${email}`, error);
+                    }
+
+                    if (index === totalEmails - 1) {
+                        alert(`Upload complete. ${uploadCount} emails uploaded.`);
+                    }
+                });
+            },
+            error: function(error) {
+                console.error('Error parsing CSV file:', error);
+            }
+        });
+    } else {
+        alert('Please select a CSV file.');
+    }
+};

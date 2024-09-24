@@ -209,6 +209,7 @@ document.getElementById('signUpForm').addEventListener('submit', async function 
         }
 
         // Step 2: Proceed with creating the user account if email is whitelisted
+        // Firebase automatically checks if the email is already in use
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
         console.log('User signed up successfully:', user);
@@ -231,7 +232,7 @@ document.getElementById('signUpForm').addEventListener('submit', async function 
     } catch (error) {
         console.error('Error during sign-up:', error);
 
-        // Specific error handling
+        // Firebase specific error handling for existing email
         if (error.code === 'auth/email-already-in-use') {
             alert('This email is already in use. Please use a different email.');
         } else if (error.code === 'auth/invalid-email') {
@@ -243,6 +244,7 @@ document.getElementById('signUpForm').addEventListener('submit', async function 
         }
     }
 });
+
 
 
 

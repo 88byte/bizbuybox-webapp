@@ -1168,15 +1168,30 @@ window.uploadDocument = function() {
         const fileElement = document.createElement('div');
         fileElement.classList.add('document-item');
 
-        // Create clickable file name (as a link)
+        // Create a label input for the file
+        const labelInput = document.createElement('input');
+        labelInput.type = 'text';
+        labelInput.placeholder = 'Enter file label (e.g., Business Plan)';
+        labelInput.classList.add('file-label-input');
+
+        // Set default label as the file name (optional)
+        labelInput.value = file.name;
+
+        // Create clickable file link (default to file name or custom label when added)
         const fileLink = document.createElement('a');
         const fileURL = URL.createObjectURL(file);
         fileLink.href = fileURL;
         fileLink.target = '_blank'; // Open in a new tab
-        fileLink.textContent = file.name;
+        fileLink.textContent = labelInput.value; // Default to file name for now
         fileLink.classList.add('document-link');
 
-        // Add the file name link to the element
+        // Update file link text whenever the label input changes
+        labelInput.addEventListener('input', () => {
+            fileLink.textContent = labelInput.value; // Update to user-provided label
+        });
+
+        // Add the label input and the file link to the element
+        fileElement.appendChild(labelInput);
         fileElement.appendChild(fileLink);
 
         // Add view button next to the file name
@@ -1201,12 +1216,13 @@ window.uploadDocument = function() {
 
         // Add the file element to the document list
         documentList.appendChild(fileElement);
-        window.uploadedDocuments.push(file); // Add to global list of uploaded documents
+        window.uploadedDocuments.push({ file, label: labelInput.value }); // Add to global list with custom label
     }
 
     // Clear the file input after uploading
     fileInput.value = '';
 };
+
 
 
 // Function to format loan amount inputs in real-time

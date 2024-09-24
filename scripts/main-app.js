@@ -391,7 +391,7 @@ window.createDeal = function() {
 
     // Force recalculations in case cached data is used
     window.updateProfitMargin(this);   // Update profit margin when revenue changes
-    window.calculateMetrics();         // Dynamically calculate metrics when values change
+        // Dynamically calculate metrics when values change
     window.calculateEarnings();         // Recalculate earnings dynamically
     window.calculateMonthlyEstimate();
 
@@ -721,7 +721,7 @@ window.editDeal = function(dealId) {
             window.updateAskingPrice(); // Calculate asking price
             window.calculateDebtService(); // Calculate debt service
             window.calculateMonthlyEstimate();
-            window.calculateMetrics();
+
             window.calculateEarnings();
         }, 0); // A slight delay ensures that the form elements are rendered
 
@@ -1483,14 +1483,14 @@ window.addRevenueCashflowRow = function() {
 
     newRevenueInput.addEventListener('input', function() {
         window.updateProfitMargin(this);   // Update profit margin when revenue changes
-        window.calculateMetrics();         // Dynamically calculate metrics when values change
+       // Dynamically calculate metrics when values change
          window.calculateEarnings();         // Recalculate earnings dynamically
          window.calculateMonthlyEstimate();
     });
 
     newCashflowInput.addEventListener('input', function() {
         window.updateProfitMargin(this);   // Update profit margin when cashflow changes
-        window.calculateMetrics();         // Dynamically calculate metrics when values change
+        // Dynamically calculate metrics when values change
         window.calculateEarnings();         // Recalculate earnings dynamically
         window.calculateMonthlyEstimate();
     });
@@ -1498,7 +1498,7 @@ window.addRevenueCashflowRow = function() {
     // Ensure real-time profit margin calculation
     window.updateProfitMargin(newRevenueInput);
     window.calculateEarnings();         // Recalculate earnings dynamically
-    window.calculateMetrics();         // Dynamically calculate metrics when values change
+       // Dynamically calculate metrics when values change
     window.calculateMonthlyEstimate();
 };
 
@@ -1509,7 +1509,7 @@ window.removeRevenueCashflowRow = function(button) {
 
     // After removing the row, recalculate everything
     window.reindexRows();           // Reindex the rows
-    window.calculateMetrics();      // Recalculate metrics after removing a row
+    // Recalculate metrics after removing a row
     window.calculateEarnings();
     window.calculateMonthlyEstimate();
 };
@@ -1593,7 +1593,7 @@ window.reindexRows = function() {
         // Attach event listeners to update profit margin and recalculate earnings
         revenueInput.addEventListener('input', () => {
             window.updateProfitMargin(revenueInput);
-            window.calculateMetrics();
+
             window.triggerBuyBoxUpdate(); 
             window.calculateEarnings(); 
             window.calculateMonthlyEstimate();
@@ -1602,7 +1602,7 @@ window.reindexRows = function() {
         cashflowInput.addEventListener('input', () => {
 
         	window.updateProfitMargin(cashflowInput);
-            window.calculateMetrics();
+
             window.triggerBuyBoxUpdate(); 
             window.calculateEarnings(); 
             window.calculateMonthlyEstimate();
@@ -1932,7 +1932,7 @@ window.calculateDebtService = function() {
     // Trigger the earnings calculation with the updated totalDebtService
     window.calculateEarnings(totalDebtService);  
     window.calculateMonthlyEstimate();
-    window.calculateMetrics();
+
 };
 
 // Function to calculate annual debt service
@@ -2030,7 +2030,6 @@ window.setupRealTimeUpdates = function() {
         input.addEventListener('input', () => {
             window.updateProfitMargin(input);
             window.triggerBuyBoxUpdate();  // Trigger recalculations on change
-            window.calculateMetrics();
             window.calculateEarnings();
             window.calculateMonthlyEstimate();
         });
@@ -2275,5 +2274,5 @@ window.updateAskingPrice();
 window.calculateDebtService();
 window.calculateMonthlyEstimate();
 window.updateBuyBoxChecklist(); 
-window.calculateMetrics();
+
 window.calculateEarnings();

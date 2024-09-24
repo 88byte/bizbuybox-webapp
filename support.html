@@ -13,17 +13,17 @@
 
     <!-- Font Awesome for Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+
+     <!-- Shared JavaScript -->
+    <script src="scripts/support.js" type="module"></script>
+    <script src="scripts/app.js" type="module"></script>
+    <script src="scripts/main-app.js" type="module"></script>
+    <script src="scripts/broker-directory.js" type="module"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyALOLixHMInPOXN0x1PIzoUQkIn81Iq96g&callback=initMap&libraries=marker" async defer></script>
+
    
-    <!-- Shared JavaScript -->
-	  <!-- Remove the type="module" from support.js -->
-	<script src="scripts/support.js"></script>
-	<script src="scripts/app.js" type="module"></script>
-	<script src="scripts/main-app.js" type="module"></script>
-	<script src="scripts/broker-directory.js" type="module"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyALOLixHMInPOXN0x1PIzoUQkIn81Iq96g&callback=initMap&libraries=marker" async defer></script>
-
-
 
 
 </head>
@@ -116,30 +116,6 @@
 	    display: none;
 	}
 	</style>
-
-	<script>
-	window.showToast = function (message, isSuccess = true, isPersistent = false) {
-    const toast = document.getElementById('toastNotification');
-    toast.textContent = message;
-    toast.style.backgroundColor = isSuccess ? '#28a745' : '#dc3545'; // Green for success, red for error
-    toast.classList.remove('hidden');
-
-    if (!isPersistent) {
-        // Hide the toast after 3 seconds if it's not persistent
-        setTimeout(() => {
-            toast.classList.add('hidden');
-        }, 3000);
-    }
-};
-
-window.hideToast = function () {
-    const toast = document.getElementById('toastNotification');
-    toast.classList.add('hidden');
-};
-
-
-
-	</script>
 
 	
 

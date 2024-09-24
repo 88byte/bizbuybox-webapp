@@ -69,11 +69,10 @@ window.uploadWhitelist = function() {
                 let failureCount = 0;
 
                 emails.forEach(async (row, index) => {
-                    const email = row['email']; // Ensure the column name matches your CSV header
-                    const role = row['role'] || 'user'; // Default to 'user' if role isn't provided
+                    const email = row['email'];
+                    const role = row['role'] || 'user'; // Default role
 
                     try {
-                        // Use setDoc to specify the email as the document ID
                         await setDoc(doc(db, 'whitelistedEmails', email), {
                             email: email,
                             role: role
@@ -84,10 +83,9 @@ window.uploadWhitelist = function() {
                         failureCount++;
                     }
 
-                    // After all rows are processed
                     if (index === totalEmails - 1) {
                         window.hideToast(); // Hide persistent toast
-                        window.showToast(`Upload complete. Success: ${uploadCount}, Failures: ${failureCount}`, true, false); // Final notification
+                        window.showToast(`Upload complete. Success: ${uploadCount}, Failures: ${failureCount}`, true, false);
                     }
                 });
             },
@@ -100,4 +98,25 @@ window.uploadWhitelist = function() {
     } else {
         window.showToast('Please select a CSV file.', false); // Show error toast
     }
+};
+
+
+
+window.showToast = function (message, isSuccess = true, isPersistent = false) {
+    const toast = document.getElementById('toastNotification');
+    toast.textContent = message;
+    toast.style.backgroundColor = isSuccess ? '#28a745' : '#dc3545'; // Green for success, red for error
+    toast.classList.remove('hidden');
+
+    if (!isPersistent) {
+        // Hide the toast after 3 seconds if it's not persistent
+        setTimeout(() => {
+            toast.classList.add('hidden');
+        }, 3000);
+    }
+};
+
+window.hideToast = function () {
+    const toast = document.getElementById('toastNotification');
+    toast.classList.add('hidden');
 };

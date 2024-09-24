@@ -1,51 +1,45 @@
-/* Support Overview */
-.support-overview {
-    text-align: center;
-    padding: 30px;
-    background-color: #292929;
-    border-radius: 10px;
-    margin-bottom: 40px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+/* Section Header */
+.dashboard-header h1 {
+    font-size: 28px;
+    color: #ffffff;
+    margin-bottom: 30px;
+    text-align: left;
 }
 
-.support-overview h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
-}
-
-.support-overview p {
-    font-size: 16px;
-    color: #bbbbbb;
+/* Divider */
+.divider {
+    border-top: 1px solid #444;
+    margin: 30px 0;
 }
 
 /* Whitelist Upload Section */
-.whitelist-upload {
-    background-color: #333333;
-    border-radius: 10px;
-    padding: 30px;
-    margin-bottom: 40px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-}
-
-.whitelist-upload h2 {
+.whitelist-upload h2,
+.faq-section h2,
+.resources h2,
+.contact-info h2 {
     font-size: 24px;
-    color: #ffffff;
+    color: #97835a;
     margin-bottom: 15px;
 }
 
-.whitelist-upload p {
+.whitelist-upload p,
+.faq-section p,
+.resources p,
+.contact-info p {
     font-size: 16px;
     color: #dddddd;
+    margin-bottom: 10px;
 }
 
+/* Upload Section - Aligned Left */
 .upload-container {
     display: flex;
-    justify-content: flex-start; /* Aligns the CSV button to the left */
+    justify-content: flex-start; /* Align left */
     margin-bottom: 15px;
 }
 
 .upload-label {
-    background-color: #97835a; /* Your primary color */
+    background-color: #97835a; /* Primary color */
     color: white;
     padding: 10px 20px;
     border-radius: 5px;
@@ -66,33 +60,7 @@
     background-color: #218838;
 }
 
-.upload-instruction {
-    font-size: 14px;
-    color: #aaaaaa;
-    margin-top: 10px;
-}
-
 /* Resources Section */
-.resources {
-    background-color: #292929;
-    border-radius: 10px;
-    padding: 30px;
-    margin-bottom: 40px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-}
-
-.resources h2 {
-    font-size: 24px;
-    color: #ffffff;
-    margin-bottom: 20px;
-}
-
-.resources p {
-    font-size: 16px;
-    color: #dddddd;
-    margin-bottom: 15px;
-}
-
 .resources-list {
     list-style: none;
     padding-left: 0;
@@ -113,19 +81,6 @@
 }
 
 /* FAQ Section */
-.faq-section {
-    background-color: #333333;
-    border-radius: 10px;
-    padding: 30px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-}
-
-.faq-section h2 {
-    font-size: 24px;
-    color: #ffffff;
-    margin-bottom: 20px;
-}
-
 .faq-item {
     margin-bottom: 20px;
 }
@@ -141,17 +96,11 @@
     color: #dddddd;
 }
 
-/* Contact Support Section */
-.contact-info {
-    border-radius: 10px;
-    padding: 30px;
-    margin-bottom: 40px;
-}
-
+/* Contact Info Section */
 .contact-info h2 {
     font-size: 24px;
-    color: #ffffff;
-    margin-bottom: 15px;
+    color: #97835a;
+    margin-bottom: 20px;
 }
 
 .contact-info p {

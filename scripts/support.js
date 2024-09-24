@@ -175,7 +175,104 @@ window.hideToast = function () {
 };
 
 
-// Function to upload and parse deals from the older tool
+// Function to map CSV fields to form fields
+function mapCsvFieldsToForm(deal) {
+    // Mapping CSV data to form fields
+    document.getElementById('businessName').value = deal.businessName || '';
+    document.getElementById('status').value = mapStatusToDropdown(deal.status) || 'new-deal'; // Map CSV status to dropdown value
+    document.getElementById('yearsInBusiness').value = deal.yearsInBusiness || '';
+    document.getElementById('fullTimeEmployees').value = deal.fullTimeEmployees || '';
+    document.getElementById('partTimeEmployees').value = deal.partTimeEmployees || '';
+    document.getElementById('contractors').value = deal.contractors || '';
+    document.getElementById('businessAddress').value = deal.businessAddress || '';
+    document.getElementById('askingPrice').value = deal.askingPrice || '';
+    document.getElementById('realEstatePrice').value = deal.realEstatePrice || '';
+    document.getElementById('ffe').value = deal.ffe || '';
+    document.getElementById('licenses').value = deal.licenses || '';
+    document.getElementById('notes').value = deal.notes || '';
+
+    // Financial details (Revenue & Cashflow)
+    mapRevenueCashflowFields(deal);
+
+    // Funding details
+    document.getElementById('loanType').value = deal.loanType || 'SBA';
+    document.getElementById('interestRate1').value = deal.interestRate || '';
+    document.getElementById('loanTerm1').value = deal.loanTerm || '';
+    document.getElementById('downPayment').value = deal.kyleDownPayment || '';
+    document.getElementById('buyerSalary').value = deal.salary || '';
+
+    // Ensure status color is updated based on the mapped status
+    updateStatusColor();
+}
+
+// Helper function to map status from CSV to dropdown value
+function mapStatusToDropdown(status) {
+    const statusMap = {
+        'New Deal': 'new-deal',
+        'CIM Review': 'cim-review',
+        'Seller Meeting': 'seller-meeting',
+        'LOI Submitted': 'loi-submitted',
+        'LOI Accepted': 'loi-accepted',
+        'Kyle Review': 'kyle-review',
+        'SBA Loan': 'sba-loan',
+        'Due Diligence': 'due-diligence',
+        'Deal Closed (Won)': 'deal-closed-won',
+        'No Longer Interested': 'no-longer-interested',
+        'Nurture': 'nurture',
+    };
+    return statusMap[status] || 'new-deal'; // Default to 'new-deal' if status not recognized
+}
+
+// Map revenue and cashflow fields dynamically based on CSV data
+function mapRevenueCashflowFields(deal) {
+    // Assuming revenue/cashflow columns are named revenue1, revenue2, etc. in CSV
+    const revenueFields = [deal.revenue1, deal.revenue2, deal.revenue3, deal.revenue4];
+    const cashflowFields = [deal.cashflow1, deal.cashflow2, deal.cashflow3, deal.cashflow4];
+
+    // Clear existing entries in revenue/cashflow section
+    const section = document.getElementById('revenueCashflowSection');
+    section.innerHTML = ''; // Clear old rows
+
+    // Add rows dynamically
+    revenueFields.forEach((revenue, index) => {
+        const cashflow = cashflowFields[index] || '';
+        if (revenue || cashflow) {
+            addRevenueCashflowRow(revenue, cashflow);
+        }
+    });
+}
+
+// Function to add rows for Revenue & Cashflow with prefilled data
+function addRevenueCashflowRow(revenue = '', cashflow = '') {
+    const section = document.getElementById('revenueCashflowSection');
+    const entry = document.createElement('div');
+    entry.classList.add('revenue-cashflow-entry');
+
+    entry.innerHTML = `
+        <div class="revenue-cashflow-row">
+            <div class="input-item button-container">
+                <button type="button" class="btn-remove" onclick="removeRevenueCashflowRow(this)">−</button>
+            </div>
+            <div class="input-item year-text">
+                <div contenteditable="true" class="editable-year">Year</div>
+            </div>
+            <div class="input-item small-input revenue-column">
+                <input type="text" name="revenue[]" placeholder="$0" value="${revenue}" oninput="updateProfitMargin(this)">
+            </div>
+            <div class="input-item small-input cashflow-column">
+                <input type="text" name="cashflow[]" placeholder="$0" value="${cashflow}" oninput="updateProfitMargin(this)">
+            </div>
+            <div class="input-item profit-column">
+                <span>0%</span>
+            </div>
+        </div>
+    `;
+
+    // Append the new entry to the section
+    section.appendChild(entry);
+}
+
+// Function to upload and parse deals from the older tool (modified to map data to form fields)
 window.uploadDeals = function () {
     const fileInput = document.getElementById('dealCsvInput');
     const file = fileInput.files[0];
@@ -191,49 +288,13 @@ window.uploadDeals = function () {
 
                 // Process each deal and create deal cards
                 deals.forEach(async (deal) => {
-                    const dealData = {
-                        businessName: deal['businessName'],
-                        status: deal['status'],
-                        yearsInBusiness: deal['yearsInBusiness'],
-                        fullTimeEmployees: deal['fullTimeEmployees'],
-                        partTimeEmployees: deal['partTimeEmployees'],
-                        contractors: deal['contractors'],
-                        businessAddress: deal['businessAddress'],
-                        licenses: deal['licenses'],
-                        notes: deal['notes'],
-                        askingPrice: deal['askingPrice'],
-                        realEstatePrice: deal['realEstatePrice'],
-                        ffe: deal['ffe'],
-                        revenue1: deal['revenue1'],
-                        revenue2: deal['revenue2'],
-                        revenue3: deal['revenue3'],
-                        revenue4: deal['revenue4'],
-                        cashflow1: deal['cashflow1'],
-                        cashflow2: deal['cashflow2'],
-                        cashflow3: deal['cashflow3'],
-                        cashflow4: deal['cashflow4'],
-                        loanType: deal['loanType'],
-                        interestRate: deal['interestRate'],
-                        loanTerm: deal['loanTerm'],
-                        salary: deal['salary'],
-                        sellerFinanceAmount: deal['sellerFinanceAmount'],
-                        sellerLoanTerm: deal['sellerLoanTerm'],
-                        sellerInterestRate: deal['sellerInterestRate'],
-                        kyleDownPayment: deal['kyleDownPayment'],
-                        kyleOwnership: deal['kyleOwnership'],
-                        userDownPayment: deal['userDownPayment'],
-                        createdAt: new Date().toISOString(),
-                        userId: auth.currentUser.uid // Assuming the logged-in user creates these deals
-                    };
-
+                    // Save to Firestore
                     try {
-                        // Save the deal to Firestore (deals collection)
-                        const docRef = await addDoc(collection(db, 'deals'), dealData);
-
+                        const docRef = await addDoc(collection(db, 'deals'), deal);
                         console.log('Deal added with ID: ', docRef.id);
 
-                        // Generate the deal card in the UI
-                        createDealCard(dealData);
+                        // Auto-fill form fields with the deal data
+                        mapCsvFieldsToForm(deal);
 
                     } catch (error) {
                         console.error('Error adding deal:', error);
@@ -254,6 +315,7 @@ window.uploadDeals = function () {
         window.showToast('Please select a CSV file.', false); // Show error toast
     }
 };
+
 
 // Function to dynamically create deal cards in the UI
 function createDealCard(deal) {

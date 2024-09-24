@@ -705,12 +705,6 @@ window.editDeal = function(dealId) {
                 };
                 docElement.appendChild(viewButton);
 
-                // View link for the document
-                const docLink = document.createElement('a');
-                docLink.href = doc.url;  // Firebase Storage URL
-                docLink.target = '_blank';  // Open in new tab
-                docLink.textContent = doc.name;  // Display the document name
-                docElement.appendChild(docLink);
 
                 // Delete button
                 const deleteButton = document.createElement('button');

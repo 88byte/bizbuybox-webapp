@@ -2024,11 +2024,6 @@ window.setupRealTimeUpdates = function() {
 
 
 
-// Ensure event listeners are added when the modal is opened
-window.addRealTimeChecklistUpdates();
-window.setupRealTimeUpdates();
-window.updateAskingPrice();
-window.calculateDebtService();
 
 
 
@@ -2257,3 +2252,9 @@ window.calculateMonthlyEstimate = function() {
 };
 
 
+// Ensure event listeners are added when the modal is opened
+window.addRealTimeChecklistUpdates();
+window.setupRealTimeUpdates();
+window.updateAskingPrice();
+window.calculateDebtService();
+window.calculateMonthlyEstimate();

@@ -1192,21 +1192,22 @@ window.uploadDocument = function() {
         fileLink.target = '_blank'; // Open in a new tab
         fileLink.textContent = file.name;
         fileLink.classList.add('document-link');
+        fileElement.appendChild(fileLink); // Add file link to the left
 
-        // Add the file name link to the element
-        fileElement.appendChild(fileLink);
+        // Create a wrapper for buttons (View and Delete)
+        const buttonWrapper = document.createElement('div');
+        buttonWrapper.classList.add('button-wrapper');
 
-        // Add view button next to the file name
+        // Add view button
         const viewButton = document.createElement('button');
         viewButton.textContent = 'View';
         viewButton.classList.add('view-document');
         viewButton.onclick = function() {
-            // Open the file in a new tab
-            window.open(fileURL, '_blank');
+            window.open(fileURL, '_blank'); // Open the file in a new tab
         };
-        fileElement.appendChild(viewButton);
+        buttonWrapper.appendChild(viewButton); // Add view button to wrapper
 
-        // Add delete button next to the file name
+        // Add delete button
         const deleteButton = document.createElement('button');
         deleteButton.textContent = 'Delete';
         deleteButton.classList.add('delete-document');
@@ -1214,16 +1215,18 @@ window.uploadDocument = function() {
             documentList.removeChild(fileElement);
             window.uploadedDocuments = window.uploadedDocuments.filter(doc => doc !== file);
         };
-        fileElement.appendChild(deleteButton);
+        buttonWrapper.appendChild(deleteButton); // Add delete button to wrapper
 
-        // Add the file element to the document list
-        documentList.appendChild(fileElement);
+        fileElement.appendChild(buttonWrapper); // Append button wrapper after file link
+
+        documentList.appendChild(fileElement); // Add file element to the document list
         window.uploadedDocuments.push(file); // Add to global list of uploaded documents
     }
 
     // Clear the file input after uploading
     fileInput.value = '';
 };
+
 
 
 // Function to format loan amount inputs in real-time

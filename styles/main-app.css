@@ -1896,6 +1896,9 @@ input-item select {
 .button-wrapper {
     display: inline-block;
     margin-right: 10px;
+    gap: 15px;
+    background-color: none; 
+    border: none; 
 }
 
 

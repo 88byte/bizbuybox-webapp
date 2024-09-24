@@ -628,51 +628,73 @@
 				    </div>
 
 					<!-- Monthly Estimate Tab -->
-					<div id="monthlyestimateTab" class="tab-content">
-					    <h3 class="section-heading">Monthly Estimate</h3>
+					<div id="monthlyestimateTab" class="tab-content active">
+					    <div class="monthly-estimate-section">
+					        
+					        <!-- Revenue Section -->
+					        <div class="revenue-section">
+					            <h4>Gross Revenue</h4>
+					            <p class="highlight">$<span id="grossRevenue">0</span></p>
+					            <div class="tooltip-container">
+					                <span class="tooltip">?</span>
+					                <span class="tooltiptext">This is the average monthly revenue.</span>
+					            </div>
+					        </div>
 
-					    <div class="estimate-item">
-					        <p><span class="tooltip-label">Gross Revenue: <span class="tooltiptext">This is the average monthly revenue.</span></span> 
-					            <span id="grossRevenue" class="estimate-value">$0</span>
-					        </p>
-					    </div>
+					        <!-- Loan Debt Section -->
+					        <div class="loan-section">
+					            <h4>Loan Debt</h4>
+					            <p>Loan Debt: <span id="loanDebt">0</span></p>
+					            <div class="tooltip-container">
+					                <span class="tooltip">?</span>
+					                <span class="tooltiptext">Annual debt service divided by 12.</span>
+					            </div>
+					        </div>
 
-					    <div class="estimate-item">
-					        <p><span class="tooltip-label">Loan Debt: <span class="tooltiptext">Annual debt service divided by 12.</span></span>
-					            <span id="loanDebt" class="estimate-value">$0</span>
-					        </p>
-					    </div>
+					        <!-- Seller Debt Section -->
+					        <div class="seller-debt-section">
+					            <h4>Seller Debt</h4>
+					            <p>Seller Debt: <span id="sellerDebt">0</span></p>
+					            <div class="tooltip-container">
+					                <span class="tooltip">?</span>
+					                <span class="tooltiptext">Seller financing debt divided by 12.</span>
+					            </div>
+					        </div>
 
-					    <div class="estimate-item">
-					        <p><span class="tooltip-label">Seller Debt: <span class="tooltiptext">Seller financing debt divided by 12.</span></span>
-					            <span id="sellerDebt" class="estimate-value">$0</span>
-					        </p>
-					    </div>
+					        <!-- Working Capital Section -->
+					        <div class="working-capital-section">
+					            <h4>Working Capital Est.</h4>
+					            <p>Working Capital: <span id="workingCapitalEst">0</span></p>
+					            <div class="tooltip-container">
+					                <span class="tooltip">?</span>
+					                <span class="tooltiptext">Avg revenue minus avg cash flow.</span>
+					            </div>
+					        </div>
 
-					    <div class="estimate-item">
-					        <p><span class="tooltip-label">Working Capital Est.: <span class="tooltiptext">Avg revenue minus avg cash flow.</span></span>
-					            <span id="workingCapitalEst" class="estimate-value">$0</span>
-					        </p>
-					    </div>
+					        <!-- Buyer Salary Section -->
+					        <div class="salary-section">
+					            <h4>Take Home Salary</h4>
+					            <p>Take Home Salary: <span id="takeHomeSalary">0</span></p>
+					            <div class="tooltip-container">
+					                <span class="tooltip">?</span>
+					                <span class="tooltiptext">Buyer's salary divided by 12.</span>
+					            </div>
+					        </div>
 
-					    <div class="estimate-item">
-					        <p><span class="tooltip-label">Take Home Salary: <span class="tooltiptext">Buyer's salary divided by 12.</span></span>
-					            <span id="takeHomeSalary" class="estimate-value">$0</span>
-					        </p>
-					    </div>
+					        <!-- Net Income Section -->
+					        <div class="net-income-section">
+					            <h4>Net Monthly Income</h4>
+					            <p>Net Monthly Income: <span id="netMonthlyIncome">0</span></p>
+					        </div>
 
-					    <div class="estimate-item">
-					        <p><strong>Net Monthly Income:</strong> 
-					            <span id="netMonthlyIncome" class="estimate-value">$0</span>
-					        </p>
-					    </div>
-
-					    <div class="estimate-item">
-					        <p><strong>Net Annual Est.:</strong> 
-					            <span id="netAnnualEst" class="estimate-value">$0</span>
-					        </p>
+					        <!-- Net Annual Estimate Section -->
+					        <div class="net-annual-section">
+					            <h4>Net Annual Estimate</h4>
+					            <p>Net Annual Income: <span id="netAnnualEst">0</span></p>
+					        </div>
 					    </div>
 					</div>
+
 
 
 

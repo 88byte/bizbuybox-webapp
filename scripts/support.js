@@ -52,36 +52,6 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 
-// Function to check if the user is a superadmin and show/hide the upload section
-async function checkIfSuperAdmin() {
-    const user = auth.currentUser;
-
-    if (user) {
-        try {
-            const userDoc = await getDoc(doc(db, 'users', user.uid));
-            
-            if (userDoc.exists()) {
-                const userData = userDoc.data();
-                if (userData.role === 'superadmin') {
-                    // Show the whitelist upload section if the user is superadmin
-                    document.querySelector('.whitelist-upload').style.display = 'block';
-                } else {
-                    // Hide the whitelist upload section if the user is not superadmin
-                    document.querySelector('.whitelist-upload').style.display = 'none';
-                }
-            }
-        } catch (error) {
-            console.error('Error fetching user role:', error);
-        }
-    } else {
-        console.error('No authenticated user.');
-    }
-}
-
-// Call this function after the page loads
-document.addEventListener('DOMContentLoaded', function() {
-    checkIfSuperAdmin();
-});
 
 
 // Function to upload whitelist CSV to Firestore
@@ -93,7 +63,7 @@ window.uploadWhitelist = function() {
         window.showToast('Uploading... Please wait.', true, true); // Persistent toast for ongoing upload
 
         Papa.parse(file, {
-            header: true,
+            header: true, // Ensures the first row is treated as header
             complete: function(results) {
                 const emails = results.data;
                 const totalEmails = emails.length;
@@ -101,20 +71,15 @@ window.uploadWhitelist = function() {
                 let failureCount = 0;
 
                 emails.forEach(async (row, index) => {
-                    const email = row['email']?.trim(); // Safely access and trim the email field
-                    let role = row['role']?.toLowerCase() || 'user'; // Default to 'user', make role case-insensitive
+                    const email = row['email'].trim(); // Make sure the email is properly formatted
+                    const role = row['role'] ? row['role'].trim() : 'user'; // Use role from CSV, fallback to 'user'
 
-                    // Ensure role is either 'user', 'admin', or 'superadmin'
-                    const allowedRoles = ['user', 'admin', 'superadmin'];
-                    if (!allowedRoles.includes(role)) {
-                        role = 'user'; // Default to 'user' if role is not valid
-                    }
-
-                    if (email && email.length > 0) { // Check if email exists and is valid
+                    if (email) {
                         try {
+                            // Use setDoc to specify the email as the document ID
                             await setDoc(doc(db, 'whitelistedEmails', email), {
                                 email: email,
-                                role: role
+                                role: role // Set role as specified in the CSV
                             });
                             uploadCount++;
                         } catch (error) {
@@ -122,10 +87,11 @@ window.uploadWhitelist = function() {
                             failureCount++;
                         }
                     } else {
-                        console.error(`Skipping row due to missing or invalid email:`, row);
                         failureCount++;
+                        console.error('Invalid email or empty row.');
                     }
 
+                    // After all rows are processed
                     if (index === totalEmails - 1) {
                         window.hideToast(); // Hide persistent toast
                         window.showToast(`Upload complete. Success: ${uploadCount}, Failures: ${failureCount}`, true, false); // Final notification
@@ -142,6 +108,7 @@ window.uploadWhitelist = function() {
         window.showToast('Please select a CSV file.', false); // Show error toast
     }
 };
+
 
 
 

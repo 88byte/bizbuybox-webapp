@@ -1854,9 +1854,6 @@ window.updateBuyBoxChecklist = function(deal) {
     revenueGrowthIcon.classList.remove('success', 'warning', 'error');
     revenueGrowthIcon.classList.add(revenueGrowthStatus);
 
-    const revenueGrowthIcon = document.getElementById('checkRevenueGrowth');
-    revenueGrowthIcon.classList.remove('success', 'warning', 'error');
-    revenueGrowthIcon.classList.add(revenueGrowthStatus);
 
     // 6. Calculate and display the multiple
     const askingPrice = parseFloat(String(deal.askingPrice || '0').replace(/[^\d.-]/g, '')) || 0; // Ensure askingPrice is a string and clean it

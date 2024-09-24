@@ -1387,6 +1387,15 @@ window.addCurrencyFormattingListeners = function() {
 // Call this function when the modal opens to apply formatting listeners
 document.addEventListener('DOMContentLoaded', function() {
     addCurrencyFormattingListeners();
+    // Add event listeners to form fields to trigger the calculation
+    document.getElementById('avgRevenue').addEventListener('input', window.calculateMonthlyEstimate);
+    document.getElementById('totalDebtService').addEventListener('input', window.calculateMonthlyEstimate);
+    document.getElementById('sellerFinanceAmount').addEventListener('input', window.calculateMonthlyEstimate);
+    document.getElementById('avgCashflowDisplay').addEventListener('input', window.calculateMonthlyEstimate);
+    document.getElementById('buyerSalary').addEventListener('input', window.calculateMonthlyEstimate);
+    
+    // Calculate estimates when the page loads
+    window.calculateMonthlyEstimate();
 });
 
 

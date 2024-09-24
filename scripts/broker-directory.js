@@ -59,10 +59,15 @@ auth.onAuthStateChanged(user => {
         // Allow Firestore operations since the user is authenticated
     } else {
         console.error("User is not authenticated");
-        // Redirect to the homepage instead of login page
-        window.location.href = '/index.html';  // Assuming index.html is your homepage
+
+        // Check if we are already on the homepage (to prevent endless redirection loop)
+        if (window.location.pathname !== '/index.html' && window.location.pathname !== '/') {
+            // Redirect to the homepage if not already there
+            window.location.href = '/index.html'; 
+        }
     }
 });
+
 
 
 

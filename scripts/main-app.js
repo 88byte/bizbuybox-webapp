@@ -368,8 +368,6 @@ window.createDeal = function() {
     document.getElementById('buyerSalary').value = ''; // Clear buyer salary
     document.getElementById('loanType').value = 'SBA'; // Reset loan type to SBA
 
-    // Clear the Business Acquisition Section (if it's dynamic)
-    document.getElementById('businessAcquisitionSection').innerHTML = ''; // Adjust based on your layout
 
     // Reset broker contact fields
     document.getElementById('brokerCompany').value = '';

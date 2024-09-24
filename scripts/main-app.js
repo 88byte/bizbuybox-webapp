@@ -390,6 +390,7 @@ window.createDeal = function() {
     revenueCashflowCount = 0; // Reset revenue/cashflow count
 
     // Force recalculations in case cached data is used
+    window.updateProfitMargin(this);   // Update profit margin when revenue changes
     window.calculateMetrics();         // Dynamically calculate metrics when values change
     window.calculateEarnings();         // Recalculate earnings dynamically
     window.calculateMonthlyEstimate();
@@ -720,6 +721,7 @@ window.editDeal = function(dealId) {
             window.updateAskingPrice(); // Calculate asking price
             window.calculateDebtService(); // Calculate debt service
             window.calculateMonthlyEstimate();
+            window.calculateMetrics();
         }, 0); // A slight delay ensures that the form elements are rendered
 
         // Open the modal using the new method
@@ -1525,19 +1527,18 @@ window.calculateMetrics = function() {
         cashflowCount++;
     });
 
-    const avgCashflow = cashflowCount > 0 ? totalCashflow / cashflowCount : 0; // Avg annual cashflow
+    const avgCashflow = cashflowCount > 0 ? totalCashflow / cashflowCount : 0;
 
     // Get loan details for amortization (loan amount, interest rate, term length)
     const loanAmount = parseFloat(document.getElementById('loanAmount1').value.replace(/[^\d.-]/g, '')) || 0;
     const interestRate = parseFloat(document.getElementById('interestRate1').value) || 0;
     const loanTerm = parseInt(document.getElementById('loanTerm1').value, 10) || 0;
 
-    // Call calculateDebtService to get the most up-to-date total debt service
-    const totalDebtService = window.calculateDebtService();
+    // Calculate annual debt service using loan amortization formula
+    const annualDebtService = window.calculateAnnualDebtService(loanAmount, interestRate, loanTerm);
 
-    // Calculate cashflow after debt service (ensure debt service is monthly)
-    const monthlyDebtService = totalDebtService / 12;
-    const cashflowAfterDebtService = avgCashflow - monthlyDebtService;
+    // Calculate cashflow after debt service
+    const cashflowAfterDebtService = avgCashflow - annualDebtService;
 
     // Placeholder for investor pay (adjust this based on your logic)
     const investorPay = 0; // Assume no investor pay logic currently
@@ -1548,7 +1549,6 @@ window.calculateMetrics = function() {
     document.getElementById('cashflowAfterDebt').textContent = cashflowAfterDebtService.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
     document.getElementById('cashflowAfterDebtAndInvestor').textContent = cashflowAfterDebtAndInvestor.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
 };
-
 
 
 
@@ -1963,9 +1963,10 @@ window.calculateDebtService = function() {
     document.getElementById('loanBreakdown').innerHTML = loanBreakdown;
     document.getElementById('totalDebtService').textContent = totalDebtService.toLocaleString('en-US');
 
-    return totalDebtService; // Return the total debt service for further calculations
+    // Trigger the earnings calculation with the updated totalDebtService
+    window.calculateEarnings(totalDebtService);  
+    window.calculateMonthlyEstimate();
 };
-
 
 // Function to calculate annual debt service
 window.calculateAnnualDebtService = function(loanAmount, interestRate, termYears) {
@@ -2067,9 +2068,6 @@ window.setupRealTimeUpdates = function() {
             window.calculateMonthlyEstimate();
         });
     });
-
-    // Add listener for buyer salary to dynamically update the take-home salary
-    addListenerIfExists('#buyerSalary', 'input', window.calculateMonthlyEstimate);
 };
 
 

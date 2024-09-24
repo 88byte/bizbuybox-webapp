@@ -1922,6 +1922,7 @@ window.calculateDebtService = function() {
 
     // Trigger the earnings calculation with the updated totalDebtService
     window.calculateEarnings(totalDebtService);  
+    window.calculateMonthlyEstimate();
 };
 
 // Function to calculate annual debt service

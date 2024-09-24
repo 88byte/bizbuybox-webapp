@@ -904,6 +904,7 @@ window.saveDeal = async function() {
         console.error('Error saving deal:', error);
         showToast('Error saving deal: ' + error.message, false);
     }
+};
 
 
 

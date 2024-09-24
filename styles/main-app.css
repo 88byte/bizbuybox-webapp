@@ -62,6 +62,43 @@ body {
     color: #d4d4d4;
 }
 
+/* Tooltip container */
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+/* Tooltip text */
+.tooltip-container .tooltip-text {
+    visibility: hidden;
+    width: 200px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    padding: 5px;
+    border-radius: 6px;
+    
+    /* Positioning */
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; /* Adjust as per your need */
+    left: 50%;
+    margin-left: -100px;
+    
+    /* Fade in tooltip */
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+/* Show the tooltip text when you hover over the tooltip container */
+.tooltip-container:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+
+
 .tooltip-label .tooltiptext {
     visibility: hidden;
     width: 220px;

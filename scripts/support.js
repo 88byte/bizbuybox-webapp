@@ -287,6 +287,7 @@ window.formatPrice = function(price) {
 
 // Function to map CSV data to the webapp deal form
 window.mapCsvToDealForm = function(deal) {
+    // Map CSV status to webapp status
     const statusMapping = {
         'New Deal': 'new-deal',
         'Review CIM': 'CIM Review',
@@ -302,12 +303,21 @@ window.mapCsvToDealForm = function(deal) {
         'Nurture': 'Nurture'
     };
 
+    // Map CSV loan type to webapp loan type
+    const loanTypeMapping = {
+        'SBA Loan': 'SBA',
+        'Blended Loan': 'Blended',
+        'Seller Finance': 'Seller Finance',
+        'Seller Finance with SBA': 'SBA + Seller Finance'
+    };
+
+    // Build revenue and cashflow entries, excluding blank revenues
     const revenueCashflowEntries = [
-        { revenue: window.parseNumber(deal['revenue1']), cashflow: window.parseNumber(deal['cashflow1']), year: 'Year' },
-        { revenue: window.parseNumber(deal['revenue2']), cashflow: window.parseNumber(deal['cashflow2']), year: 'Year' },
-        { revenue: window.parseNumber(deal['revenue3']), cashflow: window.parseNumber(deal['cashflow3']), year: 'Year' },
-        { revenue: window.parseNumber(deal['revenue4']), cashflow: window.parseNumber(deal['cashflow4']), year: 'Year' }
-    ];
+        deal['revenue1'] ? { revenue: window.parseNumber(deal['revenue1']), cashflow: window.parseNumber(deal['cashflow1']), year: 'Year' } : null,
+        deal['revenue2'] ? { revenue: window.parseNumber(deal['revenue2']), cashflow: window.parseNumber(deal['cashflow2']), year: 'Year' } : null,
+        deal['revenue3'] ? { revenue: window.parseNumber(deal['revenue3']), cashflow: window.parseNumber(deal['cashflow3']), year: 'Year' } : null,
+        deal['revenue4'] ? { revenue: window.parseNumber(deal['revenue4']), cashflow: window.parseNumber(deal['cashflow4']), year: 'Year' } : null
+    ].filter(entry => entry !== null); // Remove any null entries
 
     return {
         businessName: deal['businessName'] || '',
@@ -329,7 +339,7 @@ window.mapCsvToDealForm = function(deal) {
         loanTerm2: deal['sellerLoanTerm'] || '',
         interestRate: deal['interestRate'] || '',
         interestRate2: deal['sellerInterestRate'] || '',
-        loanType: deal['loanType'] || 'SBA + Seller Finance',
+        loanType: loanTypeMapping[deal['loanType']] || 'SBA + Seller Finance', // Use the mapped loan type
         revenueCashflowEntries: revenueCashflowEntries,
         lastUpdate: new Date().toISOString(), // Date of import
         industry: 'retail' // Default industry

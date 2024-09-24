@@ -2029,7 +2029,7 @@ window.addRealTimeChecklistUpdates();
 window.setupRealTimeUpdates();
 window.updateAskingPrice();
 window.calculateDebtService();
-window.calculateMonthlyEstimate();
+
 
 
 

@@ -1397,7 +1397,10 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-
+// Add event listener for when the tab is opened (replace 'monthlyEstimateTab' with your tab's actual ID)
+document.getElementById('monthlyEstimateTab').addEventListener('click', function() {
+    window.calculateMonthlyEstimate(); // Trigger calculation when tab is opened
+});
 
 
 let revenueCashflowCount = 1;

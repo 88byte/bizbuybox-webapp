@@ -188,6 +188,7 @@
 	        </label>
 	        <input type="file" id="csvFileInput" accept=".csv" style="display: none;">
 	    </div>
+	    <p id="selectedFileName" style="font-size: 14px; color: #aaa;"></p>
 	    <button class="upload-btn" onclick="window.uploadWhitelist()">Upload Emails</button>
 	    <p class="upload-instruction">* CSV format only</p>
 	</section>
@@ -208,13 +209,12 @@
 	        </label>
 	        <input type="file" id="dealCsvInput" accept=".csv" style="display: none;">
 	    </div>
+	    <p id="selectedFileName" style="font-size: 14px; color: #aaa;"></p>
 
 	    <!-- Upload Button -->
 	    <button class="upload-btn" onclick="window.uploadDeals()">Upload Deals</button>
 	    <p class="upload-instruction">* CSV format only</p>
 
-	    <!-- Deal Cards Section -->
-	    <div id="dealCardsContainer" class="deal-cards"></div>
 	</section>
 
 	<!-- Divider -->

@@ -213,7 +213,6 @@ window.uploadDeals = function () {
                             uploadCount++;
 
                             // Dynamically create deal card on the web page
-                            window.createDealCard(mappedDeal, docRef.id); // Pass ID to use later for editing, if needed
                         } catch (error) {
                             console.error(`Error uploading deal: ${mappedDeal.businessName}`, error);
                             failureCount++;
@@ -344,4 +343,18 @@ window.mapCsvToDealForm = function(deal) {
         lastUpdate: new Date().toISOString(), // Date of import
         industry: 'retail' // Default industry
     };
+};
+
+
+// Function to display the selected file name
+window.displaySelectedFileName = function() {
+    const fileInput = document.getElementById('dealCsvInput');
+    const fileNameDisplay = document.getElementById('selectedFileName');
+
+    if (fileInput.files.length > 0) {
+        const selectedFileName = fileInput.files[0].name;
+        fileNameDisplay.textContent = `Selected file: ${selectedFileName}`;
+    } else {
+        fileNameDisplay.textContent = ''; // Clear the display if no file is selected
+    }
 };

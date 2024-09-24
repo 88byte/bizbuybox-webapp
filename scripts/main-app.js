@@ -1532,13 +1532,11 @@ window.calculateMetrics = function() {
     const interestRate = parseFloat(document.getElementById('interestRate1').value) || 0;
     const loanTerm = parseInt(document.getElementById('loanTerm1').value, 10) || 0;
 
-    // Calculate annual debt service using loan amortization formula
-    const annualDebtService = window.calculateAnnualDebtService(loanAmount, interestRate, loanTerm);
-    
-    // Convert annual debt service to monthly if needed
-    const monthlyDebtService = annualDebtService / 12;
+    // Call calculateDebtService to get the most up-to-date total debt service
+    const totalDebtService = window.calculateDebtService();
 
-    // Calculate cashflow after debt service
+    // Calculate cashflow after debt service (ensure debt service is monthly)
+    const monthlyDebtService = totalDebtService / 12;
     const cashflowAfterDebtService = avgCashflow - monthlyDebtService;
 
     // Placeholder for investor pay (adjust this based on your logic)
@@ -1965,10 +1963,9 @@ window.calculateDebtService = function() {
     document.getElementById('loanBreakdown').innerHTML = loanBreakdown;
     document.getElementById('totalDebtService').textContent = totalDebtService.toLocaleString('en-US');
 
-    // Trigger the earnings calculation with the updated totalDebtService
-    window.calculateEarnings(totalDebtService);  
-    window.calculateMonthlyEstimate();
+    return totalDebtService; // Return the total debt service for further calculations
 };
+
 
 // Function to calculate annual debt service
 window.calculateAnnualDebtService = function(loanAmount, interestRate, termYears) {

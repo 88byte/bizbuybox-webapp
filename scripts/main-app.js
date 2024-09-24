@@ -696,6 +696,15 @@ window.editDeal = function(dealId) {
                 };
                 docElement.appendChild(labelInput);
 
+                // View button for the document
+                const viewButton = document.createElement('button');
+                viewButton.textContent = 'View';
+                viewButton.classList.add('view-doc-button');
+                viewButton.onclick = function() {
+                    window.open(doc.url, '_blank');  // Open document in a new tab
+                };
+                docElement.appendChild(viewButton);
+
                 // View link for the document
                 const docLink = document.createElement('a');
                 docLink.href = doc.url;  // Firebase Storage URL

@@ -1525,7 +1525,7 @@ window.calculateMetrics = function() {
         cashflowCount++;
     });
 
-    const avgCashflow = cashflowCount > 0 ? totalCashflow / cashflowCount : 0;
+    const avgCashflow = cashflowCount > 0 ? totalCashflow / cashflowCount : 0; // Avg annual cashflow
 
     // Get loan details for amortization (loan amount, interest rate, term length)
     const loanAmount = parseFloat(document.getElementById('loanAmount1').value.replace(/[^\d.-]/g, '')) || 0;
@@ -1534,9 +1534,12 @@ window.calculateMetrics = function() {
 
     // Calculate annual debt service using loan amortization formula
     const annualDebtService = window.calculateAnnualDebtService(loanAmount, interestRate, loanTerm);
+    
+    // Convert annual debt service to monthly if needed
+    const monthlyDebtService = annualDebtService / 12;
 
     // Calculate cashflow after debt service
-    const cashflowAfterDebtService = avgCashflow - annualDebtService;
+    const cashflowAfterDebtService = avgCashflow - monthlyDebtService;
 
     // Placeholder for investor pay (adjust this based on your logic)
     const investorPay = 0; // Assume no investor pay logic currently
@@ -1547,6 +1550,7 @@ window.calculateMetrics = function() {
     document.getElementById('cashflowAfterDebt').textContent = cashflowAfterDebtService.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
     document.getElementById('cashflowAfterDebtAndInvestor').textContent = cashflowAfterDebtAndInvestor.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
 };
+
 
 
 
@@ -2067,7 +2071,8 @@ window.setupRealTimeUpdates = function() {
         });
     });
 
-    
+    // Add listener for buyer salary to dynamically update the take-home salary
+    addListenerIfExists('#buyerSalary', 'input', window.calculateMonthlyEstimate);
 };
 
 

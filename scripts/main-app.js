@@ -2143,3 +2143,41 @@ window.listenToDealUpdates = function() {
 window.listenToDealUpdates();
 
 
+
+// MONTHLY ESTIMATE TAB
+// Function to calculate and update monthly estimates
+window.calculateMonthlyEstimate = function() {
+    // Example values from your form fields
+    const avgRevenue = parseFloat(document.getElementById('avgRevenue').value) || 0; // Placeholder, replace with actual form value
+    const totalDebtService = parseFloat(document.getElementById('totalDebtService').innerText.replace(/\$/g, '')) || 0; // Annual debt service
+    const sellerFinanceDebt = parseFloat(document.getElementById('sellerFinanceAmount').value) || 0; // Seller debt from form
+    const avgCashflow = parseFloat(document.getElementById('avgCashflowDisplay').innerText.replace(/\$/g, '')) || 0; // Avg Cashflow
+    const buyerSalary = parseFloat(document.getElementById('buyerSalary').value.replace(/\$/g, '')) || 0; // Buyer salary
+
+    // Monthly calculations
+    const monthlyRevenue = avgRevenue / 12;
+    const monthlyLoanDebt = totalDebtService / 12;
+    const monthlySellerDebt = sellerFinanceDebt / 12;
+    const workingCapitalEst = avgRevenue - avgCashflow;
+    const monthlyTakeHomeSalary = buyerSalary / 12;
+
+    // Net monthly calculation
+    const netMonthlyIncome = monthlyRevenue - monthlyLoanDebt - monthlySellerDebt - workingCapitalEst - monthlyTakeHomeSalary;
+
+    // Update UI
+    document.getElementById('grossRevenue').innerText = monthlyRevenue.toFixed(2);
+    document.getElementById('loanDebt').innerText = monthlyLoanDebt.toFixed(2);
+    document.getElementById('sellerDebt').innerText = monthlySellerDebt.toFixed(2);
+    document.getElementById('workingCapitalEst').innerText = workingCapitalEst.toFixed(2);
+    document.getElementById('takeHomeSalary').innerText = monthlyTakeHomeSalary.toFixed(2);
+    document.getElementById('netMonthlyIncome').innerText = netMonthlyIncome.toFixed(2);
+    
+    // Net annual estimate
+    const netAnnualIncome = netMonthlyIncome * 12;
+    document.getElementById('netAnnualEst').innerText = netAnnualIncome.toFixed(2);
+}
+
+// Attach event listener to DOMContentLoaded to calculate on page load
+document.addEventListener('DOMContentLoaded', function () {
+    window.calculateMonthlyEstimate(); // Calculate on page load or after any form changes
+});

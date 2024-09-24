@@ -367,6 +367,8 @@ window.createDeal = function() {
     // Reset specific fields like buyer salary, loan type, and business acquisition section
     document.getElementById('buyerSalary').value = ''; // Clear buyer salary
     document.getElementById('loanType').value = 'SBA'; // Reset loan type to SBA
+    document.getElementById('loanAmount1').value = ''; // Reset loan type to SBA
+    document.getElementById('loanAmount2').value = ''; // Reset loan type to SBA
 
 
     // Reset broker contact fields

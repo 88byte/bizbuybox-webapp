@@ -1289,6 +1289,16 @@ button:hover {
 }
 
 
+.file-label-input {
+    margin-right: 10px;
+    padding: 4px 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 200px; /* Adjust width as needed */
+}
+
+
 /* Glass-Like "+" and "-" Button Styles */
 .card-modal-content .btn-remove {
     font-size: 14px;

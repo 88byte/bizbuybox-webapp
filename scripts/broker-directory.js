@@ -93,7 +93,7 @@ window.fetchBrokerData = function (map) {
       const brokers = data.values.slice(1); // Skip the header row
       brokers.forEach((broker) => {
         // Use columns correctly (A = Latitude, B = Longitude, C-H = Other details)
-        const [latitude, longitude, name, phone, email, company, state, city] = broker;
+        const [latitude, longitude, company, name, email, phone, city, state] = broker;
 
         // Ensure latitude and longitude are valid numbers
         if (!isNaN(parseFloat(latitude)) && !isNaN(parseFloat(longitude))) {
@@ -151,7 +151,7 @@ window.renderBrokers = function (brokers, page = 1) {
 
     brokers.slice(startIndex, endIndex).forEach((broker) => {
         const row = document.createElement('tr');
-        const [latitude, longitude, name, phone, email, company, state, city] = broker; // Exclude lat/long
+        const [latitude, longitude, company, name, email, phone, city, state] = broker; // Exclude lat/long
         row.innerHTML = `
             <td>${company}</td>
             <td>${name}</td>

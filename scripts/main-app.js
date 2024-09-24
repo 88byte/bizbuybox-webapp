@@ -351,7 +351,6 @@ window.deleteAccount = async function () {
 // Deal Management Functions
 let deals = []; // Example array to hold deals
 
-// Function to open the deal creation modal
 window.createDeal = function() {
     // Reset the entire form
     document.getElementById('dealForm').reset(); // Reset form inputs
@@ -365,7 +364,14 @@ window.createDeal = function() {
     // Reset modal title for new deal
     document.getElementById('modalTitle').textContent = 'Create a New Deal';
 
-    // Reset any other dynamic sections or data (like broker contact, seller contact, etc.)
+    // Reset specific fields like buyer salary, loan type, and business acquisition section
+    document.getElementById('buyerSalary').value = ''; // Clear buyer salary
+    document.getElementById('loanType').value = 'SBA'; // Reset loan type to SBA
+
+    // Clear the Business Acquisition Section (if it's dynamic)
+    document.getElementById('businessAcquisitionSection').innerHTML = ''; // Adjust based on your layout
+
+    // Reset broker contact fields
     document.getElementById('brokerCompany').value = '';
     document.getElementById('brokerName').value = '';
     document.getElementById('brokerPhone').value = '';
@@ -378,11 +384,6 @@ window.createDeal = function() {
     // Reset document section
     document.getElementById('documentList').innerHTML = ''; // Clear any previously added documents
 
-    // Reset specific fields like buyer salary, loan type, and business acquisition section
-    document.getElementById('buyerSalary').value = ''; // Clear buyer salary
-    document.getElementById('loanType').value = 'SBA'; // Reset loan type to SBA
-
-
     // Reset any loan-specific inputs
     window.removeSecondLoanRow(); // Remove second loan row if it was added in a previous deal
 
@@ -390,19 +391,17 @@ window.createDeal = function() {
     window.uploadedDocuments = []; // Clear the uploaded documents array
     revenueCashflowCount = 0; // Reset revenue/cashflow count
 
-    // Clear checklist or any buy box data
-    window.clearBuyBoxChecklist();
+    // Force recalculations in case cached data is used
+    window.triggerBuyBoxUpdate(); // Recalculate the Buy Box Checklist
+    window.updateProfitMargin(this);   // Update profit margin when revenue changes
+    window.calculateMetrics();         // Dynamically calculate metrics when values change
+    window.calculateEarnings();         // Recalculate earnings dynamically
+    window.calculateMonthlyEstimate();
 
     // Open the modal using the animation method
     openCardModal();
 };
 
-// Function to clear the Buy Box Checklist (you may need to implement it similarly)
-window.clearBuyBoxChecklist = function() {
-    document.querySelectorAll('.buybox-icon').forEach(icon => {
-        icon.classList.remove('success', 'error', 'warning'); // Clear any success/error/warning status
-    });
-};
 
 
 

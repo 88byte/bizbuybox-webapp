@@ -678,6 +678,7 @@ window.editDeal = function(dealId) {
         setTimeout(() => {
             window.updateAskingPrice(); // Calculate asking price
             window.calculateDebtService(); // Calculate debt service
+            window.calculateMonthlyEstimate();
         }, 0); // A slight delay ensures that the form elements are rendered
 
         // Open the modal using the new method

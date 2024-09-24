@@ -1,4 +1,3 @@
-support.js
 // Import Firebase functions from SDKs
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
 import { 

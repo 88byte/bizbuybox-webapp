@@ -690,7 +690,7 @@ window.editDeal = function(dealId) {
                 // View button for the document
                 const viewButton = document.createElement('button');
                 viewButton.textContent = 'View';
-                viewButton.classList.add('view-doc-button');
+                viewButton.classList.add('view-document');
                 viewButton.onclick = function() {
                     window.open(doc.url, '_blank');  // Open document in a new tab
                 };
@@ -706,7 +706,7 @@ window.editDeal = function(dealId) {
                 // Delete button
                 const deleteButton = document.createElement('button');
                 deleteButton.textContent = 'Delete';
-                deleteButton.classList.add('delete-doc-button');
+                deleteButton.classList.add('delete-document');
                 deleteButton.onclick = function() {
                     deleteDocument(deal.dealId, doc.name, index); // Pass name and index to deleteDocument
                 };

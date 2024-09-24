@@ -1201,12 +1201,9 @@ window.uploadDocument = function() {
         // Create a label input for the file
         const labelInput = document.createElement('input');
         labelInput.type = 'text';
-        labelInput.value = doc.label || doc.name;  // Show the label if available, otherwise the name
-        labelInput.setAttribute('data-index', index); // Add data-index to track the document label
-        docElement.appendChild(labelInput);
-
-        // Set default label as the file name (optional)
-        labelInput.value = file.name;
+        labelInput.value = file.name;  // Default label is the file name
+        labelInput.setAttribute('data-index', i); // Use 'i' as the index
+        fileElement.appendChild(labelInput);
 
         // Create clickable file link (default to file name or custom label when added)
         const fileLink = document.createElement('a');

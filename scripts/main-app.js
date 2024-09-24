@@ -1388,7 +1388,6 @@ window.addCurrencyFormattingListeners = function() {
 document.addEventListener('DOMContentLoaded', function() {
     addCurrencyFormattingListeners();
     // Ensure form fields are populated, then trigger the first calculation
-    window.populateFormFields(); // If you have a function to populate form values, call it here
 
     // Add event listeners to trigger calculation on input change
     document.getElementById('avgRevenue').addEventListener('input', window.calculateMonthlyEstimate);

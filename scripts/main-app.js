@@ -687,11 +687,19 @@ window.editDeal = function(dealId) {
                 const docElement = document.createElement('div');
                 docElement.classList.add('document-item');
 
+                // View link for the document (should be on the left)
+                const docLink = document.createElement('a');
+                docLink.href = doc.url;  // Firebase Storage URL
+                docLink.target = '_blank';  // Open in new tab
+                docLink.textContent = doc.name;  // Display the document name
+                docLink.classList.add('document-link');
+                docElement.appendChild(docLink);  // Add the document link first
+
                 // Create a wrapper for buttons
                 const buttonWrapper = document.createElement('div');
                 buttonWrapper.classList.add('button-wrapper');
 
-                // View button for the document
+                // View button for the document (should be on the right)
                 const viewButton = document.createElement('button');
                 viewButton.textContent = 'View';
                 viewButton.classList.add('view-document');
@@ -700,7 +708,7 @@ window.editDeal = function(dealId) {
                 };
                 buttonWrapper.appendChild(viewButton);  // Add view button to the button wrapper
 
-                // Delete button
+                // Delete button (should be on the right)
                 const deleteButton = document.createElement('button');
                 deleteButton.textContent = 'Delete';
                 deleteButton.classList.add('delete-document');
@@ -709,18 +717,12 @@ window.editDeal = function(dealId) {
                 };
                 buttonWrapper.appendChild(deleteButton);  // Add delete button to the button wrapper
 
-                docElement.appendChild(buttonWrapper);  // Append the button wrapper to the document element
-
-                // View link for the document
-                const docLink = document.createElement('a');
-                docLink.href = doc.url;  // Firebase Storage URL
-                docLink.target = '_blank';  // Open in new tab
-                docLink.textContent = doc.name;  // Display the document name
-                docElement.appendChild(docLink);  // Add link after buttons
+                docElement.appendChild(buttonWrapper);  // Append the button wrapper after the document link
 
                 documentList.appendChild(docElement);  // Add the document element to the list
             });
         }
+
 
         // Update the modal title
         document.getElementById('modalTitle').textContent = 'Edit Deal';

@@ -1893,6 +1893,12 @@ input-item select {
     transition: opacity 0.2s;
 }
 
+.button-wrapper {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+
 /* Hover effect for the delete button tooltip */
 .delete-document:hover::after {
     visibility: visible;

@@ -2180,13 +2180,12 @@ window.listenToDealUpdates();
 
 
 
-// MONTHLY ESTIMATE TAB
 window.calculateMonthlyEstimate = function() {
     // Step 1: Calculate Average Revenue from all revenue entries
     let totalRevenue = 0;
     let revenueCount = 0;
 
-    // Gather all revenue inputs and sum them
+    // Gather all revenue inputs and sum them, handling empty or uninitialized fields
     const revenues = document.querySelectorAll('input[name="revenue[]"]');
     revenues.forEach(input => {
         const revenue = parseFloat(input.value.replace(/[^\d.-]/g, '')) || 0;
@@ -2194,7 +2193,8 @@ window.calculateMonthlyEstimate = function() {
         revenueCount++;
     });
 
-    const avgRevenue = revenueCount > 0 ? totalRevenue / revenueCount : 0;  // Average annual revenue
+    // Ensure totalRevenue and revenueCount are valid
+    const avgRevenue = revenueCount > 0 ? totalRevenue / revenueCount : 0;  // Default to 0 if no revenue
     const monthlyRevenue = avgRevenue / 12;  // Convert to monthly revenue
 
     // Step 2: Calculate Loan Debt Service (annual, then monthly)
@@ -2204,7 +2204,6 @@ window.calculateMonthlyEstimate = function() {
 
     const annualLoanDebtService = window.calculateAnnualDebtService(loanAmount, interestRate, loanTerm);
     const monthlyLoanDebtService = annualLoanDebtService / 12;
-
 
     // Step 3: Calculate Seller Finance Debt Service (if applicable)
     let monthlySellerDebtService = 0; // Initialize as 0 if not applicable
@@ -2253,6 +2252,7 @@ window.calculateMonthlyEstimate = function() {
     const netAnnualIncome = netMonthlyIncome * 12;
     document.getElementById('netAnnualEst').innerText = netAnnualIncome.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
 };
+
 
 
 // Ensure event listeners are added when the modal is opened

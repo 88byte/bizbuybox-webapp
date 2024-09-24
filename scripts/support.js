@@ -52,8 +52,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// support.js
-window.uploadWhitelist = function() {
+// Function to upload whitelist CSV to Firestore
+function uploadWhitelist() {
     const fileInput = document.getElementById('csvFileInput');
     const file = fileInput.files[0];
 
@@ -98,7 +98,10 @@ window.uploadWhitelist = function() {
     } else {
         window.showToast('Please select a CSV file.', false); // Show error toast
     }
-};
+}
+
+// Attach the function to the window object
+window.uploadWhitelist = uploadWhitelist;
 
 
 

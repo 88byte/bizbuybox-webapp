@@ -678,7 +678,7 @@ window.editDeal = function(dealId) {
 
 
 
-        // Populate documents
+        // Populate documents with editable labels
         const documentList = document.getElementById('documentList');
         documentList.innerHTML = ''; // Clear current documents
 
@@ -686,6 +686,15 @@ window.editDeal = function(dealId) {
             deal.documents.forEach((doc, index) => {
                 const docElement = document.createElement('div');
                 docElement.classList.add('document-item');
+
+                // Editable label input for the document
+                const labelInput = document.createElement('input');
+                labelInput.type = 'text';
+                labelInput.value = doc.label || doc.name;  // Show the label if available, otherwise the name
+                labelInput.onchange = function() {
+                    deal.documents[index].label = labelInput.value;  // Save the updated label
+                };
+                docElement.appendChild(labelInput);
 
                 // View link for the document
                 const docLink = document.createElement('a');

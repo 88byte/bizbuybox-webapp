@@ -390,7 +390,6 @@ window.createDeal = function() {
     revenueCashflowCount = 0; // Reset revenue/cashflow count
 
     // Force recalculations in case cached data is used
-    window.updateProfitMargin(this);   // Update profit margin when revenue changes
     window.calculateMetrics();         // Dynamically calculate metrics when values change
     window.calculateEarnings();         // Recalculate earnings dynamically
     window.calculateMonthlyEstimate();

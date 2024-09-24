@@ -1285,7 +1285,6 @@ button:hover {
     cursor: pointer !important;
     transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s !important;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2) !important; /* Subtle shadow for depth */
-    align-items: right;
 }
 
 /* Glass-Like "+" and "-" Button Styles */

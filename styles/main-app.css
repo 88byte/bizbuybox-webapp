@@ -540,19 +540,20 @@ button.btn-create:hover {
 
 /* Deal Card Styling with Subtle Minimalist Look */
 .deal-card {
-    background: linear-gradient(145deg, #1a1a1a, #292929); /* Matte black gradient */
-    border-radius: 15px; /* Softer, more rounded corners */
+    background: linear-gradient(145deg, #2e2e2e, #434343); /* Lighter matte metal gradient */
+    border-radius: 15px; /* Rounded corners */
     padding: 20px;
     position: relative;
     overflow: hidden;
-    color: #f0f0f0; /* Light text for contrast */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); /* Soft shadow for depth */
+    color: #e0e0e0; /* Soft light text for readability */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
     transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
     cursor: grab;
     user-select: none;
     margin-bottom: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.05); /* Subtle border */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle metallic border */
 }
+
 
 /* Soft animations for card entrance */
 @keyframes cardFadeIn {

@@ -52,7 +52,7 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 // Function to upload whitelist CSV to Firestore
-function uploadWhitelist() {
+window.uploadWhitelist = function() {
     const fileInput = document.getElementById('csvFileInput');
     const file = fileInput.files[0];
 
@@ -68,17 +68,28 @@ function uploadWhitelist() {
                 let failureCount = 0;
 
                 emails.forEach(async (row, index) => {
-                    const email = row['email']; // Ensure the column name matches your CSV header
-                    const role = row['role'] || 'user'; // Default to 'user' if role isn't provided
+                    const email = row['email']?.trim(); // Safely access and trim the email field
+                    let role = row['role']?.toLowerCase() || 'user'; // Default to 'user', make role case-insensitive
 
-                    try {
-                        await setDoc(doc(db, 'whitelistedEmails', email), {
-                            email: email,
-                            role: role
-                        });
-                        uploadCount++;
-                    } catch (error) {
-                        console.error(`Error uploading email: ${email}`, error);
+                    // Ensure role is either 'user', 'admin', or 'superadmin'
+                    const allowedRoles = ['user', 'admin', 'superadmin'];
+                    if (!allowedRoles.includes(role)) {
+                        role = 'user'; // Default to 'user' if role is not valid
+                    }
+
+                    if (email && email.length > 0) { // Check if email exists and is valid
+                        try {
+                            await setDoc(doc(db, 'whitelistedEmails', email), {
+                                email: email,
+                                role: role
+                            });
+                            uploadCount++;
+                        } catch (error) {
+                            console.error(`Error uploading email: ${email}`, error);
+                            failureCount++;
+                        }
+                    } else {
+                        console.error(`Skipping row due to missing or invalid email:`, row);
                         failureCount++;
                     }
 
@@ -97,10 +108,8 @@ function uploadWhitelist() {
     } else {
         window.showToast('Please select a CSV file.', false); // Show error toast
     }
-}
+};
 
-// Attach the function to the window object
-window.uploadWhitelist = uploadWhitelist;
 
 
 

@@ -62,40 +62,6 @@ body {
     color: #d4d4d4;
 }
 
-/* Tooltip container */
-.tooltip-container {
-    position: relative;
-    display: inline-block;
-    cursor: pointer;
-}
-
-/* Tooltip text */
-.tooltip-container .tooltip-text {
-    visibility: hidden;
-    width: 200px;
-    background-color: #555;
-    color: #fff;
-    text-align: center;
-    padding: 5px;
-    border-radius: 6px;
-    
-    /* Positioning */
-    position: absolute;
-    z-index: 1;
-    bottom: 125%; /* Adjust as per your need */
-    left: 50%;
-    margin-left: -100px;
-    
-    /* Fade in tooltip */
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-/* Show the tooltip text when you hover over the tooltip container */
-.tooltip-container:hover .tooltip-text {
-    visibility: visible;
-    opacity: 1;
-}
 
 
 
@@ -1684,35 +1650,62 @@ input-item select {
     align-items: flex-end; /* Align the buttons to the right */
 }
 
-/* Smaller Contact Info Buttons (70% size reduction) */
+/* Style the contact buttons */
 .contact-info-button {
-    font-size: 70%;  /* Reduce the font size */
-    padding: 4px 8px;  /* Smaller padding */
-    background-color: rgba(255, 255, 255, 0.1); /* Glass-like button */
+    font-size: 70%;
+    padding: 4px 8px;
+    background-color: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 6px;
     cursor: pointer;
     transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s;
     position: relative;
-    width: 130px; /* Adjust width for alignment consistency */
+    width: 130px;
 }
 
+/* Tooltip styling */
+.contact-info-button[data-tooltip]::after {
+    content: attr(data-tooltip);
+    display: none; /* Hidden by default */
+    position: absolute;
+    white-space: pre-wrap; /* Allow multiline tooltips */
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    width: max-content;
+    max-width: 220px; /* Adjust max-width for larger tooltips */
+    bottom: 130%; /* Tooltip above the button */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 999;
+}
 
-
-/* Hide tooltip if there's no data-tooltip content */
+/* Show the tooltip when hovering */
 .contact-info-button:hover::after {
-    display: none;
+    display: block;
 }
 
-.contact-info-button[data-tooltip]:hover::after {
-    display: block; /* Only show if tooltip data exists */
+/* Arrow for the tooltip */
+.contact-info-button[data-tooltip]::before {
+    content: '';
+    display: none; /* Hidden by default */
+    position: absolute;
+    border-style: solid;
+    border-width: 6px;
+    border-color: transparent transparent rgba(0, 0, 0, 0.8) transparent;
+    bottom: 120%; /* Position arrow below tooltip */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
 }
 
-
-/* Hide tooltip if there's no data-tooltip content */
-.contact-info-button:not([data-tooltip]):hover::after {
-    display: none; /* Do not display the tooltip if there is no contact info */
+/* Show the tooltip arrow when hovering */
+.contact-info-button:hover::before {
+    display: block;
 }
+
 
 .contact-info-button:hover {
     background-color: rgba(255, 255, 255, 0.2);

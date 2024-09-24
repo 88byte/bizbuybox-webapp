@@ -1752,6 +1752,7 @@ window.saveSellerContact = function() {
     closeSellerContactModal();
 }
 
+
 // Function to open the document modal
 window.openDocModal = function() {
     document.getElementById('docModal').style.display = 'flex';

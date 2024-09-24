@@ -16,7 +16,8 @@
 
 
      <!-- Shared JavaScript -->
-    <script src="scripts/support.js" type="module"></script>
+    <script src="scripts/support.js"></script>
+
     <script src="scripts/app.js" type="module"></script>
     <script src="scripts/main-app.js" type="module"></script>
     <script src="scripts/broker-directory.js" type="module"></script>
@@ -189,7 +190,7 @@
             </label>
             <input type="file" id="csvFileInput" accept=".csv" style="display: none;">
         </div>
-        <button class="upload-btn" onclick="window.uploadWhitelist()">Upload Emails</button>
+        <button class="upload-btn" onclick="uploadWhitelist()">Upload Emails</button>
         <p class="upload-instruction">* CSV format only</p>
     </section>
 

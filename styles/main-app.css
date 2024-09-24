@@ -589,9 +589,9 @@ button.btn-create:hover {
 
 /* Deal Card Hover Effect */
 .deal-card:hover {
-    transform: scale(1.05); /* Slight zoom for emphasis */
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6); /* Stronger shadow on hover */
-    background: linear-gradient(145deg, #1f1f1f, #333333); /* Lightening the gradient on hover */
+    transform: scale(1.03); /* Slight zoom for emphasis */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
+    background: linear-gradient(145deg, #3a3a3a, #555555); /* Slightly lighter on hover */
 }
 
 /* While dragging, this style is applied */

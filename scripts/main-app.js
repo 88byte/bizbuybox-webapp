@@ -1759,7 +1759,7 @@ window.getDealDataFromForm = function() {
     return {
         yearsInBusiness,
         fullTimeEmployees,
-        askingPrice: parseFloat(askingPrice.replace(/[^\d.-]/g, '')) || 0,
+        askingPrice: parseFloat(String(askingPrice).replace(/[^\d.-]/g, '')) || 0,
         revenueCashflowEntries
     };
 };

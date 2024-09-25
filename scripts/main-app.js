@@ -31,6 +31,7 @@ import {
     ref, 
     uploadBytes, 
     getDownloadURL,
+    listAll,
     deleteObject  
 } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-storage.js";
 
@@ -782,6 +783,7 @@ async function deleteDocument(dealId, docName, index) {
         showToast('Error deleting document: ' + error.message, false);
     }
 }
+
 
 
 

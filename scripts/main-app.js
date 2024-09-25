@@ -1950,12 +1950,17 @@ window.getDealDataFromForm = function() {
 
 // Function to calculate and display the multiple in real-time
 function calculateAndDisplayMultiple(deal) {
-    let totalRevenue = 0;
+    let totalCashflow = 0;
     if (deal.revenueCashflowEntries && deal.revenueCashflowEntries.length > 0) {
-        totalRevenue = deal.revenueCashflowEntries.reduce((sum, entry) => sum + parseFloat(entry.revenue || 0), 0);
+        totalCashflow = deal.revenueCashflowEntries.reduce((sum, entry) => sum + parseFloat(entry.cashflow || 0), 0);
     }
-    const avgRevenue = totalRevenue / (deal.revenueCashflowEntries.length || 1); // Avoid division by zero
-    const multiple = avgRevenue > 0 ? (parseFloat(deal.askingPrice.replace(/[^\d.-]/g, '')) / avgRevenue).toFixed(1) : '0.0';
+    
+    // Calculate the average cashflow
+    const avgCashflow = totalCashflow / (deal.revenueCashflowEntries.length || 1); // Avoid division by zero
+    
+    // Calculate the multiple based on cashflow
+    const askingPrice = parseFloat(deal.askingPrice.replace(/[^\d.-]/g, ''));
+    const multiple = avgCashflow > 0 ? (askingPrice / avgCashflow).toFixed(1) : '0.0';
 
     // Update the multiple display for this deal
     const multipleElement = document.getElementById(`dealMultiple_${deal.dealId}`);

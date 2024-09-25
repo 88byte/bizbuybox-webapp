@@ -2054,15 +2054,27 @@ window.updateBuyBoxChecklist = function(deal) {
     revenueGrowthIcon.classList.add(revenueGrowthStatus);
 
 
-    // 6. Calculate and display the multiple
+    // 6. Calculate and display the multiple based on cashflow
     const askingPrice = parseFloat(String(deal.askingPrice || '0').replace(/[^\d.-]/g, '')) || 0; // Ensure askingPrice is a string and clean it
-    const multiple = avgRevenue > 0 ? (askingPrice / avgRevenue).toFixed(1) : 0; // Calculate the multiple
+
+    // Calculate total cashflow
+    let totalCashflow = 0;
+    if (deal.revenueCashflowEntries && deal.revenueCashflowEntries.length > 0) {
+        totalCashflow = deal.revenueCashflowEntries.reduce((sum, entry) => sum + parseFloat(entry.cashflow || 0), 0);
+    }
+
+    // Calculate average cashflow
+    const avgCashflow = totalCashflow / (deal.revenueCashflowEntries.length || 1); // Avoid division by zero
+
+    // Calculate the multiple based on cashflow
+    const multiple = avgCashflow > 0 ? (askingPrice / avgCashflow).toFixed(1) : 0; // Calculate the multiple
 
     // Display the multiple in the top right of the deal card
     const multipleElement = document.getElementById('dealMultiple');
     if (multipleElement) {
         multipleElement.textContent = `x${multiple}`; // Set the text to 'x' followed by the multiple
     }
+
 };
 
 

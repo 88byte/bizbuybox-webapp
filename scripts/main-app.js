@@ -778,12 +778,12 @@ window.deleteDocument = async function(dealId, docName, index, event) {
     }
 
     // Show "Please wait" toast notification
-    window.showToast('Please wait, deleting file...', false); // false to show it as neutral, not success
+    window.showToast('Please wait, deleting file...', false); // Neutral notification
 
     try {
         // Reference to the document in Firebase Storage
         const docRef = ref(storage, `deals/${dealId}/documents/${docName}`);
-        
+
         // Delete the file from Firebase Storage
         await deleteObject(docRef);
 
@@ -808,12 +808,13 @@ window.deleteDocument = async function(dealId, docName, index, event) {
 
         // Show success toast notification
         window.showToast('Document deleted successfully!');
-        
+
     } catch (error) {
         console.error('Error deleting document:', error);
         window.showToast('Error deleting document: ' + error.message, false);
     }
 };
+
 
 
 
@@ -1022,6 +1023,9 @@ window.saveDeal = async function() {
         const dealsCollection = collection(db, 'deals');
         await setDoc(doc(dealsCollection, dealId), dealData);
 
+        // Show a "Saving documents..." toast
+        window.showToast('Saving documents...');
+
         // Step 2: Upload the documents after the deal is saved
         const uploadedDocumentURLs = await uploadDocuments(dealId);
 
@@ -1038,7 +1042,6 @@ window.saveDeal = async function() {
         showToast('Error saving deal: ' + error.message, false);
     }
 };
-
 
 // Function to fetch and display deals
 window.fetchDeals = async function() {

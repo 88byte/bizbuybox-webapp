@@ -370,7 +370,6 @@ window.createDeal = function() {
     document.getElementById('buyerSalary').value = ''; // Clear buyer salary
     document.getElementById('loanType').value = 'SBA'; // Reset loan type to SBA
     document.getElementById('loanAmount1').value = ''; // Reset loan type to SBA
-    document.getElementById('loanAmount2').value = ''; // Reset loan type to SBA
 
 
     // Reset broker contact fields

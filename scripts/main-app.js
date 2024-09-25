@@ -728,18 +728,18 @@ window.editDeal = async function(dealId) {
                 };
                 buttonWrapper.appendChild(viewButton);  // Add view button to the button wrapper
 
-                // Delete button (should be on the right)
+                // Delete button
                 const deleteButton = document.createElement('button');
                 deleteButton.textContent = 'Delete';
                 deleteButton.classList.add('delete-document');
-                deleteButton.onclick = function() {
-                    deleteDocument(deal.dealId, doc.name, index); // Pass name and index to deleteDocument
+                deleteButton.onclick = function(event) {
+                    event.stopPropagation();  // Prevent modal from closing
+                    deleteDocument(deal.dealId, doc.name, index);
                 };
-                buttonWrapper.appendChild(deleteButton);  // Add delete button to the button wrapper
+                buttonWrapper.appendChild(deleteButton);
 
-                docElement.appendChild(buttonWrapper);  // Append the button wrapper after the document link
-
-                documentList.appendChild(docElement);  // Add the document element to the list
+                docElement.appendChild(buttonWrapper);
+                documentList.appendChild(docElement);
             });
         }
 
@@ -771,7 +771,7 @@ window.editDeal = async function(dealId) {
 
 
 // Function to delete a document from Firebase Storage and Firestore
-async function deleteDocument(dealId, docName, index, event) {
+window.deleteDocument = async function(dealId, docName, index, event) {
     // Prevent the click event from closing the modal
     if (event) {
         event.stopPropagation();
@@ -801,19 +801,19 @@ async function deleteDocument(dealId, docName, index, event) {
         await setDoc(dealRef, { documents: remainingDocuments }, { merge: true });
 
         // Refresh the document list in the modal
-        await refreshDocumentList(dealId);
+        await window.refreshDocumentList(dealId);
 
         // Show success toast notification
-        showToast('Document deleted successfully!');
+        window.showToast('Document deleted successfully!');
         
     } catch (error) {
         console.error('Error deleting document:', error);
-        showToast('Error deleting document: ' + error.message, false);
+        window.showToast('Error deleting document: ' + error.message, false);
     }
-}
+};
 
 // Helper function to refresh the document list in the modal
-async function refreshDocumentList(dealId) {
+window.refreshDocumentList = async function(dealId) {
     const storageFolderRef = ref(storage, `deals/${dealId}/documents/`);
     const listResult = await listAll(storageFolderRef);
 
@@ -857,24 +857,17 @@ async function refreshDocumentList(dealId) {
         deleteButton.textContent = 'Delete';
         deleteButton.classList.add('delete-document');
         deleteButton.onclick = function(event) {
-            deleteDocument(dealId, doc.name, index, event); // Pass name, index, and event to deleteDocument
+            window.deleteDocument(dealId, doc.name, index, event); // Pass name, index, and event to deleteDocument
         };
         buttonWrapper.appendChild(deleteButton);  // Add delete button to the button wrapper
 
         docElement.appendChild(buttonWrapper);  // Append the button wrapper after the document link
         documentList.appendChild(docElement);  // Add the document element to the list
     });
-}
-
-
-
-
-
-
-
+};
 
 // Function to upload documents to Firebase Storage and return the file URLs
-async function uploadDocuments(dealId) {
+window.uploadDocuments = async function(dealId) {
     const storageRef = ref(storage, `deals/${dealId}/documents/`);
     const uploadedURLs = [];
 
@@ -886,7 +879,8 @@ async function uploadDocuments(dealId) {
     }
 
     return uploadedURLs;
-}
+};
+
 
 
 // Function to save a new or edited deal

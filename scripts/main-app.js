@@ -752,7 +752,6 @@ window.editDeal = function(dealId) {
 
 
 // Function to delete a document from Firebase Storage and Firestore
-// Function to delete a document from Firebase Storage and Firestore
 async function deleteDocument(dealId, docName, index) {
     try {
         // Reference to the document in Firebase Storage
@@ -761,35 +760,29 @@ async function deleteDocument(dealId, docName, index) {
         // Delete the file from Firebase Storage
         await deleteObject(docRef);
 
-        // Optionally, remove the document reference from Firestore (adjust the path to your Firestore structure)
+        // Fetch the remaining documents from Firebase Storage
+        const storageFolderRef = ref(storage, `deals/${dealId}/documents/`);
+        const listResult = await listAll(storageFolderRef);
+
+        // Create an array of remaining documents
+        const remainingDocuments = await Promise.all(
+            listResult.items.map(async (itemRef) => {
+                const url = await getDownloadURL(itemRef);
+                return { name: itemRef.name, url };
+            })
+        );
+
+        // Update Firestore with the remaining documents
         const dealRef = doc(db, 'deals', dealId);
-        
-        // Fetch the deal data
-        const dealDoc = await getDoc(dealRef);
-        if (dealDoc.exists()) {
-            const dealData = dealDoc.data();
-            
-            // Ensure the documents array exists
-            if (dealData.documents && Array.isArray(dealData.documents)) {
-                // Remove the deleted document from the documents array
-                dealData.documents.splice(index, 1);  // Remove the document at the specified index
-            } else {
-                // If documents array does not exist or is not an array, initialize it
-                dealData.documents = [];
-            }
+        await setDoc(dealRef, { documents: remainingDocuments }, { merge: true });
 
-            // Update Firestore with the new documents array
-            await setDoc(dealRef, { documents: dealData.documents }, { merge: true });
-
-            showToast('Document deleted successfully!');
-        } else {
-            throw new Error('Deal does not exist.');
-        }
+        showToast('Document deleted successfully!');
     } catch (error) {
         console.error('Error deleting document:', error);
         showToast('Error deleting document: ' + error.message, false);
     }
 }
+
 
 
 

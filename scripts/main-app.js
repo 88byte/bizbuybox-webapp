@@ -566,11 +566,10 @@ window.enableTableRowDragAndDrop = function() {
         ghostClass: 'sortable-ghost', // Class for the dragged item
         chosenClass: 'sortable-chosen', // Class when the item is selected
 
-        // Prevent dragging when interacting with the star icon (toggle)
-        filter: '.favorite-icon',
-        filter: '.btn-tableedit',
-        filter: '.btn-tableremove',
-        preventOnFilter: false, // Allows interaction with the star icon while keeping drag functionality
+        // Prevent dragging when interacting with specific elements (like star icon, edit, and remove buttons)
+        filter: '.favorite-icon, .btn-tableedit, .btn-tableremove',
+        preventOnFilter: false, // Allows interaction with the filtered elements while keeping drag functionality
+
 
         onEnd: function(evt) {
             const oldIndex = evt.oldIndex;

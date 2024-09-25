@@ -771,7 +771,12 @@ window.editDeal = async function(dealId) {
 
 
 // Function to delete a document from Firebase Storage and Firestore
-async function deleteDocument(dealId, docName, index) {
+async function deleteDocument(dealId, docName, index, event) {
+    // Prevent the click event from closing the modal
+    if (event) {
+        event.stopPropagation();
+    }
+
     try {
         // Reference to the document in Firebase Storage
         const docRef = ref(storage, `deals/${dealId}/documents/${docName}`);
@@ -851,8 +856,8 @@ async function refreshDocumentList(dealId) {
         const deleteButton = document.createElement('button');
         deleteButton.textContent = 'Delete';
         deleteButton.classList.add('delete-document');
-        deleteButton.onclick = function() {
-            deleteDocument(dealId, doc.name, index); // Pass name and index to deleteDocument
+        deleteButton.onclick = function(event) {
+            deleteDocument(dealId, doc.name, index, event); // Pass name, index, and event to deleteDocument
         };
         buttonWrapper.appendChild(deleteButton);  // Add delete button to the button wrapper
 
@@ -860,6 +865,7 @@ async function refreshDocumentList(dealId) {
         documentList.appendChild(docElement);  // Add the document element to the list
     });
 }
+
 
 
 

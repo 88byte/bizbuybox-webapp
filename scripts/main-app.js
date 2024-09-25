@@ -1301,7 +1301,8 @@ window.uploadDocument = function() {
         const deleteButton = document.createElement('button');
         deleteButton.textContent = 'Delete';
         deleteButton.classList.add('delete-document');
-        deleteButton.onclick = function() {
+        deleteButton.onclick = function(event) {
+            event.stopPropagation(); // Prevent event propagation to avoid closing the modal
             documentList.removeChild(fileElement);
             window.uploadedDocuments = window.uploadedDocuments.filter(doc => doc !== file);
         };
@@ -1316,6 +1317,7 @@ window.uploadDocument = function() {
     // Clear the file input after uploading
     fileInput.value = '';
 };
+
 
 
 

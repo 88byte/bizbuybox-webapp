@@ -2253,7 +2253,7 @@ window.calculateCashFlow = function() {
     const debtService = parseFloat(document.getElementById('totalDebtService').textContent.replace(/[^\d.-]/g, '')) || 0;
 
     const cashFlowFromOperations = totalRevenue - totalExpenses;
-    const cashFlowAfterDebtService = cashFlowFromOperations - debtService;
+    const cashFlowAfterDebtService = cashFlowFromOperations - totalDebtService;
     const netCashFlow = cashFlowAfterDebtService;
 
     document.getElementById('cashFlowFromOperations').textContent = cashFlowFromOperations.toLocaleString('en-US', { style: 'currency', currency: 'USD' });

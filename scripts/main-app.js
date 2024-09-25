@@ -795,12 +795,72 @@ async function deleteDocument(dealId, docName, index) {
         const dealRef = doc(db, 'deals', dealId);
         await setDoc(dealRef, { documents: remainingDocuments }, { merge: true });
 
+        // Refresh the document list in the modal
+        await refreshDocumentList(dealId);
+
+        // Show success toast notification
         showToast('Document deleted successfully!');
+        
     } catch (error) {
         console.error('Error deleting document:', error);
         showToast('Error deleting document: ' + error.message, false);
     }
 }
+
+// Helper function to refresh the document list in the modal
+async function refreshDocumentList(dealId) {
+    const storageFolderRef = ref(storage, `deals/${dealId}/documents/`);
+    const listResult = await listAll(storageFolderRef);
+
+    const documentList = document.getElementById('documentList');
+    documentList.innerHTML = ''; // Clear current documents
+
+    const fetchedDocuments = await Promise.all(
+        listResult.items.map(async (itemRef) => {
+            const url = await getDownloadURL(itemRef);
+            return { name: itemRef.name, url };
+        })
+    );
+
+    fetchedDocuments.forEach((doc, index) => {
+        const docElement = document.createElement('div');
+        docElement.classList.add('document-item');
+
+        // View link for the document (should be on the left)
+        const docLink = document.createElement('a');
+        docLink.href = doc.url;  // Firebase Storage URL
+        docLink.target = '_blank';  // Open in new tab
+        docLink.textContent = doc.name;  // Display the document name
+        docLink.classList.add('document-link');
+        docElement.appendChild(docLink);  // Add the document link first
+
+        // Create a wrapper for buttons
+        const buttonWrapper = document.createElement('div');
+        buttonWrapper.classList.add('button-wrapper');
+
+        // View button for the document (should be on the right)
+        const viewButton = document.createElement('button');
+        viewButton.textContent = 'View';
+        viewButton.classList.add('view-document');
+        viewButton.onclick = function() {
+            window.open(doc.url, '_blank');  // Open document in a new tab
+        };
+        buttonWrapper.appendChild(viewButton);  // Add view button to the button wrapper
+
+        // Delete button (should be on the right)
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.classList.add('delete-document');
+        deleteButton.onclick = function() {
+            deleteDocument(dealId, doc.name, index); // Pass name and index to deleteDocument
+        };
+        buttonWrapper.appendChild(deleteButton);  // Add delete button to the button wrapper
+
+        docElement.appendChild(buttonWrapper);  // Append the button wrapper after the document link
+        documentList.appendChild(docElement);  // Add the document element to the list
+    });
+}
+
 
 
 

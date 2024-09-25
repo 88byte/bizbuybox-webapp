@@ -752,6 +752,7 @@ window.editDeal = function(dealId) {
 
 
 // Function to delete a document from Firebase Storage and Firestore
+// Function to delete a document from Firebase Storage and Firestore
 async function deleteDocument(dealId, docName, index) {
     try {
         // Reference to the document in Firebase Storage
@@ -768,19 +769,28 @@ async function deleteDocument(dealId, docName, index) {
         if (dealDoc.exists()) {
             const dealData = dealDoc.data();
             
-            // Remove the deleted document from the documents array
-            dealData.documents.splice(index, 1);  // Remove the document at the specified index
+            // Ensure the documents array exists
+            if (dealData.documents && Array.isArray(dealData.documents)) {
+                // Remove the deleted document from the documents array
+                dealData.documents.splice(index, 1);  // Remove the document at the specified index
+            } else {
+                // If documents array does not exist or is not an array, initialize it
+                dealData.documents = [];
+            }
 
             // Update Firestore with the new documents array
             await setDoc(dealRef, { documents: dealData.documents }, { merge: true });
 
             showToast('Document deleted successfully!');
+        } else {
+            throw new Error('Deal does not exist.');
         }
     } catch (error) {
         console.error('Error deleting document:', error);
         showToast('Error deleting document: ' + error.message, false);
     }
 }
+
 
 
 

@@ -1714,8 +1714,28 @@ window.calculateEarningsAndMetrics = function() {
     const avgCashflow = cashflows.length > 0 ? totalCashflow / cashflows.length : 0;
     const avgProfitMargin = profitMarginCount > 0 ? totalProfitMargin / profitMarginCount : 0;
 
+    let totalDebtService = 0;
+
+    const loanType = document.getElementById('loanType').value;
+
+    // First loan calculation
+    const loanAmount1 = parseFloat(document.getElementById('loanAmount1').value.replace(/[^\d.-]/g, '')) || 0;
+    const interestRate1 = parseFloat(document.getElementById('interestRate1').value) || 0;
+    const loanTerm1 = parseInt(document.getElementById('loanTerm1').value, 10) || 0;
+
+    totalDebtService += window.calculateAnnualDebtService(loanAmount1, interestRate1, loanTerm1);
+
+    // If SBA + Seller Finance, include the second loan in debt service
+    if (loanType === 'SBA + Seller Finance') {
+        const loanAmount2 = parseFloat(document.getElementById('loanAmount2').value.replace(/[^\d.-]/g, '')) || 0;
+        const interestRate2 = parseFloat(document.getElementById('interestRate2').value) || 0;
+        const loanTerm2 = parseInt(document.getElementById('loanTerm2').value, 10) || 0;
+
+        totalDebtService += window.calculateAnnualDebtService(loanAmount2, interestRate2, loanTerm2);
+    }
+
     // Calculate cashflow after debt service
-    const cashflowAfterDebt = avgCashflow - annualDebtService;
+    const cashflowAfterDebt = avgCashflow - totalDebtService;
 
     // Placeholder for investor pay (modify this as necessary)
     const investorPay = 0; // Logic for investor pay if applicable
@@ -2253,7 +2273,7 @@ window.calculateCashFlow = function() {
     const debtService = parseFloat(document.getElementById('totalDebtService').textContent.replace(/[^\d.-]/g, '')) || 0;
 
     const cashFlowFromOperations = totalRevenue - totalExpenses;
-    const cashFlowAfterDebtService = cashFlowFromOperations - totalDebtService;
+    const cashFlowAfterDebtService = cashFlowFromOperations - debtService;
     const netCashFlow = cashFlowAfterDebtService;
 
     document.getElementById('cashFlowFromOperations').textContent = cashFlowFromOperations.toLocaleString('en-US', { style: 'currency', currency: 'USD' });

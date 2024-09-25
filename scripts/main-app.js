@@ -777,10 +777,16 @@ window.deleteDocument = async function(dealId, docName, index, event) {
         event.stopPropagation();  // Ensure the event doesn't bubble up
     }
 
-    // Show "Please wait" toast notification
-    window.showToast('Please wait, deleting file...', false); // Neutral notification
+    // Check if there are files being uploaded
+    if (window.isUploading) {
+        window.showToast('Please wait until uploads are complete before deleting.', false);
+        return;  // Stop the deletion if uploads are in progress
+    }
 
     try {
+        // Show "Please wait" toast notification
+        window.showToast('Please wait, deleting file...', false);
+
         // Reference to the document in Firebase Storage
         const docRef = ref(storage, `deals/${dealId}/documents/${docName}`);
 
@@ -808,12 +814,12 @@ window.deleteDocument = async function(dealId, docName, index, event) {
 
         // Show success toast notification
         window.showToast('Document deleted successfully!');
-
     } catch (error) {
         console.error('Error deleting document:', error);
         window.showToast('Error deleting document: ' + error.message, false);
     }
 };
+
 
 
 
@@ -872,20 +878,65 @@ window.refreshDocumentList = async function(dealId) {
     });
 };
 
+
+// Flag to track if files are being uploaded
+window.isUploading = false;
+
 // Function to upload documents to Firebase Storage and return the file URLs
 window.uploadDocuments = async function(dealId) {
     const storageRef = ref(storage, `deals/${dealId}/documents/`);
     const uploadedURLs = [];
+    
+    // Show the progress bar container and initialize it to 0
+    const progressBarContainer = document.getElementById('progressBarContainer');
+    const progressBar = document.getElementById('progressBar');
+    progressBarContainer.style.display = 'block';
+    progressBar.style.width = '0%';
 
-    for (const file of window.uploadedDocuments) {
-        const fileRef = ref(storageRef, file.name);
-        await uploadBytes(fileRef, file);
-        const fileURL = await getDownloadURL(fileRef);
-        uploadedURLs.push({ name: file.name, url: fileURL });
+    window.isUploading = true;
+
+    try {
+        for (const file of window.uploadedDocuments) {
+            const fileRef = ref(storageRef, file.name);
+
+            // Use uploadBytesResumable to track progress
+            const uploadTask = uploadBytesResumable(fileRef, file);
+
+            // Listen for state changes, errors, and completion of the upload.
+            uploadTask.on('state_changed',
+                (snapshot) => {
+                    // Get task progress as a percentage of total size
+                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    progressBar.style.width = `${progress}%`; // Update the progress bar width
+                },
+                (error) => {
+                    // Handle unsuccessful uploads
+                    console.error("Error uploading document:", error);
+                    window.showToast('Error uploading document: ' + error.message, false);
+                },
+                async () => {
+                    // Handle successful uploads
+                    const fileURL = await getDownloadURL(uploadTask.snapshot.ref);
+                    uploadedURLs.push({ name: file.name, url: fileURL });
+
+                    // If all files have been uploaded, hide the progress bar
+                    if (uploadedURLs.length === window.uploadedDocuments.length) {
+                        window.isUploading = false;
+                        progressBarContainer.style.display = 'none'; // Hide progress bar
+                    }
+                }
+            );
+        }
+    } catch (error) {
+        console.error("Error uploading documents:", error);
+        window.showToast('Error uploading documents: ' + error.message, false);
+        window.isUploading = false;
     }
 
     return uploadedURLs;
 };
+
+
 
 
 // Function to handle the document upload in the modal (before saving to Firebase)

@@ -591,7 +591,7 @@ window.enableTableRowDragAndDrop = function() {
 
 
 // Function to edit a deal (opens the modal pre-filled with the deal data)
-window.editDeal = function(dealId) {
+window.editDeal = async function(dealId) {
     console.log(deals); // Inspect the deals array
 
     const deal = deals.find(d => d.dealId === dealId); // Find deal by its Firestore ID

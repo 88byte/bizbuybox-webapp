@@ -774,7 +774,7 @@ window.editDeal = async function(dealId) {
 window.deleteDocument = async function(dealId, docName, index, event) {
     // Prevent the click event from closing the modal
     if (event) {
-        event.stopPropagation();
+        event.stopPropagation();  // Ensure the event doesn't bubble up
     }
 
     try {
@@ -811,6 +811,7 @@ window.deleteDocument = async function(dealId, docName, index, event) {
         window.showToast('Error deleting document: ' + error.message, false);
     }
 };
+
 
 // Helper function to refresh the document list in the modal
 window.refreshDocumentList = async function(dealId) {
@@ -879,6 +880,62 @@ window.uploadDocuments = async function(dealId) {
     }
 
     return uploadedURLs;
+};
+
+
+// Function to handle the document upload in the modal (before saving to Firebase)
+window.uploadDocument = function() {
+    const documentList = document.getElementById('documentList');
+    const fileInput = document.getElementById('documentFile');
+    const files = fileInput.files;
+
+    // Iterate through the files and display them in the modal
+    for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const fileElement = document.createElement('div');
+        fileElement.classList.add('document-item');
+
+        // Create clickable file name (as a link)
+        const fileLink = document.createElement('a');
+        const fileURL = URL.createObjectURL(file);
+        fileLink.href = fileURL;
+        fileLink.target = '_blank'; // Open in a new tab
+        fileLink.textContent = file.name;
+        fileLink.classList.add('document-link');
+        fileElement.appendChild(fileLink); // Add file link to the left
+
+        // Create a wrapper for buttons (View and Delete)
+        const buttonWrapper = document.createElement('div');
+        buttonWrapper.classList.add('button-wrapper');
+
+        // Add view button
+        const viewButton = document.createElement('button');
+        viewButton.textContent = 'View';
+        viewButton.classList.add('view-document');
+        viewButton.onclick = function() {
+            window.open(fileURL, '_blank'); // Open the file in a new tab
+        };
+        buttonWrapper.appendChild(viewButton); // Add view button to wrapper
+
+        // Add delete button
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.classList.add('delete-document');
+        deleteButton.onclick = function(event) {
+            event.stopPropagation(); // Prevent event propagation to avoid closing the modal
+            documentList.removeChild(fileElement);
+            window.uploadedDocuments = window.uploadedDocuments.filter(doc => doc !== file);
+        };
+        buttonWrapper.appendChild(deleteButton); // Add delete button to wrapper
+
+        fileElement.appendChild(buttonWrapper); // Append button wrapper after file link
+
+        documentList.appendChild(fileElement); // Add file element to the document list
+        window.uploadedDocuments.push(file); // Add to global list of uploaded documents
+    }
+
+    // Clear the file input after uploading
+    fileInput.value = '';
 };
 
 
@@ -971,7 +1028,7 @@ window.saveDeal = async function() {
         await fetchDeals();  // Fetch the updated list of deals from Firestore
 
         showToast('Deal saved successfully!');
-        closeCardModal();
+
     } catch (error) {
         console.error('Error saving deal:', error);
         showToast('Error saving deal: ' + error.message, false);
@@ -1257,60 +1314,6 @@ window.getStatusColor = function(status) {
 // Global object to store uploaded documents
 window.uploadedDocuments = [];
 
-// Function to handle the document upload in the modal (before saving to Firebase)
-window.uploadDocument = function() {
-    const documentList = document.getElementById('documentList');
-    const fileInput = document.getElementById('documentFile');
-    const files = fileInput.files;
-
-    // Iterate through the files and display them in the modal
-    for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        const fileElement = document.createElement('div');
-        fileElement.classList.add('document-item');
-
-        // Create clickable file name (as a link)
-        const fileLink = document.createElement('a');
-        const fileURL = URL.createObjectURL(file);
-        fileLink.href = fileURL;
-        fileLink.target = '_blank'; // Open in a new tab
-        fileLink.textContent = file.name;
-        fileLink.classList.add('document-link');
-        fileElement.appendChild(fileLink); // Add file link to the left
-
-        // Create a wrapper for buttons (View and Delete)
-        const buttonWrapper = document.createElement('div');
-        buttonWrapper.classList.add('button-wrapper');
-
-        // Add view button
-        const viewButton = document.createElement('button');
-        viewButton.textContent = 'View';
-        viewButton.classList.add('view-document');
-        viewButton.onclick = function() {
-            window.open(fileURL, '_blank'); // Open the file in a new tab
-        };
-        buttonWrapper.appendChild(viewButton); // Add view button to wrapper
-
-        // Add delete button
-        const deleteButton = document.createElement('button');
-        deleteButton.textContent = 'Delete';
-        deleteButton.classList.add('delete-document');
-        deleteButton.onclick = function(event) {
-            event.stopPropagation(); // Prevent event propagation to avoid closing the modal
-            documentList.removeChild(fileElement);
-            window.uploadedDocuments = window.uploadedDocuments.filter(doc => doc !== file);
-        };
-        buttonWrapper.appendChild(deleteButton); // Add delete button to wrapper
-
-        fileElement.appendChild(buttonWrapper); // Append button wrapper after file link
-
-        documentList.appendChild(fileElement); // Add file element to the document list
-        window.uploadedDocuments.push(file); // Add to global list of uploaded documents
-    }
-
-    // Clear the file input after uploading
-    fileInput.value = '';
-};
 
 
 

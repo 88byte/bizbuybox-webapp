@@ -568,6 +568,8 @@ window.enableTableRowDragAndDrop = function() {
 
         // Prevent dragging when interacting with the star icon (toggle)
         filter: '.favorite-icon',
+        filter: '.btn-tableedit',
+        filter: '.btn-tableremove',
         preventOnFilter: false, // Allows interaction with the star icon while keeping drag functionality
 
         onEnd: function(evt) {

@@ -678,6 +678,24 @@ window.editDeal = function(dealId) {
 
         }
 
+        // Fetch documents from Firebase Storage
+        const storageFolderRef = ref(storage, `deals/${dealId}/documents/`);
+        const listResult = await listAll(storageFolderRef);
+
+        // Create an array of remaining documents
+        const fetchedDocuments = await Promise.all(
+            listResult.items.map(async (itemRef) => {
+                const url = await getDownloadURL(itemRef);
+                return { name: itemRef.name, url };
+            })
+        );
+
+        // If Firestore's deal documents are outdated, update them
+        if (!deal.documents || deal.documents.length !== fetchedDocuments.length) {
+            const dealRef = doc(db, 'deals', dealId);
+            await setDoc(dealRef, { documents: fetchedDocuments }, { merge: true });
+        }
+
 
 
         // Populate documents

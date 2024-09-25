@@ -777,6 +777,9 @@ window.deleteDocument = async function(dealId, docName, index, event) {
         event.stopPropagation();  // Ensure the event doesn't bubble up
     }
 
+    // Show "Please wait" toast notification
+    window.showToast('Please wait, deleting file...', false); // false to show it as neutral, not success
+
     try {
         // Reference to the document in Firebase Storage
         const docRef = ref(storage, `deals/${dealId}/documents/${docName}`);
@@ -811,6 +814,7 @@ window.deleteDocument = async function(dealId, docName, index, event) {
         window.showToast('Error deleting document: ' + error.message, false);
     }
 };
+
 
 
 // Helper function to refresh the document list in the modal

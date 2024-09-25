@@ -2172,7 +2172,8 @@ window.calculateDebtService = function() {
     }
 
     document.getElementById('loanBreakdown').innerHTML = loanBreakdown;
-    document.getElementById('totalDebtService').textContent = totalDebtService.toLocaleString('en-US');
+    document.getElementById('totalDebtService').textContent = totalDebtService.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+
 
     // Trigger the earnings calculation with the updated totalDebtService
     window.calculateEarningsAndMetrics();  

@@ -2066,6 +2066,7 @@ window.updateBuyBoxChecklist = function(deal) {
     if (multipleElement) {
         multipleElement.textContent = `x${multiple}`; // Set the text to 'x' followed by the multiple
     }
+};
 
 
 

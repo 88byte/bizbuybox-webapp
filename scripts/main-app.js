@@ -768,76 +768,28 @@ async function deleteDocument(dealId, docName, index) {
         const dealDoc = await getDoc(dealRef);
         if (dealDoc.exists()) {
             const dealData = dealDoc.data();
-
+            
             // Ensure the documents array exists
             if (dealData.documents && Array.isArray(dealData.documents)) {
                 // Remove the deleted document from the documents array
                 dealData.documents.splice(index, 1);  // Remove the document at the specified index
             } else {
-                throw new Error("Documents array is missing or not an array.");
+                // If documents array does not exist or is not an array, initialize it
+                dealData.documents = [];
             }
 
-            // Update Firestore with the new documents array (remaining documents)
+            // Update Firestore with the new documents array
             await setDoc(dealRef, { documents: dealData.documents }, { merge: true });
 
             showToast('Document deleted successfully!');
-
-            // Refresh the UI by re-fetching the deal documents after deletion
-            await refreshDocuments(dealId);
+        } else {
+            throw new Error('Deal does not exist.');
         }
     } catch (error) {
         console.error('Error deleting document:', error);
         showToast('Error deleting document: ' + error.message, false);
     }
 }
-
-// Function to refresh the documents in the UI after deletion
-async function refreshDocuments(dealId) {
-    try {
-        const dealRef = doc(db, 'deals', dealId);
-        const dealDoc = await getDoc(dealRef);
-        if (dealDoc.exists()) {
-            const dealData = dealDoc.data();
-
-            // Assuming there's a function to render the documents in the UI
-            renderDocuments(dealData.documents || []);
-        }
-    } catch (error) {
-        console.error('Error refreshing documents:', error);
-        showToast('Error refreshing documents: ' + error.message, false);
-    }
-}
-
-// Function to render documents in the UI (Example implementation)
-function renderDocuments(documents) {
-    const documentList = document.getElementById('documentList');
-    documentList.innerHTML = ''; // Clear existing documents
-
-    documents.forEach((doc, index) => {
-        const docElement = document.createElement('div');
-        docElement.classList.add('document-item');
-
-        // Create clickable file name (as a link)
-        const docLink = document.createElement('a');
-        docLink.href = doc.url;
-        docLink.target = '_blank';
-        docLink.textContent = doc.name;
-        docLink.classList.add('document-link');
-        docElement.appendChild(docLink);
-
-        // Create delete button
-        const deleteButton = document.createElement('button');
-        deleteButton.textContent = 'Delete';
-        deleteButton.classList.add('delete-document');
-        deleteButton.onclick = function() {
-            deleteDocument(dealId, doc.name, index); // Pass the document name and index for deletion
-        };
-        docElement.appendChild(deleteButton);
-
-        documentList.appendChild(docElement);
-    });
-}
-
 
 
 

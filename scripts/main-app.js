@@ -28,6 +28,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
 import { 
     getStorage, 
+    uploadBytesResumable,
     ref, 
     uploadBytes, 
     getDownloadURL,
@@ -884,6 +885,7 @@ window.isUploading = false;
 
 // Function to upload documents to Firebase Storage and return the file URLs
 window.uploadDocuments = async function(dealId) {
+    const storage = getStorage(); // Ensure you have your storage initialized
     const storageRef = ref(storage, `deals/${dealId}/documents/`);
     const uploadedURLs = [];
     
@@ -897,12 +899,12 @@ window.uploadDocuments = async function(dealId) {
 
     try {
         for (const file of window.uploadedDocuments) {
-            const fileRef = ref(storageRef, file.name);
+            const fileRef = ref(storage, `deals/${dealId}/documents/${file.name}`);
 
             // Use uploadBytesResumable to track progress
             const uploadTask = uploadBytesResumable(fileRef, file);
 
-            // Listen for state changes, errors, and completion of the upload.
+            // Listen for state changes, errors, and completion of the upload
             uploadTask.on('state_changed',
                 (snapshot) => {
                     // Get task progress as a percentage of total size

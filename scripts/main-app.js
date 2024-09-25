@@ -28,7 +28,6 @@ import {
 } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
 import { 
     getStorage, 
-    uploadBytesResumable,
     ref, 
     uploadBytes, 
     getDownloadURL,
@@ -883,61 +882,42 @@ window.refreshDocumentList = async function(dealId) {
 // Flag to track if files are being uploaded
 window.isUploading = false;
 
+
 // Function to upload documents to Firebase Storage and return the file URLs
 window.uploadDocuments = async function(dealId) {
-    const storage = getStorage(); // Ensure you have your storage initialized
     const storageRef = ref(storage, `deals/${dealId}/documents/`);
     const uploadedURLs = [];
-    
-    // Show the progress bar container and initialize it to 0
-    const progressBarContainer = document.getElementById('progressBarContainer');
-    const progressBar = document.getElementById('progressBar');
-    progressBarContainer.style.display = 'block';
-    progressBar.style.width = '0%';
+
+    // Fetch existing document list to prevent duplicates
+    const storageFolderRef = ref(storage, `deals/${dealId}/documents/`);
+    const existingDocuments = await listAll(storageFolderRef);
+
+    const existingFileNames = new Set(existingDocuments.items.map(item => item.name));
 
     window.isUploading = true;
 
     try {
         for (const file of window.uploadedDocuments) {
-            const fileRef = ref(storage, `deals/${dealId}/documents/${file.name}`);
+            if (existingFileNames.has(file.name)) {
+                // Show a warning if the file already exists
+                window.showToast(`File "${file.name}" already exists. Skipping upload.`);
+                continue;  // Skip the upload if the file is a duplicate
+            }
 
-            // Use uploadBytesResumable to track progress
-            const uploadTask = uploadBytesResumable(fileRef, file);
-
-            // Listen for state changes, errors, and completion of the upload
-            uploadTask.on('state_changed',
-                (snapshot) => {
-                    // Get task progress as a percentage of total size
-                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                    progressBar.style.width = `${progress}%`; // Update the progress bar width
-                },
-                (error) => {
-                    // Handle unsuccessful uploads
-                    console.error("Error uploading document:", error);
-                    window.showToast('Error uploading document: ' + error.message, false);
-                },
-                async () => {
-                    // Handle successful uploads
-                    const fileURL = await getDownloadURL(uploadTask.snapshot.ref);
-                    uploadedURLs.push({ name: file.name, url: fileURL });
-
-                    // If all files have been uploaded, hide the progress bar
-                    if (uploadedURLs.length === window.uploadedDocuments.length) {
-                        window.isUploading = false;
-                        progressBarContainer.style.display = 'none'; // Hide progress bar
-                    }
-                }
-            );
+            const fileRef = ref(storageRef, file.name);
+            await uploadBytes(fileRef, file);
+            const fileURL = await getDownloadURL(fileRef);
+            uploadedURLs.push({ name: file.name, url: fileURL });
         }
     } catch (error) {
         console.error("Error uploading documents:", error);
         window.showToast('Error uploading documents: ' + error.message, false);
+    } finally {
         window.isUploading = false;
     }
 
     return uploadedURLs;
 };
-
 
 
 

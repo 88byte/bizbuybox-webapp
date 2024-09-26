@@ -64,7 +64,7 @@ body {
 
 
 
- .tooltiptext {
+.tooltip-label .tooltiptext {
     visibility: hidden;
     width: 220px;
     background-color: #1c1c1c; /* Tooltip background */
@@ -82,25 +82,9 @@ body {
     font-size: 0.85rem;
 }
 
-.tooltip-label {
-    visibility: hidden;
-    width: 220px;
-    background-color: #1c1c1c; /* Tooltip background */
-    color: #ffffff;
-    text-align: center;
-    padding: 8px;
-    border-radius: 6px;
-    position: absolute;
-    z-index: 1;
-    bottom: 125%; /* Position above the label */
-    left: 50%;
-    margin-left: -110px; /* Center the tooltip */
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-    font-size: 0.85rem;
-}
 
 
+#ffffff
 /* Tooltip arrow */
 .tooltip-label .tooltiptext::after {
     content: "";

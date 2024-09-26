@@ -63,7 +63,7 @@ body {
 }
 
 .tooltip-label p span {
-    font-weight: 600;
+    font-weight: 400;
     color: #ffffff; /* Keeping the numbers white */
 }
 

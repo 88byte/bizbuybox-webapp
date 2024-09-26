@@ -2020,7 +2020,7 @@ window.updateBuyBoxChecklist = function(deal) {
     if (avgRevenue >= 1000000 && avgRevenue <= 5000000) {
         revenueIcon.classList.add('success');
     } else if (avgRevenue > 5000000) {
-        revenueIcon.classList.add('warning');
+        revenueIcon.classList.add('success');
     } else {
         revenueIcon.classList.add('error');
     }

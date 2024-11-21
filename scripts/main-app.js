@@ -678,6 +678,46 @@ window.editDeal = async function(dealId) {
 
         }
 
+        // Function to render documents in the UI
+        window.renderDocuments = function(documents) {
+            const documentList = document.getElementById('documentList');
+            documentList.innerHTML = ''; // Clear the existing document list
+
+            documents.forEach((doc, index) => {
+                const docElement = document.createElement('div');
+                docElement.classList.add('document-item');
+
+                // Create a link to view the document
+                const docLink = document.createElement('a');
+                docLink.href = doc.url; // Firebase Storage URL
+                docLink.target = '_blank'; // Open in a new tab
+                docLink.textContent = doc.name; // Display the document name
+                docLink.classList.add('document-link');
+                docElement.appendChild(docLink);
+
+                // Create a wrapper for buttons
+                const buttonWrapper = document.createElement('div');
+                buttonWrapper.classList.add('button-wrapper');
+
+                // Add a delete button
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Delete';
+                deleteButton.classList.add('delete-document');
+                deleteButton.onclick = function(event) {
+                    event.stopPropagation(); // Prevent event propagation
+                    window.deleteDocument(dealId, doc.name, index, event);
+                };
+                buttonWrapper.appendChild(deleteButton);
+
+                // Append the button wrapper to the document item
+                docElement.appendChild(buttonWrapper);
+
+                // Append the document item to the list
+                documentList.appendChild(docElement);
+            });
+        };
+
+
         // Fetch documents from Firebase Storage
         const storageFolderRef = ref(storage, `deals/${dealId}/documents/`);
         const listResult = await listAll(storageFolderRef);

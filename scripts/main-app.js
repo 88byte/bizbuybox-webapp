@@ -1908,9 +1908,17 @@ window.saveSellerContact = function() {
 
 
 // Function to open the document modal
-window.openDocModal = function() {
-    document.getElementById('docModal').style.display = 'flex';
-}
+window.openDocModal = async function(dealId) {
+    document.getElementById('docModal').style.display = 'flex'; // Show the modal
+
+    // Refresh the document list for the specified deal
+    if (dealId) {
+        await window.refreshDocumentList(dealId);
+    } else {
+        console.error('No dealId provided to openDocModal');
+    }
+};
+
 
 // Function to close the document modal
 window.closeDocModal = function() {

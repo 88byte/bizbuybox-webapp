@@ -690,11 +690,12 @@ window.editDeal = async function(dealId) {
             })
         );
 
-        // If Firestore's deal documents are outdated, update them
-        if (!deal.documents || deal.documents.length !== fetchedDocuments.length) {
-            const dealRef = doc(db, 'deals', dealId);
-            await setDoc(dealRef, { documents: fetchedDocuments }, { merge: true });
-        }
+        // Update the Firestore `documents` field if necessary
+        const dealRef = doc(db, 'deals', dealId);
+        await setDoc(dealRef, { documents: fetchedDocuments }, { merge: true });
+
+        // Update UI
+        renderDocuments(fetchedDocuments);
 
 
 

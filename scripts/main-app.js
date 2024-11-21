@@ -678,6 +678,9 @@ window.editDeal = async function(dealId) {
 
         }
 
+        // Refresh the document list using the provided function
+        await window.refreshDocumentList(deal.dealId);
+
         // Fetch documents from Firebase Storage
         const storageFolderRef = ref(storage, `deals/${dealId}/documents/`);
         const listResult = await listAll(storageFolderRef);

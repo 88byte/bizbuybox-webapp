@@ -986,7 +986,12 @@ window.saveDeal = async function() {
     const user = auth.currentUser;
     if (!user) return;
 
-    const dealId = document.getElementById('dealId').value || doc(collection(db, 'deals')).id;
+    // Check if a deal ID exists; if not, create a new one
+    let dealId = document.getElementById('dealId').value;
+    if (!dealId) {
+        dealId = doc(collection(db, 'deals')).id; // Generate a new ID only if it's a new deal
+        document.getElementById('dealId').value = dealId; // Save the ID for future updates
+    }
 
     // Gather broker contact information
     const brokerContact = {

@@ -1078,13 +1078,16 @@ window.saveDeal = async function() {
         // Refresh the deals array by calling fetchDeals() to make sure we have the latest data
         await fetchDeals();  // Fetch the updated list of deals from Firestore
 
+        // Close the modal after successful save
+        window.closeCardModal(); // Ensure this closes the modal only after success
         showToast('Deal saved successfully!');
-
     } catch (error) {
         console.error('Error saving deal:', error);
         showToast('Error saving deal: ' + error.message, false);
     }
 };
+
+
 
 // Function to fetch and display deals
 window.fetchDeals = async function() {

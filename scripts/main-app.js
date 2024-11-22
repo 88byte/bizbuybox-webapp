@@ -357,8 +357,10 @@ window.createDeal = function() {
     // Reset the entire form
     document.getElementById('dealForm').reset(); // Reset form inputs
 
-    // Reset hidden inputs, like dealId
-    document.getElementById('dealId').value = ''; 
+    // Only reset the `dealId` for new deals (not when editing existing ones)
+    if (!document.getElementById('dealId').value) {
+        document.getElementById('dealId').value = ''; 
+    }
 
     // Clear out dynamic sections like revenue/cashflow, broker contact, etc.
     document.getElementById('revenueCashflowSection').innerHTML = ''; // Clear out all revenue/cashflow rows

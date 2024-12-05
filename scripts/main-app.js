@@ -360,6 +360,9 @@ window.createDeal = function() {
     // Always reset the dealId for a new deal
     document.getElementById('dealId').value = '';
 
+    // Reset the Kyle Fund checkbox
+    document.getElementById('kyleFund').checked = false;
+
     // Clear out dynamic sections like revenue/cashflow, broker contact, etc.
     document.getElementById('revenueCashflowSection').innerHTML = ''; // Clear out all revenue/cashflow rows
 
@@ -652,6 +655,13 @@ window.editDeal = async function(dealId) {
             document.getElementById('sellerPhone').value = deal.sellerContact.phone;
             document.getElementById('sellerEmail').value = deal.sellerContact.email;
         }
+
+        if (deal.kyleFund !== undefined) {
+            document.getElementById('kyleFund').checked = deal.kyleFund;
+        } else {
+            document.getElementById('kyleFund').checked = false; // Default to unchecked if not set
+        }
+
 
          // Populate Revenue and Cashflow rows
         revenueCashflowCount = 0; // Reset the counter before adding rows
@@ -1042,6 +1052,7 @@ window.saveDeal = async function() {
         downPayment: document.getElementById('downPayment').value,
         buyerSalary: document.getElementById('buyerSalary').value,
         loanType: document.getElementById('loanType').value,
+        kyleFund: document.getElementById('kyleFund').checked, // Save checkbox state
         interestRate: document.getElementById('interestRate1').value,
         loanTerm: document.getElementById('loanTerm1').value,
         loanAmount: document.getElementById('loanAmount1').value,

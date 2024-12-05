@@ -1762,15 +1762,27 @@ window.calculateEarningsAndMetrics = function() {
     // Calculate cashflow after debt service
     const cashflowAfterDebt = avgCashflow - totalDebtService;
 
-    // Placeholder for investor pay (modify this as necessary)
-    const investorPay = 0; // Logic for investor pay if applicable
-    const cashflowAfterDebtAndInvestor = cashflowAfterDebt - investorPay;
+    // Investor pay calculation if "Kyle Fund" checkbox is checked
+    const kyleFundChecked = document.getElementById('kyleFund').checked;
+    let investorPay = 0;
+
+    if (kyleFundChecked) {
+        investorPay = 0.15 * avgCashflow - cashflowAfterDebt; // 15% of average cashflow minus cashflow after debt
+        investorPay = investorPay > 0 ? investorPay : 0; // Ensure investor pay is not negative
+    }
 
     // Update the display for cashflow and earnings
     document.getElementById('avgProfitMarginDisplay').textContent = avgProfitMargin.toFixed(2) + '%';
     document.getElementById('avgCashflowDisplay').textContent = avgCashflow.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
     document.getElementById('cashflowAfterDebt').textContent = cashflowAfterDebt.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
     document.getElementById('cashflowAfterDebtAndInvestor').textContent = cashflowAfterDebtAndInvestor.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+
+    // Update the investor pay display
+    const investorPayDisplay = document.getElementById('investorPayDisplay');
+    if (investorPayDisplay) {
+        investorPayDisplay.textContent = investorPay.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+    }
+
 };
 
 

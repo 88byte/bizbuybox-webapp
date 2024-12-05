@@ -357,10 +357,8 @@ window.createDeal = function() {
     // Reset the entire form
     document.getElementById('dealForm').reset(); // Reset form inputs
 
-    // Only reset the `dealId` for new deals (not when editing existing ones)
-    if (!document.getElementById('dealId').value) {
-        document.getElementById('dealId').value = ''; 
-    }
+    // Always reset the dealId for a new deal
+    document.getElementById('dealId').value = '';
 
     // Clear out dynamic sections like revenue/cashflow, broker contact, etc.
     document.getElementById('revenueCashflowSection').innerHTML = ''; // Clear out all revenue/cashflow rows
@@ -371,8 +369,7 @@ window.createDeal = function() {
     // Reset specific fields like buyer salary, loan type, and business acquisition section
     document.getElementById('buyerSalary').value = ''; // Clear buyer salary
     document.getElementById('loanType').value = 'SBA'; // Reset loan type to SBA
-    document.getElementById('loanAmount1').value = ''; // Reset loan type to SBA
-
+    document.getElementById('loanAmount1').value = '';
 
     // Reset broker contact fields
     document.getElementById('brokerCompany').value = '';
@@ -402,6 +399,7 @@ window.createDeal = function() {
     // Open the modal using the animation method
     openCardModal();
 };
+
 
 
 

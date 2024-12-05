@@ -1759,8 +1759,13 @@ window.calculateEarningsAndMetrics = function() {
         totalDebtService += window.calculateAnnualDebtService(loanAmount2, interestRate2, loanTerm2);
     }
 
-    // Calculate cashflow after debt service
+    // Step 1: Calculate annual buyer salary
+    const buyerSalary = parseFloat(document.getElementById('buyerSalary').value.replace(/[^\d.-]/g, '')) || 0;
+
+
+    // Calculate cashflow after debt service and buyer salary
     const cashflowAfterDebt = avgCashflow - totalDebtService;
+    const cashflowAfterDebtAndSalary = cashflowAfterDebt - buyerSalary;
 
     // Calculate investor pay if "Kyle Fund" checkbox is checked
     const kyleFundChecked = document.getElementById('kyleFund').checked;
@@ -1782,6 +1787,10 @@ window.calculateEarningsAndMetrics = function() {
 
 // Attach event listener for "Kyle Fund" checkbox
 document.getElementById('kyleFund').addEventListener('change', () => {
+    window.calculateEarningsAndMetrics();
+});
+
+document.getElementById('buyerSalary').addEventListener('input', () => {
     window.calculateEarningsAndMetrics();
 });
 

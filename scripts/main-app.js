@@ -2430,6 +2430,11 @@ window.listenToDealUpdates = function() {
 window.listenToDealUpdates();
 
 
+// Attach event listener for "Kyle Fund" checkbox
+document.getElementById('kyleFund').addEventListener('change', () => {
+    window.calculateMonthlyEstimate();
+});
+
 
 window.calculateMonthlyEstimate = function() {
     // Step 1: Calculate Average Revenue from all revenue entries

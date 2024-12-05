@@ -1767,8 +1767,7 @@ window.calculateEarningsAndMetrics = function() {
     let investorPay = 0;
 
     if (kyleFundChecked) {
-        investorPay = (0.15 * avgCashflow) - cashflowAfterDebt;
-        investorPay = Math.max(0, investorPay); // Ensure investor pay is not negative
+        investorPay = 0.15 * avgCashflow; // 15% of average cashflow
     }
 
     const cashflowAfterDebtAndInvestor = cashflowAfterDebt - investorPay;
@@ -1781,7 +1780,10 @@ window.calculateEarningsAndMetrics = function() {
 };
 
 
-
+// Attach event listener for "Kyle Fund" checkbox
+document.getElementById('kyleFund').addEventListener('change', () => {
+    window.calculateEarningsAndMetrics();
+});
 
 
 

@@ -2515,6 +2515,9 @@ window.calculateMonthlyEstimate = function() {
     // Display Investor Pay
     document.getElementById('investorPay').innerText = investorPay.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
 
+    document.getElementById('netMonthlyIncome').innerText = netMonthlyIncome.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+
+
 
     // Step 9: Calculate Net Annual Estimate and update UI
     const netAnnualIncome = netMonthlyIncome * 12;

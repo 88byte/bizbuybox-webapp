@@ -1762,7 +1762,6 @@ window.calculateEarningsAndMetrics = function() {
     // Step 1: Calculate annual buyer salary
     const buyerSalary = parseFloat(document.getElementById('buyerSalary').value.replace(/[^\d.-]/g, '')) || 0;
 
-
     // Calculate cashflow after debt service and buyer salary
     const cashflowAfterDebt = avgCashflow - totalDebtService;
     const cashflowAfterDebtAndSalary = cashflowAfterDebt - buyerSalary;
@@ -1775,24 +1774,26 @@ window.calculateEarningsAndMetrics = function() {
         investorPay = 0.15 * avgCashflow; // 15% of average cashflow
     }
 
-    const cashflowAfterDebtAndInvestor = cashflowAfterDebt - investorPay;
+    // Final cashflow after debt, buyer salary, and investor pay
+    const cashflowAfterDebtAndInvestor = cashflowAfterDebtAndSalary - investorPay;
 
     // Update the display for cashflow and earnings
     document.getElementById('avgProfitMarginDisplay').textContent = avgProfitMargin.toFixed(2) + '%';
     document.getElementById('avgCashflowDisplay').textContent = avgCashflow.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-    document.getElementById('cashflowAfterDebt').textContent = cashflowAfterDebt.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+    document.getElementById('cashflowAfterDebt').textContent = cashflowAfterDebtAndSalary.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
     document.getElementById('cashflowAfterDebtAndInvestor').textContent = cashflowAfterDebtAndInvestor.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
 };
-
 
 // Attach event listener for "Kyle Fund" checkbox
 document.getElementById('kyleFund').addEventListener('change', () => {
     window.calculateEarningsAndMetrics();
 });
 
+// Attach event listener for buyer salary input
 document.getElementById('buyerSalary').addEventListener('input', () => {
     window.calculateEarningsAndMetrics();
 });
+
 
 
 

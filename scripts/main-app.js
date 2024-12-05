@@ -2510,7 +2510,6 @@ window.calculateMonthlyEstimate = function() {
     document.getElementById('sellerDebt').innerText = monthlySellerDebtService.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
     document.getElementById('workingCapitalEst').innerText = workingCapitalEst.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
     document.getElementById('takeHomeSalary').innerText = monthlyBuyerSalary.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-    document.getElementById('netMonthlyIncome').innerText = netMonthlyIncome.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
 
     // Display Investor Pay
     document.getElementById('investorPay').innerText = investorPay.toLocaleString('en-US', { style: 'currency', currency: 'USD' });

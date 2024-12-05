@@ -1762,8 +1762,15 @@ window.calculateEarningsAndMetrics = function() {
     // Calculate cashflow after debt service
     const cashflowAfterDebt = avgCashflow - totalDebtService;
 
-    // Placeholder for investor pay (modify this as necessary)
-    const investorPay = 0; // Logic for investor pay if applicable
+    // Calculate investor pay if "Kyle Fund" checkbox is checked
+    const kyleFundChecked = document.getElementById('kyleFund').checked;
+    let investorPay = 0;
+
+    if (kyleFundChecked) {
+        investorPay = (0.15 * avgCashflow) - cashflowAfterDebt;
+        investorPay = Math.max(0, investorPay); // Ensure investor pay is not negative
+    }
+
     const cashflowAfterDebtAndInvestor = cashflowAfterDebt - investorPay;
 
     // Update the display for cashflow and earnings

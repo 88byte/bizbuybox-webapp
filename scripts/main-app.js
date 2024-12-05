@@ -605,6 +605,7 @@ window.editDeal = async function(dealId) {
         // Populate the modal with existing deal data
         document.getElementById('dealId').value = deal.dealId;
         document.getElementById('businessName').value = deal.businessName;
+        document.getElementById('industry').value = deal.industry;
         document.getElementById('status').value = deal.status;
         document.getElementById('yearsInBusiness').value = deal.yearsInBusiness;
         document.getElementById('fullTimeEmployees').value = deal.fullTimeEmployees;
@@ -620,7 +621,8 @@ window.editDeal = async function(dealId) {
         // Populate funding section
         document.getElementById('downPayment').value = deal.downPayment;
         document.getElementById('buyerSalary').value = deal.buyerSalary;
-        document.getElementById('loanType').value = deal.loanType;
+        document.getElementById('loanType').value = deal.loanType;\
+        document.getElementById('kyleFund').checked = deal.kyleFund || false;
         document.getElementById('interestRate1').value = deal.interestRate || '';
         document.getElementById('loanTerm1').value = deal.loanTerm || '';
         document.getElementById('loanAmount1').value = deal.loanAmount || '';
@@ -1061,6 +1063,7 @@ window.saveDeal = async function() {
         sellerContact, // Add seller contact info
         lastUpdate: new Date().toISOString(),
         userId: user.uid,
+        kyleFund: document.getElementById('kyleFund').checked, // Save checkbox state
     };
 
     // If loan type is "SBA + Seller Finance," save additional loan data

@@ -2488,10 +2488,18 @@ window.calculateMonthlyEstimate = function() {
     const buyerSalary = parseFloat(document.getElementById('buyerSalary').value.replace(/[^\d.-]/g, '')) || 0;
     const monthlyBuyerSalary = buyerSalary / 12;
 
-    // Step 6: Calculate Net Monthly Income
-    const netMonthlyIncome = monthlyRevenue - monthlyLoanDebtService - monthlySellerDebtService - workingCapitalEst - monthlyBuyerSalary;
+    // Step 6: Calculate Investor Pay if "Kyle Fund" checkbox is checked
+    const kyleFundChecked = document.getElementById('kyleFund').checked;
+    let investorPay = 0;
 
-    // Step 7: Update the UI with the results
+    if (kyleFundChecked) {
+        investorPay = (0.15 * avgCashflow) / 12; // 15% of average cashflow, converted to monthly
+    }
+
+    // Step 7: Calculate Net Monthly Income
+    const netMonthlyIncome = monthlyRevenue - monthlyLoanDebtService - monthlySellerDebtService - workingCapitalEst - monthlyBuyerSalary - investorPay;
+
+    // Step 8: Update the UI with the results
     document.getElementById('grossRevenue').innerText = monthlyRevenue.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
     document.getElementById('loanDebt').innerText = monthlyLoanDebtService.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
     document.getElementById('sellerDebt').innerText = monthlySellerDebtService.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
@@ -2499,7 +2507,11 @@ window.calculateMonthlyEstimate = function() {
     document.getElementById('takeHomeSalary').innerText = monthlyBuyerSalary.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
     document.getElementById('netMonthlyIncome').innerText = netMonthlyIncome.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
 
-    // Step 8: Calculate Net Annual Estimate and update UI
+    // Display Investor Pay
+    document.getElementById('investorPay').innerText = investorPay.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+
+
+    // Step 9: Calculate Net Annual Estimate and update UI
     const netAnnualIncome = netMonthlyIncome * 12;
     document.getElementById('netAnnualEst').innerText = netAnnualIncome.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
 };

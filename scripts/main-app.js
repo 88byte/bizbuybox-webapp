@@ -605,7 +605,6 @@ window.editDeal = async function(dealId) {
         // Populate the modal with existing deal data
         document.getElementById('dealId').value = deal.dealId;
         document.getElementById('businessName').value = deal.businessName;
-        document.getElementById('industry').value = deal.industry;
         document.getElementById('status').value = deal.status;
         document.getElementById('yearsInBusiness').value = deal.yearsInBusiness;
         document.getElementById('fullTimeEmployees').value = deal.fullTimeEmployees;

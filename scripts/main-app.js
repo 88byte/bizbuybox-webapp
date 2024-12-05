@@ -1781,7 +1781,10 @@ window.calculateEarningsAndMetrics = function() {
 };
 
 
-
+// Attach event listener for "Kyle Fund" checkbox
+document.getElementById('kyleFund').addEventListener('change', () => {
+    window.calculateEarningsAndMetrics();
+});
 
 
 

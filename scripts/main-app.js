@@ -2460,8 +2460,8 @@ window.calculateMonthlyEstimate = function() {
     });
 
     // Ensure totalRevenue and revenueCount are valid
-    const avgRevenue = revenueCount > 0 ? totalRevenue / revenueCount : 0;  // Default to 0 if no revenue
-    const monthlyRevenue = avgRevenue / 12;  // Convert to monthly revenue
+    const avgRevenue = revenueCount > 0 ? totalRevenue / revenueCount : 0; // Default to 0 if no revenue
+    const monthlyRevenue = avgRevenue / 12; // Convert to monthly revenue
 
     // Step 2: Calculate Loan Debt Service (annual, then monthly)
     const loanAmount = parseFloat(document.getElementById('loanAmount1').value.replace(/[^\d.-]/g, '')) || 0;
@@ -2508,7 +2508,8 @@ window.calculateMonthlyEstimate = function() {
     let investorPay = 0;
 
     if (kyleFundChecked) {
-        investorPay = (0.15 * avgCashflow) / 12; // 15% of average cashflow, converted to monthly
+        const monthlyCashflowAfterDebt = (avgCashflow - annualLoanDebtService) / 12;
+        investorPay = 0.15 * monthlyCashflowAfterDebt; // 15% of cashflow after debt service
     }
 
     // Step 7: Calculate Net Monthly Income
@@ -2526,12 +2527,11 @@ window.calculateMonthlyEstimate = function() {
 
     document.getElementById('netMonthlyIncome').innerText = netMonthlyIncome.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
 
-
-
     // Step 9: Calculate Net Annual Estimate and update UI
     const netAnnualIncome = netMonthlyIncome * 12;
     document.getElementById('netAnnualEst').innerText = netAnnualIncome.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
 };
+
 
 
 

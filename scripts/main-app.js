@@ -1771,7 +1771,7 @@ window.calculateEarningsAndMetrics = function() {
     let investorPay = 0;
 
     if (kyleFundChecked) {
-        investorPay = 0.15 * avgCashflow; // 15% of average cashflow
+        investorPay = 0.15 * (avgCashflow - totalDebtService); // 15% of cashflow minus debt service
     }
 
     // Final cashflow after debt, buyer salary, and investor pay

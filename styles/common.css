@@ -32,25 +32,7 @@
     --tag-nurture: #eab308;
 }
 
-/* LIGHT THEME OVERRIDES */
-.light-theme:root {
-  --primary-color: #4a4a4a;
-  --secondary-color: #888;
-  --background-color: #f9f9f9;
-  --light-text-color: #111;
-  --muted-text-color: #555;
-  --accent-color: linear-gradient(45deg, #ccc, #999);
-  --shadow-color: rgba(0, 0, 0, 0.1);
-  --control-background: #fff;
-  --control-border: #ccc;
-  --control-hover: #eee;
-  --control-text: #111;
-  --header-navbar-background: #fff;
-  --highlight-color: #d4a759;
-  --card-background-color: #ffffff;
-  --card-border-color: #e0e0e0;
-  --card-text-color: #333;
-}
+
 
 /* CSS Reset */
 * {

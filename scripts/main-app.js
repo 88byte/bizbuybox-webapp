@@ -2565,12 +2565,6 @@ window.calculateMonthlyEstimate = function() {
     document.getElementById('netAnnualEst').innerText = netAnnualIncome.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
 };
 
-const toggle = document.getElementById('themeToggle');
-
-toggle.addEventListener('change', () => {
-  document.documentElement.classList.toggle('light-theme');
-});
-
 
 
 

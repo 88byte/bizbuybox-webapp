@@ -403,6 +403,12 @@ window.createDeal = function() {
     document.getElementById('loanTerm1').value = '';
     document.getElementById('loanAmount1').value = '';
 
+    document.getElementById('avgCashflowDisplay').textContent = '$0';
+    document.getElementById('cashflowAfterDebt').textContent = '$0';
+    document.getElementById('cashflowAfterDebtAndInvestor').textContent = '$0';
+    document.getElementById('avgProfitMarginDisplay').textContent = '0%';
+
+
     // Reset document section
     document.getElementById('documentList').innerHTML = ''; // Clear any previously added documents
 

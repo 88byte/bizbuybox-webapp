@@ -660,6 +660,7 @@ window.editDeal = async function(dealId) {
         document.getElementById('loanAmount1').value = deal.loanAmount || '';
 
          // If the loan type is SBA + Seller Finance, add and populate the second loan row
+        window.removeSecondLoanRow();
         if (deal.loanType === 'SBA + Seller Finance') {
             window.addSecondLoanRow();  // Add the second loan row dynamically
 

@@ -384,8 +384,34 @@ window.createDeal = function() {
     document.getElementById('sellerPhone').value = '';
     document.getElementById('sellerEmail').value = '';
 
+    // Clear business fields
+    document.getElementById('businessName').value = '';
+    document.getElementById('industry').value = '';
+    document.getElementById('status').value = 'new-deal'; // or default
+    document.getElementById('yearsInBusiness').value = '';
+    document.getElementById('fullTimeEmployees').value = '';
+    document.getElementById('partTimeEmployees').value = '';
+    document.getElementById('contractors').value = '';
+    document.getElementById('businessAddress').value = '';
+    document.getElementById('licenses').value = '';
+    document.getElementById('notes').value = '';
+    document.getElementById('askingPrice').value = '';
+    document.getElementById('realEstatePrice').value = '';
+    document.getElementById('ffe').value = '';
+    document.getElementById('downPayment').value = '';
+    document.getElementById('interestRate1').value = '';
+    document.getElementById('loanTerm1').value = '';
+    document.getElementById('loanAmount1').value = '';
+
     // Reset document section
     document.getElementById('documentList').innerHTML = ''; // Clear any previously added documents
+
+    // Remove any tooltip data
+    const brokerBtn = document.querySelector('button[onclick="window.openBrokerContactModal()"]');
+    if (brokerBtn) brokerBtn.removeAttribute('data-tooltip');
+
+    const sellerBtn = document.querySelector('button[onclick="window.openSellerContactModal()"]');
+    if (sellerBtn) sellerBtn.removeAttribute('data-tooltip');
 
     // Reset any loan-specific inputs
     window.removeSecondLoanRow(); // Remove second loan row if it was added in a previous deal

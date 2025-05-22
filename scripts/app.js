@@ -318,26 +318,15 @@ async function handleLogin() {
     console.log('Attempting to log in with:', email);
 
     try {
-        // Sign in user
-        await signInWithEmailAndPassword(auth, email, password);
-        console.log('Login successful, waiting for auth state...');
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
 
-        // Wait for Firebase to confirm login state
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            if (user) {
-                console.log('Auth state confirmed. Redirecting to main-app.html...');
-                unsubscribe(); // Prevent this from firing again
-                closeLoginModal();
-                window.location.href = 'main-app.html';
-            }
-        });
+        // 🔄 Force reload to ensure `auth.currentUser` is ready
+        await user.reload();
+        console.log('User successfully logged in and reloaded:', user.email);
 
-        // Fallback timeout in case Firebase takes too long (10 sec max wait)
-        setTimeout(() => {
-            console.warn('Auth state timeout. Redirecting manually as fallback.');
-            window.location.href = 'main-app.html';
-        }, 10000);
-
+        closeLoginModal();
+        window.location.href = 'main-app.html';
     } catch (error) {
         console.error('Error during login:', error);
         alert(error.message);

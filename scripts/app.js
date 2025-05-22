@@ -319,33 +319,28 @@ function handleLogin() {
 
     signInWithEmailAndPassword(auth, email, password)
         .then(() => {
-            // Authentication state change will be handled by the observer
+            // Let onAuthStateChanged handle the redirect
+            // DO NOT redirect here
+            console.log('Login request sent. Waiting for auth state change...');
         })
         .catch((error) => {
             console.error('Error during login:', error);
-            // Handle error cases and display to the user
-            if (error.code === 'auth/wrong-password') {
-                alert('Incorrect password. Please try again.');
-            } else if (error.code === 'auth/user-not-found') {
-                alert('No user found with this email. Please sign up first.');
-            } else if (error.code === 'auth/invalid-email') {
-                alert('The email address is not valid.');
-            } else {
-                alert('Login failed: ' + error.message);
-            }
+            alert(error.message);
         });
 }
 
-// Set up the authentication state observer
+// Add this at the bottom of app.js or in a shared location:
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+
 onAuthStateChanged(auth, (user) => {
     if (user) {
-        console.log('User is authenticated:', user.uid);
-        closeLoginModal();
+        console.log('User is authenticated:', user.email);
         window.location.href = 'main-app.html';
     } else {
         console.log('User is not logged in');
     }
 });
+
 
 
 

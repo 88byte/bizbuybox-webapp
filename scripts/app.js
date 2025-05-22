@@ -315,24 +315,14 @@ function handleLogin() {
     const email = document.getElementById('loginUsername').value;
     const password = document.getElementById('loginPassword').value;
 
-    // Debug: Make sure email and password values are being captured
-    console.log('Attempting to log in with:', email, password);
+    console.log('Attempting to log in with:', email);
 
-    // Attempt to log in the user with Firebase Auth
     signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            const user = userCredential.user;
-            console.log('User logged in:', user);
-
-            // Close the login modal
-            closeLoginModal();
-
-            // Redirect the user to the main-app page
-            window.location.href = 'main-app.html';
+        .then(() => {
+            // Authentication state change will be handled by the observer
         })
         .catch((error) => {
             console.error('Error during login:', error);
-
             // Handle error cases and display to the user
             if (error.code === 'auth/wrong-password') {
                 alert('Incorrect password. Please try again.');
@@ -345,6 +335,18 @@ function handleLogin() {
             }
         });
 }
+
+// Set up the authentication state observer
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        console.log('User is authenticated:', user.uid);
+        closeLoginModal();
+        window.location.href = 'main-app.html';
+    } else {
+        console.log('User is not logged in');
+    }
+});
+
 
 
 

@@ -311,35 +311,29 @@ window.handleGoogleLogin = function () {
 
 
 // Function to handle Email/Password Login
-function handleLogin() {
+async function handleLogin() {
     const email = document.getElementById('loginUsername').value;
     const password = document.getElementById('loginPassword').value;
 
     console.log('Attempting to log in with:', email);
 
-    signInWithEmailAndPassword(auth, email, password)
-        .then(() => {
-            // Let onAuthStateChanged handle the redirect
-            // DO NOT redirect here
-            console.log('Login request sent. Waiting for auth state change...');
-        })
-        .catch((error) => {
-            console.error('Error during login:', error);
-            alert(error.message);
-        });
+    try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        // 🔄 Force reload to ensure `auth.currentUser` is ready
+        await user.reload();
+        console.log('User successfully logged in and reloaded:', user.email);
+
+        closeLoginModal();
+        window.location.href = 'main-app.html';
+    } catch (error) {
+        console.error('Error during login:', error);
+        alert(error.message);
+    }
 }
 
-// Add this at the bottom of app.js or in a shared location:
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-        console.log('User is authenticated:', user.email);
-        window.location.href = 'main-app.html';
-    } else {
-        console.log('User is not logged in');
-    }
-});
 
 
 
